@@ -1,0 +1,280 @@
+.sq {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #525252;
+text-decoration: none;	
+}
+
+.mainmenu {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4C4C4C;
+text-decoration: none;
+}
+
+.mainmenu_copy {
+	color: #a2a2a2;
+	text-decoration: none;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+.flechasobregris {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #dcdcdc;
+text-decoration: none;
+}
+
+.flechasobreblanco {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4c4c4c;
+text-decoration: none;
+}
+
+.flechamenusitio {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #727896;
+text-decoration: none;
+}
+
+#mainitem:hover {
+font: 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #e01500;
+text-decoration: none;
+}
+
+DIV.mainmenuon {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #FFFFFF;
+text-decoration: none;
+background-image: url(/interface.sp/design/images/flechablanca.gif);
+background-repeat: no-repeat;
+background-position: left bottom;
+}
+
+.titulo2 {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4C4C4C;
+text-decoration:none;
+}
+
+.titulo3 {
+font: bold 12px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4C4C4C;
+text-decoration:none;
+}
+
+DIV.submenuon {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #8c9bc0;
+text-decoration: none;	
+background-image: url(/interface.sp/design/images/flechablanca2.gif);
+background-repeat: no-repeat;
+background-position: left bottom;
+}
+
+.flechasgrises {
+font: bold 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #60729F;
+}
+
+.submenu {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #525252;
+text-decoration: none;
+vertical-align:middle;
+}
+
+.vinculos {
+font: bold 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #002569;
+text-decoration: none;
+background-image:url(/interface.sp/design/images/flecha-azul-blanco.gif);
+background-repeat:no-repeat;
+}
+
+h1,.titulo1 {
+font: bold 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4C4C4C;
+text-decoration:none;
+}
+
+h1,.titulo1_sin_bold {
+font: 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #4C4C4C;
+text-decoration:none;
+}
+
+
+h2,h3 {
+font: bold 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+ 
+.titulo {
+font: bold 11px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #a2a2a2;
+text-decoration:none;
+}
+
+.vinculo {
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #4c4c4c;
+text-decoration: none;
+}
+
+.vinculo_cargo {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #525252;
+text-decoration: none;
+}
+
+.vinculo_items {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #525252;
+text-decoration: none;
+}
+
+.normaltext,.texto {
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+text-decoration:none;
+color:#4C4C4C;
+}
+
+A {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #002569;
+}
+
+.textwhite {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+
+color: #FFFFFF;
+text-decoration: none;
+}
+
+.textgris {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #4c4c4c;
+text-decoration: none;
+}
+
+.mapasitio {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+text-decoration:none;
+color:#000000;
+}
+
+.mainmenuligth {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #a2a2a2;
+text-decoration: none;
+}
+
+.textsobregris {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+color: #dcdcdc;
+text-decoration: none;
+}
+
+.textsobreblanco {
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #4c4c4c;
+	text-decoration: none;
+	padding: 1px;
+}
+
+.vinculol {
+	color: #4C4C4C;
+	text-decoration: none;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+
+.resumen {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+
+text-decoration:none;
+color:#4C4C4C;
+}
+
+.fecha {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+
+text-decoration:none;
+color:#A9A8A7;
+}
+
+.subtitulo {
+font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+font-size: 11px;
+color:#E80000;
+text-decoration: none;
+}
+
+TD.tecla {
+font: bold 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+text-decoration: none;
+background-image: url(/interface.sp/design/images/glosario/tecla.gif);
+background-repeat: no-repeat;
+background-position: left center;
+vertical-align: middle;
+text-align: left;
+}
+
+A.tecla {
+font: bold 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #000000;
+text-decoration: none;
+vertical-align: middle;
+text-align: left;
+}
+
+TD.teclaresalt {
+font: bold 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #b6bfd7;
+text-decoration: none;
+background-image: url(/interface.sp/design/images/glosario/teclaresalt.gif);
+background-repeat: no-repeat;
+background-position: left center;
+vertical-align: middle;
+text-align: left;
+}
+
+A.teclaresalt {
+font: bold 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #b6bfd7;
+text-decoration: none;
+vertical-align: middle;
+text-align: left;
+}
+
+.searchfield {
+font: 9px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+border: 0px none;
+}
+
+.cp {
+font: bold 9px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #172a64;
+text-decoration: none;	
+}
+
+.copyright {
+font: 9px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+color: #a2a2a2;
+text-decoration: none;
+}
