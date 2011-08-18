@@ -162,7 +162,7 @@ class Activo extends MyPDO
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
   
-  } // end of member function insertarActivo
+  } // end of member a function insertarActivo
 
   /**
    * 
