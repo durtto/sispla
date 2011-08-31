@@ -76,5 +76,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "Proveedor":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "proveedores":'.json_encode($resultado).'}';
 ?>

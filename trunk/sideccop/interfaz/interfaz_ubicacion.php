@@ -40,7 +40,7 @@
 			$col = $_REQUEST['columnas']; 			
 			$col	= str_replace('\"','"',$col);
 			$columnas = json_decode($col, true); 
-			$Ubicaciones = array_filter($columnas, "vacio");
+			$ubicaciones = array_filter($columnas, "vacio");
 			$cond = $_REQUEST['condiciones']; 
 			$cond	= str_replace('\"','"',$cond);
 			$condiciones = json_decode($cond, true);

@@ -75,5 +75,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "Garantia":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "garantias":'.json_encode($resultado).'}';
 ?>

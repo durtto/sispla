@@ -74,5 +74,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "PrivilegioUsuario":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "privilegios":'.json_encode($resultado).'}';
 ?>

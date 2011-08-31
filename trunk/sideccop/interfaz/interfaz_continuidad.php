@@ -74,5 +74,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "Continuidad":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "continuidades":'.json_encode($resultado).'}';
 ?>

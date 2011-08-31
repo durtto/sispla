@@ -75,5 +75,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "Personas":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "personas":'.json_encode($resultado).'}';
 ?>

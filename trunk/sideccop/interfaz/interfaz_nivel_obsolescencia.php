@@ -74,5 +74,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "NivelObsolescencia":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "nivelesobsolescencia":'.json_encode($resultado).'}';
 ?>

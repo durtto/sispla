@@ -72,5 +72,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "tpdirectorio":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "tpdirectorios":'.json_encode($resultado).'}';
 ?>
