@@ -46,47 +46,44 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_modelo'] = 'Codigo modelo';
+	camposReq['co_grupo'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeModelo = new Ext.data.JsonStore({
-		url: '../php/interfaz_modelo.php',
+		url: '../interfaz/interfaz_modelo.php',
 		remoteSort : true,
-		root: 'guardias',
+		root: 'modelos',
         totalProperty: 'total',
 		idProperty: 'co_modelo',
-        fields: [{name: 'co_modelo'},					{name: 'nb_modelo'},					{name: 'resp'}]
+        fields: [{name: 'co_modelo'},					{name: 'nb_modelo'},			{name: 'resp'}]
         });
     storeModelo.setDefaultSort('co_modelo', 'ASC');
 	
-	
-    var colModelmodelo = new Ext.grid.ColumnModel([
-        {id:'co_modelo',header: "modelo", width: 250, sortable: true, locked:false, dataIndex: 'co_modelo'},
-        {header: "Nombre modelo", width: 250, sortable: true, locked:false, dataIndex: 'nb_modelo'},
-        ]);
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelModelo = new Ext.grid.ColumnModel([
+        {id:'co_modelo',header: "Modelo", width: 100, sortable: true, locked:false, dataIndex: 'co_modelo'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_modelo'},
+      ]);
 	
 	
 	
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_modelo',
         frame: true,
 		labelAlign: 'center',
-        title: 'modelo',
+        title: 'Modelos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -97,7 +94,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'modelo',
+			title: 'Modelos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -105,16 +102,17 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de modelo',
+                        fieldLabel: 'Numero de Modelo',
 						xtype:'numberfield',
 						id: 'co_modelo',
                         name: 'co_modelo',
-						hidden: true,
-						hideLabel: true,
-						width:140
-                    },{
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
+                    }, {
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'nb_modelo',
                         name: 'nb_modelo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
@@ -130,7 +128,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -162,26 +160,23 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeModelo.baseParams = {'accion': 'insertar'};
 							else
-								storeModelo.baseParams = {'accion': 'modificar'};
+								storeModelo.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'", ';
-								columnas += '"nb_modelo" : "'+Ext.getCmp("nb_modelo").getValue()+'"}';
-							storeGuardia.load({params:{"columnas" : columnas,
+							columnas += '"nb_modelo" : "'+Ext.getCmp("nb_modelo").getValue()+'"}';
+							storeModelo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_modelo.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_modelo.php"},
 										callback: function () {
 										if(storeModelo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeModelo.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeModelo.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -190,33 +185,30 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeModelo.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_modelo.php'};
+							storeModelo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_modelo.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar modelo',
+			tooltip:'Eliminar Grupo',
 			disabled: true,
 			handler: function(){
 										storeModelo.baseParams = {'accion': 'eliminar'};
 										storeModelo.load({params:{
 												"condiciones": '{ "co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_modelo.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_modelo.php"},
 										callback: function () {
 										if(storeModelo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeModelo.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeModelo.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -232,8 +224,8 @@ Ext.onReady(function(){
                 xtype: 'grid',
 				id: 'gd_modelo',
                 store: storeModelo,
-                cm: colModelmodelo,
-			//	plugins: [filters],
+                cm: colModelModelo,
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -244,7 +236,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'modelos',
+				title:'Lista de Modelos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -268,7 +260,7 @@ Ext.onReady(function(){
 
 	
 	
-storeModelo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_modelo.php"}});
+storeModelo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_modelo.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_modelo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
