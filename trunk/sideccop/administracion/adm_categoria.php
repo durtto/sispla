@@ -51,42 +51,39 @@ Ext.onReady(function(){
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeCategoria = new Ext.data.JsonStore({
-		url: '../clases/interfaz_categoria.php',
+		url: '../interfaz/interfaz_categoria.php',
 		remoteSort : true,
-		root: 'guardias',
+		root: 'categorias',
         totalProperty: 'total',
 		idProperty: 'co_categoria',
-        fields: [{name: 'co_categoria'},					{name: 'nb_categoria'},					{name: 'resp'}]
+        fields: [{name: 'co_categoria'},					{name: 'nb_categoria'},			{name: 'resp'}]
         });
     storeCategoria.setDefaultSort('co_categoria', 'ASC');
 	
-	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCategoria = new Ext.grid.ColumnModel([
-        {id:'co_categoria',header: "Categoria", width: 250, sortable: true, locked:false, dataIndex: 'co_categoria'},
-        {header: "Nombre Categoria", width: 250, sortable: true, locked:false, dataIndex: 'nb_categoria'},
-        ]);
+        {id:'co_categoria',header: "Categoria", width: 100, sortable: true, locked:false, dataIndex: 'co_categoria'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+      ]);
 	
 	
 	
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_categoria',
         frame: true,
 		labelAlign: 'center',
-        title: 'Categoria',
+        title: 'Categoriaes',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -105,18 +102,19 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Categoria',
+                        fieldLabel: 'Numero de Categoria',
 						xtype:'numberfield',
 						id: 'co_categoria',
                         name: 'co_categoria',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
+                    }, {
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_nombre',
-                        name: 'nb_nombre',
+						vtype:'validos',
+						id: 'nb_categoria',
+                        name: 'nb_categoria',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     }]
@@ -130,7 +128,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -162,26 +160,23 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeCategoria.baseParams = {'accion': 'insertar'};
 							else
-								storeCategoria.baseParams = {'accion': 'modificar'};
+								storeCategoria.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'", ';
-								columnas += '"nb_categoria" : "'+Ext.getCmp("nb_categoria").getValue()+'"}';
-							storeGuardia.load({params:{"columnas" : columnas,
+							columnas += '"nb_categoria" : "'+Ext.getCmp("nb_categoria").getValue()+'"}';
+							storeCategoria.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_categoria.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
 										if(storeCategoria.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeCategoria.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeCategoria.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -190,7 +185,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_categoria.php'};
+							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
 						}
 				}
 			},{
@@ -202,21 +197,18 @@ Ext.onReady(function(){
 										storeCategoria.baseParams = {'accion': 'eliminar'};
 										storeCategoria.load({params:{
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_categoria.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_apacidad.php"},
 										callback: function () {
 										if(storeCategoria.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeCategoria.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeCategoria.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -233,7 +225,7 @@ Ext.onReady(function(){
 				id: 'gd_categoria',
                 store: storeCategoria,
                 cm: colModelCategoria,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -244,7 +236,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Categorias',
+				title:'Lista de Categoriaes',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -268,7 +260,7 @@ Ext.onReady(function(){
 
 	
 	
-storeCategoria.load({params: { start: 0, limit: 50, accion:"refrescar"}});
+storeCategoria.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_categoria.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_categoria").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
