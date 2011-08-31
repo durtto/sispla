@@ -51,42 +51,39 @@ Ext.onReady(function(){
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeCapacidad = new Ext.data.JsonStore({
-		url: '../clases/interfaz_capacidad.php',
+		url: '../interfaz/interfaz_capacidad.php',
 		remoteSort : true,
-		root: 'guardias',
+		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
-        fields: [{name: 'co_capacidad'},					{name: 'nb_capacidad'},					{name: 'resp'}]
+        fields: [{name: 'co_capacidad'},					{name: 'nb_capacidad'},			{name: 'resp'}]
         });
     storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
 	
-	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCapacidad = new Ext.grid.ColumnModel([
-        {id:'co_capacidad',header: "Capacidad", width: 250, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Nombre Capacidad", width: 250, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
-        ]);
+        {id:'co_capacidad',header: "Capacidad", width: 100, sortable: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+      ]);
 	
 	
 	
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_capacidad',
         frame: true,
 		labelAlign: 'center',
-        title: 'Capacidad',
+        title: 'Capacidades',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -105,18 +102,19 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Capacidad',
+                        fieldLabel: 'Numero de Capacidad',
 						xtype:'numberfield',
 						id: 'co_capacidad',
                         name: 'co_capacidad',
-						hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
+                    }, {
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_nombre',
-                        name: 'nb_nombre',
+						vtype:'validos',
+						id: 'nb_capacidad',
+                        name: 'nb_capacidad',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     }]
@@ -130,7 +128,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -162,26 +160,23 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeCapacidad.baseParams = {'accion': 'insertar'};
 							else
-								storeCapacidad.baseParams = {'accion': 'modificar'};
+								storeCapacidad.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'", ';
-								columnas += '"nb_capacidad" : "'+Ext.getCmp("nb_capacidad").getValue()+'"}';
-							storeGuardia.load({params:{"columnas" : columnas,
+							columnas += '"nb_capacidad" : "'+Ext.getCmp("nb_capacidad").getValue()+'"}';
+							storeCapacidad.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_capacidad.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_capacidad.php"},
 										callback: function () {
 										if(storeCapacidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeCapacidad.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeCapacidad.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -190,7 +185,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCapacidad.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_capacidad.php'};
+							storeCapacidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
 						}
 				}
 			},{
@@ -202,21 +197,18 @@ Ext.onReady(function(){
 										storeCapacidad.baseParams = {'accion': 'eliminar'};
 										storeCapacidad.load({params:{
 												"condiciones": '{ "co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_capacidad.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_apacidad.php"},
 										callback: function () {
 										if(storeCapacidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeCapacidad.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeCapacidad.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -233,7 +225,7 @@ Ext.onReady(function(){
 				id: 'gd_capacidad',
                 store: storeCapacidad,
                 cm: colModelCapacidad,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -244,7 +236,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Capacidades',
+				title:'Lista de Capacidades',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -268,7 +260,7 @@ Ext.onReady(function(){
 
 	
 	
-storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_capacidad.php"}});
+storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_capacidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
