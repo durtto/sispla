@@ -60,14 +60,14 @@ Ext.onReady(function(){
     var local = true;
 	
   var storeDatosPlan = new Ext.data.JsonStore({
-		url: '../clases/interfaz_datos_plan.php',
+		url: '../interfaz/interfaz_dato_plan.php',
 		remoteSort : true,
-		root: 'guardias',
+		root: 'datosplan',
         totalProperty: 'total',
 		idProperty: 'co_componente',
-        fields: [{name: 'co_componente'},					{name: 'fe_vigencia'},					{name: 'tx_objetivo'},	   {name: 'tx_alcance'},,	   {name: 'tx_identificacion_negocio'},	,	   {name: 'tx_localidad'},	,	   {name: 'tx_organizacion'},{name: 'resp'}]
+        fields: [{name: 'co_componente'},					{name: 'fe_vigencia'},					{name: 'tx_objetivo'},	   {name: 'tx_alcance'},   {name: 'tx_identificacion_negocio'},		   {name: 'tx_localidad'},		   {name: 'tx_organizacion'},      {name: 'resp'}]
         });
-    storeDatosPlan.setDefaultSort('co_guardia', 'ASC');
+    storeDatosPlan.setDefaultSort('co_componente', 'ASC');
 	
 	
     var colModelDatosPlan = new Ext.grid.ColumnModel([
@@ -115,8 +115,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_componente',
                         name: 'co_componente',
-						hidden: true,
-						hideLabel: true,
+						//hidden: true,
+						//hideLabel: true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }, {
@@ -192,7 +192,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_datosoplan").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_datosplan").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -215,9 +215,9 @@ Ext.onReady(function(){
 								columnas += '"tx_identificacion_negocio" : "'+Ext.getCmp("tx_identificacion_negocio").getValue()+'", ';
 								columnas += '"tx_localidad" : "'+Ext.getCmp("tx_localidad").getValue()+'", ';
 								columnas += '"tx_organizacion" : "'+Ext.getCmp("tx_organizacion").getValue()+'"}';
-							storeGuardia.load({params:{"columnas" : columnas,
+							storeDatosPlan.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_datos_plan.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_dato_plan.php"},
 										callback: function () {
 										if(storeDatosPlan.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -240,19 +240,19 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeDatosPlan.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_datos_plan.php'};
+							storeDatosPlan.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_dato_plan.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Guardia',
+			tooltip:'Eliminar Datos del Plan',
 			disabled: true,
 			handler: function(){
 										storeDatosPlan.baseParams = {'accion': 'eliminar'};
 										storeDatosPlan.load({params:{
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_datos_plan.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_dato_plan.php"},
 										callback: function () {
 										if(storeDatosPlan.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -265,7 +265,7 @@ Ext.onReady(function(){
 										else{
 											/*if(nuevo==true){
 												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
+												Ext.getCmp("co_componente").focus();
 											}*/
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
