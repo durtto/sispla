@@ -47,49 +47,45 @@ Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
 	camposReq['co_linea'] = 'Codigo Linea';
-	camposReq['nb_linea'] = 'Nombre Linea';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeLinea = new Ext.data.JsonStore({
-		url: '../php/interfaz_lineaTaxi.php', //'../../php-sifat/interfaz.php',
+		url: '../interfaz/interfaz_linea_taxi.php',
 		remoteSort : true,
 		root: 'lineas',
         totalProperty: 'total',
 		idProperty: 'co_linea',
-        fields: [{name: 'co_linea'},					{name: 'nb_linea'},					{name: 'tx_telefono'},	   {name: 'di_oficina'},		{name: 'resp'}]
+        fields: [{name: 'co_linea'},					{name: 'nb_linea'},		{name: 'tx_telefono'},				{name: 'di_oficina'},			{name: 'resp'}]
         });
     storeLinea.setDefaultSort('co_linea', 'ASC');
 	
-	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Numero de Linea Taxi", width: 250, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre Linea", width: 250, sortable: true, locked:false, dataIndex: 'nb_linea'},
-        {header: "Telefono", width: 250, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Direccion", width: 250, sortable: true, locked:false, dataIndex: 'di_direccion'},
-        ]);
+        {id:'co_linea',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_linea'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_linea'},
+        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+      ]);
 	
 	
 	
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_linea',
         frame: true,
 		labelAlign: 'center',
-        title: 'Lineas de Taxi',
+        title: 'Lineas',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -100,7 +96,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Lineas de Taxi',
+			title: 'Lineas',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -108,31 +104,33 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Linea',
+                        fieldLabel: 'Numero de Linea',
 						xtype:'numberfield',
 						id: 'co_linea',
                         name: 'co_linea',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
                     }, {
-                        fieldLabel: 'Nombre Linea',
+                        fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_linea',
                         name: 'nb_linea',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
-                    },{
+                    }, {
                         fieldLabel: 'Telefono',
-						xtype:'numberfield',
+						xtype:'textfield',
+						vtype:'validos',
 						id: 'tx_telefono',
                         name: 'tx_telefono',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
-                    },{
+                    }, {
                         fieldLabel: 'Direccion',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'di_oficina',
                         name: 'di_oficina',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
@@ -148,7 +146,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeAvion.getCount();
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -169,7 +167,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCI�N',
+								title: 'ATENCION',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -180,28 +178,25 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeLinea.baseParams = {'accion': 'insertar'};
 							else
-								storeLinea.baseParams = {'accion': 'modificar'};
+								storeLinea.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_linea" : "'+Ext.getCmp("co_linea").getValue()+'", ';
-							columnas += '"nb_linea" : "'+Ext.getCmp("nb_linea").getValue()+'", ';
-							columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
-							columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'"}';
+								columnas += '"nb_linea" : "'+Ext.getCmp("nb_linea").getValue()+'", ';
+								columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
+								columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'"}';
 							storeLinea.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_lineaTaxi.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
 										callback: function () {
 										if(storeLinea.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeAvion.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeLinea.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -210,7 +205,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeLinea.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_lineaTaxi.php'};
+							storeLinea.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_linea.php'};
 						}
 				}
 			},{
@@ -222,21 +217,18 @@ Ext.onReady(function(){
 										storeLinea.baseParams = {'accion': 'eliminar'};
 										storeLinea.load({params:{
 												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_lineaTaxi.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
 										callback: function () {
 										if(storeLinea.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeLinea.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeLinea.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -253,7 +245,7 @@ Ext.onReady(function(){
 				id: 'gd_linea',
                 store: storeLinea,
                 cm: colModelLinea,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -264,7 +256,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lineas de Taxi',
+				title:'Lista de Linea',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -288,7 +280,7 @@ Ext.onReady(function(){
 
 	
 	
-storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_lineaTaxi.php"}});
+storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_linea.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_linea").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
