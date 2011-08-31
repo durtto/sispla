@@ -59,7 +59,7 @@ Ext.onReady(function(){
     var local = true;
 	
   var storeGuardia = new Ext.data.JsonStore({
-		url: '../php/interfaz_guardia.php',
+		url: '../interfaz/interfaz_guardia.php',
 		remoteSort : true,
 		root: 'guardias',
         totalProperty: 'total',
@@ -111,8 +111,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_guardia',
                         name: 'co_guardia',
-                        hidden: true,
-						hideLabel: true,
+                        //hidden: true,
+						//hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre Guardia',
@@ -186,7 +186,7 @@ Ext.onReady(function(){
 							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
 							storeGuardia.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_guardia.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_guardia.php"},
 										callback: function () {
 										if(storeGuardia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -209,7 +209,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeGuardia.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_guardia.php'};
+							storeGuardia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
 						}
 				}
 			},{
@@ -221,7 +221,7 @@ Ext.onReady(function(){
 										storeGuardia.baseParams = {'accion': 'eliminar'};
 										storeGuardia.load({params:{
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_guardia.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_guardia.php"},
 										callback: function () {
 										if(storeGuardia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -287,7 +287,7 @@ Ext.onReady(function(){
 
 	
 	
-storeGuardia.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_guardia.php"}});
+storeGuardia.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_guardia.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_guardia").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
