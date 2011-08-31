@@ -59,20 +59,20 @@ Ext.onReady(function(){
   var storeAlimentacion = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_alimentacion.php',
 		remoteSort : true,
-		root: 'Alimentacion',
+		root: 'alimentos',
         totalProperty: 'total',
 		idProperty: 'co_alimentacion',
-        fields: [{name: 'co_alimentacion'},					{name: 'ca_desayuno'},		{name: 'ca_almuerzo'},				{name: 'ca_cena'}, 			{name: 'ca_persona'},				{name: 'resp'}]
+        fields: [{name: 'co_alimentacion'},					{name: 'ca_desayuno'},					{name: 'ca_almuerzo'},					{name: 'ca_cena'},							{name: 'ca_persona'},				{name: 'resp'}]
         });
     storeAlimentacion.setDefaultSort('co_alimentacion', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelAlimentacion = new Ext.grid.ColumnModel([
-        {id:'co_alimentacion',header: "Alimentacion", width: 60, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
-        {header: "Desayuno", width: 60, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
-        {header: "Almuerzo", width: 60, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
-        {header: "Cena", width: 60, sortable: true, locked:false, dataIndex: 'ca_cena'},
-        {header: "Personas", width: 60, sortable: true, locked:false, dataIndex: 'ca_persona'},
+        {id:'co_alimentacion',header: "Alimentacion", width: 80, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+        {header: "Desayuno", width: 80, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
+        {header: "Almuerzo", width: 80, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
+        {header: "Cena", width: 80, sortable: true, locked:false, dataIndex: 'ca_cena'},
+        {header: "Persona", width: 80, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 	
 	
@@ -97,7 +97,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Alimentacion',
+			title: 'alimentacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -113,7 +113,7 @@ Ext.onReady(function(){
 						//hideLabel: true,
                         width:60
                     }, {
-                        fieldLabel: 'Cantidad de Desayunos',
+                        fieldLabel: 'Desayunos',
 						xtype:'numberfield',
 						vtype:'validos',
 						id: 'ca_desayuno',
@@ -121,7 +121,7 @@ Ext.onReady(function(){
 						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
                     }, {
-                        fieldLabel: 'Cantidad de Almuerzos',
+                        fieldLabel: 'Almuerzo',
 						xtype:'numberfield',
 						vtype:'validos',
 						id: 'ca_almuerzo',
@@ -129,22 +129,22 @@ Ext.onReady(function(){
 						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
                     }, {
-                        fieldLabel: 'Cantidad de Cenas',
+                        fieldLabel: 'Cena',
 						xtype:'numberfield',
 						vtype:'validos',
 						id: 'ca_cena',
                         name: 'ca_cena',
 						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
-                    },{
-                        fieldLabel: 'Cantidad de Personas',
+                    }, {
+                        fieldLabel: 'Personas',
 						xtype:'numberfield',
 						vtype:'validos',
 						id: 'ca_persona',
                         name: 'ca_persona',
 						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
-                    },]
+                    }]
 			}]
 			},{
 				width: 640,  
@@ -155,7 +155,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeAlimentacion.getCount();
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -189,9 +189,9 @@ Ext.onReady(function(){
 							else
 								storeAlimentacion.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_alimentacion" : "'+Ext.getCmp("co_alimentacion").getValue()+'", ';
-							columnas += '"ca_desayuno" : "'+convFecha(Ext.getCmp("ca_desayuno").getValue())+'", ';
-							columnas += '"ca_almuerzo" : "'+convFecha(Ext.getCmp("ca_almuerzo").getValue())+'", ';
-							columnas += '"ca_cena" : "'+convFecha(Ext.getCmp("ca_cena").getValue())+'", ';
+							columnas += '"ca_desayuno" : "'+Ext.getCmp("ca_desayuno").getValue()+'", ';
+							columnas += '"ca_almuerzo" : "'+Ext.getCmp("ca_almuerzo").getValue()+'", ';
+							columnas += '"ca_cena" : "'+Ext.getCmp("ca_cena").getValue()+'", ';
 							columnas += '"ca_persona" : "'+Ext.getCmp("ca_persona").getValue()+'"}';
 							storeAlimentacion.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_alimentacion" : "'+Ext.getCmp("co_alimentacion").getValue()+'"}', 
@@ -221,7 +221,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Alimentacion',
+			tooltip:'Eliminar alimentacion',
 			disabled: true,
 			handler: function(){
 										storeAlimentacion.baseParams = {'accion': 'eliminar'};
@@ -260,7 +260,7 @@ Ext.onReady(function(){
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_vehiculo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_alimentacion").getForm().loadRecord(rec);
                         }
                     }
                 }),
