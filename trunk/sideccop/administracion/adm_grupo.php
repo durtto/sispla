@@ -83,7 +83,7 @@ Ext.onReady(function(){
         id: 'frm_grupo',
         frame: true,
 		labelAlign: 'center',
-        title: 'grupos',
+        title: 'Grupos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -102,7 +102,7 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Vehiculo',
+                        fieldLabel: 'Numero de Grupo',
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
@@ -230,7 +230,7 @@ Ext.onReady(function(){
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_vehiculo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_grupo").getForm().loadRecord(rec);
                         }
                     }
                 }),
