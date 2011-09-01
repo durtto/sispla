@@ -94,13 +94,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Componentes',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:700,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:680,
 			buttonAlign:'center',
 			//layout:'column',
 			title: 'Componente',
@@ -277,7 +277,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:690,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_datosplan',
