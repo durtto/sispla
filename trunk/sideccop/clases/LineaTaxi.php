@@ -6,7 +6,7 @@ require_once 'MyPDO.php';
  * @access public
  * @package Planes
  */
-class LineaTaxi extends MyPDO
+class Linea extends MyPDO
 {
 	/**
 	 * @AttributeType int
