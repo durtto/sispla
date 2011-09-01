@@ -46,37 +46,33 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_proceso'] = 'Codigo Proceso';
-	camposReq['nb_proceso'] = 'Nombre Proceso';
-	camposReq['bo_critico'] = 'Proceso Critico';
+	camposReq['co_grupo'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeProceso = new Ext.data.JsonStore({
-		url: '../clases/interfaz_proceso.php',
+		url: '../interfaz/interfaz_proceso.php',
 		remoteSort : true,
 		root: 'procesos',
         totalProperty: 'total',
 		idProperty: 'co_proceso',
-        fields: [{name: 'co_proceso'},					{name: 'nb_proceso'},					{name: 'tx_descripcion'},	   {name: 'bo_critico'},		{name: 'resp'}]
+        fields: [{name: 'co_proceso'},					{name: 'nb_proceso'},	{name: 'tx_descripcion'},		{name: 'bo_critico'},		{name: 'resp'}]
         });
     storeProceso.setDefaultSort('co_proceso', 'ASC');
 	
-	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelProceso = new Ext.grid.ColumnModel([
-        {id:'co_proceso',header: "Proceso", width: 250, sortable: true, locked:false, dataIndex: 'co_proceso'},
-        {header: "Nombre Proceso", width: 250, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Proceso Critico", width: 250, sortable: true, locked:false, dataIndex: 'bo_critico'},
-        ]);
+        {id:'co_proceso',header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'co_proceso'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
+        {header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+      ]);
 	
 	
 	
@@ -89,7 +85,7 @@ Ext.onReady(function(){
         id: 'frm_proceso',
         frame: true,
 		labelAlign: 'center',
-        title: 'Procesos',
+        title: 'Proceso',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -100,7 +96,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Procesos',
+			title: 'Proceso',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -108,41 +104,21 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Proceso',
+                        fieldLabel: 'Numero de Proceso',
 						xtype:'numberfield',
 						id: 'co_proceso',
                         name: 'co_proceso',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
                     }, {
-                        fieldLabel: 'Nombre Proceso',
+                        fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_proceso',
                         name: 'nb_proceso',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    },{
-	            		xtype: 'radiogroup',
-	            		fieldLabel: 'Critico',
-	            		id: 'bo_critico',
-		                name: 'bo_critico',
-			            cls: 'x-check-group-alt',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'Verdadero', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falso', inputValue: 0, checked: true},
-			           			]
-        		},{
-                        fieldLabel: 'Descripcion',
-						xtype:'htmleditor',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        height: 100,
-            			anchor: '100%'
-
+                        width:160
                     }]
 			}]
 			},{
@@ -154,7 +130,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -186,28 +162,25 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeProceso.baseParams = {'accion': 'insertar'};
 							else
-								storeProceso.baseParams = {'accion': 'modificar'};
+								storeProceso.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
-							columnas += '"nb_proceso" : "'+Ext.getCmp("nb_proceso").getValue()+'", ';
-							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
-							columnas += '"bo_critico" : "'+Ext.getCmp("bo_critico").getValue()+'"}';
+								columnas += '"nb_proceso" : "'+Ext.getCmp("nb_proceso").getValue()+'", ';
+								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
+								columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'"}';
 							storeProceso.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_proceso.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},
 										callback: function () {
 										if(storeProceso.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeProceso.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeProceso.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -216,33 +189,30 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeProceso.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_proceso.php'};
+							storeProceso.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proceso.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Proceso',
+			tooltip:'Eliminar proceso',
 			disabled: true,
 			handler: function(){
 										storeProceso.baseParams = {'accion': 'eliminar'};
 										storeProceso.load({params:{
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_proceso.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},
 										callback: function () {
 										if(storeProceso.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeProceso.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeProceso.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -259,7 +229,7 @@ Ext.onReady(function(){
 				id: 'gd_proceso',
                 store: storeProceso,
                 cm: colModelProceso,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -270,7 +240,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Procesos',
+				title:'Lista de Procesos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -294,7 +264,7 @@ Ext.onReady(function(){
 
 	
 	
-storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar"}});
+storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_grupo.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_proceso").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
