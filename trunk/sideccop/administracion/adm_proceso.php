@@ -95,30 +95,58 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Proceso',
+			layout:'column',
+			title: 'Procesos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Proceso',
+                        fieldLabel: 'Numero Proceso',
 						xtype:'numberfield',
 						id: 'co_proceso',
                         name: 'co_proceso',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }, {
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						vtype:'validos',
 						id: 'nb_proceso',
                         name: 'nb_proceso',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
+                    }]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:"100%",
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Descripcion',
+						xtype:'htmleditor',
+						id: 'tx_descripcion',
+                        name: 'tx_descripcion',
+                        height: 100,
+            			anchor: '100%',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                    },{
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Critico',
+	            		id: 'bo_critico',
+		                name: 'bo_critico',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'critico', checked : true, inputValue: 1},
+			                {boxLabel: 'No', name: 'critico', inputValue: 0},
+			           			]
                     }]
 			}]
 			},{
@@ -166,7 +194,7 @@ Ext.onReady(function(){
 							var columnas   = '{"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
 								columnas += '"nb_proceso" : "'+Ext.getCmp("nb_proceso").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
-								columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'"}';
+								columnas += '"bo_critico" : "'+Ext.getCmp("bo_critico").getValue()+'"}';
 							storeProceso.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},

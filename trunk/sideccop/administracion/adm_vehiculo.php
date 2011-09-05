@@ -119,28 +119,48 @@ Ext.onReady(function(){
 						id: 'tx_placa',
                         name: 'tx_placa',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     },{
                         fieldLabel: 'Marca',
 						xtype:'textfield',
 						id: 'tx_marca',
                         name: 'tx_marca',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     },{
                         fieldLabel: 'Modelo',
 						xtype:'textfield',
 						id: 'tx_modelo',
                         name: 'tx_modelo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     },{
                         fieldLabel: 'Unidad',
 						xtype:'textfield',
 						id: 'tx_unidad',
                         name: 'tx_unidad',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			}]
 			},{

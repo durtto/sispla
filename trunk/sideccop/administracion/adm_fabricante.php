@@ -120,7 +120,12 @@ Ext.onReady(function(){
 						id: 'nb_fabricante',
                         name: 'nb_fabricante',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }, {
                         fieldLabel: 'Direccion',
 						xtype:'textfield',
@@ -128,7 +133,12 @@ Ext.onReady(function(){
 						id: 'di_ubicacion',
                         name: 'di_ubicacion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }, {
                         fieldLabel: 'Telefono',
 						xtype:'numberfield',
