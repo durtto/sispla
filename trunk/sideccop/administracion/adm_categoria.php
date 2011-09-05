@@ -68,8 +68,8 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCategoria = new Ext.grid.ColumnModel([
-        {id:'co_categoria',header: "Categoria", width: 100, sortable: true, locked:false, dataIndex: 'co_categoria'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+        {id:'co_categoria',header: "Codigo de Categoria", width: 200, sortable: true, locked:false, dataIndex: 'co_categoria'},
+        {header: "Categorias", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
       ]);
 	
 	
@@ -83,7 +83,7 @@ Ext.onReady(function(){
         id: 'frm_categoria',
         frame: true,
 		labelAlign: 'center',
-        title: 'Categoriaes',
+        title: 'Categorias',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -102,7 +102,7 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Categoria',
+                        fieldLabel: 'Codigo de Categoria',
 						xtype:'numberfield',
 						id: 'co_categoria',
                         name: 'co_categoria',
@@ -110,13 +110,18 @@ Ext.onReady(function(){
 						//hideLabel: true,
                         width:160
                     }, {
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Nombre de Categoria',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_categoria',
                         name: 'nb_categoria',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			}]
 			},{
@@ -236,7 +241,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Categoriaes',
+				title:'Lista de Categorias',
                 border: true,
                 listeners: {
                     viewready: function(g) {

@@ -68,11 +68,11 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelAlimentacion = new Ext.grid.ColumnModel([
-        {id:'co_alimentacion',header: "Alimentacion", width: 80, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
-        {header: "Desayuno", width: 80, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
-        {header: "Almuerzo", width: 80, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
-        {header: "Cena", width: 80, sortable: true, locked:false, dataIndex: 'ca_cena'},
-        {header: "Persona", width: 80, sortable: true, locked:false, dataIndex: 'ca_persona'},
+        {id:'co_alimentacion',header: "Codigo de Gestion", width: 130, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+        {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
+        {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
+        {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
+        {header: "Cantidad de Personas", width: 1401, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 	
 	
@@ -86,7 +86,7 @@ Ext.onReady(function(){
         id: 'frm_alimentacion',
         frame: true,
 		labelAlign: 'center',
-        title: 'alimentacion',
+        title: 'Logistica de Alimentacion',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -96,54 +96,55 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'alimentacion',
+			layout:'column',
+			title: 'Alimentacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Alimentacion',
+                        fieldLabel: 'Codigo de Gestion ',
 						xtype:'numberfield',
 						id: 'co_alimentacion',
                         name: 'co_alimentacion',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:60
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
                     }, {
-                        fieldLabel: 'Desayunos',
+                        fieldLabel: 'Nro de desayunos',
 						xtype:'numberfield',
-						vtype:'validos',
 						id: 'ca_desayuno',
                         name: 'ca_desayuno',
-						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
                     }, {
-                        fieldLabel: 'Almuerzo',
+                        fieldLabel: 'Nro de Almuerzo',
 						xtype:'numberfield',
-						vtype:'validos',
 						id: 'ca_almuerzo',
                         name: 'ca_almuerzo',
-						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
-                    }, {
-                        fieldLabel: 'Cena',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Nro de Cenas',
 						xtype:'numberfield',
-						vtype:'validos',
 						id: 'ca_cena',
                         name: 'ca_cena',
-						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
-                    }, {
-                        fieldLabel: 'Personas',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160
+                    },{
+                        fieldLabel: 'Cantidad de Personas',
 						xtype:'numberfield',
-						vtype:'validos',
 						id: 'ca_persona',
                         name: 'ca_persona',
-						//style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160
                     }]
 			}]
 			},{
@@ -266,7 +267,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Alimentacion',
+				title:'Lista de Comidas',
                 border: true,
                 listeners: {
                     viewready: function(g) {
