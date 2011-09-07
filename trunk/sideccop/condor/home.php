@@ -2,19 +2,19 @@
 <html>
 <head>
 <title>Home</title>
-<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/ext-all.css" />
-<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray2.css">
-<link href="css/main.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/examples/ux/xml-tree-loader.css" />
+<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/xml-tree-loader.css" />
 
 	<!-- GC -->
  	<!-- LIBS -->
- 	<script type="text/javascript" src="lib/ext-3.2.1/adapter/ext/ext-base.js"></script>
+ 	<script type="text/javascript" src="../lib/ext-3.2.1/adapter/ext/ext-base.js"></script>
  	<!-- ENDLIBS -->
 
-    <script type="text/javascript" src="lib/ext-3.2.1/ext-all.js"></script>
-	<script type="text/javascript" src="js/funciones.js"></script>
-	<script type="text/javascript" src="lib/ext-3.2.1/examples/ux/XmlTreeLoader.js"></script>
+    <script type="text/javascript" src="../lib/ext-3.2.1/ext-all.js"></script>
+	<script type="text/javascript" src="../js/funciones.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/XmlTreeLoader.js"></script>
 
 
 
@@ -67,7 +67,7 @@ Ext.app.BookLoader = Ext.extend(Ext.ux.tree.XmlTreeLoader, {
 });
 
 Ext.onReady(function(){
-Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 
     var index = 0;
@@ -199,8 +199,7 @@ Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-
-	<td align="center"><img src="imagenes/bannerCONDOR.png" width="100%" height="79"> </td>
+	<td align="center"><img src="../imagenes/bannercondor1.png" width="100%" height="79"> </td>
   </tr>
 </table>
 <div id="session" >
@@ -208,10 +207,10 @@ Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
 <table border="0" width="180" align="center" class="subtitulo">
 <tr><td>
 <span style="cursor:pointer"  onClick="cerrar_sesion();" target="_parent" title=":: Cerrar Sesi&oacute;n ::">
-<img src="imagenes/salir.gif" width="15" height="15" align="absmiddle" > Salir </span><br><br>
+<img src="../imagenes/salir.gif" width="15" height="15" align="absmiddle" > Salir </span><br><br>
 </td></tr>
 <tr>
-<td ><img src="imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION[indicador];?></b></td></tr>
+<td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION[indicador];?></b></td></tr>
 <tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?></b></td></tr>
 <tr><td> Nivel de Acceso: <?php echo $_SESSION[rol];?></td></tr>
 
