@@ -1,0 +1,33 @@
+{
+   "total":"4",
+   "data":[
+      {
+         "co_renglon":"1",
+         "nb_forraje":"carne",
+         "va_factor_suelo":"3m Co",
+         "va_factor_hidrico":"21",
+         "ca_carga_animal":"large"
+      },
+      {
+         "co_renglon":"2",
+         "nb_forraje":"leche",
+         "va_factor_suelo":"Aloca Inc",
+         "va_factor_hidrico":"20",
+         "ca_carga_animal":"medium"
+      },
+      {
+         "co_renglon":"3",
+         "nb_forraje":"arina",
+         "va_factor_suelo":"Altria Group Inc",
+         "va_factor_hidrico":"27",
+         "ca_carga_animal":"large"
+      },
+      {
+         "co_renglon":"4",
+         "nb_forraje":"pan",
+         "va_factor_suelo":"American Express Company",
+         "va_factor_hidrico":"24",
+         "ca_carga_animal":"extra large"
+      }
+   ]
+}
