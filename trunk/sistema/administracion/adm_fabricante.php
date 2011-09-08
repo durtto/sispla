@@ -97,13 +97,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Fabricantes',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo Fabricante',
@@ -139,7 +139,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }, {
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Telefono',
 						xtype:'numberfield',
 						id: 'nu_telefono',
