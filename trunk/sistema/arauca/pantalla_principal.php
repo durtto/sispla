@@ -11,7 +11,7 @@
     <tr>
       <td width="102">&nbsp;</td>
       <td align="center">
-      	<img src="../imagenes/arauca.png" width="650" height="220">
+      	<img src="../imagenes/arauca.png" width="701" height="261">
       </td>
       <td width="102" align="right" valign="top"> <div id="Layer1">
       <table width="100" border="0" align="center" cellpadding="0" cellspacing="0" id="tab_carga">
