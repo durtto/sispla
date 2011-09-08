@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_grupo'] = 'Codigo Grupo';
+	camposReq['co_tipo_ubicacion'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
@@ -56,20 +56,20 @@ Ext.onReady(function(){
     };
     var local = true;
 	
-  var storeGrupo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_grupo.php',
+  var storeTpUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_ubicacion.php',
 		remoteSort : true,
-		root: 'grupos',
+		root: 'tpubicaciones',
         totalProperty: 'total',
-		idProperty: 'co_grupo',
-        fields: [{name: 'co_grupo'},					{name: 'nb_grupo'},			{name: 'resp'}]
+		idProperty: 'co_tipo_ubicacion',
+        fields: [{name: 'co_tipo_ubicacion'},					{name: 'nb_tipo_ubicacion'},			{name: 'resp'}]
         });
-    storeGrupo.setDefaultSort('co_grupo', 'ASC');
+    storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelGrupo = new Ext.grid.ColumnModel([
-        {id:'co_grupo',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_grupo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},
+    var colModeltpUbicacion = new Ext.grid.ColumnModel([
+        {id:'co_tipo_ubicacion',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
       ]);
 	
 	
@@ -83,7 +83,7 @@ Ext.onReady(function(){
         id: 'frm_grupo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Grupos',
+        title: 'Tipo Ubicacion',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -94,7 +94,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Grupos',
+			title: 'Tipo Ubicacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -102,10 +102,10 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Grupo',
+                        fieldLabel: 'Numero de Tipo',
 						xtype:'numberfield',
-						id: 'co_grupo',
-                        name: 'co_grupo',
+						id: 'co_tipo_ubicacion',
+                        name: 'co_tipo_ubicacion',
                         //hidden: true,
 						//hideLabel: true,
                         width:160
@@ -113,8 +113,8 @@ Ext.onReady(function(){
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
-						id: 'nb_grupo',
-                        name: 'nb_grupo',
+						id: 'nb_tipo_ubicacion',
+                        name: 'nb_tipo_ubicacion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -133,14 +133,14 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
+					//nroReg=storeTpUbicacion.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_grupo").focus();
+					Ext.getCmp("co_tipo_ubicacion").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -163,19 +163,19 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeGrupo.baseParams = {'accion': 'insertar'};
+								storeTpUbicacion.baseParams = {'accion': 'insertar'};
 							else
-								storeGrupo.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'", ';
-							columnas += '"nb_grupo" : "'+Ext.getCmp("nb_grupo").getValue()+'"}';
-							storeGrupo.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_grupo.php"},
+								storeTpUbicacion.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'", ';
+							columnas += '"nb_tipo_ubicacion" : "'+Ext.getCmp("nb_tipo_ubicacion").getValue()+'"}';
+							storeTpUbicacion.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
 										callback: function () {
-										if(storeGrupo.getAt(0).data.resp!=true){		
+										if(storeTpUbicacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeGrupo.getAt(0).data.resp, 
+												msg: storeTpUbicacion.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -190,24 +190,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeGrupo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_grupo.php'};
+							storeTpUbicacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_ubicacion.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Grupo',
+			tooltip:'Eliminar Tipo Ubicacion',
 			disabled: true,
 			handler: function(){
-										storeGrupo.baseParams = {'accion': 'eliminar'};
-										storeGrupo.load({params:{
-												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_grupo.php"},
+										storeTpUbicacion.baseParams = {'accion': 'eliminar'};
+										storeTpUbicacion.load({params:{
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
 										callback: function () {
-										if(storeGrupo.getAt(0).data.resp!=true){		
+										if(storeTpUbicacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeGrupo.getAt(0).data.resp,
+												msg: storeTpUbicacion.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -227,9 +227,9 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_grupo',
-                store: storeGrupo,
-                cm: colModelGrupo,
+				id: 'gd_tpubicacion',
+                store: storeTpUbicacion,
+                cm: colModeltpUbicacion,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -241,7 +241,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Grupos',
+				title:'Lista de TpUbicacion',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -249,7 +249,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeGrupo,
+				store: storeTpUbicacion,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -265,10 +265,10 @@ Ext.onReady(function(){
 
 	
 	
-storeGrupo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_grupo.php"}});
+storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_ubicacion.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_grupo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_tpubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -276,7 +276,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_grupo").focus();
+		Ext.getCmp("co_tipo_ubicacion").focus();
 		nroReg=rowIdx;
 		
 });
