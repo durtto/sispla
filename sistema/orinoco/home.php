@@ -199,7 +199,8 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-	<td align="center"><img src="../imagenes/bannercondor1.png" width="100%" height="79"> </td>
+  	<td align="left"><img src="../imagenes/leftORINOCO.png" width="205" height="79"> </td>
+	<td align="center"><img src="../imagenes/rightORINOCO.png" width="1205" height="79"> </td>
   </tr>
 </table>
 <div id="session" >
