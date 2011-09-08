@@ -106,9 +106,21 @@ class Proceso extends MyPDO
    */
   public function cargarProceso() {
 
-	$query = "SELECT *
-				FROM tr016_proceso;";
-
+	$query = "SELECT 
+  				tr016_proceso.co_proceso, 
+  					tr016_proceso.nb_proceso, 
+  					tr016_proceso.tx_descripcion, 
+				CASE
+    			WHEN tr016_proceso.bo_critico = true
+     			THEN 'SI'
+     			ELSE 'NO'
+     			END AS bo_critico
+				FROM 
+  					public.tr016_proceso;";
+			//$query = "SELECT 
+  				//	*
+				//FROM 
+  					//public.tr016_proceso;";
 	$r = $this->pdo->_query($query);
 	
 			
