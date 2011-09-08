@@ -74,8 +74,8 @@ Ext.onReady(function(){
         {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico'},
       ]);
 	
-	
-	
+	     
+
 /*
  *    Here is where we create the Form
  */
@@ -278,8 +278,7 @@ Ext.onReady(function(){
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                                          }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeProceso,
