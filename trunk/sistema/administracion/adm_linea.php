@@ -68,10 +68,10 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_linea'},
+        {id:'co_linea',header: "Linea", width: 100, sortable: true, locked:false, dataIndex: 'co_linea'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_linea'},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
       ]);
 	
 	
