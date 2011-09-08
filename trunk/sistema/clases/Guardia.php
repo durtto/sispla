@@ -38,7 +38,7 @@ class Guardia extends MyPDO
    * 
    * @access public
    */
-  public $columGuardia= array('co_guardia'=>'co_guardia', 'nb_guardia'=>'nb_guardia', 'nu_guardia'=>'nu_guardia', 'tx_descripcion'=>'tx_descripcion');
+  public $columGuardia= array('co_guardia'=>'co_guardia', 'nb_guardia'=>'nb_guardia', 'nu_numero'=>'nu_numero', 'tx_descripcion'=>'tx_descripcion');
   
   /**
    * 
