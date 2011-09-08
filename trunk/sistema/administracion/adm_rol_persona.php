@@ -60,9 +60,9 @@ Ext.onReady(function(){
     var local = true;
 	
   var storeRol = new Ext.data.JsonStore({
-		url: '../php/interfaz_rol_persona.php',
+		url: '../interfaz/interfaz_rol_persona.php',
 		remoteSort : true,
-		root: 'roles',
+		root: 'roldepersonas',
         totalProperty: 'total',
 		idProperty: 'co_rol',
         fields: [{name: 'co_rol'},					{name: 'nb_rol'},	{name: 'tx_descripcion'},				{name: 'resp'}]
@@ -105,8 +105,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_rol',
                         name: 'co_rol',
-                        hidden: true,
-						hideLabel: true,
+                        //hidden: true,
+						//hideLabel: true,
 						width:140
                     
 				},{
@@ -170,15 +170,15 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeCRol.baseParams = {'accion': 'insertar'};
+								storeRol.baseParams = {'accion': 'insertar'};
 							else
 								storeRol.baseParams = {'accion': 'modificar'};
 							var columnas   = '{"co_rol" : "'+Ext.getCmp("co_rol").getValue()+'", ';
-								olumnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
+								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
 							storeRol.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_rol" : "'+Ext.getCmp("co_rol").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_rol_persona.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_persona.php"},
 										callback: function () {
 										if(storeRol.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -198,7 +198,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeRol.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_rol_persona.php'};
+							storeRol.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_persona.php'};
 						}
 				}
 			},{
@@ -210,7 +210,7 @@ Ext.onReady(function(){
 										storeRolRes.baseParams = {'accion': 'eliminar'};
 										storeRolRes.load({params:{
 												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_rol_res.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
 										callback: function () {
 										if(storeRol.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -273,7 +273,7 @@ Ext.onReady(function(){
 
 	
 	
-storeRol.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_rol_persona.php"}});
+storeRol.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_persona.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
