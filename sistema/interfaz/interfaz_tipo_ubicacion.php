@@ -1,5 +1,5 @@
 <?php
-	require_once 'TipoDeUbicacion.php';
+	require_once '../clases/TipoDeUbicacion.php';
 	
 	$tpubicacion = new Tpubicacion();
 	
