@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Rol y Responsabilidad</title>
+<title>Rol</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -43,6 +43,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+  var winRolResp;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -59,30 +60,31 @@ Ext.onReady(function(){
     // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
-  var storeRolRes = new Ext.data.JsonStore({
-		url: '../php/interfaz_rol_res.php',
+  var storeRolResp = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_rol_responsabilidad.php',
 		remoteSort : true,
-		root: 'rolresp',
+		root: 'rolresponsabilidades',
         totalProperty: 'total',
 		idProperty: 'co_rol_resp',
-        fields: [{name: 'co_rol_resp'},					{name: 'nb_rol'},	{name: 'tx_descripcion'},				{name: 'resp'}]
+        fields: [{name: 'co_rol_resp'},					{name: 'nb_rol'},	{name: 'tx_descripcion'},		{name: 'co_rol_padre'},		{name: 'resp'}]
         });
-    storeRolRes.setDefaultSort('co_rol_resp', 'ASC');
+    storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
 	
 	
-    var colModelRolRes = new Ext.grid.ColumnModel([
+    var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
         {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
-        {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
 	
 	
 
     var gridForm = new Ext.FormPanel({
-        id: 'frm_rol_resp',
+        id: 'frm_rol',
         frame: true,
 		labelAlign: 'center',
-        title: 'Roles y Responsabilidades',
+        title: 'Roles',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -93,7 +95,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Roles/Responsabilidad',
+			title: 'Roles',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -104,9 +106,9 @@ Ext.onReady(function(){
                         fieldLabel: 'Codigo de Rol',
 						xtype:'numberfield',
 						id: 'co_rol_resp',
-						hidden: true,
-						hideLabel: true,
                         name: 'co_rol_resp',
+                        //hidden: true,
+						//hideLabel: true,
 						width:140
                     
 				},{
@@ -127,9 +129,18 @@ Ext.onReady(function(){
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                         height: 100,
+                        height: 100,
             			anchor: '100%'
-                    }]
+                    },{
+                        fieldLabel: 'Codigo de Rol Padre',
+						xtype:'numberfield',
+						id: 'co_rol_padre',
+                        name: 'co_rol_padre',
+                        //hidden: true,
+						//hideLabel: true,
+						width:140
+                    
+				}]
 			}]
 			},{
 				width: 640,  
@@ -147,7 +158,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_rol_res").focus();
+					Ext.getCmp("co_rol_resp").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -157,7 +168,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_rol_resp").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_rol").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -170,29 +181,27 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeCRolRes.baseParams = {'accion': 'insertar'};
+								storeRolResp.baseParams = {'accion': 'insertar'};
 							else
-								storeRolRes.baseParams = {'accion': 'modificar'};
+								storeRolResp.baseParams = {'accion': 'modificar'};
 							var columnas   = '{"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
-								olumnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
-								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
-							storeRolRes.load({params:{"columnas" : columnas,
+								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
+								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
+								columnas += '"co_rol_padre" : "'+Ext.getCmp("co_rol_padre").getValue()+'"}';
+							storeRolResp.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_rol_res.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
 										callback: function () {
-										if(storeRolRes.getAt(0).data.resp!=true){		
+										if(storeRolResp.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRolRes.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeRolResp.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+										
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -201,7 +210,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeRolRes.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_rol_res.php'};
+							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};
 						}
 				}
 			},{
@@ -210,24 +219,21 @@ Ext.onReady(function(){
 			tooltip:'Eliminar Capacidad',
 			disabled: true,
 			handler: function(){
-										storeRolRes.baseParams = {'accion': 'eliminar'};
-										storeRolRes.load({params:{
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_rol_res.php"},
+										storeRolRespRes.baseParams = {'accion': 'eliminar'};
+										storeRolRespRes.load({params:{
+												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp_resp").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
 										callback: function () {
-										if(storeRolRes.getAt(0).data.resp!=true){		
+										if(storeRolResp.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRolRes.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeRolResp.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -241,15 +247,15 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_rol_resp',
-                store: storeRolRes,
-                cm: colModelRolRes,
+				id: 'gd_rol',
+                store: storeRolResp,
+                cm: colModelRolResp,
 			//	plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_rol_resp").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_rol").getForm().loadRecord(rec);
                         }
                     }
                 }),
@@ -263,7 +269,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeRolRes,
+				store: storeRolResp,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -277,12 +283,67 @@ Ext.onReady(function(){
     });
 
 
+	function selRolResp(){
+	storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
+	if(!winRolResp){
+				winRolResp = new Ext.Window({
+						applyTo : 'winRolResp',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selRolResp',
+								store: storeRolResp,
+								cm: colModelRolResp,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Roles',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected();
+											Ext.getCmp("co_rol_resp").setValue(record.data.co_rol_resp);
+											Ext.getCmp("nb_rol").setValue(record.data.nb_rol);
+											Ext.getCmp("tx_descripcion").setValue(record.data.tx_descripcion);
+											Ext.getCmp("co_rol_padre").setValue(record.data.co_rol_resp_padre);
+											winRolResp.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winRolResp.hide();
+								  }
+						}]
+				});
+		}
+		winCond.show();	
+}
 	
-	
-storeRolRes.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_rol_res.php"}});
+storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_rol_resp").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -295,7 +356,9 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-
+var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerRolResp.onTriggerClick = selRolResp;
+		triggerRolResp.applyToMarkup('co_rol_padre');	
 });
 
 </script>
