@@ -72,7 +72,7 @@ Ext.onReady(function(){
         {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
         {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
         {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
-        {header: "Cantidad de Personas", width: 1401, sortable: true, locked:false, dataIndex: 'ca_persona'},
+        {header: "Cantidad de Personas", width: 144, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 	
 	
