@@ -28,7 +28,7 @@ class RolResponsabilidad extends MyPDO
    * 
    * @access public
    */
-  public $columRolResponsabilidad= array('co_rol_resp'=>'co_rol_resp', 'nb_rol'=>'nb_rol', 'tx_descripcion'=>'tx_descripcion');
+  public $columRolResponsabilidad= array('co_rol_resp'=>'co_rol_resp', 'nb_rol'=>'nb_rol', 'tx_descripcion'=>'tx_descripcion', 'co_rol_padre'=>'co_rol_padre');
 
   /**
    * 
