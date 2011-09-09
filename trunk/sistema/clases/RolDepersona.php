@@ -47,7 +47,7 @@ class RolDepersona extends MyPDO
 
 	$roldepersona = array_intersect_key($roldepersona, $this->columRolDepersona);
 	
-	$r1 = $this->pdo->_insert('tr009_rol_persona', $roldepersona);
+	$r1 = $this->pdo->_insert('tr008_rol_persona', $roldepersona);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -67,7 +67,7 @@ class RolDepersona extends MyPDO
 
 	$roldepersona = array_intersect_key($roldepersona, $this->columRolDepersona);
 	
-	$r1 = $this->pdo->_update('tr009_rol_persona', $roldepersona, $condiciones);
+	$r1 = $this->pdo->_update('tr008_rol_persona', $roldepersona, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -85,7 +85,7 @@ class RolDepersona extends MyPDO
   	$this->pdo->beginTransaction();	
 
 
-	$r1 = $this->pdo->_delete('tr009_rol_persona', $condiciones);
+	$r1 = $this->pdo->_delete('tr008_rol_persona', $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -102,7 +102,7 @@ class RolDepersona extends MyPDO
   public function cargarRolDepersona() {
 
 	$query = "SELECT *
-				FROM tr009_rol_persona;";
+				FROM tr008_rol_persona;";
 
 	$r = $this->pdo->_query($query);
 	
