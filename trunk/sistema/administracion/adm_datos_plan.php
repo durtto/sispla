@@ -62,7 +62,14 @@ Ext.onReady(function(){
 		root: 'datosplan',
         totalProperty: 'total',
 		idProperty: 'co_componente',
-        fields: [{name: 'co_componente'},					{name: 'fe_vigencia'},					{name: 'tx_objetivo'},	   {name: 'tx_alcance'},   {name: 'tx_identificacion_negocio'},		   {name: 'tx_localidad'},		   {name: 'tx_organizacion'},      {name: 'resp'}]
+        fields: [{name: 'co_componente'},
+        		{name: 'fe_vigencia'},		
+        		{name: 'tx_objetivo'},	  
+        		{name: 'tx_alcance'},   
+        		{name: 'tx_identificacion_negocio'},
+        		{name: 'tx_localidad'},  
+        		{name: 'tx_organizacion'},
+        		{name: 'resp'}]
         });
     storeDatosPlan.setDefaultSort('co_componente', 'ASC');
 	

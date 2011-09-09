@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'doccomponentes',
         totalProperty: 'total',
 		idProperty: 'co_doc_componente',
-        fields: [{name: 'co_doc_componente'},					{name: 'tx_url_direccion'},			{name: 'resp'}]
+        fields: [{name: 'co_doc_componente'},
+        		{name: 'tx_url_direccion'},
+        		{name: 'resp'}]
         });
     storeDocComponente.setDefaultSort('co_doc_componente', 'ASC');
 	

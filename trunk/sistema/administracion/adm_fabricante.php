@@ -62,7 +62,13 @@ Ext.onReady(function(){
 		root: 'fabricantes',
         totalProperty: 'total',
 		idProperty: 'co_fabricante',
-        fields: [{name: 'co_fabricante'},					{name: 'nb_fabricante'},	{name: 'di_ubicacion'},		{name: 'nu_telefono'},		{name: 'tx_correo_electronico'},	{name: 'tx_pagina_web'},	{name: 'resp'}]
+        fields: [{name: 'co_fabricante'},
+        		{name: 'nb_fabricante'},
+        		{name: 'di_ubicacion'},
+        		{name: 'nu_telefono'},
+        		{name: 'tx_correo_electronico'},
+        		{name: 'tx_pagina_web'},
+        		{name: 'resp'}]
         });
     storeFabricante.setDefaultSort('co_fabricante', 'ASC');
 	

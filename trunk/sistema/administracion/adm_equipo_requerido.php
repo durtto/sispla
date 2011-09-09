@@ -65,7 +65,15 @@ Ext.onReady(function(){
 		root: 'equipos',
         totalProperty: 'total',
 		idProperty: 'co_equipo_requerido',
-        fields: [{name: 'co_equipo_requerido'},	{name: 'bo_vehiculo'},	{name: 'bo_laptop'},	{name: 'bo_maletin_herramientas'},	{name: 'bo_radio'},	{name: 'bo_multimetro_digital'},	{name: 'bo_hart'},	{name: 'co_activo'},	{name: 'co_indicador'},		{name: 'resp'}]
+        fields: [{name: 'co_equipo_requerido'},
+        		{name: 'bo_vehiculo'},
+        		{name: 'bo_laptop'},
+        		{name: 'bo_maletin_herramientas'},
+        		{name: 'bo_radio'},
+        		{name: 'bo_multimetro_digital'},
+        		{name: 'bo_hart'},	{name: 'co_activo'},
+        		{name: 'co_indicador'},
+        		{name: 'resp'}]
         });
     storeEquipo.setDefaultSort('co_equipo_requerido', 'ASC');
 	

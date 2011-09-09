@@ -62,7 +62,11 @@ Ext.onReady(function(){
 		root: 'procesos',
         totalProperty: 'total',
 		idProperty: 'co_proceso',
-        fields: [{name: 'co_proceso'},					{name: 'nb_proceso'},	{name: 'tx_descripcion'},		{name: 'bo_critico'},		{name: 'resp'}]
+        fields: [{name: 'co_proceso'},
+		        {name: 'nb_proceso'},
+		        {name: 'tx_descripcion'},
+		        {name: 'bo_critico'},
+		        {name: 'resp'}]
         });
     storeProceso.setDefaultSort('co_proceso', 'ASC');
 	

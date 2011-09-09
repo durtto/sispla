@@ -65,7 +65,10 @@ Ext.onReady(function(){
 		root: 'roldepersonas',
         totalProperty: 'total',
 		idProperty: 'co_rol',
-        fields: [{name: 'co_rol'},					{name: 'nb_rol'},	{name: 'tx_descripcion'},				{name: 'resp'}]
+        fields: [{name: 'co_rol'},
+		        {name: 'nb_rol'},
+		        {name: 'tx_descripcion'},
+		        {name: 'resp'}]
         });
     storeRol.setDefaultSort('co_rol', 'ASC');
 	

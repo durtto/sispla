@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Linea Taxi</title>
+<title>Plan de Localizacion</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_linea'] = 'Codigo Linea';
+	camposReq['co_plan_localizacion'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
@@ -56,26 +56,22 @@ Ext.onReady(function(){
     };
     var local = true;
 	
-  var storeLinea = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_linea_taxi.php',
+  var storePlanLocalizacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_plan_localizacion.php',
 		remoteSort : true,
-		root: 'lineas',
+		root: 'planeslocalizacion',
         totalProperty: 'total',
-		idProperty: 'co_linea',
-        fields: [{name: 'co_linea'},
-        		{name: 'nb_linea'},
-        		{name: 'tx_telefono'},
-        		{name: 'di_oficina'},
+		idProperty: 'co_plan_localizacion',
+        fields: [{name: 'co_plan_localizacion'},
+       			{name: 'fe_elaboracion'},
         		{name: 'resp'}]
         });
-    storeLinea.setDefaultSort('co_linea', 'ASC');
+    storePlanLocalizacion.setDefaultSort('co_plan_localizacion', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Linea", width: 100, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_linea'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
+    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
+        {id:'co_plan_localizacion',header: "Plan Localizacion", width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
+        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
 	
@@ -86,10 +82,10 @@ Ext.onReady(function(){
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_linea',
+        id: 'frm_planlocalizacion',
         frame: true,
 		labelAlign: 'center',
-        title: 'Lineas',
+        title: 'Plan Localizacion',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -100,7 +96,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Lineas',
+			title: 'Plan Localizacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -108,47 +104,21 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Linea',
+                        fieldLabel: 'Numero de Plan Localizacion',
 						xtype:'numberfield',
-						id: 'co_linea',
-                        name: 'co_linea',
+						id: 'co_plan_localizacion',
+                        name: 'co_plan_localizacion',
                         //hidden: true,
 						//hideLabel: true,
                         width:160
                     }, {
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
+                        fieldLabel: 'Fecha de Elaboracion',
+						xtype:'datefield',
 						vtype:'validos',
-						id: 'nb_linea',
-                        name: 'nb_linea',
+						id: 'fe_elaboracion',
+                        name: 'fe_elaboracion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }, {
-                        fieldLabel: 'Telefono',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'tx_telefono',
-                        name: 'tx_telefono',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }, {
-                        fieldLabel: 'Direccion',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'di_oficina',
-                        name: 'di_oficina',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
+                        width:140
                     }]
 			}]
 			},{
@@ -167,7 +137,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_linea").focus();
+					Ext.getCmp("co_plan_localizacion").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -177,7 +147,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_linea").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_planlocalizacion").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -190,21 +160,19 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeLinea.baseParams = {'accion': 'insertar'};
+								storePlanLocalizacion.baseParams = {'accion': 'insertar'};
 							else
-								storeLinea.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_linea" : "'+Ext.getCmp("co_linea").getValue()+'", ';
-								columnas += '"nb_linea" : "'+Ext.getCmp("nb_linea").getValue()+'", ';
-								columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
-								columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'"}';
-							storeLinea.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
+								storePlanLocalizacion.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
+							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
+							storePlanLocalizacion.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
-										if(storeLinea.getAt(0).data.resp!=true){		
+										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeLinea.getAt(0).data.resp, 
+												msg: storePlanLocalizacion.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -219,24 +187,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeLinea.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_linea.php'};
+							storePlanLocalizacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_localizacion.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Linea',
+			tooltip:'Eliminar Grupo',
 			disabled: true,
 			handler: function(){
-										storeLinea.baseParams = {'accion': 'eliminar'};
-										storeLinea.load({params:{
-												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
+										storePlanLocalizacion.baseParams = {'accion': 'eliminar'};
+										storePlanLocalizacion.load({params:{
+												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
-										if(storeLinea.getAt(0).data.resp!=true){		
+										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeLinea.getAt(0).data.resp,
+												msg: storePlanLocalizacion.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -256,21 +224,21 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_linea',
-                store: storeLinea,
-                cm: colModelLinea,
+				id: 'gd_planlocalizacion',
+                store: storePlanLocalizacion,
+                cm: colModelPlanLocalizacion,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_linea").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_planlocalizacion").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Linea',
+				title:'Lista de PlanLocalizacions',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -278,7 +246,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeLinea,
+				store: storePlanLocalizacion,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -294,10 +262,10 @@ Ext.onReady(function(){
 
 	
 	
-storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_linea.php"}});
+storePlanLocalizacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_plan_localizacion.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_linea").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_planlocalizacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -305,7 +273,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_linea").focus();
+		Ext.getCmp("co_plan_localizacion").focus();
 		nroReg=rowIdx;
 		
 });

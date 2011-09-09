@@ -62,7 +62,11 @@ Ext.onReady(function(){
 		root: 'estados',
         totalProperty: 'total',
 		idProperty: 'co_estado',
-        fields: [{name: 'co_estado'},					{name: 'nb_estado'},	{name: 'tx_descripcion'},		{name: 'bo_critico'},		{name: 'resp'}]
+        fields: [{name: 'co_estado'},
+        		{name: 'nb_estado'},
+        		{name: 'tx_descripcion'},
+        		{name: 'bo_critico'},
+        		{name: 'resp'}]
         });
     storeEstado.setDefaultSort('co_estado', 'ASC');
 	

@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'modelos',
         totalProperty: 'total',
 		idProperty: 'co_modelo',
-        fields: [{name: 'co_modelo'},					{name: 'nb_modelo'},			{name: 'resp'}]
+        fields: [{name: 'co_modelo'},
+        		{name: 'nb_modelo'},
+        		{name: 'resp'}]
         });
     storeModelo.setDefaultSort('co_modelo', 'ASC');
 	

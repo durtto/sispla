@@ -64,7 +64,12 @@ Ext.onReady(function(){
 		root: 'guardias',
         totalProperty: 'total',
 		idProperty: 'co_guardia',
-        fields: [{name: 'co_guardia'},					{name: 'nb_guardia'},					{name: 'nu_numero'},	   {name: 'tx_descripcion'},		{name: 'resp'}]
+        fields: [{name: 'co_guardia'},			
+        		{name: 'nb_guardia'},				
+        		{name: 'nu_numero'},	 
+        		{name: 'tx_descripcion'},		
+        		{name: 'resp'}]
+       
         });
     storeGuardia.setDefaultSort('co_guardia', 'ASC');
 	

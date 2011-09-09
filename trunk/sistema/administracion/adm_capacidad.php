@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
-        fields: [{name: 'co_capacidad'},					{name: 'nb_capacidad'},			{name: 'resp'}]
+        fields: [{name: 'co_capacidad'},
+        		{name: 'nb_capacidad'},		
+        		{name: 'resp'}]
         });
     storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
 	

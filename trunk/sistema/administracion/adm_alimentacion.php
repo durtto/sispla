@@ -62,7 +62,12 @@ Ext.onReady(function(){
 		root: 'alimentos',
         totalProperty: 'total',
 		idProperty: 'co_alimentacion',
-        fields: [{name: 'co_alimentacion'},					{name: 'ca_desayuno'},					{name: 'ca_almuerzo'},					{name: 'ca_cena'},							{name: 'ca_persona'},				{name: 'resp'}]
+        fields: [{name: 'co_alimentacion'},
+        		{name: 'ca_desayuno'},		
+        		{name: 'ca_almuerzo'},		
+        		{name: 'ca_cena'},	
+        		{name: 'ca_persona'},
+        		{name: 'resp'}]
         });
     storeAlimentacion.setDefaultSort('co_alimentacion', 'ASC');
 	
