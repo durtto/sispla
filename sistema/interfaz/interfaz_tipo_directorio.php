@@ -1,5 +1,5 @@
 <?php
-	require_once '../clases/TipoDeDirectorio.php';
+	require_once '../clases/TipoDirectorio.php';
 	
 	$tpdirectorio = new TpDirectorio();
 	
