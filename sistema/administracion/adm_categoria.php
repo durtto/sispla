@@ -202,7 +202,7 @@ Ext.onReady(function(){
 										storeCategoria.baseParams = {'accion': 'eliminar'};
 										storeCategoria.load({params:{
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_apacidad.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
 										if(storeCategoria.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
