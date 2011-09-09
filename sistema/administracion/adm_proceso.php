@@ -128,6 +128,16 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    },{
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Critico',
+	            		id: 'bo_critico',
+		                name: 'bo_critico',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'critico', checked : true, inputValue: 1},
+			                {boxLabel: 'No', name: 'critico', inputValue: 0},
+			           			]
                     }]
 			},{
 					layout: 'form',
@@ -142,16 +152,6 @@ Ext.onReady(function(){
                         height: 100,
             			anchor: '100%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                    },{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Critico',
-	            		id: 'bo_critico',
-		                name: 'bo_critico',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'critico', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'critico', inputValue: 0},
-			           			]
                     }]
 			}]
 			},{
