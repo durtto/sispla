@@ -1,6 +1,6 @@
 <html>
 <head>
-<title></title>
+<title>Tipo Directorio</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -67,7 +67,7 @@ Ext.onReady(function(){
     storeTpDirectorio.setDefaultSort('co_tipo_directorio', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModeltpDireccion = new Ext.grid.ColumnModel([
+    var colModeltpDirectorio = new Ext.grid.ColumnModel([
         {id:'co_tipo_directorio',header: "Directorio", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
       ]);
@@ -229,7 +229,7 @@ Ext.onReady(function(){
                 xtype: 'grid',
 				id: 'gd_tpdirectorio',
                 store: storeTpDirectorio,
-                cm: colModeltpDireccion,
+                cm: colModeltpDirectorio,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
