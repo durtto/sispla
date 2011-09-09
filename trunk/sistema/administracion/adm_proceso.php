@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_grupo'] = 'Codigo Grupo';
+	camposReq['co_proceso'] = 'Codigo Proceso';
 	
     var bd = Ext.getBody();
 
@@ -297,7 +297,7 @@ Ext.onReady(function(){
 
  
 	
-storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_grupo.php"}});
+storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_proceso.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_proceso").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
