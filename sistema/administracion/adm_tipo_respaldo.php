@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'tprespaldos',
         totalProperty: 'total',
 		idProperty: 'co_tipo_respaldo',
-        fields: [{name: 'co_tipo_respaldo'},					{name: 'nb_tipo_respaldo'},			{name: 'resp'}]
+        fields: [{name: 'co_tipo_respaldo'},
+		        {name: 'nb_tipo_respaldo'},
+		        {name: 'resp'}]
         });
     storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
 	

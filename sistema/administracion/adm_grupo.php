@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'grupos',
         totalProperty: 'total',
 		idProperty: 'co_grupo',
-        fields: [{name: 'co_grupo'},					{name: 'nb_grupo'},			{name: 'resp'}]
+        fields: [{name: 'co_grupo'},
+        		{name: 'nb_grupo'},
+        		{name: 'resp'}]
         });
     storeGrupo.setDefaultSort('co_grupo', 'ASC');
 	

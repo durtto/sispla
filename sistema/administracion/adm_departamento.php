@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'departamentos',
         totalProperty: 'total',
 		idProperty: 'co_departamento',
-        fields: [{name: 'co_departamento'},					{name: 'nb_departamento'},			{name: 'resp'}]
+        fields: [{name: 'co_departamento'},
+        		{name: 'nb_departamento'},	
+        		{name: 'resp'}]
         });
     storeDepartamento.setDefaultSort('co_departamento', 'ASC');
 	

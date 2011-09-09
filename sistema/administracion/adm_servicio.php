@@ -63,7 +63,9 @@ Ext.onReady(function(){
 		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
-        fields: [{name: 'co_capacidad'},					{name: 'nb_capacidad'},			{name: 'resp'}]
+        fields: [{name: 'co_capacidad'},
+				{name: 'nb_capacidad'},
+				{name: 'resp'}]
         });
     storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
 	
@@ -79,7 +81,11 @@ Ext.onReady(function(){
 		root: 'servicios',
         totalProperty: 'total',
 		idProperty: 'co_servicio',
-        fields: [{name: 'co_servicio'},					{name: 'nb_servicio'},	{name: 'tx_descripcion'},		{name: 'co_capacidad'},		{name: 'resp'}]
+        fields: [{name: 'co_servicio'},
+		        {name: 'nb_servicio'},
+		        {name: 'tx_descripcion'},
+		        {name: 'co_capacidad'},
+		        {name: 'resp'}]
         });
     storeServicio.setDefaultSort('co_servicio', 'ASC');
 	

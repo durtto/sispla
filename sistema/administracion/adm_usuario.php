@@ -62,7 +62,12 @@ Ext.onReady(function(){
 		root: 'vehiculos',
         totalProperty: 'total',
 		idProperty: 'co_usuario',
-        fields: [{name: 'co_usuario'},					{name: 'nb_usuario'},			{name: 'co_indicador'},			{name: 'co_privilegio'},		{name: 'tx_unidad'},		{name: 'resp'}]
+        fields: [{name: 'co_usuario'},
+		        {name: 'nb_usuario'},
+		        {name: 'co_indicador'},
+		        {name: 'co_privilegio'},
+		        {name: 'tx_unidad'},
+		        {name: 'resp'}]
         });
     storeVehiculo.setDefaultSort('co_usuario', 'ASC');
 	

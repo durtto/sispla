@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'categorias',
         totalProperty: 'total',
 		idProperty: 'co_categoria',
-        fields: [{name: 'co_categoria'},					{name: 'nb_categoria'},			{name: 'resp'}]
+        fields: [{name: 'co_categoria'},
+        		{name: 'nb_categoria'},	
+        		{name: 'resp'}]
         });
     storeCategoria.setDefaultSort('co_categoria', 'ASC');
 	

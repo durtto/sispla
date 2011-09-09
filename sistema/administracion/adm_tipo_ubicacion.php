@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'tpubicaciones',
         totalProperty: 'total',
 		idProperty: 'co_tipo_ubicacion',
-        fields: [{name: 'co_tipo_ubicacion'},					{name: 'nb_tipo_ubicacion'},			{name: 'resp'}]
+        fields: [{name: 'co_tipo_ubicacion'},
+        		{name: 'nb_tipo_ubicacion'},
+				{name: 'resp'}]
         });
     storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
 	

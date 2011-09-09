@@ -66,7 +66,11 @@ Ext.onReady(function(){
 		root: 'rolresponsabilidades',
         totalProperty: 'total',
 		idProperty: 'co_rol_resp',
-        fields: [{name: 'co_rol_resp'},					{name: 'nb_rol'},	{name: 'tx_descripcion'},		{name: 'co_rol_padre'},		{name: 'resp'}]
+        fields: [{name: 'co_rol_resp'},
+        		{name: 'nb_rol'},
+        		{name: 'tx_descripcion'},
+        		{name: 'co_rol_padre'},
+        		{name: 'resp'}]
         });
     storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
 	

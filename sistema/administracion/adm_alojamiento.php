@@ -62,7 +62,13 @@ Ext.onReady(function(){
 		root: 'alojamientos',
         totalProperty: 'total',
 		idProperty: 'co_alojamiento',
-        fields: [{name: 'co_alojamiento'},					{name: 'nb_establecimiento'},	{name: 'di_ubicacion'},		{name: 'nu_telefono'},		{name: 'bo_hotel'},	{name: 'bo_posada'},	{name: 'resp'}]
+        fields: [{name: 'co_alojamiento'},
+        		{name: 'nb_establecimiento'},
+        		{name: 'di_ubicacion'},
+        		{name: 'nu_telefono'},
+        		{name: 'bo_hotel'},
+        		{name: 'bo_posada'},
+        		{name: 'resp'}]
         });
     storeAlojamiento.setDefaultSort('co_alojamiento', 'ASC');
 	

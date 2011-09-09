@@ -62,7 +62,9 @@ Ext.onReady(function(){
 		root: 'tpdirectorios',
         totalProperty: 'total',
 		idProperty: 'co_tipo_directorio',
-        fields: [{name: 'co_tipo_directorio'},					{name: 'nb_tipo_directorio'},			{name: 'resp'}]
+        fields: [{name: 'co_tipo_directorio'},
+		        {name: 'nb_tipo_directorio'},
+		        {name: 'resp'}]
         });
     storeTpDirectorio.setDefaultSort('co_tipo_directorio', 'ASC');
 	

@@ -66,7 +66,10 @@ Ext.onReady(function(){
 		root: 'transportes',
         totalProperty: 'total',
 		idProperty: 'co_transporte',
-        fields: [{name: 'co_transporte'},					{name: 'co_linea'},					{name: 'co_vehiculo'},			{name: 'resp'}]
+        fields: [{name: 'co_transporte'},
+		        {name: 'co_linea'},
+		        {name: 'co_vehiculo'},
+		        {name: 'resp'}]
         });
     storeTransporte.setDefaultSort('co_transporte', 'ASC');
 	
