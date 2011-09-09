@@ -43,10 +43,11 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ var winCapacidad;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_servico'] = 'Codigo Servicio';
+	camposReq['co_servicio'] = 'Codigo Servicio';
 	
     var bd = Ext.getBody();
 
@@ -55,7 +56,23 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+    
+	 var storeCapacidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_capacidad.php',
+		remoteSort : true,
+		root: 'capacidades',
+        totalProperty: 'total',
+		idProperty: 'co_capacidad',
+        fields: [{name: 'co_capacidad'},					{name: 'nb_capacidad'},			{name: 'resp'}]
+        });
+    storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
 	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelCapacidad = new Ext.grid.ColumnModel([
+        {id:'co_capacidad',header: "Codigo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+      ]);
+      
   var storeServicio = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_servicio.php',
 		remoteSort : true,
@@ -142,14 +159,46 @@ Ext.onReady(function(){
                         height: 100,
             			anchor: '100%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                    },{
+                    }]
+			}]
+			},{
+	   		xtype:'fieldset',
+			id: 'frm2',
+			disabled: true,
+			labelAlign: 'center',
+			width:640,
+			buttonAlign:'center',
+			//layout:'column',
+			title: 'Capacidad',
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					//columnWidth:.55,
+					border:false,
+					items: [{
                         fieldLabel: 'Codigo de Capacidad',
 						xtype:'numberfield',
 						id: 'co_capacidad',
                         name: 'co_capacidad',
-                      	width:140
-                    
-				}]
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
+                    }, {
+                        fieldLabel: 'Nombre',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_capacidad',
+						disabled:true,
+                        name: 'nb_capacidad',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    }]
 			}]
 			},{
 				width: 640,  
@@ -165,6 +214,7 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
+						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_servicio").focus();
@@ -291,7 +341,60 @@ Ext.onReady(function(){
         
     });
 
-
+function selCapacidad(){
+storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_capacidad.php"}});
+	if(!winCapacidad){
+				winCapacidad = new Ext.Window({
+						applyTo : 'winCapacidad',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selCapacidad',
+								store: storeCapacidad,
+								cm: colModelCapacidad,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Capacidad',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected();
+											Ext.getCmp("co_capacidad").setValue(record.data.co_capacidad);
+											Ext.getCmp("nb_capacidad").setValue(record.data.nb_capacidad);
+											winCapacidad.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winCapacidad.hide();
+								  }
+						}]
+				});
+		}
+		winCapacidad.show();	
+}
  
 	
 storeServicio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_servicio.php"}});
@@ -304,13 +407,16 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
+			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_servicio").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-
+var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerCapacidad.onTriggerClick = selCapacidad;
+		triggerCapacidad.applyToMarkup('co_capacidad');
 });
 
 </script>
@@ -322,6 +428,9 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
+<div id="winCapacidad" class="x-hidden">
+    <div class="x-window-header">Ejegir Capacidad</div>
+	
+</div>
 </body>
 </html>
