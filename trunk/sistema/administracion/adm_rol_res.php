@@ -337,7 +337,7 @@ Ext.onReady(function(){
 						}]
 				});
 		}
-		winCond.show();	
+		winRolResp.show();	
 }
 	
 storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
@@ -370,6 +370,9 @@ var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
+<div id="winRolResp" class="x-hidden">
+    <div class="x-window-header">Ejegir Rol Padre</div>
+	
+</div>
 </body>
 </html>
