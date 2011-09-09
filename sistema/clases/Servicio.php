@@ -111,8 +111,19 @@ class Servicio extends MyPDO
    */
   public function cargarServicio() {
 
-	$query = "SELECT *
-				FROM tr013_servicio;";
+	$query = "SELECT 
+  tr013_servicio.co_servicio, 
+  tr013_servicio.nb_servicio, 
+  tr013_servicio.tx_descripcion, 
+  tr013_servicio.co_capacidad, 
+  tr012_capacidad.co_capacidad, 
+  tr012_capacidad.nb_capacidad
+FROM 
+  public.tr013_servicio, 
+  public.tr012_capacidad
+WHERE 
+  tr013_servicio.co_capacidad = tr012_capacidad.co_capacidad;
+";
 
 	$r = $this->pdo->_query($query);
 	
