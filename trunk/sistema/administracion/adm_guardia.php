@@ -81,7 +81,6 @@ Ext.onReady(function(){
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
@@ -98,13 +97,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Guardia',
+			layout:'column',
+			title: 'Procesos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo de Guardia',
@@ -114,24 +113,18 @@ Ext.onReady(function(){
                         //hidden: true,
 						//hideLabel: true,
                         width:160
-                    }, {
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Nombre Guardia',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_guardia',
                         name: 'nb_guardia',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Descripcion',
-						xtype:'textfield',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -146,6 +139,20 @@ Ext.onReady(function(){
                         name: 'nu_numero',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
+                    }]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:"100%",
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Descripcion',
+						xtype:'htmleditor',
+						id: 'tx_descripcion',
+                        name: 'tx_descripcion',
+                        height: 100,
+            			anchor: '100%',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
@@ -201,16 +208,13 @@ Ext.onReady(function(){
 										if(storeGuardia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeGuardia.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: "Error"+storeGuardia.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
