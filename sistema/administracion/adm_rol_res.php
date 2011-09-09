@@ -94,13 +94,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Roles',
+			layout:'column',
+			title: 'Procesos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo de Rol',
@@ -117,21 +117,19 @@ Ext.onReady(function(){
 						id: 'nb_rol',
                         name: 'nb_rol',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Descripcion',
-						xtype:'htmleditor',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        height: 100,
-            			anchor: '100%'
-                    },{
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Codigo de Rol Padre',
 						xtype:'numberfield',
 						id: 'co_rol_padre',
@@ -141,6 +139,20 @@ Ext.onReady(function(){
 						width:140
                     
 				}]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:"100%",
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Descripcion',
+						xtype:'htmleditor',
+						id: 'tx_descripcion',
+                        name: 'tx_descripcion',
+                        height: 100,
+            			anchor: '100%',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                    }]
 			}]
 			},{
 				width: 640,  
