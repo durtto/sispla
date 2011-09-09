@@ -51,7 +51,7 @@ class Estado extends MyPDO
 
 	$estado = array_intersect_key($estado, $this->columEstado);
 	
-	$r1 = $this->pdo->_insert('tr002_estado', $estado);
+	$r1 = $this->pdo->_insert('tr004_estado', $estado);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -71,7 +71,7 @@ class Estado extends MyPDO
 
 	$estado = array_intersect_key($estado, $this->columEstado);
 	
-	$r1 = $this->pdo->_update('tr002_estado', $estado, $condiciones);
+	$r1 = $this->pdo->_update('tr004_estado', $estado, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -90,7 +90,7 @@ class Estado extends MyPDO
   	$this->pdo->beginTransaction();	
 
 
-	$r1 = $this->pdo->_delete('tr002_estado', $condiciones);
+	$r1 = $this->pdo->_delete('tr004_estado', $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -107,7 +107,7 @@ class Estado extends MyPDO
   public function cargarEstado( ) {
 
 	$query = "SELECT *
-                FROM tr002_estado;
+                FROM tr004_estado;
 ";
 
 	$r = $this->pdo->_query($query);
