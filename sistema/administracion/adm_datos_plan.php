@@ -47,19 +47,16 @@ Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
 	camposReq['co_componente'] = 'Codigo Componente';
-	camposReq['fe_vigencia'] = 'Fecha de Vigencia';
-
+	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
-  var storeDatosPlan = new Ext.data.JsonStore({
+   var storeDatosPlan = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_dato_plan.php',
 		remoteSort : true,
 		root: 'datosplan',
@@ -85,25 +82,24 @@ Ext.onReady(function(){
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
-    var gridForm = new Ext.FormPanel({
+var gridForm = new Ext.FormPanel({
         id: 'frm_datosplan',
         frame: true,
 		labelAlign: 'center',
-        title: 'Componentes',
+        title: 'Datos del Plan',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:700,
+		width:660,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:680,
+			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Componente',
+			title: 'Datos del Plan',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -190,7 +186,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -222,7 +218,7 @@ Ext.onReady(function(){
 							if(nuevo)						
 								storeDatosPlan.baseParams = {'accion': 'insertar'};
 							else
-								storeDatosPlan.baseParams = {'accion': 'modificar'};
+								storeDatosPlan.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_componente" : "'+Ext.getCmp("co_componente").getValue()+'", ';
 								columnas += '"fe_vigencia" : "'+Ext.getCmp("fe_vigencia").getValue()+'", ';
 								columnas += '"tx_objetivo" : "'+Ext.getCmp("tx_objetivo").getValue()+'", ';
@@ -232,21 +228,18 @@ Ext.onReady(function(){
 								columnas += '"tx_organizacion" : "'+Ext.getCmp("tx_organizacion").getValue()+'"}';
 							storeDatosPlan.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_dato_plan.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
 										if(storeDatosPlan.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDatosPlan.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeDatosPlan.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -255,33 +248,30 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeDatosPlan.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_dato_plan.php'};
+							storeDatosPlan.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_dato_planphp'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Datos del Plan',
+			tooltip:'Eliminar Categoria',
 			disabled: true,
 			handler: function(){
 										storeDatosPlan.baseParams = {'accion': 'eliminar'};
 										storeDatosPlan.load({params:{
-												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_dato_plan.php"},
+												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_dato_plan.php"},
 										callback: function () {
 										if(storeDatosPlan.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDatosPlan.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeDatosPlan.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_componente").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -292,13 +282,13 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:690,
+			width:640,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_datosplan',
                 store: storeDatosPlan,
                 cm: colModelDatosPlan,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -309,7 +299,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Componentes',
+				title:'Lista de Planes',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -330,10 +320,9 @@ Ext.onReady(function(){
         
     });
 
-
 	
 	
-storeDatosPlan.load({params: { start: 0, limit: 50, accion:"refrescar"}});
+storeDatosPlan.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_dato_plan.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_datosplan").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
