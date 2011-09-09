@@ -21,7 +21,7 @@ class Alojamiento {
 	 * @AttributeType string
 	 * Direcci�n del sitio de alojamiento.
 	 */
-	private $_di_direccion;
+	private $_di_ubicacion;
 	/**
 	 * @AttributeType boolean
 	 * Define si el alojamiento es de tipo hotel.
@@ -46,7 +46,7 @@ class Alojamiento {
    * 
    * @access public
    */
-  public $columAlojamiento= array('co_alojamiento'=>'co_alojamiento', 'nb_establecimiento'=>'nb_establecimiento', 'di_direccion'=>'di_direccion', 'bo_hotel'=>'bo_hotel', 'bo_hotel'=>'bo_hotel', 'tx_telefono'=>'tx_telefono');
+  public $columAlojamiento= array('co_alojamiento'=>'co_alojamiento', 'nb_establecimiento'=>'nb_establecimiento', 'di_ubicacion'=>'di_ubicacion', 'bo_hotel'=>'bo_hotel', 'bo_hotel'=>'bo_hotel', 'tx_telefono'=>'tx_telefono');
   
   /**
    * 
@@ -117,7 +117,7 @@ class Alojamiento {
    * @return string
    * @access public
    */
-  public function cargarAlojamiento( ) {
+ public function cargarAlojamiento( ) {
 
 	$query = "SELECT *
                 FROM tr017_alojamiento;
@@ -127,6 +127,6 @@ class Alojamiento {
 	
 			
 	return $r;
-  } // end of member function cargarAlojamiento
+  } // end of member function cargarCapacidad
 }
 ?>
