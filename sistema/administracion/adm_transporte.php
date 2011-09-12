@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_transporte'] = 'Codigo Grupo';
+	camposReq['co_transporte'] = 'Codigo Transporte';
 	
     var bd = Ext.getBody();
 
@@ -59,7 +59,7 @@ Ext.onReady(function(){
   var storeTransporte = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_transporte.php',
 		remoteSort : true,
-		root: 'planeslocalizacion',
+		root: 'transportes',
         totalProperty: 'total',
 		idProperty: 'co_transporte',
         fields: [{name: 'co_transporte'},
@@ -82,7 +82,7 @@ Ext.onReady(function(){
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_planlocalizacion',
+        id: 'frm_transporte',
         frame: true,
 		labelAlign: 'center',
         title: 'Transporte',
@@ -147,7 +147,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_planlocalizacion").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_transporte").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -166,7 +166,7 @@ Ext.onReady(function(){
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
 							storeTransporte.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
@@ -198,7 +198,7 @@ Ext.onReady(function(){
 			handler: function(){
 										storeTransporte.baseParams = {'accion': 'eliminar'};
 										storeTransporte.load({params:{
-												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
