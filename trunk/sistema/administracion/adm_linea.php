@@ -99,13 +99,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Lineas',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero de Linea',
@@ -128,7 +128,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }, {
+                    }]
+                    },{
+                    layout: 'form',
+					labelWidth:100,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Telefono',
 						xtype:'textfield',
 						vtype:'validos',
