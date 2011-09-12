@@ -46,7 +46,7 @@ class Directorio extends MyPDO
 
 	$directorio = array_intersect_key($directorio, $this->columDirectorio);
 	
-	$r1 = $this->pdo->_insert('tr050_directorio', $directorio);
+	$r1 = $this->pdo->_insert('tr051_directorio', $directorio);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -66,7 +66,7 @@ class Directorio extends MyPDO
 
 	$directorio = array_intersect_key($directorio, $this->columDirectorio);
 	
-	$r1 = $this->pdo->_update('tr050_directorio', $directorio, $condiciones);
+	$r1 = $this->pdo->_update('tr051_directorio', $directorio, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -85,7 +85,7 @@ class Directorio extends MyPDO
   	$this->pdo->beginTransaction();	
 
 
-	$r1 = $this->pdo->_delete('tr050_directorio', $condiciones);
+	$r1 = $this->pdo->_delete('tr051_directorio', $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -101,9 +101,17 @@ class Directorio extends MyPDO
    */
   public function cargarDirectorio( ) {
 
-	$query = "SELECT *
-                FROM tr050_directorio;
-";
+	$query = "SELECT 
+  tr051_directorio.co_directorio, 
+  tr051_directorio.nb_directorio, 
+  tr050_tipo_directorio.nb_tipo_directorio
+
+  
+FROM 
+  public.tr051_directorio, 
+  public.tr050_tipo_directorio
+WHERE 
+  tr051_directorio.co_tipo_directorio = tr050_tipo_directorio.co_tipo_directorio;";
 
 	$r = $this->pdo->_query($query);
 	

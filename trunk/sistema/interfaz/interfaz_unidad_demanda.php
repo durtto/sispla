@@ -1,5 +1,5 @@
 <?php
-	require_once '../clases/UnidadDeDemanda';
+	require_once '../clases/UnidadDeDemanda.php';
 	
 	$unidad = new Unidad();
 	
@@ -22,7 +22,7 @@
 			$cond = $_REQUEST['columnas'];
 			$cond = str_replace('\"','"',$cond);
 			$unidades = json_decode($cond, true);
-			$unidades = array_filter($vuelos, "vacio");
+			$unidades = array_filter($unidades, "vacio");
 
 			
 			$respuesta = $unidad->insertarUnidad($unidades);	
