@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_privilegio'] = 'Codigo Estado';
+	camposReq['co_privilegio'] = 'Codigo Privilegio';
 	
     var bd = Ext.getBody();
 
@@ -56,7 +56,7 @@ Ext.onReady(function(){
     };
     var local = true;
 	
-  var storeEstado = new Ext.data.JsonStore({
+  var storePrivilegio = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_privilegio_usuario.php',
 		remoteSort : true,
 		root: 'privilegios',
@@ -68,11 +68,11 @@ Ext.onReady(function(){
         		{name: 'bo_critico'},
         		{name: 'resp'}]
         });
-    storeEstado.setDefaultSort('co_privilegio', 'ASC');
+    storePrivilegio.setDefaultSort('co_privilegio', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelEstado = new Ext.grid.ColumnModel([
-        {id:'co_privilegio',header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'co_privilegio'},
+    var colModelPrivilegio = new Ext.grid.ColumnModel([
+        {id:'co_privilegio',header: "Privilegio", width: 100, sortable: true, locked:false, dataIndex: 'co_privilegio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
@@ -88,7 +88,7 @@ Ext.onReady(function(){
         id: 'frm_privilegio',
         frame: true,
 		labelAlign: 'center',
-        title: 'Estado',
+        title: 'Privilegio',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -99,7 +99,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Estados',
+			title: 'Privilegios',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -107,7 +107,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Estado',
+                        fieldLabel: 'Numero Privilegio',
 						xtype:'numberfield',
 						id: 'co_privilegio',
                         name: 'co_privilegio',
@@ -186,20 +186,20 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeEstado.baseParams = {'accion': 'insertar'};
+								storePrivilegio.baseParams = {'accion': 'insertar'};
 							else
-								storeEstado.baseParams = {'accion': 'actualizar'};
+								storePrivilegio.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_privilegio" : "'+Ext.getCmp("co_privilegio").getValue()+'", ';
 								columnas += '"nb_privilegio" : "'+Ext.getCmp("nb_privilegio").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
-							storeEstado.load({params:{"columnas" : columnas,
+							storePrivilegio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_privilegio" : "'+Ext.getCmp("co_privilegio").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_privilegio_usuario.php"},
 										callback: function () {
-										if(storeEstado.getAt(0).data.resp!=true){		
+										if(storePrivilegio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeEstado.getAt(0).data.resp, 
+												msg: storePrivilegio.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -214,7 +214,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeEstado.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_privilegio_usuario.php'};
+							storePrivilegio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_privilegio_usuario.php'};
 						}
 				}
 			},{
@@ -223,15 +223,15 @@ Ext.onReady(function(){
 			tooltip:'Eliminar privilegio',
 			disabled: true,
 			handler: function(){
-										storeEstado.baseParams = {'accion': 'eliminar'};
-										storeEstado.load({params:{
+										storePrivilegio.baseParams = {'accion': 'eliminar'};
+										storePrivilegio.load({params:{
 												"condiciones": '{ "co_privilegio" : "'+Ext.getCmp("co_privilegio").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_privilegio_usuario.php"},
 										callback: function () {
-										if(storeEstado.getAt(0).data.resp!=true){		
+										if(storePrivilegio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeEstado.getAt(0).data.resp,
+												msg: storePrivilegio.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -252,8 +252,8 @@ Ext.onReady(function(){
 			items:[{
                 xtype: 'grid',
 				id: 'gd_privilegio',
-                store: storeEstado,
-                cm: colModelEstado,
+                store: storePrivilegio,
+                cm: colModelPrivilegio,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
@@ -266,14 +266,14 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Estados',
+				title:'Lista de Privilegios',
                 border: true,
                 listeners: {
                     viewready: function(g) {
                                           }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeEstado,
+				store: storePrivilegio,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -289,7 +289,7 @@ Ext.onReady(function(){
 
  
 	
-storeEstado.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_privilegio_usuario.php"}});
+storePrivilegio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_privilegio_usuario.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_privilegio").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
