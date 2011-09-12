@@ -166,7 +166,7 @@ Ext.onReady(function(){
 							var columnas   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
 							storePlanLocalizacion.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
+												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
 										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
@@ -198,7 +198,7 @@ Ext.onReady(function(){
 			handler: function(){
 										storePlanLocalizacion.baseParams = {'accion': 'eliminar'};
 										storePlanLocalizacion.load({params:{
-												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
 										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
