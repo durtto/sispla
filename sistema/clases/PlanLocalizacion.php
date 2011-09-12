@@ -61,7 +61,7 @@ class PlanLocalizacion {
 
 	$planlocalizacion = array_intersect_key($planlocalizacion, $this->columPlanLocalizacion);
 	
-	$r1 = $this->pdo->_insert('tr036_plan_localizacion', $ubicacion);
+	$r1 = $this->pdo->_insert('tr036_plan_localizacion', $planlocalizacion);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}

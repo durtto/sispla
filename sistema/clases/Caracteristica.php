@@ -105,9 +105,15 @@ class Caracteristica extends MyPDO
    */
   public function cargarCaracteristica( ) {
 
-	$query = "SELECT *
-                FROM tr030_caracteristica;
-";
+	$query = "SELECT 
+  tr030_caracteristica.co_caracteristica, 
+  tr030_caracteristica.nb_caracteristica, 
+  tr029_modelo.nb_modelo
+FROM 
+  public.tr030_caracteristica, 
+  public.tr029_modelo
+WHERE 
+  tr030_caracteristica.co_modelo = tr029_modelo.co_modelo;";
 
 	$r = $this->pdo->_query($query);
 	

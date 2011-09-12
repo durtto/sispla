@@ -107,8 +107,17 @@ class NivelObsolescencia extends MyPDO
    */
   public function cargarNivelObsolescencia() {
 
-	$query = "SELECT *
-				FROM tr023_nivel_obsolescencia;";
+	$query = "SELECT 
+  tr023_nivel_obsolescencia.co_nivel, 
+  tr023_nivel_obsolescencia.nb_nivel, 
+  tr023_nivel_obsolescencia.tx_descripcion, 
+CASE
+   WHEN tr023_nivel_obsolescencia.bo_obsoleto = true
+   THEN 'SI'
+   ELSE 'NO'
+   END AS bo_obsoleto
+FROM 
+  public.tr023_nivel_obsolescencia;";
 
 	$r = $this->pdo->_query($query);
 	

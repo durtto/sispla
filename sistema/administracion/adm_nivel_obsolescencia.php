@@ -65,7 +65,7 @@ Ext.onReady(function(){
         fields: [{name: 'co_nivel'},
 		        {name: 'nb_nivel'},
 		        {name: 'tx_descripcion'},
-		        {name: 'bo_critico'},
+		        {name: 'bo_obsoleto'},
 		        {name: 'resp'}]
         });
     storeNivel.setDefaultSort('co_nivel', 'ASC');
@@ -75,7 +75,7 @@ Ext.onReady(function(){
         {id:'co_nivel',header: "Nivel", width: 100, sortable: true, locked:false, dataIndex: 'co_nivel'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico'},
+        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
       ]);
 	
 	     
@@ -134,13 +134,13 @@ Ext.onReady(function(){
                         }
                     },{
                         xtype: 'radiogroup',
-	            		fieldLabel: 'Critico',
-	            		id: 'bo_critico',
-		                name: 'bo_critico',
+	            		fieldLabel: 'obsoleto',
+	            		id: 'bo_obsoleto',
+		                name: 'bo_obsoleto',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'critico', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'critico', inputValue: 0},
+			                {boxLabel: 'Si', name: 'obsoleto', checked : true, inputValue: 1},
+			                {boxLabel: 'No', name: 'obsoleto', inputValue: 0},
 			           			]
                     }]
 			},{
@@ -203,7 +203,7 @@ Ext.onReady(function(){
 							var columnas   = '{"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'", ';
 								columnas += '"nb_nivel" : "'+Ext.getCmp("nb_nivel").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
-								columnas += '"bo_critico" : "'+Ext.getCmp("bo_critico").getValue()+'"}';
+								columnas += '"bo_obsoleto" : "'+Ext.getCmp("bo_obsoleto").getValue()+'"}';
 							storeNivel.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},

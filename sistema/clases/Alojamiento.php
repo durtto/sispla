@@ -84,7 +84,7 @@ class Alojamiento {
 
 	$alojamiento = array_intersect_key($alimentacion, $this->columAlimentacion);
 	
-	$r1 = $this->pdo->_update('tr017_alojamiento', $alimentacion, $condiciones);
+	$r1 = $this->pdo->_update('tr017_alojamiento', $alojamiento, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -127,6 +127,6 @@ class Alojamiento {
 	
 			
 	return $r;
-  } // end of member function cargarCapacidad
+  } // end of member function cargarAlojamiento
 }
 ?>

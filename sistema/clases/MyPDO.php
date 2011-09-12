@@ -33,11 +33,11 @@ class MyPDO extends PDO
     public function __construct($pdo=NULL){
 	 if ($pdo==NULL){
         $this->engine = 'pgsql';
-		$this->host = 'localhost'; //'orimat100';
+		$this->host = '10.168.16.3'; //'orimat100';
 		$this->port = '5432';
 		$this->database = 'sistemaspla';
-		$this->user = 'sideccop';
-		$this->pass = '1234';
+		$this->user = 'merchang';
+		$this->pass = '899236';
 		$dns = $this->engine.':dbname='.$this->database.";host=".$this->host;
 		
 		try {
