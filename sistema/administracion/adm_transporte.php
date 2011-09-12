@@ -43,90 +43,46 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winLinea;
-  var winVehiculo;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_transporte'] = 'Numero transporte';
+	camposReq['co_transporte'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
   var storeTransporte = new Ext.data.JsonStore({
-		url: '../clases/interfaz_transporte.php',
+		url: '../interfaz/interfaz_transporte.php',
 		remoteSort : true,
-		root: 'transportes',
+		root: 'planeslocalizacion',
         totalProperty: 'total',
 		idProperty: 'co_transporte',
         fields: [{name: 'co_transporte'},
-		        {name: 'co_linea'},
-		        {name: 'co_vehiculo'},
-		        {name: 'resp'}]
+       			{name: 'fe_elaboracion'},
+        		{name: 'resp'}]
         });
     storeTransporte.setDefaultSort('co_transporte', 'ASC');
 	
-	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Numero de Transporte", width: 200, sortable: true, locked:false, dataIndex: 'co_transporte'},
-        {header: "Linea de Taxi", width: 200, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Vehiculo", width: 200, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
+        {id:'co_transporte',header: "Transporte", width: 100, sortable: true, locked:false, dataIndex: 'co_transporte'},
+        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
-	 var storeLinea = new Ext.data.JsonStore({
-		url: '../php/interfaz_lineaTaxi.php',
-		remoteSort : true,
-		root: 'lineas',
-        totalProperty: 'total',
-		idProperty: 'co_linea',
-        fields: [{name: 'co_linea'},					{name: 'nb_linea'},					{name: 'tx_telefono'},	   {name: 'di_oficina'},		{name: 'resp'}]
-        });
-    storeLinea.setDefaultSort('co_linea', 'ASC');
-	
-	
-    var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Numero de Linea Taxi", width: 250, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre Linea", width: 250, sortable: true, locked:false, dataIndex: 'nb_linea'},
-        {header: "Telefono", width: 250, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Direccion", width: 250, sortable: true, locked:false, dataIndex: 'di_direccion'},
-        ]);
-	
-	  
-	    var storeVehiculo = new Ext.data.JsonStore({
-		url: '../php/interfaz_vehiculo.php',
-		remoteSort : true,
-		root: 'vehiculos',
-        totalProperty: 'total',
-		idProperty: 'co_vehiculo',
-        fields: [{name: 'co_vehiculo'},					{name: 'tx_placa'},					{name: 'tx_marca'},	   {name: 'tx_modelo'},	  {name: 'tx_unidad'},	{name: 'resp'}]
-       });	
-    storeVehiculo.setDefaultSort('co_vehiculo', 'ASC');
-	
-	
-    var colModelVehiculo = new Ext.grid.ColumnModel([
-        {id:'co_vehiculo',header: "Numero de Veiculo", width: 250, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
-        {header: "Placa", width: 250, sortable: true, locked:false, dataIndex: 'tx_placa'},
-        {header: "Marca", width: 250, sortable: true, locked:false, dataIndex: 'tx_marca'},
-        {header: "Modelo", width: 250, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-        {header: "Numero de la unidad", width: 250, sortable: true, locked:false, dataIndex: 'tx_unidad'},
-        ]);
 	
 	
 /*
  *    Here is where we create the Form
  */
- 	//ventana de potreraje//
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_transporte',
+        id: 'frm_planlocalizacion',
         frame: true,
 		labelAlign: 'center',
         title: 'Transporte',
@@ -140,7 +96,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Transportes',
+			title: 'Transporte',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -148,130 +104,21 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Transporte',
+                        fieldLabel: 'Numero de Transporte',
 						xtype:'numberfield',
 						id: 'co_transporte',
                         name: 'co_transporte',
-
-                        width:140
-                    }]
-				}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Linea',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Linea',
-						xtype:'numberfield',
-						id: 'co_linea',
-                        name: 'co_linea',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        //hidden: true,
+						//hideLabel: true,
+                        width:160
                     }, {
-                        fieldLabel: 'Nombre Linea',
-						xtype:'textfield',
+                        fieldLabel: 'Fecha de Elaboracion',
+						xtype:'datefield',
 						vtype:'validos',
-						disabled:true,
-						id: 'nb_linea',
-                        name: 'nb_linea',
+						id: 'fe_elaboracion',
+                        name: 'fe_elaboracion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'tx_telefono',
-						disabled:true,
-                        name: 'tx_telefono',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Direccion',
-						xtype:'textfield',
-						id: 'di_oficina',
-						disabled:true,
-                        name: 'di_oficina',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm3',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Vehiculo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Vehiculo',
-						xtype:'numberfield',
-						id: 'co_vehiculo',
-                        name: 'co_vehiculo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }, {
-                        fieldLabel: 'Placa',
-						xtype:'textfield',
-						vtype:'validos',
-						disabled:true,
-						id: 'tx_placa',
-                        name: 'tx_placa',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Marca',
-						xtype:'numberfield',
-						id: 'tx_marca',
-						disabled:true,
-                        name: 'tx_marca',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Modelo',
-						xtype:'textfield',
-						id: 'tx_modelo',
-						disabled:true,
-                        name: 'tx_modelo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'textfield',
-						id: 'tx_unidad',
-						disabled:true,
-                        name: 'tx_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
                     }]
 			}]
 			},{
@@ -283,12 +130,11 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
-						Ext.getCmp("frm3").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_transporte").focus();
@@ -301,7 +147,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_transporte").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_planlocalizacion").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -318,25 +164,21 @@ Ext.onReady(function(){
 							else
 								storeTransporte.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
-							columnas += '"co_linea" : "'+convFecha(Ext.getCmp("co_linea").getValue())+'", ';
-							columnas += '"co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}';
+							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
 							storeTransporte.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_transporte.php"},
+												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeTransporte.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeTransporte.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -345,33 +187,30 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeTransporte.baseParams = {'accion': 'refrescar', 'interfaz': 'interfaz_transporte.php'};
+							storeTransporte.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_transporte.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Transporte',
+			tooltip:'Eliminar Grupo',
 			disabled: true,
 			handler: function(){
 										storeTransporte.baseParams = {'accion': 'eliminar'};
 										storeTransporte.load({params:{
-												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_transporte.php"},
+												"condiciones": '{ "co_planlocalizacion" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeTransporte.getAt(0).data.resp, //+'  -  '+store.getAt(0).data.co_cedula,
+												msg: storeTransporte.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-											/*if(nuevo==true){
-												if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-												Ext.getCmp("co_forraje").focus();
-											}*/
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -385,15 +224,15 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_transporte',
+				id: 'gd_planlocalizacion',
                 store: storeTransporte,
                 cm: colModelTransporte,
-			//	plugins: [filters],
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_transporte").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_planlocalizacion").getForm().loadRecord(rec);
                         }
                     }
                 }),
@@ -419,149 +258,27 @@ Ext.onReady(function(){
 		}],
         
     });
-	
-function selLinea(){
-storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_linea.php"}});
-	if(!winLinea){
-				winLinea = new Ext.Window({
-						applyTo : 'winLinea',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selLinea',
-								store: storeLinea,
-								cm: colModelLinea,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lineas de Taxi',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selLinea").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selLinea").getSelectionModel().getSelected();
-											Ext.getCmp("co_linea").setValue(record.data.co_linea);
-											Ext.getCmp("nb_linea").setValue(record.data.nb_linea);
-											Ext.getCmp("tx_telefono").setValue(record.data.tx_telefono);
-											Ext.getCmp("di_oficina").setValue(record.data.di_oficina);
-											winLinea.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winLinea.hide();
-								  }
-						}]
-				});
-		}
-		winLinea.show();	
-}
 
-function selVehiculo(){
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_vehiculo.php"}});
-	if(!winVehiculo){
-				winVehiculo = new Ext.Window({
-						applyTo : 'winVehiculo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selVehiculo',
-								store: storeVehiculo,
-								cm: colModelVehiculo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Vehiculos',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selVehiculo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selVehiculo").getSelectionModel().getSelected();
-											Ext.getCmp("co_vehiculo").setValue(record.data.co_vehiculo);
-											Ext.getCmp("tx_placa").setValue(record.data.tx_placa);
-											Ext.getCmp("tx_marca").setValue(record.data.tx_marca);
-											Ext.getCmp("tx_modelo").setValue(record.data.tx_modelo);
-											Ext.getCmp("tx_unidad").setValue(record.data.tx_unidad);
-											winVehiculo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winVehiculo.hide();
-								  }
-						}]
-				});
-		}
-		winVehiculo.show();	
-}
 
 	
-storeTransporte.load({params: { start: 0, limit: 50, accion:"refrescar"}});
+	
+storeTransporte.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_transporte.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_transporte").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_planlocalizacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
-			Ext.getCmp("frm3").enable();
 		}
 		Ext.getCmp("co_transporte").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerLinea = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerLinea.onTriggerClick = selLinea;
-		triggerLinea.applyToMarkup('co_linea');	
 
-
-var triggerVehiculo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerVehiculo.onTriggerClick = selVehiculo;
-		triggerVehiculo.applyToMarkup('co_vehiculo');	
 });
 
 </script>
@@ -573,13 +290,6 @@ var triggerVehiculo = new Ext.form.TriggerField({triggerClass : 'x-form-search-t
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winCond" class="x-hidden">
-    <div class="x-window-header">Ejegir Linea</div>
-	
-</div>
-<div id="winPiloto" class="x-hidden">
-    <div class="x-window-header">Ejegir Vehiculo</div>
-	
-</div>
+
 </body>
 </html>
