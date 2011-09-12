@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_tipo_respaldo'] = 'Codigo Tipo Ubicacion';
+	camposReq['co_tipo_respaldo'] = 'Codigo Tipo Respaldo';
 	
     var bd = Ext.getBody();
 
@@ -95,13 +95,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Tipo Respaldo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
+					labelWidth:100,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero de Tipo',
@@ -111,7 +111,13 @@ Ext.onReady(function(){
                         //hidden: true,
 						//hideLabel: true,
                         width:160
-                    }, {
+                    }]
+			},{
+				layout: 'form',
+					labelWidth:100,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
@@ -124,8 +130,8 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    }],
                     }]
-			}]
 			},{
 				width: 640,  
 				buttonAlign:'center',
