@@ -121,8 +121,20 @@ class Necesidad extends MyPDO
    */
   public function cargarNecesidad( ) {
 
-	$query = "SELECT *
-                FROM tr038_necesidad;
+	$query = "SELECT 
+  tr038_necesidad.co_necesidad, 
+  tr038_necesidad.tx_necesidad_detectada, 
+  tr038_necesidad.ca_requerida, 
+  tr038_necesidad.tx_justificacion, 
+  tr038_necesidad.tx_beneficio, 
+  tr038_necesidad.fe_annio, 
+  tr013_servicio.nb_servicio
+FROM 
+  public.tr038_necesidad, 
+  public.tr013_servicio
+WHERE 
+  tr038_necesidad.co_servicio = tr013_servicio.co_servicio;
+
 ";
 
 	$r = $this->pdo->_query($query);
