@@ -114,8 +114,18 @@ class TpActivo extends MyPDO
    */
   public function cargarTpActivo() {
 
-	$query = "SELECT *
-				FROM tr014_tipo_activo;";
+	$query = "SELECT 
+  					tr014_tipo_activo.co_tipo_activo, 
+  					tr014_tipo_activo.nb_tipo_activo, 
+  					tr011_categoria.nb_categoria, 
+  					tr013_servicio.nb_servicio
+			FROM 
+  					public.tr014_tipo_activo, 
+  					public.tr013_servicio, 
+  					public.tr011_categoria
+			WHERE 
+  					tr014_tipo_activo.co_categoria = tr011_categoria.co_categoria AND
+  					tr014_tipo_activo.co_servicio = tr013_servicio.co_servicio;";
 
 	$r = $this->pdo->_query($query);
 	
