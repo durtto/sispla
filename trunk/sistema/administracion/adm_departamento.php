@@ -95,13 +95,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Departamentos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo del Departamento',
@@ -110,15 +110,21 @@ Ext.onReady(function(){
                         name: 'co_departamento',
                         //hidden: true,
 						//hideLabel: true,
-                        width:160
-                    }, {
+                        width:140
+                    }]
+			},{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Departamento',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_departamento',
                         name: 'nb_departamento',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())

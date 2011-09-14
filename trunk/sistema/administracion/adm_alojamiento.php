@@ -93,7 +93,7 @@ Ext.onReady(function(){
         id: 'frm_alojamiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'alojamientos',
+        title: 'Alojamientos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{

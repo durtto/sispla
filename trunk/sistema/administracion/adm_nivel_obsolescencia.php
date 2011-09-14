@@ -100,7 +100,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Nivels',
+			title: 'Niveles',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
