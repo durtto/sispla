@@ -69,7 +69,7 @@ Ext.onReady(function(){
     storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModeltpUbicacion = new Ext.grid.ColumnModel([
+    var colModelTpUbicacion = new Ext.grid.ColumnModel([
         {id:'co_tipo_ubicacion',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
       ]);
@@ -95,13 +95,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Tipo Ubicacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero de Tipo',
@@ -111,7 +111,13 @@ Ext.onReady(function(){
                         //hidden: true,
 						//hideLabel: true,
                         width:160
-                    }, {
+                    }]
+			},{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
@@ -231,7 +237,7 @@ Ext.onReady(function(){
                 xtype: 'grid',
 				id: 'gd_tpubicacion',
                 store: storeTpUbicacion,
-                cm: colModeltpUbicacion,
+                cm: colModelTpUbicacion,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,

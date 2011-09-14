@@ -69,17 +69,29 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeProceso.setDefaultSort('co_proceso', 'ASC');
+	    
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 659//
+	
     var colModelProceso = new Ext.grid.ColumnModel([
         {id:'co_proceso',header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico'},
+        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       ]);
+      
+      //Funcion para cambiar el coloer en el boolean
+      
+		function critico(bo_critico) {
+        if (bo_critico == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_critico == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_critico;
+    	}
 	
-	     
-
 /*
  *    Here is where we create the Form
  */
@@ -91,13 +103,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Proceso',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:680,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:660,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Procesos',
@@ -159,7 +171,7 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 660,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -167,7 +179,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -260,13 +271,12 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:660,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_proceso',
                 store: storeProceso,
                 cm: colModelProceso,
-			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -277,7 +287,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Procesos',
                 border: true,
                 listeners: {
@@ -290,7 +299,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -306,7 +314,7 @@ gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_proceso").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
+
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){

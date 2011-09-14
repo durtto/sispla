@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Responsabilidad</title>
+<title>Ubicacion</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -43,12 +43,13 @@
  * http://www.extjs.com/license
  */
  var nuevo;
-  var winRolResp;
+  var winUbicacion;
+   var winTpUbicacion;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_rol_resp'] = 'Codigo Rol';
-	camposReq['nb_rol'] = 'Nombre Rol';
+	camposReq['co_ubicacion'] = 'Codigo Ubicacion';
+	camposReq['nb_ubicacion'] = 'Nombre';
 	
     var bd = Ext.getBody();
 
@@ -60,35 +61,64 @@ Ext.onReady(function(){
     // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
-  var storeRolResp = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_rol_responsabilidad.php',
+  var storeUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_ubicacion.php',
 		remoteSort : true,
-		root: 'rolresponsabilidades',
+		root: 'ubicaciones',
         totalProperty: 'total',
-		idProperty: 'co_rol_resp',
-        fields: [{name: 'co_rol_resp'},
-        		{name: 'nb_rol'},
-        		{name: 'tx_descripcion'},
-        		{name: 'co_rol_padre'},
+		idProperty: 'co_ubicacion',
+        fields: [{name: 'co_ubicacion'},
+        		{name: 'nb_ubicacion'},
+        		{name: 'bo_obsoleto'},
+        		{name: 'co_ubicacion_padre'},
+        		{name: 'nb_tipo_ubicacion'},
         		{name: 'resp'}]
         });
-    storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
+    storeUbicacion.setDefaultSort('co_ubicacion', 'ASC');
 	
 	
-    var colModelRolResp = new Ext.grid.ColumnModel([
-        {id:'co_rol_resp',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
+    var colModelUbicacion = new Ext.grid.ColumnModel([
+        {id:'co_rol_resp',header: "Ubicacion", width: 80, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
+        {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
+        {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
+        {header: "Tipo Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
+
         ]);
+        function obsoleto(bo_obsoleto) {
+        if (bo_obsoleto == 'SI') {
+            return '<span style="color:gray;">' + 'SI' + '</span>';
+        } else if (bo_obsoleto == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_obsoleto;
+    	}
+        
+        
+	var storeTpUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_ubicacion.php',
+		remoteSort : true,
+		root: 'tpubicaciones',
+        totalProperty: 'total',
+		idProperty: 'co_tipo_ubicacion',
+        fields: [{name: 'co_tipo_ubicacion'},
+        		{name: 'nb_tipo_ubicacion'},
+				{name: 'resp'}]
+        });
+    storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
 	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelTpUbicacion = new Ext.grid.ColumnModel([
+        {id:'co_tipo_ubicacion',header: "Tipo Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
+      ]);
 	
 
     var gridForm = new Ext.FormPanel({
-        id: 'frm_rol',
+        id: 'frm_ubicacion',
         frame: true,
 		labelAlign: 'center',
-        title: 'Roles',
+        title: 'Ubicacion',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -99,7 +129,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Roles',
+			title: 'Ubicacion',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -107,10 +137,10 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Rol',
+                        fieldLabel: 'Codigo de Ubicacion',
 						xtype:'numberfield',
-						id: 'co_rol_resp',
-                        name: 'co_rol_resp',
+						id: 'co_ubicacion',
+                        name: 'co_ubicacion',
                         //hidden: true,
 						//hideLabel: true,
 						width:140
@@ -118,8 +148,8 @@ Ext.onReady(function(){
 				},{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_rol',
-                        name: 'nb_rol',
+						id: 'nb_ubicacion',
+                        name: 'nb_ubicacion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -134,28 +164,33 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Codigo de Rol Padre',
+                        fieldLabel: 'Ubicacion Padre',
 						xtype:'numberfield',
-						id: 'co_rol_padre',
-                        name: 'co_rol_padre',
+						id: 'co_ubicacion_padre',
+                        name: 'co_ubicacion_padre',
                         //hidden: true,
 						//hideLabel: true,
 						width:140
                     
-				}]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Descripcion',
-						xtype:'htmleditor',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+				},{
+                        fieldLabel: 'Tipo Ubicacion',
+						xtype:'numberfield',
+						id: 'co_tipo_ubicacion',
+                        name: 'co_tipo_ubicacion',
+                        //hidden: true,
+						//hideLabel: true,
+						width:140
+                    
+				},{
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Obsoleto',
+	            		id: 'bo_obsoleto',
+		                name: 'bo_obsoleto',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'obsoleto', checked : true, inputValue: 1},
+			                {boxLabel: 'No', name: 'obsoleto', inputValue: 0},
+			           			]
                     }]
 			}]
 			},{
@@ -174,7 +209,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_rol_resp").focus();
+					Ext.getCmp("co_ubicacion").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -184,7 +219,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_rol").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_ubicacion").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -197,21 +232,22 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeRolResp.baseParams = {'accion': 'insertar'};
+								storeUbicacion.baseParams = {'accion': 'insertar'};
 							else
-								storeRolResp.baseParams = {'accion': 'modificar'};
-							var columnas   = '{"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
-								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
-								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
-								columnas += '"co_rol_padre" : "'+Ext.getCmp("co_rol_padre").getValue()+'"}';
-							storeRolResp.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
+								storeUbicacion.baseParams = {'accion': 'modificar'};
+							var columnas   = '{"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
+								columnas += '"nb_ubicacion" : "'+Ext.getCmp("nb_ubicacion").getValue()+'", ';
+								columnas += '"bo_obsoleto" : "'+Ext.getCmp("bo_obsoleto").getValue()+'", ';
+								columnas += '"co_ubicacion_padre" : "'+Ext.getCmp("co_ubicacion_padre").getValue()+'", ';
+								columnas += '"co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}';
+							storeUbicacion.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_ubicacion.php"},
 										callback: function () {
-										if(storeRolResp.getAt(0).data.resp!=true){		
+										if(storeUbicacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRolResp.getAt(0).data.resp,
+												msg: storeUbicacion.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -226,24 +262,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};
+							storeUbicacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_ubicacion.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Rol responsabilidad',
+			tooltip:'Eliminar Ubicacion',
 			disabled: true,
 			handler: function(){
-										storeRolRespRes.baseParams = {'accion': 'eliminar'};
-										storeRolRespRes.load({params:{
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
+										storeUbicacion.baseParams = {'accion': 'eliminar'};
+										storeUbicacion.load({params:{
+												"condiciones": '{ "co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_ubicacion.php"},
 										callback: function () {
-										if(storeRolResp.getAt(0).data.resp!=true){		
+										if(storeUbicacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRolResp.getAt(0).data.resp, 
+												msg: storeUbicacion.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -263,21 +299,21 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_rol',
-                store: storeRolResp,
-                cm: colModelRolResp,
+				id: 'gd_ubicacion',
+                store: storeUbicacion,
+                cm: colModelUbicacion,
 			//	plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_rol").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_ubicacion").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Roles',
+				title:'Ubicaciones',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -285,7 +321,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeRolResp,
+				store: storeUbicacion,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -299,11 +335,11 @@ Ext.onReady(function(){
     });
 
 
-	function selRolResp(){
-	storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
-	if(!winRolResp){
-				winRolResp = new Ext.Window({
-						applyTo : 'winRolResp',
+	function selUbicacion(){
+	storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
+	if(!winUbicacion){
+				winUbicacion = new Ext.Window({
+						applyTo : 'winUbicacion',
 						layout : 'fit',
 						width : 550,
 						height : 300,
@@ -312,9 +348,9 @@ Ext.onReady(function(){
 						items : [{
 								xtype: 'grid',
 								//ds: ds,
-								id: 'gd_selRolResp',
-								store: storeRolResp,
-								cm: colModelRolResp,
+								id: 'gd_selUbicacion',
+								store: storeUbicacion,
+								cm: colModelUbicacion,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
@@ -323,7 +359,7 @@ Ext.onReady(function(){
 								/*plugins: filtersCond,
 								bbar: pagingBarCond,*/
 								height: 200,
-								title:'Lista de Roles',
+								title:'Lista de Ubicacion',
 								border: true,
 								listeners: {
 												/*render: function(g) {
@@ -336,27 +372,80 @@ Ext.onReady(function(){
 								  text : 'Aceptar',
 								  handler : function(){
 										/**/
-										if(Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected();
-											Ext.getCmp("co_rol_padre").setValue(record.data.co_rol_resp);
-											winRolResp.hide();
+										if(Ext.getCmp("gd_selUbicacion").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selUbicacion").getSelectionModel().getSelected();
+											Ext.getCmp("co_ubicacion_padre").setValue(record.data.co_ubicacion);
+											winUbicacion.hide();
 										}
 								  }
 							   },{
 								  text : 'Cancelar',
 								  handler : function(){
-											winRolResp.hide();
+											winUbicacion.hide();
 								  }
 						}]
 				});
 		}
-		winRolResp.show();	
+		winUbicacion.show();	
+}
+function selTpUbicacion(){
+storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_directorio.php"}});
+	if(!winTpUbicacion){
+				winTpUbicacion = new Ext.Window({
+						applyTo : 'winTpUbicacion',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selTpUbicacion',
+								store: storeTpUbicacion,
+								cm: colModelTpUbicacion,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de TpUbicacion',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected();
+											Ext.getCmp("co_tipo_ubicacion").setValue(record.data.co_tipo_ubicacion);
+											winTpUbicacion.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winTpUbicacion.hide();
+								  }
+						}]
+				});
+		}
+		winTpUbicacion.show();	
 }
 	
-storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
+storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_ubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -364,16 +453,19 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_rol_resp").focus();
+		Ext.getCmp("co_ubicacion").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerRolResp.onTriggerClick = selRolResp;
-		triggerRolResp.applyToMarkup('co_rol_padre');	
-});
+var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerUbicacion.onTriggerClick = selUbicacion;
+		triggerUbicacion.applyToMarkup('co_ubicacion_padre');	
 
+var triggerTpUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerTpUbicacion.onTriggerClick = selTpUbicacion;
+		triggerTpUbicacion.applyToMarkup('co_tipo_ubicacion');	
+});
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
@@ -383,7 +475,11 @@ var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winRolResp" class="x-hidden">
+<div id="winUbicacion" class="x-hidden">
+    <div class="x-window-header">Ejegir Rol Padre</div>
+	
+</div>
+<div id="winTpUbicacion" class="x-hidden">
     <div class="x-window-header">Ejegir Rol Padre</div>
 	
 </div>

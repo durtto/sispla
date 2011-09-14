@@ -172,13 +172,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Modelo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo de Modelo',
@@ -188,7 +188,13 @@ Ext.onReady(function(){
                         //hidden: true,
 						//hideLabel: true,
                         width:160
-                    }, {
+                    }]
+			},{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
@@ -431,7 +437,7 @@ var triggerModelo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winTpCaracteristica" class="x-hidden">
+<div id="winModelo" class="x-hidden">
     <div class="x-window-header">Ejegir Modelo</div>
 	
 </div>

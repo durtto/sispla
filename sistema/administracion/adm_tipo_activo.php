@@ -174,7 +174,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_tipo_activo',
-                        name: 'nb_tpactivo',
+                        name: 'nb_tipo_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -319,7 +319,7 @@ Ext.onReady(function(){
 							else
 								storeTipoActivo.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
-								columnas += '"nb_tpactivo" : "'+Ext.getCmp("nb_tipo_activo").getValue()+'", ';
+								columnas += '"nb_tipo_activo" : "'+Ext.getCmp("nb_tipo_activo").getValue()+'", ';
 								columnas += '"co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'", ';
 								columnas += '"co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}';
 							storeTipoActivo.load({params:{"columnas" : columnas,
