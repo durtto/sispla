@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Servicio</title>
+<title>Crecimiento</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -43,11 +43,11 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winCapacidad;
+ var winTipoActivo;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_servicio'] = 'Codigo Servicio';
+	camposReq['co_crecimiento'] = 'Codigo Crecimiento';
 	
     var bd = Ext.getBody();
 
@@ -57,49 +57,59 @@ Ext.onReady(function(){
     };
     var local = true;
     
-	var storeCapacidad = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_capacidad.php',
+	  var storeTipoActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_activo.php',
 		remoteSort : true,
-		root: 'capacidades',
+		root: 'tpactivos',
         totalProperty: 'total',
-		idProperty: 'co_capacidad',
-        fields: [{name: 'co_capacidad'},
-        		{name: 'nb_capacidad'},		
-        		{name: 'resp'}]
-        });
-    storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelCapacidad = new Ext.grid.ColumnModel([
-        {id:'co_capacidad',header: "Codigo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
-      ]);
-      
-  var storeServicio = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_servicio.php',
-		remoteSort : true,
-		root: 'servicios',
-        totalProperty: 'total',
-		idProperty: 'co_servicio',
-        fields: [{name: 'co_servicio'},
+		idProperty: 'co_tipo_activo',
+        fields: [{name: 'co_tipo_activo'},
+		        {name: 'nb_tipo_activo'},
+		        {name: 'co_categoria'},
+		        {name: 'nb_categoria'},
+		        {name: 'co_servicio'},
 		        {name: 'nb_servicio'},
-		        {name: 'tx_descripcion'},
-		        {name: 'co_capacidad'},
-		        {name: 'nb_capacidad'},
 		        {name: 'resp'}]
         });
-    storeServicio.setDefaultSort('co_servicio', 'ASC');
+    storeTipoActivo.setDefaultSort('co_tipo_activo', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelServicio = new Ext.grid.ColumnModel([
-        {id:'co_servicio',header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'co_servicio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
-		{header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Capacidad", width: 100, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},      
+    var colModelTipoActivo = new Ext.grid.ColumnModel([
+        {id:'co_tipo_activo',header: "Tipo Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "co_Categoria", width: 200, sortable: true, locked:false,hidden:true, dataIndex: 'co_categoria'},      
+		{header: "Categoria", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+		{header: "co_Servicio", width: 100, sortable: true,hidden:true, locked:false, dataIndex: 'co_servicio'},
+		{header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+      
+		
+      ]);
+      
+  var storeCrecimiento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_crecimiento.php',
+		remoteSort : true,
+		root: 'crecimientos',
+        totalProperty: 'total',
+		idProperty: 'co_crecimiento',
+        fields: [{name: 'co_crecimiento'},
+		        {name: 'ca_demanda_futura'},
+		        {name: 'fe_actual'},
+		        {name: 'fe_tope_demanda'},
+		        {name: 'nb_tipo_activo'},
+		        {name: 'resp'}]
+        });
+    storeCrecimiento.setDefaultSort('co_crecimiento', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelCrecimiento = new Ext.grid.ColumnModel([
+        {id:'co_crecimiento',header: "Crecimiento", width: 100, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
+        {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
+        {header: "Fecha actual", width: 200, sortable: true, locked:false, dataIndex: 'fe_actual'},      
+        {header: "Fecha Tope", width: 400, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
+        {header: "Tipo Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
       ]);
 	
-	     
+		 
 
 /*
  *    Here is where we create the Form
@@ -107,10 +117,10 @@ Ext.onReady(function(){
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_servicio',
+        id: 'frm_crecimiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Servicio',
+        title: 'Crecimiento',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -121,7 +131,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Servicios',
+			title: 'Crecimientos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -129,10 +139,69 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Servicio',
+                        fieldLabel: 'Numero Crecimiento',
 						xtype:'numberfield',
-						id: 'co_servicio',
-                        name: 'co_servicio',
+						id: 'co_crecimiento',
+                        name: 'co_crecimiento',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Cantidad Requerida',
+						xtype:'textfield',
+						id: 'ca_demanda_futura',
+                        name: 'ca_demanda_futura',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Fecha Actual',
+						xtype:'datefield',
+						id: 'fe_actual',
+                        name: 'fe_actual',
+                        format:'Y-m-d', 
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Fecha Tope',
+						xtype:'datefield',
+						id: 'fe_tope_demanda',
+                        name: 'fe_tope_demanda',
+                        format:'Y-m-d', 
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
+			}]
+			},{
+	   		xtype:'fieldset',
+			id: 'frm2',
+			disabled: true,
+			labelAlign: 'center',
+			width:640,
+			buttonAlign:'center',
+			layout:'column',
+			title: 'TipoActivos',
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.55,
+					border:false,
+					items: [{
+                        fieldLabel: 'Numero TipoActivo',
+						xtype:'numberfield',
+						id: 'co_tipo_activo',
+                        name: 'co_tipo_activo',
+                        disabled:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
@@ -144,67 +213,9 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_servicio',
-                        name: 'nb_servicio',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Descripcion',
-						xtype:'htmleditor',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Capacidad',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Capacidad',
-						xtype:'numberfield',
-						id: 'co_capacidad',
-                        name: 'co_capacidad',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_capacidad',
-						disabled:true,
-                        name: 'nb_capacidad',
+						id: 'nb_tipo_activo',
+                        name: 'nb_tipo_activo',
+                        disabled:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -231,7 +242,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_servicio").focus();
+					Ext.getCmp("co_crecimiento").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -241,7 +252,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_servicio").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_crecimiento").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -254,20 +265,22 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeServicio.baseParams = {'accion': 'insertar'};
+								storeCrecimiento.baseParams = {'accion': 'insertar'};
 							else
-								storeServicio.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'", ';
-								columnas += '"nb_servicio" : "'+Ext.getCmp("nb_servicio").getValue()+'", ';
-								columnas += '"co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}';
-							storeServicio.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_servicio.php"},
+								storeCrecimiento.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'", ';
+								columnas += '"ca_demanda_futura" : "'+Ext.getCmp("ca_demanda_futura").getValue()+'", ';
+								columnas += '"fe_actual" : "'+convFecha(Ext.getCmp("fe_actual").getValue())+'", ';
+								columnas += '"fe_tope_demanda" : "'+convFecha(Ext.getCmp("fe_tope_demanda").getValue())+'", ';
+								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}';
+							storeCrecimiento.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_crecimiento.php"},
 										callback: function () {
-										if(storeServicio.getAt(0).data.resp!=true){		
+										if(storeCrecimiento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeServicio.getAt(0).data.resp, 
+												msg: storeCrecimiento.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -282,24 +295,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeServicio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_servicio.php'};
+							storeCrecimiento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Servicio',
+			tooltip:'Eliminar Crecimiento',
 			disabled: true,
 			handler: function(){
-										storeServicio.baseParams = {'accion': 'eliminar'};
-										storeServicio.load({params:{
-												"condiciones": '{ "co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_servicio.php"},
+										storeCrecimiento.baseParams = {'accion': 'eliminar'};
+										storeCrecimiento.load({params:{
+												"condiciones": '{ "co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_crecimiento.php"},
 										callback: function () {
-										if(storeServicio.getAt(0).data.resp!=true){		
+										if(storeCrecimiento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeServicio.getAt(0).data.resp,
+												msg: storeCrecimiento.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -319,29 +332,29 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_servicio',
-                store: storeServicio,
-                cm: colModelServicio,
+				id: 'gd_crecimiento',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_servicio").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
                         }
                         
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Servicio',
+				title:'Lista de Crecimiento',
                 border: true,
                 listeners: {
                     viewready: function(g) {
                                           }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeServicio,
+				store: storeCrecimiento,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -354,11 +367,12 @@ Ext.onReady(function(){
         
     });
 
-function selCapacidad(){
-storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_capacidad.php"}});
-	if(!winCapacidad){
-				winCapacidad = new Ext.Window({
-						applyTo : 'winCapacidad',
+			
+function selTipoActivo(){
+storeTipoActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_activo.php"}});
+	if(!winTipoActivo){
+				winTipoActivo = new Ext.Window({
+						applyTo : 'winTipoActivo',
 						layout : 'fit',
 						width : 550,
 						height : 300,
@@ -367,9 +381,9 @@ storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz
 						items : [{
 								xtype: 'grid',
 								//ds: ds,
-								id: 'gd_selCapacidad',
-								store: storeCapacidad,
-								cm: colModelCapacidad,
+								id: 'gd_selTipoActivo',
+								store: storeTipoActivo,
+								cm: colModelTipoActivo,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
@@ -378,7 +392,7 @@ storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz
 								/*plugins: filtersCond,
 								bbar: pagingBarCond,*/
 								height: 200,
-								title:'Lista de Capacidad',
+								title:'Lista de TipoActivo',
 								border: true,
 								listeners: {
 												/*render: function(g) {
@@ -391,29 +405,29 @@ storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz
 								  text : 'Aceptar',
 								  handler : function(){
 										/**/
-										if(Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected();
-											Ext.getCmp("co_capacidad").setValue(record.data.co_capacidad);
-											Ext.getCmp("nb_capacidad").setValue(record.data.nb_capacidad);
-											winCapacidad.hide();
+										if(Ext.getCmp("gd_selTipoActivo").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selTipoActivo").getSelectionModel().getSelected();
+											Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
+											Ext.getCmp("nb_tipo_activo").setValue(record.data.nb_tipo_activo);
+											winTipoActivo.hide();
 										}
 								  }
 							   },{
 								  text : 'Cancelar',
 								  handler : function(){
-											winCapacidad.hide();
+											winTipoActivo.hide();
 								  }
 						}]
 				});
 		}
-		winCapacidad.show();	
+		winTipoActivo.show();	
 }
  
 	
-storeServicio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_servicio.php"}});
+storeCrecimiento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_crecimiento.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_servicio").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_crecimiento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -422,14 +436,19 @@ gridForm.render('form');
 			Ext.getCmp("frm1").enable();
 			Ext.getCmp("frm2").enable();
 		}
-		Ext.getCmp("co_servicio").focus();
+		Ext.getCmp("co_crecimiento").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerCapacidad.onTriggerClick = selCapacidad;
-		triggerCapacidad.applyToMarkup('co_capacidad');
+var triggerTipoActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerTipoActivo.onTriggerClick = selTipoActivo;
+		triggerTipoActivo.applyToMarkup('co_tipo_activo');
+		
+		//showJustificacion: function(tx_justificacion,tx_justificacion){  
+			//tx_justificacion.attr = 'style="white-space:normal"';  
+   		 	//return tx_justificacion;  
+			//} 
 });
 
 </script>
@@ -441,8 +460,8 @@ var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winCapacidad" class="x-hidden">
-    <div class="x-window-header">Ejegir Capacidad</div>
+<div id="winTipoActivo" class="x-hidden">
+    <div class="x-window-header">Ejegir Tipo Activo</div>
 	
 </div>
 </body>

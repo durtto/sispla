@@ -67,7 +67,7 @@ Ext.onReady(function(){
         totalProperty: 'total',
 		idProperty: 'co_rol_resp',
         fields: [{name: 'co_rol_resp'},
-        		{name: 'nb_rol'},
+        		{name: 'nb_rol_resp'},
         		{name: 'tx_descripcion'},
         		{name: 'co_rol_padre'},
         		{name: 'resp'}]
@@ -77,7 +77,7 @@ Ext.onReady(function(){
 	
     var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
+        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
         {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
@@ -118,8 +118,8 @@ Ext.onReady(function(){
 				},{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_rol',
-                        name: 'nb_rol',
+						id: 'nb_rol_resp',
+                        name: 'nb_rol_resp',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -201,7 +201,7 @@ Ext.onReady(function(){
 							else
 								storeRolResp.baseParams = {'accion': 'modificar'};
 							var columnas   = '{"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
-								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
+								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol_resp").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
 								columnas += '"co_rol_padre" : "'+Ext.getCmp("co_rol_padre").getValue()+'"}';
 							storeRolResp.load({params:{"columnas" : columnas,
