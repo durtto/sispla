@@ -59,7 +59,7 @@ class ContactoProveedor extends MyPDO
    * 
    * @access public
    */
-  public $columContacto= array('co_contacto'=>'co_contacto', 'nb_contacto'=>'nb_contacto', 'tx_apellido'=>'tx_apellido', 'di_direccion'=>'di_direccion', 'tx_telefono'=>'tx_telefono', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'co_proveedor'=>'co_proveedor');
+  public $columContacto= array('co_contacto'=>'co_contacto', 'nb_contacto'=>'nb_contacto', 'tx_apellido'=>'tx_apellido', 'di_oficina'=>'di_oficina', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'co_proveedor'=>'co_proveedor');
   
   /**
    * 
@@ -97,7 +97,7 @@ class ContactoProveedor extends MyPDO
 
 	$contacto = array_intersect_key($contacto, $this->columContacto);
 	
-	$r1 = $this->pdo->_update('tr026_ContactoProveedor', $contacto, $condiciones);
+	$r1 = $this->pdo->_update('tr026_contacto_proveedor', $contacto, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -116,7 +116,7 @@ class ContactoProveedor extends MyPDO
   	$this->pdo->beginTransaction();	
 
 
-	$r1 = $this->pdo->_delete('tr026_ContactoProveedor', $condiciones);
+	$r1 = $this->pdo->_delete('tr026_contacto_proveedor', $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
@@ -132,9 +132,23 @@ class ContactoProveedor extends MyPDO
    */
   public function cargarContactoProveedor( ) {
 
-	$query = "SELECT *
-                FROM tr026_contacto_proveedor;
-";
+	$query = "SELECT 
+  tr026_contacto_proveedor.co_contacto, 
+  tr026_contacto_proveedor.nb_contacto, 
+  tr026_contacto_proveedor.tx_apellido, 
+  tr026_contacto_proveedor.di_oficina, 
+  tr026_contacto_proveedor.tx_telefono_oficina, 
+  tr026_contacto_proveedor.tx_correo_electronico, 
+  tr026_contacto_proveedor.di_habitacion, 
+  tr026_contacto_proveedor.tx_telefono_habitacion,
+  tr025_proveedor.co_proveedor,
+  tr025_proveedor.nb_proveedor
+  
+FROM 
+  public.tr025_proveedor, 
+  public.tr026_contacto_proveedor
+WHERE 
+  tr026_contacto_proveedor.co_proveedor = tr025_proveedor.co_proveedor;";
 
 	$r = $this->pdo->_query($query);
 	
