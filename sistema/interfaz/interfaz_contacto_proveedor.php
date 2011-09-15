@@ -66,7 +66,7 @@
 			$condiciones = array_filter($condiciones, "vacio");
 			
 			$respuesta = $contacto->eliminarContactoProveedor($condiciones); 		
-			$resultado = $contacto->cargarContactoProveedorn($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $contacto->cargarContactoProveedor($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
 			for($i=0; $i<count($resultado); $i++)
