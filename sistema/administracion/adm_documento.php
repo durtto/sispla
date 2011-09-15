@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Rol</title>
+<title>Documento</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -46,46 +46,50 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_rol'] = 'Codigo Rol';
-	camposReq['nb_rol'] = 'Nombre Rol';
+	camposReq['co_documento'] = 'Codigo Documento';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
 	
-  var storeRol = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_rol_persona.php',
+  var storeDocumento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_documento.php',
 		remoteSort : true,
-		root: 'rolpersonas',
+		root: 'documentos',
         totalProperty: 'total',
-		idProperty: 'co_rol',
-        fields: [{name: 'co_rol'},
-		        {name: 'nb_rol'},
-		        {name: 'tx_descripcion'},
-		        {name: 'resp'}]
+		idProperty: 'co_documento',
+        fields: [{name: 'co_documento'},
+        		{name: 'nb_documento'},
+        		{name: 'tx_descripcion'},
+        		{name: 'tx_url_direccion'},
+        		{name: 'resp'}]
         });
-    storeRol.setDefaultSort('co_rol', 'ASC');
+    storeDocumento.setDefaultSort('co_documento', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelDocumento = new Ext.grid.ColumnModel([
+        {id:'co_documento',header: "Documento", width: 100, sortable: true, locked:false, dataIndex: 'co_documento'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_documento'},
+        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
+      ]);
 	
 	
-    var colModelRol = new Ext.grid.ColumnModel([
-        {id:'co_rol',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
-        {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
 	
-	
+/*
+ *    Here is where we create the Form
+ */
 
+		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_rol',
+        id: 'frm_documento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Roles',
+        title: 'documentos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -93,30 +97,34 @@ Ext.onReady(function(){
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:660,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Roles',
+			layout:'column',
+			title: 'Documentos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Rol',
+                        fieldLabel: 'Numero Documento',
 						xtype:'numberfield',
-						id: 'co_rol',
-                        name: 'co_rol',
-                        //hidden: true,
-						//hideLabel: true,
-						width:140
-                    
+						id: 'co_documento',
+                        name: 'co_documento',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
 				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_rol',
-                        name: 'nb_rol',
+						id: 'nb_documento',
+                        name: 'nb_documento',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -125,13 +133,27 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
+                        fieldLabel: 'Direccion Web',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'tx_url_direccion',
+                        name: 'tx_url_direccion',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160
+                    }]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:"100%",
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Descripcion',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         height: 100,
-            			anchor: '100%'
+            			anchor: '100%',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
@@ -143,14 +165,14 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					
+					//nroReg=storeDocumento.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_rol").focus();
+					Ext.getCmp("co_documento").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -160,7 +182,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_rol").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_documento").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -173,26 +195,27 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeRol.baseParams = {'accion': 'insertar'};
+								storeDocumento.baseParams = {'accion': 'insertar'};
 							else
-								storeRol.baseParams = {'accion': 'modificar'};
-							var columnas   = '{"co_rol" : "'+Ext.getCmp("co_rol").getValue()+'", ';
-								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol").getValue()+'", ';
-								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
-							storeRol.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_rol" : "'+Ext.getCmp("co_rol").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_persona.php"},
+								storeDocumento.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_documento" : "'+Ext.getCmp("co_documento").getValue()+'", ';
+							columnas += '"nb_documento" : "'+Ext.getCmp("nb_documento").getValue()+'", ';
+							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
+							columnas += '"tx_url_direccion" : "'+Ext.getCmp("tx_url_direccion").getValue()+'"}';
+							storeDocumento.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_documento" : "'+Ext.getCmp("co_documento").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_documento.php"},
 										callback: function () {
-										if(storeRol.getAt(0).data.resp!=true){		
+										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRol.getAt(0).data.resp,
+												msg: storeDocumento.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
 										}
 										else{
-										
+											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -201,24 +224,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeRol.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_persona.php'};
+							storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Capacidad',
+			tooltip:'Eliminar Documento',
 			disabled: true,
 			handler: function(){
-										storeRolRes.baseParams = {'accion': 'eliminar'};
-										storeRolRes.load({params:{
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
+										storeDocumento.baseParams = {'accion': 'eliminar'};
+										storeDocumento.load({params:{
+												"condiciones": '{ "co_documento" : "'+Ext.getCmp("co_documento").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_documento.php"},
 										callback: function () {
-										if(storeRol.getAt(0).data.resp!=true){		
+										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeRol.getAt(0).data.resp, 
+												msg: storeDocumento.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -238,21 +261,21 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_rol',
-                store: storeRol,
-                cm: colModelRol,
-			//	plugins: [filters],
+				id: 'gd_documento',
+                store: storeDocumento,
+                cm: colModelDocumento,
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_rol").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_documento").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Roles',
+				title:'Lista de Documentos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -260,7 +283,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeRol,
+				store: storeDocumento,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -276,10 +299,10 @@ Ext.onReady(function(){
 
 	
 	
-storeRol.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_persona.php"}});
+storeDocumento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_documento.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_documento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -287,7 +310,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_rol").focus();
+		Ext.getCmp("co_documento").focus();
 		nroReg=rowIdx;
 		
 });
