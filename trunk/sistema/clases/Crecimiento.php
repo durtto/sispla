@@ -112,9 +112,17 @@ class Crecimiento extends MyPDO
    */
   public function cargarCrecimiento( ) {
 
-	$query = "SELECT *
-                FROM tr037_crecimiento;
-";
+	$query = "SELECT 
+  tr037_crecimiento.co_crecimiento, 
+  tr037_crecimiento.ca_demanda_futura, 
+  tr037_crecimiento.fe_actual, 
+  tr037_crecimiento.fe_tope_demanda, 
+  tr014_tipo_activo.nb_tipo_activo
+FROM 
+  public.tr037_crecimiento, 
+  public.tr014_tipo_activo
+WHERE 
+  tr037_crecimiento.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;";
 
 	$r = $this->pdo->_query($query);
 	

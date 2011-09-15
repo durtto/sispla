@@ -2,11 +2,11 @@
 require_once 'MyPDO.php';
 
 /**
- * Define la informaci�n del Rol de una persona dentro de un plan de continuidad.
+ * fine la informaci�n del Rol de una persona dentro de un plan de continuidad.
  * @access public
  * @package Planes
  */
-class RolDepersona extends MyPDO
+class RolPersona extends MyPDO
 {
 	/**
 	 * @AttributeType int
@@ -20,7 +20,7 @@ class RolDepersona extends MyPDO
 	private $_nb_rol;
 	/**
 	 * @AttributeType string
-	 * Descripci�n de las actividades definidas para ese rol.
+	 * scripci�n de las actividades definidas para ese rol.
 	 */
 	private $_tx_descripcion;
 	/**
@@ -33,7 +33,7 @@ class RolDepersona extends MyPDO
    * 
    * @access public
    */
-  public $columRolDepersona= array('co_rol'=>'co_rol', 'nb_rol'=>'nb_rol', 'tx_descripcion'=>'tx_descripcion');
+  public $columRolPersona= array('co_rol'=>'co_rol', 'nb_rol'=>'nb_rol', 'tx_descripcion'=>'tx_descripcion');
 
   /**
    * 
@@ -41,20 +41,20 @@ class RolDepersona extends MyPDO
    * @return string
    * @access public
    */
-  public function insertarRolDepersona($roldepersona) {
+  public function insertarRolPersona($rolpersona) {
   	
 	$this->pdo->beginTransaction();	
 
-	$roldepersona = array_intersect_key($roldepersona, $this->columRolDepersona);
+	$rolpersona = array_intersect_key($rolpersona, $this->columRolPersona);
 	
-	$r1 = $this->pdo->_insert('tr008_rol_persona', $roldepersona);
+	$r1 = $this->pdo->_insert('tr008_rol_persona', $rolpersona);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
   
-  } // end of member function insertarRolDepersona
+  } // end of member function insertarRolpersona
 
   /**
    * 
@@ -62,25 +62,25 @@ class RolDepersona extends MyPDO
    * @return string
    * @access public
    */
-  public function actualizarRolDepersona($roldepersona, $condiciones) {
+  public function actualizarRolPersona($rolpersona, $condiciones) {
   	$this->pdo->beginTransaction();	
 
-	$roldepersona = array_intersect_key($roldepersona, $this->columRolDepersona);
+	$rolpersona = array_intersect_key($rolpersona, $this->columRolPersona);
 	
-	$r1 = $this->pdo->_update('tr008_rol_persona', $roldepersona, $condiciones);
+	$r1 = $this->pdo->_update('tr008_rol_persona', $rolpersona, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
-  } // end of member function actualizarRolDepersona
+  } // end of member function actualizarRolpersona
 
   /**
    *
    * @return string
    * @access public
    */
-  public function eliminarRolDepersona($condiciones) {
+  public function eliminarRolPersona($condiciones) {
   
   	$this->pdo->beginTransaction();	
 
@@ -91,7 +91,7 @@ class RolDepersona extends MyPDO
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
-  } // end of member function eliminarRolDepersona
+  } // end of member function eliminarRolpersona
 
   /**
    * 
@@ -99,7 +99,7 @@ class RolDepersona extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarRolDepersona() {
+  public function cargarRolPersona() {
 
 	$query = "SELECT *
 				FROM tr008_rol_persona;";
@@ -108,6 +108,6 @@ class RolDepersona extends MyPDO
 	
 			
 	return $r;
-  } // end of member function cargarRolDepersona
+  } // end of member function cargarRolpersona
 }
 ?>
