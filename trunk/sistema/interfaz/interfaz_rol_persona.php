@@ -1,19 +1,19 @@
 <?php
-	require_once '../clases/RolDepersona.php';
+	require_once '../clases/RolPersona.php';
 	
-	$roldepersona = new RolDepersona();
+	$rolpersona = new RolPersona();
 	
 	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
 	
 	function vacio($var) {
     return ($var != '');
 }
-	$roldepersonas = array_filter($_REQUEST, "vacio");
+	$rolpersonas = array_filter($_REQUEST, "vacio");
 
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $roldepersona->cargarRolDepersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $rolpersona->cargarRolPersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
 
@@ -22,12 +22,12 @@
 			
 			$cond = $_REQUEST['columnas'];
 			$cond = str_replace('\"','"',$cond);
-			$roldepersonas = json_decode($cond, true);
-			$roldepersonas = array_filter($roldepersonas, "vacio");
+			$rolpersonas = json_decode($cond, true);
+			$rolpersonas = array_filter($rolpersonas, "vacio");
 
 		
-			$respuesta = $roldepersona->insertarRolDepersona($roldepersonas);		
-			$resultado = $roldepersona->cargarRolDepersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$respuesta = $rolpersona->insertarRolPersona($rolpersonas);		
+			$resultado = $rolpersona->cargarRolPersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
 			for($i=0; $i<count($resultado); $i++)
@@ -42,13 +42,13 @@
 			$cond = $_REQUEST['condiciones']; 
 			$col	= str_replace('\"','"',$col);
 			$columnas = json_decode($col, true); 
-			$roldepersonas = array_filter($columnas, "vacio");
+			$rolpersonas = array_filter($columnas, "vacio");
 			$cond	= str_replace('\"','"',$cond);
 			$condiciones = json_decode($cond, true);
 			$condiciones = array_filter($condiciones, "vacio");
 
-			$respuesta = $roldepersona->actualizarRolDepersona($roldepersonas, $condiciones); 		
-			$resultado = $roldepersona->cargarRolDepersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$respuesta = $rolpersona->actualizarRolPersona($rolpersonas, $condiciones); 		
+			$resultado = $rolpersona->cargarRolPersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
 			for($i=0; $i<count($resultado); $i++)
@@ -64,8 +64,8 @@
 			$condiciones = json_decode($cond, true);
 			$condiciones = array_filter($condiciones, "vacio");
 			
-			$respuesta = $roldepersona->eliminarRolDepersona($condiciones); 		
-			$resultado = $roldepersona->cargarRolDepersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$respuesta = $rolpersona->eliminarRolPersona($condiciones); 		
+			$resultado = $rolpersona->cargarRolPersona($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
 			for($i=0; $i<count($resultado); $i++)
@@ -75,5 +75,5 @@
 		
 	}
 		
-		echo $resultado2='{"total":'.$total.', "roldepersonas":'.json_encode($resultado).'}';
+		echo $resultado2='{"total":'.$total.', "rolpersonas":'.json_encode($resultado).'}';
 ?>
