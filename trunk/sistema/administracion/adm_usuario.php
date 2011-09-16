@@ -43,10 +43,13 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ var winPrivilegio;
+ var winPersona;
+ 
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_usuario'] = 'Codigo de Usuario';
+	camposReq['co_usuario'] = 'Codigo Usuario';
 	
     var bd = Ext.getBody();
 
@@ -55,43 +58,117 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+    
+	var storePrivilegio = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_privilegio_usuario.php',
+		remoteSort : true,
+		root: 'privilegios',
+        totalProperty: 'total',
+		idProperty: 'co_privilegio',
+        fields: [{name: 'co_privilegio'},
+        		{name: 'nb_privilegio'},
+        		{name: 'tx_descripcion'},
+        		{name: 'resp'}]
+        });
+    storePrivilegio.setDefaultSort('co_privilegio', 'ASC');
 	
-  var storeVehiculo = new Ext.data.JsonStore({
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelPrivilegio = new Ext.grid.ColumnModel([
+        {id:'co_privilegio',header: "Privilegio", width: 100, sortable: true, locked:false, dataIndex: 'co_privilegio'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        ]);
+    
+    var storePersona = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_persona.php',
+		remoteSort : true,
+		root: 'personas',
+        totalProperty: 'total',
+		idProperty: 'co_indicador',
+        fields: [{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono_oficina'},
+		        {name: 'tx_correo_electronico'},
+		        {name: 'di_habitacion'},
+		        {name: 'tx_telefono_habitacion'},
+		        {name: 'tx_telefono_personal'},
+		        {name: 'co_departamento'},
+		        {name: 'nb_departamento'},
+		        {name: 'co_rol'},
+		        {name: 'nb_rol'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        		{name: 'co_grupo'},
+        		{name: 'nb_grupo'},
+        		{name: 'co_guardia'},			
+        		{name: 'nb_guardia'},
+		        {name: 'resp'}]
+        });
+    storePersona.setDefaultSort('co_indicador', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelPersona = new Ext.grid.ColumnModel([
+        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
+      	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
+      
+      ]);
+   
+  var storeUsuario = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_usuario.php',
 		remoteSort : true,
-		root: 'vehiculos',
+		root: 'usuarios',
         totalProperty: 'total',
 		idProperty: 'co_usuario',
         fields: [{name: 'co_usuario'},
-		        {name: 'nb_usuario'},
-		        {name: 'co_indicador'},
 		        {name: 'co_privilegio'},
-		        {name: 'tx_unidad'},
+        		{name: 'nb_privilegio'},
+		        {name: 'co_indicador'},
+        		{name: 'nu_cedula'},
 		        {name: 'resp'}]
         });
-    storeVehiculo.setDefaultSort('co_usuario', 'ASC');
+    storeUsuario.setDefaultSort('co_usuario', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModel = new Ext.grid.ColumnModel([
-        {id:'co_usuario',header: "Vehiculo", width: 100, sortable: true, locked:false, dataIndex: 'co_usuario'},
-        {header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'nb_usuario'},
-		{header: "Marca", width: 100, sortable: true, locked:false, dataIndex: 'tx_marca'},        
-		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'co_indicador'},
-		{header: "Unidad", width: 159, sortable: true, locked:false, dataIndex: 'tx_unidad'},
+    var colModelUsuario = new Ext.grid.ColumnModel([
+        {id:'co_usuario',header: "Usuario", width: 100, sortable: true, locked:false, dataIndex: 'co_usuario'},
+        {header: "Privilegio", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
+        {header: "Privilegio", width: 338, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Persona", width: 338, sortable: true, locked:false, dataIndex: 'nu_cedula'},
       ]);
 	
-	
-	
+	     
+
 /*
  *    Here is where we create the Form
  */
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_vehiculo',
+        id: 'frm_usuario',
         frame: true,
 		labelAlign: 'center',
-        title: 'Vehiculos',
+        title: 'Usuario',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -101,51 +178,111 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Vehiculos',
+			layout:'column',
+			title: 'Usuarios',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Vehiculo',
+                        fieldLabel: 'Numero Usuario',
 						xtype:'numberfield',
 						id: 'co_usuario',
                         name: 'co_usuario',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
+				}]
+			},{
+	   		xtype:'fieldset',
+			id: 'frm2',
+			disabled: true,
+			labelAlign: 'center',
+			width:640,
+			buttonAlign:'center',
+			layout:'column',
+			title: 'Privilegio',
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.55,
+					border:false,
+					items: [{
+                        fieldLabel: 'Privilegio',
+						xtype:'numberfield',
+						id: 'co_privilegio',
+                        name: 'co_privilegio',
                         //hidden: true,
 						//hideLabel: true,
                         width:160
-                    }, {
-                        fieldLabel: 'Placa',
+                    }]
+			},{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
+                        fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
-						id: 'tx_placa',
-                        name: 'tx_placa',
+						id: 'nb_privilegio',
+						disabled:true,
+                        name: 'nb_privilegio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    }]
+			}]
+			},{
+	   		xtype:'fieldset',
+			id: 'frm3',
+			disabled: true,
+			labelAlign: 'center',
+			width:640,
+			buttonAlign:'center',
+			layout:'column',
+			title: 'Persona',
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.55,
+					border:false,
+					items: [{
+                        fieldLabel: 'Persona',
+						xtype:'numberfield',
+						id: 'co_indicador',
+                        name: 'co_indicador',
+                        //hidden: true,
+						//hideLabel: true,
                         width:160
-                    },{
-                        fieldLabel: 'Marca',
+                    }]
+			},{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
+                        fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'tx_marca',
-                        name: 'tx_marca',
+						vtype:'validos',
+						id: 'nb_persona',
+						disabled:true,
+                        name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Modelo',
-						xtype:'textfield',
-						id: 'tx_modelo',
-                        name: 'tx_modelo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'textfield',
-						id: 'tx_unidad',
-                        name: 'tx_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			}]
 			},{
@@ -157,11 +294,13 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeVehiculo.getCount();
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
+						Ext.getCmp("frm2").enable();
+						Ext.getCmp("frm3").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_usuario").focus();
@@ -174,7 +313,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_vehiculo").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_usuario").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -187,22 +326,20 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeVehiculo.baseParams = {'accion': 'insertar'};
+								storeUsuario.baseParams = {'accion': 'insertar'};
 							else
-								storeVehiculo.baseParams = {'accion': 'actualizar'};
+								storeUsuario.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'", ';
-							columnas += '"tx_placa" : "'+Ext.getCmp("tx_placa").getValue()+'", ';
-							columnas += '"tx_marca" : "'+Ext.getCmp("tx_marca").getValue()+'", ';
-							columnas += '"tx_modelo" : "'+Ext.getCmp("tx_modelo").getValue()+'", ';
-							columnas += '"tx_unidad" : "'+Ext.getCmp("tx_unidad").getValue()+'"}';
-							storeVehiculo.load({params:{"columnas" : columnas,
+								columnas += '"co_privilegio" : "'+Ext.getCmp("co_privilegio").getValue()+'", ';
+								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
+							storeUsuario.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_usuario.php"},
 										callback: function () {
-										if(storeVehiculo.getAt(0).data.resp!=true){		
+										if(storeUsuario.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeVehiculo.getAt(0).data.resp, 
+												msg: storeUsuario.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -217,24 +354,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_usuario.php'};
+							storeUsuario.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_usuario.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Vehiculo',
+			tooltip:'Eliminar Usuario',
 			disabled: true,
 			handler: function(){
-										storeVehiculo.baseParams = {'accion': 'eliminar'};
-										storeVehiculo.load({params:{
+										storeUsuario.baseParams = {'accion': 'eliminar'};
+										storeUsuario.load({params:{
 												"condiciones": '{ "co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_usuario.php"},
 										callback: function () {
-										if(storeVehiculo.getAt(0).data.resp!=true){		
+										if(storeUsuario.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeVehiculo.getAt(0).data.resp,
+												msg: storeUsuario.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -254,29 +391,29 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_vehiculo',
-                store: storeVehiculo,
-                cm: colModel,
+				id: 'gd_usuario',
+                store: storeUsuario,
+                cm: colModelUsuario,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_vehiculo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_usuario").getForm().loadRecord(rec);
                         }
+                        
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Vehiculos',
+				title:'Lista de Usuario',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                                          }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeVehiculo,
+				store: storeUsuario,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -289,26 +426,139 @@ Ext.onReady(function(){
         
     });
 
+function selPrivilegio(){
+storePrivilegio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_privilegio.php"}});
+	if(!winPrivilegio){
+				winPrivilegio = new Ext.Window({
+						applyTo : 'winPrivilegio',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selPrivilegio',
+								store: storePrivilegio,
+								cm: colModelPrivilegio,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Privilegio',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selPrivilegio").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selPrivilegio").getSelectionModel().getSelected();
+											Ext.getCmp("co_privilegio").setValue(record.data.co_privilegio);
+											Ext.getCmp("nb_privilegio").setValue(record.data.nb_privilegio);
+											winPrivilegio.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winPrivilegio.hide();
+								  }
+						}]
+				});
+		}
+		winPrivilegio.show();	
+}
 
+function selPersona(){
+storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_persona.php"}});
+	if(!winPrivilegio){
+				winPersona = new Ext.Window({
+						applyTo : 'winPersona',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selPersona',
+								store: storePersona,
+								cm: colModelPersona,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Persona',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selPersona").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selPersona").getSelectionModel().getSelected();
+											Ext.getCmp("co_indicador").setValue(record.data.co_co_indicador);
+											Ext.getCmp("nb_persona").setValue(record.data.nb_persona);
+											winPersona.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winPersona.hide();
+								  }
+						}]
+				});
+		}
+		winPersona.show();	
+}
 	
-	
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_usuario.php"}});
+storeUsuario.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_usuario.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_vehiculo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_usuario").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
+			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_usuario").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-
+var triggerPrivilegio = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerPrivilegio.onTriggerClick = selPrivilegio;
+		triggerPrivilegio.applyToMarkup('co_privilegio');
+var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerPersona.onTriggerClick = selPersona;
+		triggerPersona.applyToMarkup('co_indicador');
 });
 
 </script>
@@ -320,6 +570,9 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
+<div id="winPrivilegio" class="x-hidden">
+    <div class="x-window-header">Ejegir Privilegio</div>
+	
+</div>
 </body>
 </html>
