@@ -1,10 +1,10 @@
 <?php
 require_once 'MyPDO.php';
 require_once 'Departamento.php';
-require_once 'RolPersona';
-require_once 'RolResponsabilidad';
-require_once 'Grupo';
-require_once 'Guardia';
+require_once 'RolPersona.php';
+require_once 'RolResponsabilidad.php';
+require_once 'Grupo.php';
+require_once 'Guardia.php';
 
 
 
