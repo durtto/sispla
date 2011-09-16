@@ -137,7 +137,7 @@ class Activo extends MyPDO
    * 
    * @access public
    */
-  public $columActivo= array('co_activo'=>'co_activo', 'nb_activo'=>'nb_activo', 'tx_descripcion'=>'tx_descripcion', 'co_sap'=>'co_sap', 'nu_serial'=>'nu_serial', 'nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable', 'fe_incorporacion'=>'fe_incorporacion', 'nu_vida_util'=>'nu_vida_util', 'co_activo_padre'=>'co_activo_padre', 'co_estado'=>'co_estado', 'co_fabricante'=>'co_fabricante', 'co_indicador'=>'co_indicador', 'co_ubicacion'=>'co_ubicacion', 'co_proceso'=>'co_proceso', 'co_proveedor'=>'co_proveedor',  'co_tipo_activo'=>'co_activo', 'co_unidad'=>'co_unidad');
+  public $columActivo= array('co_activo'=>'co_activo', 'nb_activo'=>'nb_activo', 'tx_descripcion'=>'tx_descripcion', 'co_sap'=>'co_sap', 'nu_serial'=>'nu_serial', 'nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable', 'fe_incorporacion'=>'fe_incorporacion', 'nu_vida_util'=>'nu_vida_util', 'co_activo_padre'=>'co_activo_padre', 'co_estado'=>'co_estado', 'co_fabricante'=>'co_fabricante', 'co_indicador'=>'co_indicador', 'co_ubicacion'=>'co_ubicacion', 'co_proceso'=>'co_proceso', 'co_proveedor'=>'co_proveedor',  'co_tipo_activo'=>'co_activo', 'co_unidad'=>'co_unidad', 'co_nivel'=>'co_nivel');
   
   /**
    * 
@@ -210,8 +210,63 @@ class Activo extends MyPDO
    */
   public function cargarActivo( ) {
 
-	$query = "SELECT *
-                FROM tr027_activo;
+	$query = "SELECT 
+  tr027_activo.co_activo, 
+  tr027_activo.nb_activo, 
+  tr027_activo.tx_descripcion, 
+  tr027_activo.co_sap, 
+  tr027_activo.nu_serial, 
+  tr027_activo.nu_etiqueta, 
+  tr027_activo.bo_critico, 
+  tr027_activo.bo_vulnerable, 
+  tr027_activo.fe_incorporacion, 
+  tr027_activo.nu_vida_util, 
+  tr027_activo.co_activo_padre, 
+  tr004_estado.co_estado, 
+  tr004_estado.nb_estado,
+  tr003_fabricante.co_fabricante, 
+  tr003_fabricante.nb_fabricante, 
+  tr027_activo.co_indicador, 
+  tr010_persona.nb_persona,
+  tr006_ubicacion.co_ubicacion, 
+  tr006_ubicacion.nb_ubicacion,
+  tr016_proceso.co_proceso, 
+  tr016_proceso.nb_proceso, 
+  tr025_proveedor.co_proveedor,
+  tr025_proveedor.nb_proveedor, 
+  tr024_unidad_demanda.co_unidad,
+  tr024_unidad_demanda.nb_unidad, 
+  tr023_nivel_obsolescencia.co_nivel,
+  tr023_nivel_obsolescencia.nb_nivel,
+  CASE
+  WHEN tr027_activo.bo_critico = true
+  THEN 'SI'
+  ELSE 'NO'
+  END AS bo_critico,
+  CASE
+  WHEN tr027_activo.bo_vulnerable = true
+  THEN 'SI'
+  ELSE 'NO'
+  END AS bo_vulnerable
+FROM 
+  public.tr006_ubicacion, 
+  public.tr010_persona, 
+  public.tr023_nivel_obsolescencia, 
+  public.tr027_activo, 
+  public.tr004_estado, 
+  public.tr003_fabricante, 
+  public.tr016_proceso, 
+  public.tr025_proveedor, 
+  public.tr024_unidad_demanda
+WHERE 
+  tr027_activo.co_estado = tr004_estado.co_estado AND
+  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
+  tr027_activo.co_indicador = tr010_persona.co_indicador AND
+  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
+  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
+  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
+  tr025_proveedor.co_proveedor = tr027_activo.co_proveedor AND
+  tr024_unidad_demanda.co_unidad = tr027_activo.co_unidad;
 ";
 
 	$r = $this->pdo->_query($query);
