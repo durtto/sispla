@@ -65,7 +65,6 @@ Ext.onReady(function(){
         fields: [{name: 'co_privilegio'},
         		{name: 'nb_privilegio'},
         		{name: 'tx_descripcion'},
-        		{name: 'bo_critico'},
         		{name: 'resp'}]
         });
     storePrivilegio.setDefaultSort('co_privilegio', 'ASC');
