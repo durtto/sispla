@@ -262,8 +262,8 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						id: 'nb_indicador',
-                        name: 'nb_indicador',
+						id: 'nb_persona',
+                        name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -599,7 +599,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_indicador").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_persona").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -697,7 +697,7 @@ Ext.onReady(function(){
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_indicador").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_persona").getForm().loadRecord(rec);
                         }
                         
                     }
