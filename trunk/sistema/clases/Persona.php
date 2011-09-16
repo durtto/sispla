@@ -73,7 +73,7 @@ class Persona extends MyPDO
 	public $_es_responsable = array();
 	/**
 	 * @AssociationType Planes.RolDepersona
-	 * @AssociationMultiplicity 1
+	 * @AssociationMultiplicityp 1
 	 */
 	public $_cumple;
 		/**
