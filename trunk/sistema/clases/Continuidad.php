@@ -122,9 +122,32 @@ class Continuidad extends MyPDO
    */
   public function cargarContinuidad( ) {
 
-	$query = "SELECT *
-                FROM tr035_continuidad;
-";
+	$query = "SELECT 
+			  	tr035_continuidad.co_continuidad, 
+			  	tr035_continuidad.fe_mtd, 
+			  	tr035_continuidad.fe_rto, 
+			  	tr027_activo.co_activo,
+			  	tr027_activo.nb_activo,
+			  CASE
+			 	WHEN tr035_continuidad.bo_esquema_alterno_interno = true
+			 	THEN 'SI'
+				ELSE 'NO'
+			 	END AS bo_esquema_alterno_interno,
+			  CASE
+			 	WHEN tr035_continuidad.bo_esquema_alterno_externo = true
+			 	THEN 'SI'
+			 	ELSE 'NO'
+			 	END AS bo_esquema_alterno_externo,
+			  CASE
+			 	WHEN tr035_continuidad.bo_prioridad_rec = true
+			 	THEN 'ALTA'
+			 	ELSE 'BAJA'
+			 	END AS bo_prioridad_rec
+			  FROM 
+			  	public.tr035_continuidad, 
+			  	public.tr027_activo
+			  WHERE 
+				tr035_continuidad.co_activo = tr027_activo.co_activo;";
 
 	$r = $this->pdo->_query($query);
 	
