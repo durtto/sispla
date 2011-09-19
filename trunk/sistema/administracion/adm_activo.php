@@ -338,33 +338,33 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
      	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Numero de serial", width: 100, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de etiqueta", width: 100, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
-      	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 100, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
+      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
+      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
       	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
       	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
       	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Persona", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+      	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
+      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
       	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
       	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
       	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
       	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 100, sortable: true, hidden: false, locked:false, dataIndex: 'co_proveedor'},
+      	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
       	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
+        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
+      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
       ]);
 	function vulnerable(bo_vulnerable) {
         if (bo_vulnerable == 'SI') {
@@ -411,14 +411,14 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Activo',
+                        fieldLabel: 'Codigo del Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
                         name: 'co_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     },{
-                        fieldLabel: 'Numero Serial',
+                        fieldLabel: 'Serial',
 						xtype:'numberfield',
 						id: 'nu_serial',
                         name: 'nu_serial',
@@ -467,7 +467,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Etiqueta',
+                        fieldLabel: 'Numero de Etiqueta',
 						xtype:'numberfield',
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
@@ -611,7 +611,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Persona',
+			title: 'Responsable del Activo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
