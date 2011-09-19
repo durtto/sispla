@@ -6,7 +6,8 @@ require_once 'MyPDO.php';
  * @access public
  * @package Planes
  */
-class Alojamiento {
+class Alojamiento extends MyPDO
+{
 	/**
 	 * @AttributeType boolean
 	 * Clave principal del alojamiento.
@@ -46,7 +47,7 @@ class Alojamiento {
    * 
    * @access public
    */
-  public $columAlojamiento= array('co_alojamiento'=>'co_alojamiento', 'nb_establecimiento'=>'nb_establecimiento', 'di_ubicacion'=>'di_ubicacion', 'bo_hotel'=>'bo_hotel', 'bo_hotel'=>'bo_hotel', 'tx_telefono'=>'tx_telefono');
+  public $columAlojamiento= array('co_alojamiento'=>'co_alojamiento', 'nb_establecimiento'=>'nb_establecimiento', 'di_ubicacion'=>'di_ubicacion', 'bo_hotel'=>'bo_hotel', 'bo_posada'=>'bo_posada', 'tx_telefono'=>'tx_telefono');
   
   /**
    * 
@@ -82,7 +83,7 @@ class Alojamiento {
   public function actualizarAlojamiento($alojamiento, $condiciones) {
   	$this->pdo->beginTransaction();	
 
-	$alojamiento = array_intersect_key($alimentacion, $this->columAlimentacion);
+	$alojamiento = array_intersect_key($alojamiento, $this->columAlojamiento);
 	
 	$r1 = $this->pdo->_update('tr017_alojamiento', $alojamiento, $condiciones);
 	
@@ -117,16 +118,31 @@ class Alojamiento {
    * @return string
    * @access public
    */
- public function cargarAlojamiento( ) {
+ public function cargarAlojamiento() {
 
-	$query = "SELECT *
-                FROM tr017_alojamiento;
-";
-
+	$query = "SELECT 
+	                tr017_alojamiento.co_alojamiento, 
+  					tr017_alojamiento.nb_establecimiento, 
+  					tr017_alojamiento.di_ubicacion, 
+ 					tr017_alojamiento.bo_hotel, 
+  					tr017_alojamiento.bo_posada, 
+  					tr017_alojamiento.tx_telefono,  					
+  			    CASE
+  					WHEN tr017_alojamiento.bo_hotel = true
+  					THEN 'SI'
+  					ELSE 'NO'
+  					END AS bo_hotel,
+  				CASE
+  					WHEN tr017_alojamiento.bo_posada = true
+  					THEN 'SI'
+  					ELSE 'NO'
+  					END AS bo_posada
+				FROM 
+  					public.tr017_alojamiento;";
 	$r = $this->pdo->_query($query);
 	
 			
 	return $r;
-  } // end of member function cargarAlojamiento
+  } // end of member function cargarProceso
 }
 ?>

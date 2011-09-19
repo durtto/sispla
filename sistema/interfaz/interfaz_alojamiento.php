@@ -9,7 +9,7 @@
     return ($var != '');
 }
 	$alojamientos = array_filter($_REQUEST, "vacio");
-	
+		
 	
 	switch($accion){
 		case 'refrescar':
@@ -17,7 +17,6 @@
 			$resultado = $alojamiento->cargarAlojamiento($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
-
 			break;
 		case 'insertar':	 			
 			

@@ -246,7 +246,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Persona',
+                        fieldLabel: 'Indicador',
 						xtype:'numberfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
