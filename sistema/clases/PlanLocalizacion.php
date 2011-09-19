@@ -6,7 +6,7 @@ require_once 'MyPDO.php';
  * @access public
  * @package Planes
  */
-class PlanLocalizacion {
+class PlanLocalizacion extends MyPDO {
 	/**
 	 * @AttributeType int
 	 * Clave primaria del plan de localizaci�n.
