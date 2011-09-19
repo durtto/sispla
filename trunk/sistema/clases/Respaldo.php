@@ -1,7 +1,7 @@
 <?php
 require_once 'MyPDO.php';
 require_once 'Activo.php';
-
+require_once 'TipoDeRespaldo.php';
 /**
  * Se define el esquema de respaldo del activo.
  * @access public
@@ -17,11 +17,6 @@ class Respaldo extends MyPDO
 	/**
 	 * @AttributeType boolean
 	 * Se define si el respaldo es FULL o INCREMENTAL
-	 */
-	private $_bo_tipo_de_respaldo;
-	/**
-	 * @AttributeType int
-	 * Numero de veces al dia en que se debe realizar el respaldo.
 	 */
 	private $_nu_veces_al_dia;
 	/**
@@ -127,8 +122,25 @@ class Respaldo extends MyPDO
    */
   public function cargarRespaldo() {
 
-	$query = "SELECT *
-				FROM tr039_respaldo;";
+	$query = "SELECT 
+  tr039_respaldo.co_respaldo, 
+  tr039_respaldo.nu_veces_al_dia, 
+  tr039_respaldo.tx_dias_semana, 
+  tr039_respaldo.nu_tiempo_retencion_data, 
+  tr039_respaldo.tx_descripcion_data, 
+  tr039_respaldo.fe_ultimo_respaldo, 
+  tr039_respaldo.tx_ubicacion_logica_fisica, 
+  tr039_respaldo.co_activo, 
+  tr027_activo.nb_activo, 
+  tr039_respaldo.co_tipo_respaldo, 
+  tr034_tipo_respaldo.nb_tipo_respaldo
+FROM 
+  public.tr039_respaldo, 
+  public.tr034_tipo_respaldo, 
+  public.tr027_activo
+WHERE 
+  tr039_respaldo.co_activo = tr027_activo.co_activo AND
+  tr039_respaldo.co_tipo_respaldo = tr034_tipo_respaldo.co_tipo_respaldo;";
 
 	$r = $this->pdo->_query($query);
 	
