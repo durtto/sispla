@@ -33,7 +33,7 @@ class MyPDO extends PDO
     public function __construct($pdo=NULL){
 	 if ($pdo==NULL){
         $this->engine = 'pgsql';
-		$this->host = '10.168.16.3'; //'orimat100';
+		$this->host = '10.168.16.6'; //'orimat100';
 		$this->port = '5432';
 		$this->database = 'sistemaspla';
 		$this->user = 'merchang';
@@ -43,7 +43,7 @@ class MyPDO extends PDO
 		try {
       		parent::__construct( $dns, $this->user, $this->pass );
 		} catch (PDOException $e) {
-			echo 'Conexin Fallida: <br/> Ha ocurrido un error al intentar establecer conexin con el servidor. Por favor contacte con el administrador o custodio de esta aplicacin para notificarle acerca de este error. ' ;  //. $e->getMessage();
+			echo 'Conexion Fallida: <br/> Ha ocurrido un error al intentar establecer conexin con el servidor. Por favor contacte con el administrador o custodio de esta aplicacin para notificarle acerca de este error. ' ;  //. $e->getMessage();
 			exit;
 		}
 		
