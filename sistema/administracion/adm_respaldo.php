@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Continuidad</title>
+<title>Respaldo</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -44,10 +44,11 @@
  */
  var nuevo;
  var winActivo;
+  var winTpRespaldo;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_continuidad'] = 'Codigo Continuidad';
+	camposReq['co_respaldo'] = 'Codigo Respaldo';
 	
     var bd = Ext.getBody();
 
@@ -57,6 +58,23 @@ Ext.onReady(function(){
     };
     var local = true;
     
+    var storeTpRespaldo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_respaldo.php',
+		remoteSort : true,
+		root: 'tprespaldos',
+        totalProperty: 'total',
+		idProperty: 'co_tipo_respaldo',
+        fields: [{name: 'co_tipo_respaldo'},
+		        {name: 'nb_tipo_respaldo'},
+		        {name: 'resp'}]
+        });
+    storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelTpRespaldo = new Ext.grid.ColumnModel([
+        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
+      ]);
 	  var storeActivo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
@@ -141,72 +159,53 @@ Ext.onReady(function(){
         return bo_critico;
     	}
       
-  var storeContinuidad = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_continuidad.php',
+  var storeRespaldo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_respaldo.php',
 		remoteSort : true,
-		root: 'continuidades',
+		root: 'respaldos',
         totalProperty: 'total',
-		idProperty: 'co_continuidad',
-        fields: [{name: 'co_continuidad'},
-        		{name: 'bo_prioridad_rec'},
-		        {name: 'fe_mtd'},
-		        {name: 'fe_rto'},
-		        {name: 'bo_esquema_alterno_interno'},
-		        {name: 'bo_esquema_alterno_externo'},
+		idProperty: 'co_respaldo',
+        fields: [{name: 'co_respaldo'},
+        		{name: 'nu_veces_al_dia'},
+        		{name: 'tx_dias_semana'},
+		        {name: 'nu_tiempo_retencion_data'},
+		        {name: 'tx_descripcion_data'},
+		        {name: 'fe_ultimo_respaldo'},
+		        {name: 'tx_ubicacion_logica_fisica'},
 		        {name: 'co_activo'},
 		        {name: 'nb_activo'},
+		        {name: 'co_tipo_respaldo'},
+		        {name: 'nb_tipo_respaldo'},
 		        {name: 'resp'}]
         });
-    storeContinuidad.setDefaultSort('co_continuidad', 'ASC');
+    storeRespaldo.setDefaultSort('co_respaldo', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelContinuidad = new Ext.grid.ColumnModel([
-        {id:'co_continuidad',header: "Continuidad", width: 100, sortable: true, locked:false, dataIndex: 'co_continuidad'},
+    var colModelRespaldo = new Ext.grid.ColumnModel([
+        {id:'co_respaldo',header: "Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'co_respaldo'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-        {header: "Prioridad", width: 100, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
-        {header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd'},      
-        {header: "Fecha RTO", width: 100, sortable: true, locked:false, dataIndex: 'fe_rto'},
-        {header: "Esquema Interno", width: 100, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_interno', renderer: interno},
-        {header: "Esquema Externo", width: 100, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_externo', renderer: externo},
+        {header: "Veces por dia", width: 100, sortable: true, locked:false, dataIndex: 'nu_veces_al_dia'},
+        {header: "Dias de semana", width: 100, sortable: true, locked:false, dataIndex: 'tx_dias_semana'},      
+        {header: "Retencion de Data", width: 100, sortable: true, locked:false, dataIndex: 'nu_tiempo_retencion_data'},
+        {header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
+        {header: "Ultimo Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'fe_ultimo_respaldo'},
+        {header: "Ubicacion Fisica", width: 100, sortable: true, locked:false, dataIndex: 'tx_ubicacion_logica_fisica'},        
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        
+        {header: "Respaldo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
+        {header: "Tipo Respaldo", width: 100, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
+
       ]);
 	
-		 function interno(bo_esquema_alterno_interno) {
-        if (bo_esquema_alterno_interno == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_interno == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_interno;
-    	}
-		function externo(bo_esquema_alterno_externo) {
-        if (bo_esquema_alterno_externo == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_externo == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_externo;
-    	}
-    	function prioridad(bo_prioridad_rec) {
-        if (bo_prioridad_rec == 'ALTA') {
-            return '<span style="color:red;">' + 'ALTA' + '</span>';
-        } else if (bo_prioridad_rec == 'BAJA') {
-            return '<span style="color:green;">' + 'BAJA' + '</span>';
-        }
-        return bo_prioridad_rec;
-    	}
-
 /*
  *    Here is where we create the Form
  */
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_continuidad',
+        id: 'frm_respaldo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Continuidad',
+        title: 'Respaldo',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -217,7 +216,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Continuidades',
+			title: 'Respaldos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -227,87 +226,49 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'Numero',
 						xtype:'numberfield',
-						id: 'co_continuidad',
-                        name: 'co_continuidad',
+						id: 'co_respaldo',
+                        name: 'co_respaldo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'MTD',
+                        fieldLabel: 'Dias de la Semana',
+						xtype:'textfield',
+						id: 'tx_dias_semana',
+                        name: 'tx_dias_semana',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Ultimo Respaldo',
 						xtype:'datefield',
-						id: 'fe_mtd',
-                        name: 'fe_mtd',
-                        format:'Y-m-d', 
+						id: 'fe_ultimo_respaldo',
+                        name: 'fe_ultimo_respaldo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Esquema alterno interno',
-	            		id: 'bo_esquema_alterno_interno',
-		                name: 'bo_esquema_alterno_interno',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'interno', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'interno', inputValue: 0},
-			           			]
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Prioridad',
-	            		id: 'bo_prioridad_rec',
-		                name: 'bo_prioridad_rec',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'ALTA', name: 'prioridad', checked : true, inputValue: 1},
-			                {boxLabel: 'BAJA', name: 'prioridad', inputValue: 0},
-			           			]
-                    },{
-                        fieldLabel: 'RTO',
-						xtype:'datefield',
-						id: 'fe_rto',
-                        name: 'fe_rto',
-                        format:'H:i:s', 
+                        fieldLabel: 'Tipo Respaldo',
+						xtype:'numberfield',
+						id: 'co_tipo_respaldo',
+                        name: 'co_tipo_respaldo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        width:140,
+                        hidden: true,
+						hideLabel: true
                     },{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Esquema alterno externo',
-	            		id: 'bo_esquema_alterno_externo',
-		                name: 'bo_esquema_alterno_externo',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'externo', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'externo', inputValue: 0},
-			           			]
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Activos',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
+                        fieldLabel: 'Tipo Respaldo',
+						xtype:'textfield',
+						id: 'nb_tipo_respaldo',
+                        name: 'nb_tipo_respaldo',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:123
+                    },{
                         fieldLabel: 'Numero Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
                         name: 'co_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        hidden: true,
+						hideLabel: true
                     }]
 				},{
 					layout: 'form',
@@ -315,18 +276,53 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
+                        fieldLabel: 'Veces al dia',
+						xtype:'numberfield',
+						id: 'nu_veces_al_dia',
+                        name: 'nu_veces_al_dia',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Retencion de Data',
+						xtype:'numberfield',
+						id: 'nu_tiempo_retencion_data',
+                        name: 'nu_tiempo_retencion_data',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Ubicacion Fisica del Respaldo',
+						xtype:'textfield',
+						id: 'tx_ubicacion_logica_fisica',
+                        name: 'tx_ubicacion_logica_fisica',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_activo',
                         name: 'nb_activo',
                         disabled:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:123,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    }]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:"100%",
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Descripcion',
+						xtype:'htmleditor',
+						id: 'tx_descripcion_data',
+                        name: 'tx_descripcion_data',
+                        height: 100,
+            			anchor: '100%',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
@@ -343,10 +339,9 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_continuidad").focus();
+					Ext.getCmp("co_respaldo").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -356,7 +351,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_continuidad").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_respaldo").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -369,24 +364,26 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeContinuidad.baseParams = {'accion': 'insertar'};
+								storeRespaldo.baseParams = {'accion': 'insertar'};
 							else
-								storeContinuidad.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'", ';
-								columnas += '"bo_prioridad_rec" : "'+Ext.getCmp("bo_prioridad_rec").getValue()+'", ';
-								columnas += '"fe_mtd" : "'+convFecha(Ext.getCmp("fe_mtd").getValue())+'", ';
-								columnas += '"fe_rto" : "'+convFecha(Ext.getCmp("fe_rto").getValue())+'", ';
-								columnas += '"bo_esquema_alterno_interno" : "'+Ext.getCmp("bo_esquema_alterno_interno").getValue()+'", ';
-								columnas += '"bo_esquema_alterno_externo" : "'+Ext.getCmp("bo_esquema_alterno_externo").getValue()+'", ';
-								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}';
-							storeContinuidad.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_continuidad.php"},
+								storeRespaldo.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_respaldo" : "'+Ext.getCmp("co_respaldo").getValue()+'", ';
+								columnas += '"nu_veces_al_dia" : "'+Ext.getCmp("nu_veces_al_dia").getValue()+'", ';
+								columnas += '"tx_dias_semana" : "'+Ext.getCmp("tx_dias_semana").getValue()+'", ';
+								columnas += '"tx_descripcion_data" : "'+Ext.getCmp("tx_descripcion_data").getValue()+'", ';
+								columnas += '"nu_tiempo_retencion_data" : "'+Ext.getCmp("nu_tiempo_retencion_data").getValue()+'", ';
+								columnas += '"fe_ultimo_respaldo" : "'+convFecha(Ext.getCmp("fe_ultimo_respaldo").getValue())+'", ';
+								columnas += '"tx_ubicacion_logica_fisica" : "'+Ext.getCmp("tx_ubicacion_logica_fisica").getValue()+'", ';
+								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'", ';
+								columnas += '"co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}';
+							storeRespaldo.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_respaldo" : "'+Ext.getCmp("co_respaldo").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_respaldo.php"},
 										callback: function () {
-										if(storeContinuidad.getAt(0).data.resp!=true){		
+										if(storeRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeContinuidad.getAt(0).data.resp, 
+												msg: storeRespaldo.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -401,24 +398,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_continuidad.php'};
+							storeRespaldo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_respaldo.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Continuidad',
+			tooltip:'Eliminar Respaldo',
 			disabled: true,
 			handler: function(){
-										storeContinuidad.baseParams = {'accion': 'eliminar'};
-										storeContinuidad.load({params:{
-												"condiciones": '{ "co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_continuidad.php"},
+										storeRespaldo.baseParams = {'accion': 'eliminar'};
+										storeRespaldo.load({params:{
+												"condiciones": '{ "co_respaldo" : "'+Ext.getCmp("co_respaldo").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_respaldo.php"},
 										callback: function () {
-										if(storeContinuidad.getAt(0).data.resp!=true){		
+										if(storeRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeContinuidad.getAt(0).data.resp,
+												msg: storeRespaldo.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -438,29 +435,29 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_continuidad',
-                store: storeContinuidad,
-                cm: colModelContinuidad,
+				id: 'gd_respaldo',
+                store: storeRespaldo,
+                cm: colModelRespaldo,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_continuidad").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_respaldo").getForm().loadRecord(rec);
                         }
                         
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Continuidad',
+				title:'Lista de Respaldo',
                 border: true,
                 listeners: {
                     viewready: function(g) {
                                           }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeContinuidad,
+				store: storeRespaldo,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -528,29 +525,84 @@ storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "
 		}
 		winActivo.show();	
 }
- 
+function selTpRespaldo(){
+storeTpRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_respaldo.php"}});
+	if(!winTpRespaldo){
+				winTpRespaldo = new Ext.Window({
+						applyTo : 'winTpRespaldo',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selTpRespaldo',
+								store: storeTpRespaldo,
+								cm: colModelTpRespaldo,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Tipo Respaldo',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selTpRespaldo").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selTpRespaldo").getSelectionModel().getSelected();
+											Ext.getCmp("co_tipo_respaldo").setValue(record.data.co_tipo_respaldo);
+											Ext.getCmp("nb_tipo_respaldo").setValue(record.data.nb_tipo_respaldo);
+											winTpRespaldo.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winTpRespaldo.hide();
+								  }
+						}]
+				});
+		}
+		winTpRespaldo.show();	
+} 
 	
-storeContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_continuidad.php"}});
+storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_respaldo.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_continuidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_respaldo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
-		Ext.getCmp("co_continuidad").focus();
+		Ext.getCmp("co_respaldo").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
 var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('co_activo');
-		
+		triggerActivo.applyToMarkup('nb_activo');
+var triggerTpRespaldo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerTpRespaldo.onTriggerClick = selTpRespaldo;
+		triggerTpRespaldo.applyToMarkup('nb_tipo_respaldo');	
+			
 		//showJustificacion: function(tx_justificacion,tx_justificacion){  
 			//tx_justificacion.attr = 'style="white-space:normal"';  
    		 	//return tx_justificacion;  
@@ -568,6 +620,10 @@ var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
   </table>
 <div id="winActivo" class="x-hidden">
     <div class="x-window-header">Ejegir Activo</div>
+	
+</div>
+<div id="winTpRespaldo" class="x-hidden">
+    <div class="x-window-header">Ejegir Tipo Respaldo</div>
 	
 </div>
 </body>
