@@ -65,9 +65,9 @@ Ext.onReady(function(){
         fields: [{name: 'co_alojamiento'},
         		{name: 'nb_establecimiento'},
         		{name: 'di_ubicacion'},
-        		{name: 'nu_telefono'},
         		{name: 'bo_hotel'},
         		{name: 'bo_posada'},
+        		{name: 'tx_telefono'},
         		{name: 'resp'}]
         });
     storeAlojamiento.setDefaultSort('co_alojamiento', 'ASC');
@@ -77,13 +77,27 @@ Ext.onReady(function(){
         {id:'co_alojamiento',header: "Alojamiento", width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'nu_telefono'},
-        {header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel'},
-        {header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada'},
+        {header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel', renderer: hotel},
+        {header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada', renderer: hotel},
+        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
       ]);
 	
-	
-	
+	function hotel(bo_hotel) {
+        if (bo_hotel == 'SI') {
+            return '<span style="color:gray;">' + 'SI' + '</span>';
+        } else if (bo_hotel == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_hotel;
+    	}
+	function posada(bo_posada) {
+        if (bo_posada == 'SI') {
+            return '<span style="color:gray;">' + 'SI' + '</span>';
+        } else if (bo_posada == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_posada;
+    	}
 /*
  *    Here is where we create the Form
  */
@@ -93,7 +107,7 @@ Ext.onReady(function(){
         id: 'frm_alojamiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Alojamientos',
+        title: 'Logistica de Alojamientos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -104,7 +118,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Alojamientos',
+			title: 'Alojamiento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -152,13 +166,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'nu_telefono',
-                        name: 'nu_telefono',
-						width:160
-                    }, {
-                        xtype: 'radiogroup',
+                       xtype: 'radiogroup',
 	            		fieldLabel: 'Hotel',
 	            		id: 'bo_hotel',
 		                name: 'bo_hotel',
@@ -167,7 +175,7 @@ Ext.onReady(function(){
 			                {boxLabel: 'Si', name: 'hotel', checked : true, inputValue: 1},
 			                {boxLabel: 'No', name: 'hotel', inputValue: 0},
 			           			]
-                    },{
+                    }, {
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Posada',
 	            		id: 'bo_posada',
@@ -177,6 +185,12 @@ Ext.onReady(function(){
 			                {boxLabel: 'Si', name: 'posada', checked : true, inputValue: 1},
 			                {boxLabel: 'No', name: 'posada', inputValue: 0},
 			           			]
+                    },{
+                         fieldLabel: 'Telefono',
+						xtype:'numberfield',
+						id: 'tx_telefono',
+                        name: 'tx_telefono',
+						width:160
                     }]
 			}]
 			},{
@@ -224,9 +238,9 @@ Ext.onReady(function(){
 							var columnas   = '{"co_alojamiento" : "'+Ext.getCmp("co_alojamiento").getValue()+'", ';
 							columnas += '"nb_establecimiento" : "'+Ext.getCmp("nb_establecimiento").getValue()+'", ';
 							columnas += '"di_ubicacion" : "'+Ext.getCmp("di_ubicacion").getValue()+'", ';
-							columnas += '"nu_telefono" : "'+Ext.getCmp("nu_telefono").getValue()+'", ';
 							columnas += '"bo_hotel" : "'+Ext.getCmp("bo_hotel").getValue()+'", ';
-							columnas += '"bo_posada" : "'+Ext.getCmp("bo_posada").getValue()+'"}';
+							columnas += '"bo_posada" : "'+Ext.getCmp("bo_posada").getValue()+'", ';
+							columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'"}';
 							storeAlojamiento.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_alojamiento" : "'+Ext.getCmp("co_alojamiento").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_alojamiento.php"},
