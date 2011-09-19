@@ -1,10 +1,10 @@
 <?php
 require_once 'MyPDO.php';
 require_once 'Departamento.php';
-require_once 'RolPersona';
-require_once 'RolResponsabilidad';
-require_once 'Grupo';
-require_once 'Guardia';
+require_once 'RolPersona.php';
+require_once 'RolResponsabilidad.php';
+require_once 'Grupo.php';
+require_once 'Guardia.php';
 
 
 
@@ -62,6 +62,11 @@ class Persona extends MyPDO
 	 */
 	private $_tx_telefono_habitacion;
 	/**
+	 * @AttributeType int
+	 * Tel�fono del lugar de habitaci�n de la persona.
+	 */
+	private $_tx_telefono_persona;
+	/**
 	 * @AssociationType Planes.Departamento
 	 * @AssociationMultiplicity 1
 	 */
@@ -73,7 +78,7 @@ class Persona extends MyPDO
 	public $_es_responsable = array();
 	/**
 	 * @AssociationType Planes.RolDepersona
-	 * @AssociationMultiplicity 1
+	 * @AssociationMultiplicityp 1
 	 */
 	public $_cumple;
 		/**
@@ -111,7 +116,7 @@ class Persona extends MyPDO
    * 
    * @access public
    */
-  public $columPersona= array('co_indicador'=>'co_indicador', 'nu_cedula'=>'nu_cedula', 'nb_persona'=>'nb_persona', 'tx_apellido'=>'tx_apellido', 'di_oficina'=>'di_oficina', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'co_rol'=>'co_rol', 'co_rol_resp'=>'co_rol_resp', 'co_grupo'=>'co_grupo','co_guardia'=>'co_guardia');
+  public $columPersona= array('co_indicador'=>'co_indicador', 'nu_cedula'=>'nu_cedula', 'nb_persona'=>'nb_persona', 'tx_apellido'=>'tx_apellido', 'di_oficina'=>'di_oficina', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'tx_telefono_personal'=>'tx_telefono_personal', 'co_departamento'=>'co_departamento', 'co_rol'=>'co_rol', 'co_rol_resp'=>'co_rol_resp', 'co_grupo'=>'co_grupo','co_guardia'=>'co_guardia');
 
   /**
    * 
