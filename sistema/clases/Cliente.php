@@ -1,7 +1,7 @@
 <?php
 require_once 'MyPDO.php';
 require_once 'Persona.php';
-require_once 'Activo';
+require_once 'Activo.php';
 /**
  * Se definen los datos de los clientes o puntos focales de los procesos criticos del negocio.
  * @access public
@@ -103,8 +103,19 @@ class Cliente extends MyPDO
    */
   public function cargarCliente( ) {
 
-	$query = "SELECT *
-                FROM tr052_cliente;
+	$query = "SELECT 
+  tr052_cliente.co_cliente, 
+  tr052_cliente.co_indicador, 
+  tr052_cliente.co_activo, 
+  tr027_activo.nb_activo, 
+  tr010_persona.nb_persona
+FROM 
+  public.tr010_persona, 
+  public.tr027_activo, 
+  public.tr052_cliente
+WHERE 
+  tr052_cliente.co_indicador = tr010_persona.co_indicador AND
+  tr052_cliente.co_activo = tr027_activo.co_activo;
 ";
 
 	$r = $this->pdo->_query($query);
