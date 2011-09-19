@@ -31,7 +31,7 @@ class Transporte extends MyPDO
    * 
    * @access public
    */
-  public $columTransporte= array('co_transporte'=>'co_transporte');
+  public $columTransporte= array('co_transporte'=>'co_transporte', 'fe_elaboracion'=>'fe_elaboracion');
 
   /**
    * 
@@ -45,7 +45,7 @@ class Transporte extends MyPDO
 
 	$transporte = array_intersect_key($transporte, $this->columTransporte);
 	
-	$r1 = $this->pdo->_insert('tr021_transporte', $ubicacion);
+	$r1 = $this->pdo->_insert('tr021_transporte', $transporte);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
