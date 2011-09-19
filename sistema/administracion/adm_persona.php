@@ -915,7 +915,7 @@ storeGrupo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
-								//autoExpandColumn: 'email',
+								//auto-ExpandColumn: 'email',
 								loadMask: true,
 								/*plugins: filtersCond,
 								bbar: pagingBarCond,*/
