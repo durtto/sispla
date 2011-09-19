@@ -99,8 +99,19 @@ class Valor extends MyPDO
    */
   public function cargarValor() {
 
-	$query = "SELECT *
-				FROM tr031_valor_caracteristica;";
+	$query = "SELECT 
+  tr031_valor_caracteristica.co_activo, 
+  tr027_activo.nb_activo, 
+  tr031_valor_caracteristica.co_caracteristica, 
+  tr030_caracteristica.nb_caracteristica, 
+  tr031_valor_caracteristica.nu_valor
+FROM 
+  public.tr027_activo, 
+  public.tr031_valor_caracteristica, 
+  public.tr030_caracteristica
+WHERE 
+  tr031_valor_caracteristica.co_activo = tr027_activo.co_activo AND
+  tr031_valor_caracteristica.co_caracteristica = tr030_caracteristica.co_caracteristica;";
 
 	$r = $this->pdo->_query($query);
 	
