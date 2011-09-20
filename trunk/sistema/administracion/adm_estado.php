@@ -71,9 +71,9 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelEstado = new Ext.grid.ColumnModel([
-        {id:'co_estado',header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'co_estado'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {id:'co_estado',header: "Estado", width: 139, sortable: true, locked:false, dataIndex: 'co_estado'},
+        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_estado'},
+        {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
 	
 	     
@@ -87,7 +87,7 @@ Ext.onReady(function(){
         id: 'frm_estado',
         frame: true,
 		labelAlign: 'center',
-        title: 'Estado',
+        title: 'Estados',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -98,7 +98,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Estados',
+			title: 'Estado',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -106,7 +106,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Estado',
+                        fieldLabel: 'Codigo del Estado',
 						xtype:'numberfield',
 						id: 'co_estado',
                         name: 'co_estado',
