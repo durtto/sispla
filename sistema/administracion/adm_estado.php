@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Estado</title>
+<title>Estados</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -65,7 +65,6 @@ Ext.onReady(function(){
         fields: [{name: 'co_estado'},
         		{name: 'nb_estado'},
         		{name: 'tx_descripcion'},
-        		{name: 'bo_critico'},
         		{name: 'resp'}]
         });
     storeEstado.setDefaultSort('co_estado', 'ASC');

@@ -84,15 +84,17 @@ Ext.onReady(function(){
         fields: [{name: 'co_directorio'},
 		        {name: 'nb_directorio'},
 		        {name: 'nb_tipo_directorio'},
+		        {name: 'nu_telefono'},
 		        {name: 'resp'}]
         });
     storeDirectorio.setDefaultSort('co_directorio', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDirectorio = new Ext.grid.ColumnModel([
-        {id:'co_directorio',header: "Directorio", width: 100, sortable: true, locked:false, dataIndex: 'co_directorio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_directorio'},
-        {header: "Tipo Directorio", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {id:'co_directorio',header: "Directorio", width: 150, sortable: true, locked:false, dataIndex: 'co_directorio'},
+        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
+        {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {header: "Numero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
       ]);
 	
 	     
@@ -106,7 +108,7 @@ Ext.onReady(function(){
         id: 'frm_directorio',
         frame: true,
 		labelAlign: 'center',
-        title: 'Directorio',
+        title: 'Directorios Telefonicos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -117,7 +119,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Directorios',
+			title: 'Directorio',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -171,6 +173,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                     },{
+                     	fieldLabel: 'Numero Telefonico',
+						xtype:'numberfield',
+						id: 'nu_telefono',
+                        name: 'nu_telefono',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
                     }]
 			}]
 			},{
@@ -217,7 +226,8 @@ Ext.onReady(function(){
 								storeDirectorio.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_directorio" : "'+Ext.getCmp("co_directorio").getValue()+'", ';
 								columnas += '"nb_directorio" : "'+Ext.getCmp("nb_directorio").getValue()+'", ';
-								columnas += '"co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}';
+								columnas += '"co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'", ';
+								columnas += '"nu_telefono" : "'+Ext.getCmp("nu_telefono").getValue()+'"}';
 							storeDirectorio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_directorio" : "'+Ext.getCmp("co_directorio").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_directorio.php"},
@@ -292,7 +302,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Directorio',
+				title:'Lista de Directorios telefonicos',
                 border: true,
                 listeners: {
                     viewready: function(g) {

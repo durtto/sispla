@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Documento Componente</title>
+<title>Documentos de Componentes</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -46,7 +46,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_grupo'] = 'Codigo Grupo';
+	camposReq['co_doc_componente'] = 'Codigo del Componente';
 	
     var bd = Ext.getBody();
 
@@ -70,8 +70,8 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDocComponente = new Ext.grid.ColumnModel([
-        {id:'co_doc_componente',header: "Documento", width: 100, sortable: true, locked:false, dataIndex: 'co_doc_componente'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
+        {id:'co_doc_componente',header: "Documento", width: 250, sortable: true, locked:false, dataIndex: 'co_doc_componente'},
+        {header: "Direccion", width: 250, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
       ]);
 	
 	
@@ -85,7 +85,7 @@ Ext.onReady(function(){
         id: 'frm_doc_componente',
         frame: true,
 		labelAlign: 'center',
-        title: 'Grupos',
+        title: 'Componentes',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -95,13 +95,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Componentes',
+			layout:'column',
+			title: 'Documento del Componente',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero de Componente',
@@ -111,7 +111,13 @@ Ext.onReady(function(){
                         //hidden: true,
 						//hideLabel: true,
                         width:160
+                       }]
                     }, {
+                    	layout: 'form',
+						border:false,
+						columnWidth:.45,
+						labelWidth:100,
+						items: [{
                         fieldLabel: 'Direccion Servidor',
 						xtype:'textfield',
 						vtype:'validos',
@@ -130,7 +136,7 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
+					//nroReg=storeDocComponente.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -193,7 +199,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Grupo',
+			tooltip:'Eliminar Documento',
 			disabled: true,
 			handler: function(){
 										storeDocComponente.baseParams = {'accion': 'eliminar'};
@@ -238,7 +244,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Grupos',
+				title:'Lista de Documentos',
                 border: true,
                 listeners: {
                     viewready: function(g) {

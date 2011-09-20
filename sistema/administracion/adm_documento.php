@@ -72,10 +72,10 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDocumento = new Ext.grid.ColumnModel([
-        {id:'co_documento',header: "Documento", width: 100, sortable: true, locked:false, dataIndex: 'co_documento'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_documento'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
+        {id:'co_documento',header: "Documento", width: 150, sortable: true, locked:false, dataIndex: 'co_documento'},
+        {header: "Nombre", width: 158, sortable: true, locked:false, dataIndex: 'nb_documento'},
+        {header: "Descripcion", width: 165, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Direccion", width: 165, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
       ]);
 	
 	
@@ -89,7 +89,7 @@ Ext.onReady(function(){
         id: 'frm_documento',
         frame: true,
 		labelAlign: 'center',
-        title: 'documentos',
+        title: 'Documentos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -100,7 +100,7 @@ Ext.onReady(function(){
 			width:660,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Documentos',
+			title: 'Documento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
