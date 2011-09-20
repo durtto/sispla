@@ -95,9 +95,11 @@ class DocComponente extends MyPDO
    */
   public function cargarDocComponente( ) {
 
-	$query = "SELECT *
-                FROM tr053_documento_componente;
-";
+	$query = "SELECT 
+  					tr053_documento_componente.co_doc_componente, 
+  					tr053_documento_componente.tx_url_direccion
+				FROM 
+  					public.tr053_documento_componente;";
 
 	$r = $this->pdo->_query($query);
 	

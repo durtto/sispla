@@ -19,16 +19,22 @@ class Directorio extends MyPDO
 	 */
 	private $_nb_directorio;
 	/**
+	 * @AttributeType string
+	 * Numero telefonico.
+	 */
+	private $_nu_telefono;
+	/**
 	 * @AssociationType Planes.TpDirectorio
 	 * @AssociationMultiplicity 1..*
 	 */
 	public $_refiere = array();
+	
 
 /**
    * 
    * @access public
    */
-  public $columDirectorio= array('co_directorio'=>'co_directorio', 'nb_directorio'=>'nb_directorio', 'co_tipo_directorio'=>'co_tipo_directorio');
+  public $columDirectorio= array('co_directorio'=>'co_directorio', 'nb_directorio'=>'nb_directorio', 'co_tipo_directorio'=>'co_tipo_directorio', 'nu_telefono'=>'nu_telefono');
   
   /**
    * 
@@ -104,8 +110,8 @@ class Directorio extends MyPDO
 	$query = "SELECT 
   tr051_directorio.co_directorio, 
   tr051_directorio.nb_directorio, 
-  tr050_tipo_directorio.nb_tipo_directorio
-
+  tr050_tipo_directorio.nb_tipo_directorio,
+  tr051_directorio.nu_telefono
   
 FROM 
   public.tr051_directorio, 
