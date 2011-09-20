@@ -102,11 +102,11 @@ Ext.onReady(function(){
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
 		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
         {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
 		{header: "Telefono Habitacion", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
         {header: "Proveedor", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
+        {header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       ]);
 	
 	     

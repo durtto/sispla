@@ -71,7 +71,7 @@ Ext.onReady(function(){
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCapacidad = new Ext.grid.ColumnModel([
         {id:'co_capacidad',header: "Codigo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+        {header: "Tipo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
       ]);
 	
 	
@@ -95,13 +95,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Capacidad',
+			layout:'column',
+			title: 'Capacidades',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
+					labelWidth:130,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo de Capacidad',
@@ -110,15 +110,21 @@ Ext.onReady(function(){
                         name: 'co_capacidad',
                         //hidden: true,
 						//hideLabel: true,
-                        width:160
-                    }, {
-                        fieldLabel: 'Nombre',
+                        width:130
+                    }]
+                    },{
+					layout: 'form',
+					labelWidth:130,
+					columnWidth:.45,
+					border:false,
+					items: [{
+                        fieldLabel: 'Nombre de Capacidad',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_capacidad',
                         name: 'nb_capacidad',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:130,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())

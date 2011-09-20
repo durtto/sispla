@@ -90,8 +90,8 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCaracteristica = new Ext.grid.ColumnModel([
-        {id:'co_caracteristica',header: "Caracteristica", width: 100, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
+        {id:'co_caracteristica',header: "Codigo de Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
+        {header: "Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
         {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},      
       ]);
 	
@@ -125,7 +125,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Caracteristica',
+                        fieldLabel: 'Codigo de Caracteristica',
 						xtype:'numberfield',
 						id: 'co_caracteristica',
                         name: 'co_caracteristica',
@@ -138,7 +138,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Caracteristica',
 						xtype:'textfield',
 						id: 'nb_caracteristica',
                         name: 'nb_caracteristica',
