@@ -33,7 +33,7 @@ class Crecimiento extends MyPDO
 	 * @AssociationType Planes.TipoDeActivo
 	 * @AssociationMultiplicity 1
 	 */
-	public $_unnamed_TipoDeActivo_;
+	public $_unnamed_TipoDeActivo;
 
 /**
    * 

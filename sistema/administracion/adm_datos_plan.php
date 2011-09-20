@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Datos Plan</title>
+<title>Datos de Planes</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -43,10 +43,10 @@
  * http://www.extjs.com/license
  */
  var nuevo;
-Ext.onReady(function(){
+ Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_componente'] = 'Codigo Componente';
+	camposReq['co_componente'] = 'Codigo del Componente';
 	
     var bd = Ext.getBody();
 
@@ -55,15 +55,15 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-	
-   var storeDatosPlan = new Ext.data.JsonStore({
+       
+  var storeDato = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_dato_plan.php',
 		remoteSort : true,
-		root: 'datosplan',
+		root: 'datos',
         totalProperty: 'total',
 		idProperty: 'co_componente',
         fields: [{name: 'co_componente'},
-        		{name: 'fe_vigencia'},		
+		        {name: 'fe_vigencia'},		
         		{name: 'tx_objetivo'},	  
         		{name: 'tx_alcance'},   
         		{name: 'tx_identificacion_negocio'},
@@ -71,31 +71,31 @@ Ext.onReady(function(){
         		{name: 'tx_organizacion'},
         		{name: 'resp'}]
         });
-    storeDatosPlan.setDefaultSort('co_componente', 'ASC');
+    storeDato.setDefaultSort('co_componente', 'ASC');
 	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelDato = new Ext.grid.ColumnModel([
+        {id:'co_componente',header: "Componente", width: 150, sortable: true, locked:false, dataIndex: 'co_componente'},
+        {header: "Fecha de Vigencia", width: 150, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
+        {header: "Objetivos", width: 200, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
+        {header: "Alcance", width: 200, sortable: true, locked:false, dataIndex: 'tx_alcance'},
+        {header: "Negocio", width: 150, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
+        {header: "Localidad", width: 150, sortable: true, locked:false, dataIndex: 'tx_localidad'},
+        {header: "Organizacion", width: 150, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
+      ]);
 	
-    var colModelDatosPlan = new Ext.grid.ColumnModel([
-        {id:'co_componente',header: "Componente", width: 250, sortable: true, locked:false, dataIndex: 'co_componente'},
-        {header: "Fecha de Vigencia", width: 250, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
-        {header: "Objetivos", width: 250, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
-        {header: "Alcance", width: 250, sortable: true, locked:false, dataIndex: 'tx_alcance'},
-        {header: "Negocio", width: 250, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
-        {header: "Localidad", width: 250, sortable: true, locked:false, dataIndex: 'tx_localidad'},
-        {header: "Organizacion", width: 250, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
-        ]);
-	
-	
-	
+		 
+
 /*
  *    Here is where we create the Form
  */
 
 		
-var gridForm = new Ext.FormPanel({
-        id: 'frm_datosplan',
+    var gridForm = new Ext.FormPanel({
+        id: 'frm_dato',
         frame: true,
 		labelAlign: 'center',
-        title: 'Datos del Plan',
+        title: 'Datos de Planes',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -105,24 +105,22 @@ var gridForm = new Ext.FormPanel({
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
-			title: 'Datos del Plan',
+			layout:'column',
+			title: 'Datos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Componente',
+                        fieldLabel: 'Codigo del Componente',
 						xtype:'numberfield',
 						id: 'co_componente',
                         name: 'co_componente',
-						//hidden: true,
-						//hideLabel: true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }, {
+                    },{
                         fieldLabel: 'Fecha de Vigencia',
 						xtype:'datefield',
 						vtype:'validos',
@@ -131,7 +129,7 @@ var gridForm = new Ext.FormPanel({
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Negocio',
+						fieldLabel: 'Negocio',
 						xtype:'textfield',
 						id: 'tx_identificacion_negocio',
                         name: 'tx_identificacion_negocio',
@@ -142,7 +140,13 @@ var gridForm = new Ext.FormPanel({
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
+				    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Localidad',
 						xtype:'textfield',
 						id: 'tx_localidad',
@@ -166,8 +170,14 @@ var gridForm = new Ext.FormPanel({
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                      }]  
                     },{
-                        fieldLabel: 'Objetivo',
+                    	layout: 'form',
+					    border:false,
+					    columnWidth:"100%",
+					    labelWidth:100,
+					    items: [{
+					    fieldLabel: 'Objetivo',
 						xtype:'htmleditor',
 						id: 'tx_objetivo',
                         name: 'tx_objetivo',
@@ -181,9 +191,9 @@ var gridForm = new Ext.FormPanel({
                         name: 'tx_alcance',
                         height: 100,
             			anchor: '100%',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                    }]
-			}]
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',	
+				}]
+		    }]
 			},{
 				width: 640,  
 				buttonAlign:'center',
@@ -193,12 +203,12 @@ var gridForm = new Ext.FormPanel({
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
+					//nroReg=storeDato.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-					}
+						}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_componente").focus();
 				}
@@ -210,7 +220,7 @@ var gridForm = new Ext.FormPanel({
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_datosplan").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_dato").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -223,24 +233,24 @@ var gridForm = new Ext.FormPanel({
 						else
 						{
 							if(nuevo)						
-								storeDatosPlan.baseParams = {'accion': 'insertar'};
+								storeDato.baseParams = {'accion': 'insertar'};
 							else
-								storeDatosPlan.baseParams = {'accion': 'actualizar'};
+								storeDato.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_componente" : "'+Ext.getCmp("co_componente").getValue()+'", ';
-								columnas += '"fe_vigencia" : "'+Ext.getCmp("fe_vigencia").getValue()+'", ';
+								columnas += '"fe_vigencia" : "'+convFecha(Ext.getCmp("fe_vigencia").getValue())+'", ';
 								columnas += '"tx_objetivo" : "'+Ext.getCmp("tx_objetivo").getValue()+'", ';
 								columnas += '"tx_alcance" : "'+Ext.getCmp("tx_alcance").getValue()+'", ';
 								columnas += '"tx_identificacion_negocio" : "'+Ext.getCmp("tx_identificacion_negocio").getValue()+'", ';
 								columnas += '"tx_localidad" : "'+Ext.getCmp("tx_localidad").getValue()+'", ';
 								columnas += '"tx_organizacion" : "'+Ext.getCmp("tx_organizacion").getValue()+'"}';
-							storeDatosPlan.load({params:{"columnas" : columnas,
+							storeDato.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_dato_plan.php"},
 										callback: function () {
-										if(storeDatosPlan.getAt(0).data.resp!=true){		
+										if(storeDato.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDatosPlan.getAt(0).data.resp, 
+												msg: storeDato.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -255,24 +265,24 @@ var gridForm = new Ext.FormPanel({
 											});
 										}
 							}});
-							storeDatosPlan.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_dato_planphp'};
+							storeDato.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_dato_plan.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Categoria',
+			tooltip:'Eliminar Datos',
 			disabled: true,
 			handler: function(){
-										storeDatosPlan.baseParams = {'accion': 'eliminar'};
-										storeDatosPlan.load({params:{
-												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
+										storeDato.baseParams = {'accion': 'eliminar'};
+										storeDato.load({params:{
+												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_dato_plan.php"},
 										callback: function () {
-										if(storeDatosPlan.getAt(0).data.resp!=true){		
+										if(storeDato.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDatosPlan.getAt(0).data.resp,
+												msg: storeDato.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -292,16 +302,17 @@ var gridForm = new Ext.FormPanel({
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_datosplan',
-                store: storeDatosPlan,
-                cm: colModelDatosPlan,
+				id: 'gd_dato',
+                store: storeDato,
+                cm: colModelDato,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_datosplan").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_dato").getForm().loadRecord(rec);
                         }
+                        
                     }
                 }),
                 height: 250,
@@ -310,11 +321,10 @@ var gridForm = new Ext.FormPanel({
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                                          }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeDatosPlan,
+				store: storeDato,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -327,27 +337,23 @@ var gridForm = new Ext.FormPanel({
         
     });
 
-	
-	
-storeDatosPlan.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_dato_plan.php"}});
+storeDato.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_dato_plan.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_datosplan").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_dato").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-		}
+     	}
 		Ext.getCmp("co_componente").focus();
 		nroReg=rowIdx;
-		
+
 });
 /********************************************************************************************************/
-
 });
-
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
