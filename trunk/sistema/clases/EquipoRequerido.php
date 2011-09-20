@@ -127,8 +127,71 @@ class EquipoRequerido extends MyPDO
    */
   public function cargarEquipoRequerido( ) {
 
-	$query = "SELECT *
-                FROM tr033_equipo_requerido;
+	$query = "SELECT 
+  tr033_equipo_requerido.co_equipo_requerido, 
+  tr027_activo.nb_activo, 
+tr010_persona.co_indicador, 
+  tr010_persona.nu_cedula, 
+  tr010_persona.nb_persona, 
+  tr010_persona.tx_apellido, 
+  tr010_persona.di_oficina, 
+  tr010_persona.tx_telefono_oficina, 
+  tr010_persona.tx_correo_electronico, 
+  tr010_persona.di_habitacion, 
+  tr010_persona.tx_telefono_habitacion, 
+  tr010_persona.tx_telefono_personal, 
+  tr007_departamento.nb_departamento, 
+  tr008_rol_persona.nb_rol, 
+  tr002_rol_responsabilidad.nb_rol_resp, 
+  tr001_grupo.nb_grupo, 
+  tr009_guardia.nb_guardia,
+CASE
+    WHEN tr033_equipo_requerido.bo_vehiculo = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_vehiculo,
+CASE
+    WHEN   tr033_equipo_requerido.bo_laptop = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_laptop,
+CASE
+    WHEN   tr033_equipo_requerido.bo_maletin_herramientas = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_maletin_herramientas,
+CASE
+    WHEN   tr033_equipo_requerido.bo_radio = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_radio,
+CASE
+    WHEN   tr033_equipo_requerido.bo_multimetro_digital = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_multimetro_digital,
+CASE
+    WHEN   tr033_equipo_requerido.bo_hart = true
+    THEN 'SI'
+    ELSE 'NO'
+    END AS bo_hart          
+FROM 
+  public.tr033_equipo_requerido, 
+  public.tr027_activo, 
+  public.tr010_persona, 
+  public.tr002_rol_responsabilidad, 
+  public.tr001_grupo, 
+  public.tr008_rol_persona, 
+  public.tr009_guardia, 
+  public.tr007_departamento
+WHERE 
+  tr027_activo.co_activo = tr033_equipo_requerido.co_activo AND
+  tr010_persona.co_indicador = tr033_equipo_requerido.co_indicador AND
+  tr010_persona.co_departamento = tr007_departamento.co_departamento AND
+  tr010_persona.co_rol = tr008_rol_persona.co_rol AND
+  tr010_persona.co_rol_resp = tr002_rol_responsabilidad.co_rol_resp AND
+  tr010_persona.co_grupo = tr001_grupo.co_grupo AND
+  tr010_persona.co_guardia = tr009_guardia.co_guardia;
 ";
 
 	$r = $this->pdo->_query($query);
