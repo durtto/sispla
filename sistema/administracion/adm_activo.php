@@ -448,6 +448,94 @@ Ext.onReady(function(){
                         name: 'nu_vida_util',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
+                    },{
+                        fieldLabel: 'Estado',
+						xtype:'numberfield',
+						id: 'co_estado',
+                        name: 'co_estado',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Estado',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_estado',
+						disabled:true,
+                        name: 'nb_estado',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Indicador',
+						xtype:'textfield',
+						id: 'co_indicador',
+                        name: 'co_indicador',
+                        width:140
+                    },{
+                        fieldLabel: 'Nombre',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_persona',
+						disabled:true,
+                        name: 'nb_persona',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        hidden: true,
+						hideLabel: true,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Proceso',
+						xtype:'numberfield',
+						id: 'co_proceso',
+                        name: 'co_proceso',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Proceso',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_proceso',
+						disabled:true,
+                        name: 'nb_proceso',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Unidad',
+						xtype:'numberfield',
+						id: 'co_unidad',
+                        name: 'co_unidad',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Unidad',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_unidad',
+						disabled:true,
+                        name: 'nb_unidad',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 				},{
 					layout: 'form',
@@ -467,7 +555,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Numero de Etiqueta',
+                        fieldLabel: 'Etiqueta',
 						xtype:'numberfield',
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
@@ -497,6 +585,94 @@ Ext.onReady(function(){
                         name: 'co_activo_padre',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:141
+                    },{
+                        fieldLabel: 'Fabricante',
+						xtype:'numberfield',
+						id: 'co_fabricante',
+                        name: 'co_fabricante',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Fabricante',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_fabricante',
+						disabled:true,
+                        name: 'nb_fabricante',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Ubicacion',
+						xtype:'numberfield',
+						id: 'co_ubicacion',
+                        name: 'co_ubicacion',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Ubicacion',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_ubicacion',
+						disabled:true,
+                        name: 'nb_ubicacion',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Proveedor',
+						xtype:'numberfield',
+						id: 'co_proveedor',
+                        name: 'co_proveedor',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Proveedor',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_proveedor',
+						disabled:true,
+                        name: 'nb_proveedor',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Nivel',
+						xtype:'numberfield',
+						id: 'co_nivel',
+                        name: 'co_nivel',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Nivel',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_nivel',
+						disabled:true,
+                        name: 'nb_nivel',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			},{
 					layout: 'form',
@@ -514,366 +690,6 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Estado',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Estado',
-						xtype:'numberfield',
-						id: 'co_estado',
-                        name: 'co_estado',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_estado',
-						disabled:true,
-                        name: 'nb_estado',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm3',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Fabricante',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Fabricante',
-						xtype:'numberfield',
-						id: 'co_fabricante',
-                        name: 'co_fabricante',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_fabricante',
-						disabled:true,
-                        name: 'nb_fabricante',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm4',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Responsable del Activo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Indicador',
-						xtype:'textfield',
-						id: 'co_indicador',
-                        name: 'co_indicador',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_persona',
-						disabled:true,
-                        name: 'nb_persona',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm5',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Ubicacion',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Ubicacion',
-						xtype:'numberfield',
-						id: 'co_ubicacion',
-                        name: 'co_ubicacion',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_ubicacion',
-						disabled:true,
-                        name: 'nb_ubicacion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm6',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Proceso',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Proceso',
-						xtype:'numberfield',
-						id: 'co_proceso',
-                        name: 'co_proceso',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proceso',
-						disabled:true,
-                        name: 'nb_proceso',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm7',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Proveedor',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Proveedor',
-						xtype:'numberfield',
-						id: 'co_proveedor',
-                        name: 'co_proveedor',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proveedor',
-						disabled:true,
-                        name: 'nb_proveedor',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm8',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Unidad',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Unidad',
-						xtype:'numberfield',
-						id: 'co_unidad',
-                        name: 'co_unidad',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_unidad',
-						disabled:true,
-                        name: 'nb_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm9',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Nivel',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Nivel',
-						xtype:'numberfield',
-						id: 'co_nivel',
-                        name: 'co_nivel',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_nivel',
-						disabled:true,
-                        name: 'nb_nivel',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
 				width: 640,  
 				buttonAlign:'center',
 				layout: 'fit', 	
@@ -887,14 +703,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
-						Ext.getCmp("frm3").enable();
-						Ext.getCmp("frm4").enable();
-						Ext.getCmp("frm5").enable();
-						Ext.getCmp("frm6").enable();
-						Ext.getCmp("frm7").enable();
-						Ext.getCmp("frm8").enable();
-						Ext.getCmp("frm9").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_activo").focus();
@@ -1534,15 +1342,6 @@ gridForm.render('form');
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
-			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
-			Ext.getCmp("frm3").enable();
-			Ext.getCmp("frm4").enable();
-			Ext.getCmp("frm5").enable();
-			Ext.getCmp("frm6").enable();
-			Ext.getCmp("frm7").enable();
-			Ext.getCmp("frm8").enable();
-			Ext.getCmp("frm9").enable();
 		}
 		Ext.getCmp("co_activo").focus();
 		nroReg=rowIdx;
@@ -1555,11 +1354,11 @@ var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
 		
 var triggerEstado = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerEstado.onTriggerClick = selEstado;
-		triggerEstado.applyToMarkup('co_estado');
+		triggerEstado.applyToMarkup('nb_estado');
 		
 var triggerFabricante = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerFabricante.onTriggerClick = selFabricante;
-		triggerFabricante.applyToMarkup('co_fabricante');
+		triggerFabricante.applyToMarkup('nb_fabricante');
 		
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
@@ -1567,23 +1366,23 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
 		
 var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerUbicacion.onTriggerClick = selUbicacion;
-		triggerUbicacion.applyToMarkup('co_ubicacion');
+		triggerUbicacion.applyToMarkup('nb_ubicacion');
 		
 var triggerProceso = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerProceso.onTriggerClick = selProceso;
-		triggerProceso.applyToMarkup('co_proceso');		
+		triggerProceso.applyToMarkup('nb_proceso');		
 		
 var triggerProveedor = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerProveedor.onTriggerClick = selProveedor;
-		triggerProveedor.applyToMarkup('co_proveedor');	
+		triggerProveedor.applyToMarkup('nb_proveedor');	
 				
 var triggerUnidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerUnidad.onTriggerClick = selUnidad;
-		triggerUnidad.applyToMarkup('co_unidad');		
+		triggerUnidad.applyToMarkup('nb_unidad');		
 
 var triggerNivel = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerNivel.onTriggerClick = selNivel;
-		triggerNivel.applyToMarkup('co_nivel');	
+		triggerNivel.applyToMarkup('nb_nivel');	
 			
 });
 
