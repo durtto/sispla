@@ -43,7 +43,7 @@ class Servicio extends MyPDO
    * 
    * @access public
    */
-  public $columServicio= array('co_servicio'=>'co_servicio', 'nb_servicio'=>'nb_servicio', 'tx_descripcion'=>'tx_descripcion', 'ca_capacidad'=>'ca_capacidad');
+  public $columServicio= array('co_servicio'=>'co_servicio', 'nb_servicio'=>'nb_servicio', 'tx_descripcion'=>'tx_descripcion', 'co_capacidad'=>'co_capacidad');
 
   /**
    * 
