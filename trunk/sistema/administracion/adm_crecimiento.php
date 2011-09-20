@@ -102,11 +102,11 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCrecimiento = new Ext.grid.ColumnModel([
-        {id:'co_crecimiento',header: "Crecimiento", width: 100, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
+        {id:'co_crecimiento',header: "Crecimiento", width: 150, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
         {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
-        {header: "Fecha actual", width: 200, sortable: true, locked:false, dataIndex: 'fe_actual'},      
-        {header: "Fecha Tope", width: 400, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
-        {header: "Tipo Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
+        {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
+        {header: "Tipo Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
       ]);
 	
 		 
@@ -189,7 +189,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'TipoActivos',
+			title: 'Tipo de Activo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -197,7 +197,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero TipoActivo',
+                        fieldLabel: 'Codigo de Activo',
 						xtype:'numberfield',
 						id: 'co_tipo_activo',
                         name: 'co_tipo_activo',
@@ -211,7 +211,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Nombre de Activo',
 						xtype:'textfield',
 						id: 'nb_tipo_activo',
                         name: 'nb_tipo_activo',
