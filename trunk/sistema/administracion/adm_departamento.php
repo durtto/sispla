@@ -70,8 +70,8 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDepartamento = new Ext.grid.ColumnModel([
-        {id:'co_departamento',header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'co_departamento'},
-        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},
+        {id:'co_departamento',header: "Codigo", width: 150, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 150, sortable: true, locked:false, dataIndex: 'nb_departamento'},
       ]);
 	
 	
@@ -96,7 +96,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Departamentos',
+			title: 'Departamento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',

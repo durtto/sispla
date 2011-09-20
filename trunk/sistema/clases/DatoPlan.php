@@ -6,7 +6,7 @@ require_once 'MyPDO.php';
  * @access public
  * @package Planes
  */
-class DatoPlan extends MyPDO
+class Dato extends MyPDO
 {
 	/**
 	 * @AttributeType int
@@ -48,7 +48,7 @@ class DatoPlan extends MyPDO
    * 
    * @access public
    */
-  public $columDatoPlan= array('co_componente'=>'co_componente', 'fe_vigencia'=>'fe_vigencia', 'tx_objetivo'=>'tx_objetivo', 'tx_alcance'=>'tx_alcance', 'tx_identificacion_negocio'=>'tx_identificacion_negocio', 'tx_localidad'=>'tx_localidad', 'tx_organizacion'=>'tx_organizacion');
+  public $columDato= array('co_componente'=>'co_componente', 'fe_vigencia'=>'fe_vigencia', 'tx_objetivo'=>'tx_objetivo', 'tx_alcance'=>'tx_alcance', 'tx_identificacion_negocio'=>'tx_identificacion_negocio', 'tx_localidad'=>'tx_localidad', 'tx_organizacion'=>'tx_organizacion');
   
   /**
    * 
@@ -60,20 +60,20 @@ class DatoPlan extends MyPDO
    * @return string
    * @access public
    */
-  public function insertarDatoPlan($datoplan) {
+  public function insertarDato($dato) {
   	
 	$this->pdo->beginTransaction();	
 
-	$datoplan = array_intersect_key($datoplan, $this->columDatoPlan);
+	$dato = array_intersect_key($dato, $this->columDato);
 	
-	$r1 = $this->pdo->_insert('tr015_datos_plan', $datoplan);
+	$r1 = $this->pdo->_insert('tr015_datos_plan', $dato);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
   
-  } // end of member function insertarDatoPlan
+  } // end of member function insertarDato
 
   /**
    * 
@@ -81,18 +81,18 @@ class DatoPlan extends MyPDO
    * @return string
    * @access public
    */
-  public function actualizarDatoPlan($datoplan, $condiciones) {
+  public function actualizarDato($Dato, $condiciones) {
   	$this->pdo->beginTransaction();	
 
-	$datoplan = array_intersect_key($datoplan, $this->columDatoPlan);
+	$dato = array_intersect_key($dato, $this->columDato);
 	
-	$r1 = $this->pdo->_update('tr015_datos_plan', $datoplan, $condiciones);
+	$r1 = $this->pdo->_update('tr015_datos_plan', $dato, $condiciones);
 	
 	if($r1)
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
-  } // end of member function actualizarDatoPlan
+  } // end of member function actualizarDato
 
   /**
    * 
@@ -100,7 +100,7 @@ class DatoPlan extends MyPDO
    * @return string
    * @access public
    */
-  public function eliminarDatoPlan($condiciones ) {
+  public function eliminarDato($condiciones ) {
   
   	$this->pdo->beginTransaction();	
 
@@ -111,7 +111,7 @@ class DatoPlan extends MyPDO
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
-  } // end of member function eliminarDatoPlan
+  } // end of member function eliminarDato
 
   /**
    * 
@@ -119,16 +119,23 @@ class DatoPlan extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDatoPlan( ) {
+  public function cargarDato( ) {
 
-	$query = "SELECT *
-                FROM tr015_datos_plan;
-";
+	$query = "SELECT 
+					tr015_datos_plan.co_componente, 
+  					tr015_datos_plan.fe_vigencia, 
+  					tr015_datos_plan.tx_objetivo, 
+  					tr015_datos_plan.tx_alcance, 
+ 					tr015_datos_plan.tx_identificacion_negocio, 
+  					tr015_datos_plan.tx_localidad, 
+  					tr015_datos_plan.tx_organizacion
+				FROM 
+  					public.tr015_datos_plan;";
 
 	$r = $this->pdo->_query($query);
 	
 			
 	return $r;
-  } // end of member function cargarDatoPlan
+  } // end of member function cargarDato
 }
 ?>
