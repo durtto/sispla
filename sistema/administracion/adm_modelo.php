@@ -104,23 +104,21 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Modelo',
+                        fieldLabel: 'Numero Modelo',
 						xtype:'numberfield',
 						id: 'co_modelo',
                         name: 'co_modelo',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
                     }]
-                    },{
+				},{
 					layout: 'form',
-					labelWidth:140,
-					columnWidth:.45,
 					border:false,
+					columnWidth:.45,
+					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Modelo',
 						xtype:'textfield',
-						vtype:'validos',
 						id: 'nb_modelo',
                         name: 'nb_modelo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
