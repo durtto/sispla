@@ -181,6 +181,28 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    },{
+                        fieldLabel: 'Codigo de Proveedor',
+						xtype:'numberfield',
+						id: 'co_proveedor',
+                        name: 'co_proveedor',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Nombre',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_proveedor',
+						disabled:true,
+                        name: 'nb_proveedor',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 				},{
 					layout: 'form',
@@ -230,51 +252,6 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Proveedor',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Proveedor',
-						xtype:'numberfield',
-						id: 'co_proveedor',
-                        name: 'co_proveedor',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proveedor',
-						disabled:true,
-                        name: 'nb_proveedor',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
 				width: 640,  
 				buttonAlign:'center',
 				layout: 'fit', 	
@@ -288,7 +265,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_contacto").focus();
@@ -486,7 +462,6 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_contacto").focus();
 		nroReg=rowIdx;
@@ -495,7 +470,7 @@ gridForm.render('form');
 /********************************************************************************************************/
 var triggerProveedor = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerProveedor.onTriggerClick = selProveedor;
-		triggerProveedor.applyToMarkup('co_proveedor');
+		triggerProveedor.applyToMarkup('nb_proveedor');
 });
 
 </script>

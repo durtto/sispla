@@ -177,6 +177,15 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_tipo_ubicacion',
                         name: 'co_tipo_ubicacion',
+                        hidden: true,
+						hideLabel: true,
+						width:140
+                    
+				},{
+                        fieldLabel: 'Tipo Ubicacion',
+						xtype:'textfield',
+						id: 'nb_tipo_ubicacion',
+                        name: 'nb_tipo_ubicacion',
                         //hidden: true,
 						//hideLabel: true,
 						width:140
@@ -428,6 +437,8 @@ storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interf
 										if(Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected();
 											Ext.getCmp("co_tipo_ubicacion").setValue(record.data.co_tipo_ubicacion);
+											Ext.getCmp("nb_tipo_ubicacion").setValue(record.data.nb_tipo_ubicacion);
+
 											winTpUbicacion.hide();
 										}
 								  }
@@ -464,7 +475,7 @@ var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-
 
 var triggerTpUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerTpUbicacion.onTriggerClick = selTpUbicacion;
-		triggerTpUbicacion.applyToMarkup('co_tipo_ubicacion');	
+		triggerTpUbicacion.applyToMarkup('nb_tipo_ubicacion');	
 });
 </script>
 </head>

@@ -131,6 +131,28 @@ Ext.onReady(function(){
                         name: 'co_directorio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
+                    },{
+                        fieldLabel: 'Codigo de TpDirectorio',
+						xtype:'numberfield',
+						id: 'co_tipo_directorio',
+                        name: 'co_tipo_directorio',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    }, {
+                        fieldLabel: 'Tipo de Directorio',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_tipo_directorio',
+						disabled:true,
+                        name: 'nb_tipo_directorio',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 				},{
 					layout: 'form',
@@ -142,45 +164,6 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'nb_directorio',
                         name: 'nb_directorio',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			//layout:'column',
-			title: 'TpDirectorio',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de TpDirectorio',
-						xtype:'numberfield',
-						id: 'co_tipo_directorio',
-                        name: 'co_tipo_directorio',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }, {
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_tipo_directorio',
-						disabled:true,
-                        name: 'nb_tipo_directorio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -204,7 +187,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_directorio").focus();
@@ -396,7 +378,6 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_directorio").focus();
 		nroReg=rowIdx;
@@ -405,7 +386,7 @@ gridForm.render('form');
 /********************************************************************************************************/
 var triggerTpDirectorio = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerTpDirectorio.onTriggerClick = selTpDirectorio;
-		triggerTpDirectorio.applyToMarkup('co_tipo_directorio');
+		triggerTpDirectorio.applyToMarkup('nb_tipo_directorio');
 });
 
 </script>

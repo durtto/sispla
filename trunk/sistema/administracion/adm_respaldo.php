@@ -297,7 +297,7 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Activo',
 						xtype:'textfield',
 						id: 'nb_activo',
                         name: 'nb_activo',

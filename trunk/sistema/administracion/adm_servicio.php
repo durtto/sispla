@@ -95,7 +95,7 @@ Ext.onReady(function(){
         {id:'co_servicio',header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'co_servicio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
 		{header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Capacidad", width: 100, sortable: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Capacidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_capacidad'},
         {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},      
       ]);
 	
@@ -153,6 +153,28 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    },{
+                        fieldLabel: 'Codigo de Capacidad',
+						xtype:'numberfield',
+						id: 'co_capacidad',
+                        name: 'co_capacidad',
+                        hidden: true,
+						hideLabel: true,
+                        width:160
+                    },{
+                        fieldLabel: 'Capacidad',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_capacidad',
+						disabled:true,
+                        name: 'nb_capacidad',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			},{
 					layout: 'form',
@@ -170,51 +192,6 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Capacidad',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Capacidad',
-						xtype:'numberfield',
-						id: 'co_capacidad',
-                        name: 'co_capacidad',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_capacidad',
-						disabled:true,
-                        name: 'nb_capacidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
 				width: 640,  
 				buttonAlign:'center',
 				layout: 'fit', 	
@@ -228,7 +205,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_servicio").focus();
@@ -259,6 +235,7 @@ Ext.onReady(function(){
 								storeServicio.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'", ';
 								columnas += '"nb_servicio" : "'+Ext.getCmp("nb_servicio").getValue()+'", ';
+								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
 								columnas += '"co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}';
 							storeServicio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}', 
@@ -420,7 +397,6 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_servicio").focus();
 		nroReg=rowIdx;
@@ -429,7 +405,7 @@ gridForm.render('form');
 /********************************************************************************************************/
 var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerCapacidad.onTriggerClick = selCapacidad;
-		triggerCapacidad.applyToMarkup('co_capacidad');
+		triggerCapacidad.applyToMarkup('nb_capacidad');
 });
 
 </script>

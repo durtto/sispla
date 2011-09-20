@@ -247,25 +247,25 @@ Ext.onReady(function(){
 					border:false,
 					items: [{
                         fieldLabel: 'Indicador',
-						xtype:'numberfield',
+						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:140
                     },{
                         fieldLabel: 'Cedula',
 						xtype:'numberfield',
 						id: 'nu_cedula',
                         name: 'nu_cedula',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                     },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_persona',
                         name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -277,7 +277,7 @@ Ext.onReady(function(){
 						id: 'tx_apellido',
                         name: 'tx_apellido',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -289,7 +289,73 @@ Ext.onReady(function(){
 						id: 'tx_correo_electronico',
                         name: 'tx_correo_electronico',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Departamento',
+						xtype:'numberfield',
+						id: 'co_departamento',
+                        name: 'co_departamento',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Departamento',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_departamento',
+						disabled:true,
+                        name: 'nb_departamento',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Responsabilidad',
+						xtype:'numberfield',
+						id: 'co_rol_resp',
+                        name: 'co_rol_resp',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Responsabilidad',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_rol_resp',
+						disabled:true,
+                        name: 'nb_rol',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Guardia',
+						xtype:'numberfield',
+						id: 'co_guardia',
+                        name: 'co_guardia',
+                        hidden: true,
+						hideLabel: true,
+                        width:140
+                    },{
+                        fieldLabel: 'Guardia',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_guardia',
+						disabled:true,
+                        name: 'nb_guardia',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -307,7 +373,7 @@ Ext.onReady(function(){
 						id: 'di_oficina',
                         name: 'di_oficina',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -319,7 +385,7 @@ Ext.onReady(function(){
 						id: 'tx_telefono_oficina',
                         name: 'tx_telefono_oficina',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                       
                     },{
                         fieldLabel: 'Habitacion',
@@ -327,7 +393,7 @@ Ext.onReady(function(){
 						id: 'di_habitacion',
                         name: 'di_habitacion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -339,7 +405,7 @@ Ext.onReady(function(){
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                        
                     },{
                         fieldLabel: 'Telefono Personal',
@@ -347,228 +413,47 @@ Ext.onReady(function(){
 						id: 'tx_telefono_personal',
                         name: 'tx_telefono_personal',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                        
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Departamento',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Departamento',
-						xtype:'numberfield',
-						id: 'co_departamento',
-                        name: 'co_departamento',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_departamento',
-						disabled:true,
-                        name: 'nb_departamento',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm3',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Rol',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
+                    },{
                         fieldLabel: 'Rol',
 						xtype:'numberfield',
 						id: 'co_rol',
                         name: 'co_rol',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
+                    },{
+                        fieldLabel: 'Rol',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_rol',
 						disabled:true,
                         name: 'nb_rol',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm4',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Responsabilidad',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Responsabilidad',
-						xtype:'numberfield',
-						id: 'co_rol_resp',
-                        name: 'co_rol_resp',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_rol_resp',
-						disabled:true,
-                        name: 'nb_rol',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm5',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Grupo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
+                    },{
                         fieldLabel: 'Grupo',
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
+                    },{
+                        fieldLabel: 'Grupo',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_grupo',
 						disabled:true,
                         name: 'nb_grupo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm6',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Guardia',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Guardia',
-						xtype:'numberfield',
-						id: 'co_guardia',
-                        name: 'co_guardia',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:140
-                    }]
-			},{
-					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_guardia',
-						disabled:true,
-                        name: 'nb_guardia',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -590,11 +475,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
-						Ext.getCmp("frm3").enable();
-						Ext.getCmp("frm4").enable();
-						Ext.getCmp("frm5").enable();
-						Ext.getCmp("frm6").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_indicador").focus();
@@ -1015,11 +895,6 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
-			Ext.getCmp("frm3").enable();
-			Ext.getCmp("frm4").enable();
-			Ext.getCmp("frm5").enable();
-			Ext.getCmp("frm6").enable();
 		}
 		Ext.getCmp("co_indicador").focus();
 		nroReg=rowIdx;
@@ -1028,23 +903,23 @@ gridForm.render('form');
 /********************************************************************************************************/
 var triggerDepartamento = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerDepartamento.onTriggerClick = selDepartamento;
-		triggerDepartamento.applyToMarkup('co_departamento');
+		triggerDepartamento.applyToMarkup('nb_departamento');
 		
 var triggerRol = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerRol.onTriggerClick = selRol;
-		triggerRol.applyToMarkup('co_rol');
+		triggerRol.applyToMarkup('nb_rol');
 		
 var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerRolResp.onTriggerClick = selRolResp;
-		triggerRolResp.applyToMarkup('co_rol_resp');
+		triggerRolResp.applyToMarkup('nb_rol_resp');
 		
 var triggerGrupo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerGrupo.onTriggerClick = selGrupo;
-		triggerGrupo.applyToMarkup('co_grupo');
+		triggerGrupo.applyToMarkup('nb_grupo');
 		
 var triggerGuardia = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerGuardia.onTriggerClick = selGuardia;
-		triggerGuardia.applyToMarkup('co_guardia');
+		triggerGuardia.applyToMarkup('nb_guardia');
 });
 
 
