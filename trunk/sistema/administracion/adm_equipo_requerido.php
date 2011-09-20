@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Equipo Requerido</title>
+<title>Equipo</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
@@ -42,285 +42,347 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- 	var nuevo;
- 	var winLinea;
-  	var winVehiculo;
+ var nuevo;
+ var winActivo;
+ var winPersona;
+ 
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_equipo'] = 'Codigo de Registro';
+	camposReq['co_equipo_requerido'] = 'Codigo Equipo';
 	
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-
     var local = true;
-	
-  var storeEquipo = new Ext.data.JsonStore({
-		url: '../clases/interfaz_equipo_requerido.php',
+    
+	var storeActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
-		root: 'equipos',
+		root: 'activos',
         totalProperty: 'total',
-		idProperty: 'co_equipo_requerido',
-        fields: [{name: 'co_equipo_requerido'},
+		idProperty: 'co_activo',
+        fields: [{name: 'co_activo'},
+				{name: 'nb_activo'},
+				{name: 'tx_descripcion'},
+				{name: 'co_sap'},
+				{name: 'nu_serial'},
+				{name: 'nu_etiqueta'},
+				{name: 'bo_critico'},
+				{name: 'bo_vulnerable'},
+				{name: 'fe_incorporacion'},
+				{name: 'nu_vida_util'},
+				{name: 'co_activo_padre'},
+				{name: 'co_estado'},
+				{name: 'nb_estado'},
+				{name: 'co_fabricante'},
+				{name: 'nb_fabricante'},
+				{name: 'co_indicador'},
+				{name: 'nb_persona'},
+				{name: 'co_ubicacion'},
+				{name: 'nb_ubicacion'},
+				{name: 'co_proceso'},
+				{name: 'nb_proceso'},
+				{name: 'co_proveedor'},
+				{name: 'nb_proveedor'},
+				{name: 'co_unidad'},
+				{name: 'nb_unidad'},
+				{name: 'co_nivel'},
+				{name: 'nb_nivel'},
+		        {name: 'resp'}]
+        });
+    storeActivo.setDefaultSort('co_activo', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelActivo = new Ext.grid.ColumnModel([
+        {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
+      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
+      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
+      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
+      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
+      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
+      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
+      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
+      	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
+      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
+      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
+      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
+      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
+      	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
+      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
+        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
+      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
+      ]);
+	function vulnerable(bo_vulnerable) {
+        if (bo_vulnerable == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_vulnerable == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_vulnerable;
+    	}
+	function acritico(bo_critico) {
+        if (bo_critico == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_critico == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_critico;
+    	}
+    
+    var storePersona = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_persona.php',
+		remoteSort : true,
+		root: 'personas',
+        totalProperty: 'total',
+		idProperty: 'co_indicador',
+        fields: [{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono_oficina'},
+		        {name: 'tx_correo_electronico'},
+		        {name: 'di_habitacion'},
+		        {name: 'tx_telefono_habitacion'},
+		        {name: 'tx_telefono_personal'},
+		        {name: 'co_departamento'},
+		        {name: 'nb_departamento'},
+		        {name: 'co_rol'},
+		        {name: 'nb_rol'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        		{name: 'co_grupo'},
+        		{name: 'nb_grupo'},
+        		{name: 'co_guardia'},			
+        		{name: 'nb_guardia'},
+		        {name: 'resp'}]
+        });
+    storePersona.setDefaultSort('co_indicador', 'ASC');
+	
+	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    var colModelPersona = new Ext.grid.ColumnModel([
+        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
+      	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
+      
+      ]);
+   
+    var storeEquipo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo_requerido.php',
+		remoteSort : true,
+		root: 'equiposrequeridos',
+        totalProperty: 'total',
+		idProperty: 'co_equipo_requerido_requerido',
+        fields: [{name: 'co_equipo_requerido_requerido'},
+				{name: 'nb_activo'},
+				{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono_oficina'},
+		        {name: 'tx_correo_electronico'},
+		        {name: 'di_habitacion'},
+		        {name: 'tx_telefono_habitacion'},
+		        {name: 'tx_telefono_personal'},
+		        {name: 'co_departamento'},
+		        {name: 'nb_departamento'},
+		        {name: 'co_rol'},
+		        {name: 'nb_rol'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        		{name: 'co_grupo'},
+        		{name: 'nb_grupo'},
+        		{name: 'co_guardia'},			
+        		{name: 'nb_guardia'},
         		{name: 'bo_vehiculo'},
         		{name: 'bo_laptop'},
         		{name: 'bo_maletin_herramientas'},
         		{name: 'bo_radio'},
         		{name: 'bo_multimetro_digital'},
-        		{name: 'bo_hart'},	{name: 'co_activo'},
-        		{name: 'co_indicador'},
+        		{name: 'bo_hart'},
         		{name: 'resp'}]
         });
-    storeEquipo.setDefaultSort('co_equipo_requerido', 'ASC');
+    storeEquipo.setDefaultSort('co_equipo_requerido_requerido', 'ASC');
 	
 	
     var colModelEquipo = new Ext.grid.ColumnModel([
-        {id:'co_equipo',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_requerido'},
+        {id:'co_equipo_requerido',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_requerido_requerido'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+		{header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
+      	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'}, 
         {header: "Apellido", width: 80, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Telefono Oficina", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         {header: "Telefono Habitacion", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
-        {header: "Vehiculo", width: 60, sortable: true, locked:false, dataIndex: 'bo_vehiculo'},
-        {header: "Laptop", width: 60, sortable: true, locked:false, dataIndex: 'bo_laptop'},
-        {header: "Maletin", width: 60, sortable: true, locked:false, dataIndex: 'bo_maletin_herramientas'},
-        {header: "Radio", width: 60, sortable: true, locked:false, dataIndex: 'bo_radio'},
-		{header: "Multimetro", width: 70, sortable: true, locked:false, dataIndex: 'bo_multimetro_digital'},
-		{header: "HART", width: 60, sortable: true, locked:false, dataIndex: 'bo_hart'},
-		
-        
+        {header: "Vehiculo", width: 60, sortable: true, locked:false, dataIndex: 'bo_vehiculo', renderer: vehiculo},
+        {header: "Laptop", width: 60, sortable: true, locked:false, dataIndex: 'bo_laptop', renderer: laptop},
+        {header: "Maletin", width: 60, sortable: true, locked:false, dataIndex: 'bo_maletin_herramientas', renderer: maletin},
+        {header: "Radio", width: 60, sortable: true, locked:false, dataIndex: 'bo_radio', renderer: radio},
+		{header: "Multimetro", width: 70, sortable: true, locked:false, dataIndex: 'bo_multimetro_digital', renderer: multimetro},
+		{header: "HART", width: 60, sortable: true, locked:false, dataIndex: 'bo_hart', renderer: hart},
+
       ]);
-	
-	 var storeLinea = new Ext.data.JsonStore({
-		url: '../clases/interfaz_lineaTaxi.php',
-		remoteSort : true,
-		root: 'lineas',
-        totalProperty: 'total',
-		idProperty: 'co_linea',
-        fields: [{name: 'co_linea'},					{name: 'nb_linea'},					{name: 'tx_telefono'},	   {name: 'di_oficina'},		{name: 'resp'}]
-        });
-    storeLinea.setDefaultSort('co_linea', 'ASC');
-	
-	
-    var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Numero de Linea Taxi", width: 250, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre Linea", width: 250, sortable: true, locked:false, dataIndex: 'nb_linea'},
-        {header: "Telefono", width: 250, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Direccion", width: 250, sortable: true, locked:false, dataIndex: 'di_direccion'},
-        ]);
-	
-	  
-	    var storeVehiculo = new Ext.data.JsonStore({
-		url: '../clases/interfaz_vehiculo.php',
-		root: 'vehiculos',
-        totalProperty: 'total',
-		idProperty: 'co_vehiculo',
-        fields: [{name: 'co_vehiculo'},					{name: 'tx_placa'},					{name: 'tx_marca'},	   {name: 'tx_modelo'},	  {name: 'tx_unidad'},	{name: 'resp'}]
-       });	
-    storeVehiculo.setDefaultSort('co_vehiculo', 'ASC');
-	
-	
-    var colModelVehiculo = new Ext.grid.ColumnModel([
-        {id:'co_vehiculo',header: "Numero de Veiculo", width: 250, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
-        {header: "Placa", width: 250, sortable: true, locked:false, dataIndex: 'tx_placa'},
-        {header: "Marca", width: 250, sortable: true, locked:false, dataIndex: 'tx_marca'},
-        {header: "Modelo", width: 250, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-        {header: "Numero de la unidad", width: 250, sortable: true, locked:false, dataIndex: 'tx_unidad'},
-        ]);
-	
+		function vehiculo(bo_vehiculo) {
+        if (bo_vehiculo == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_vehiculo == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_vehiculo;
+    	}
+    	function laptop(bo_laptop) {
+        if (bo_laptop == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_laptop == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_laptop;
+    	}
+    	function maletin(bo_maletin_herramientas) {
+        if (bo_maletin_herramientas == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_maletin_herramientas == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_maletin_herramientas;
+    	}
+    	function radio(bo_radio) {
+        if (bo_radio == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_radio == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_radio;
+    	}
+	    function multimetro(bo_multimetro_digital) {
+        if (bo_multimetro_digital == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_multimetro_digital == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_multimetro_digital;
+    	}
+    	function hart(bo_hart) {
+        if (bo_hart == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_hart == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_hart;
+    	}
+
+/*
+ *    Here is where we create the Form
+ */
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_equipo',
+        id: 'frm_cliente',
         frame: true,
 		labelAlign: 'center',
-        title: 'Equipo Requerido',
+        title: 'Equipo',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Linea',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Linea',
-						xtype:'numberfield',
-						id: 'co_linea',
-                        name: 'co_linea',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }, {
-                        fieldLabel: 'Nombre Linea',
-						xtype:'textfield',
-						vtype:'validos',
-						disabled:true,
-						id: 'nb_linea',
-                        name: 'nb_linea',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'tx_telefono',
-						disabled:true,
-                        name: 'tx_telefono',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Direccion',
-						xtype:'textfield',
-						id: 'di_oficina',
-						disabled:true,
-                        name: 'di_oficina',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm3',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Vehiculo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Vehiculo',
-						xtype:'numberfield',
-						id: 'co_vehiculo',
-                        name: 'co_vehiculo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }, {
-                        fieldLabel: 'Placa',
-						xtype:'textfield',
-						vtype:'validos',
-						disabled:true,
-						id: 'tx_placa',
-                        name: 'tx_placa',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Marca',
-						xtype:'numberfield',
-						id: 'tx_marca',
-						disabled:true,
-                        name: 'tx_marca',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Modelo',
-						xtype:'textfield',
-						id: 'tx_modelo',
-						disabled:true,
-                        name: 'tx_modelo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'textfield',
-						id: 'tx_unidad',
-						disabled:true,
-                        name: 'tx_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }]
-			}]
-			},{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Equipo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
+					labelWidth:130,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Registro',
+                        fieldLabel: 'Numero',
 						xtype:'numberfield',
 						id: 'co_equipo_requerido',
                         name: 'co_equipo_requerido',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:120
+                    },{
+                        fieldLabel: 'Activo',
+						xtype:'numberfield',
+						id: 'co_activo',
+                        name: 'co_activo',
                         hidden: true,
 						hideLabel: true,
-                        width:80
+                        width:120
                     },{
-	            		xtype: 'radiogroup',
-	            		fieldLabel: 'Vehiculo',
-	            		id: 'bo_vehiculo',
-		                name: 'bo_vehiculo',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'VerdaderoVehiculo', inputValue: 1},
-			                {boxLabel: 'No', name: 'FalsoVehiculo', inputValue: 0},
-			           			]
-        		},{
-	            		xtype: 'radiogroup',
-	            		fieldLabel: 'Laptop',
-	            		id: 'bo_laptop',
-		                name: 'bo_laptop',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'Verdaderolaptop', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falsolaptop', inputValue: 0},
-			           			]
-        		}, {
+                        fieldLabel: 'Activo',
+						xtype:'textfield',
+						vtype:'validos',
+						id: 'nb_activo',
+						disabled:true,
+                        name: 'nb_activo',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:120,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
 	            		xtype: 'radiogroup',
 	            		fieldLabel: 'Maletin de Herramientas',
 	            		id: 'bo_maletin_herramientas',
 		                name: 'bo_maletin_herramientas',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'Verdaderomr', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falsomh', inputValue: 0},
-			           			]
-        		},{
-	            		xtype: 'radiogroup',
-	            		fieldLabel: 'Radio',
-	            		id: 'bo_radio',
-		                name: 'bo_radio',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'Verdaderoradio', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falsoradio', inputValue: 0},
+			                {boxLabel: 'Si', name: 'herramientas', inputValue: 1},
+			                {boxLabel: 'No', name: 'herramientas', inputValue: 0},
 			           			]
         		},{
 	           			xtype: 'radiogroup',
@@ -329,8 +391,50 @@ Ext.onReady(function(){
 		                name: 'bo_multimetro_digital',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'Verdaderomultimetro', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falsomultimetro', inputValue: 0},
+			                {boxLabel: 'Si', name: 'multimetro', inputValue: 1},
+			                {boxLabel: 'No', name: 'multimetro', inputValue: 0},
+			           			]
+        		}]
+				},{
+					layout: 'form',
+					labelWidth:130,
+					columnWidth:.45,
+					border:false,
+					items: [{
+                        fieldLabel: 'Persona',
+						xtype:'textfield',
+						id: 'co_indicador',
+                        name: 'co_indicador',
+                        width:120
+                    },{
+	            		xtype: 'radiogroup',
+	            		fieldLabel: 'Vehiculo',
+	            		id: 'bo_vehiculo',
+		                name: 'bo_vehiculo',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'vehiculo', inputValue: 1},
+			                {boxLabel: 'No', name: 'vehiculo', inputValue: 0},
+			           			]
+        		},{
+	            		xtype: 'radiogroup',
+	            		fieldLabel: 'Laptop',
+	            		id: 'bo_laptop',
+		                name: 'bo_laptop',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'laptop', inputValue: 1},
+			                {boxLabel: 'No', name: 'laptop', inputValue: 0},
+			           			]
+        		},{
+	            		xtype: 'radiogroup',
+	            		fieldLabel: 'Radio',
+	            		id: 'bo_radio',
+		                name: 'bo_radio',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'radio', inputValue: 1},
+			                {boxLabel: 'No', name: 'radio', inputValue: 0},
 			           			]
         		},{
 	            		xtype: 'radiogroup',
@@ -339,8 +443,8 @@ Ext.onReady(function(){
 		                name: 'bo_hart',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'Verdaderohart', inputValue: 1},
-			                {boxLabel: 'No', name: 'Falsohart', inputValue: 0},
+			                {boxLabel: 'Si', name: 'hart', inputValue: 1},
+			                {boxLabel: 'No', name: 'hart', inputValue: 0},
 			           			]
         		}]
 			}]
@@ -353,15 +457,14 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
-						Ext.getCmp("frm3").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_equipo").focus();
+					Ext.getCmp("co_equipo_requerido").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -371,7 +474,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_transporte").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_cliente").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -388,23 +491,23 @@ Ext.onReady(function(){
 							else
 								storeEquipo.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'", ';
-							columnas += '"bo_vehiculo" : "'+convFecha(Ext.getCmp("bo_vehiculo").getValue())+'", ';
-							columnas += '"bo_laptop" : "'+convFecha(Ext.getCmp("bo_laptop").getValue())+'", ';
-							columnas += '"bo_maletin_herramientas" : "'+convFecha(Ext.getCmp("bo_maletin_herramientas").getValue())+'", ';							
-							columnas += '"bo_radio" : "'+convFecha(Ext.getCmp("bo_radio").getValue())+'", ';							
-							columnas += '"bo_multimetro_digital" : "'+convFecha(Ext.getCmp("bo_multimetro_digital").getValue())+'", ';
-							columnas += '"bo_hart" : "'+convFecha(Ext.getCmp("bo_hart").getValue())+'", ';
-							columnas += '"co_activo" : "'+convFecha(Ext.getCmp("co_activo").getValue())+'", ';
+							columnas += '"bo_vehiculo" : "'+Ext.getCmp("bo_vehiculo").getValue()+'", ';
+							columnas += '"bo_laptop" : "'+Ext.getCmp("bo_laptop").getValue()+'", ';
+							columnas += '"bo_maletin_herramientas" : "'+Ext.getCmp("bo_maletin_herramientas").getValue()+'", ';							
+							columnas += '"bo_radio" : "'+Ext.getCmp("bo_radio").getValue()+'", ';							
+							columnas += '"bo_multimetro_digital" : "'+Ext.getCmp("bo_multimetro_digital").getValue()+'", ';
+							columnas += '"bo_hart" : "'+Ext.getCmp("bo_hart").getValue()+'", ';
+							columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'", ';
 							columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
-							
+
 							storeEquipo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_equipo_requerido.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
 										if(storeEquipo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeEquipo.getAt(0).data.resp,
+												msg: storeEquipo.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -419,19 +522,19 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeEquipo.baseParams = {'accion': 'refrescar'};
+							storeEquipo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_requerido.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Transporte',
+			tooltip:'Eliminar Equipo',
 			disabled: true,
 			handler: function(){
 										storeEquipo.baseParams = {'accion': 'eliminar'};
 										storeEquipo.load({params:{
 												"condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "interfaz_transporte.php"},
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
 										if(storeEquipo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -456,25 +559,26 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_equipo',
+				id: 'gd_cliente',
                 store: storeEquipo,
                 cm: colModelEquipo,
+			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_equipo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_cliente").getForm().loadRecord(rec);
                         }
+                        
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Equipos Requeridos',
+				title:'Lista de Equipo',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       
-                    } 
+                                          }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeEquipo,
@@ -482,68 +586,19 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
+				//plugins: [filters]
 				})
             }]
 			
 		}],
         
     });
-	
-function selLinea(){
-storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar"}});
-	if(!winLinea){
-				winLinea = new Ext.Window({
-						applyTo : 'winLinea',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								id: 'gd_selLinea',
-								store: storeLinea,
-								cm: colModelLinea,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								loadMask: true,
-								height: 200,
-								title:'Lineas de Taxi',
-								border: true,
-								listeners: {
-												delay: 10
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-						
-										if(Ext.getCmp("gd_selLinea").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selLinea").getSelectionModel().getSelected();
-											Ext.getCmp("co_linea").setValue(record.data.co_linea);
-											Ext.getCmp("nb_linea").setValue(record.data.nb_linea);
-											Ext.getCmp("tx_telefono").setValue(record.data.tx_telefono);
-											Ext.getCmp("di_oficina").setValue(record.data.di_oficina);
-											winLinea.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winLinea.hide();
-								  }
-						}]
-				});
-		}
-		winLinea.show();	
-}
 
-function selVehiculo(){
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar"}});
-	if(!winVehiculo){
-				winVehiculo = new Ext.Window({
-						applyTo : 'winVehiculo',
+function selActivo(){
+storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
+	if(!winActivo){
+				winActivo = new Ext.Window({
+						applyTo : 'winActivo',
 						layout : 'fit',
 						width : 550,
 						height : 300,
@@ -552,9 +607,9 @@ storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar"}});
 						items : [{
 								xtype: 'grid',
 								//ds: ds,
-								id: 'gd_selVehiculo',
-								store: storeVehiculo,
-								cm: colModelVehiculo,
+								id: 'gd_selActivo',
+								store: storeActivo,
+								cm: colModelActivo,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
@@ -563,7 +618,7 @@ storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar"}});
 								/*plugins: filtersCond,
 								bbar: pagingBarCond,*/
 								height: 200,
-								title:'Lista de Vehiculos',
+								title:'Lista de Activo',
 								border: true,
 								listeners: {
 												/*render: function(g) {
@@ -576,54 +631,100 @@ storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar"}});
 								  text : 'Aceptar',
 								  handler : function(){
 										/**/
-										if(Ext.getCmp("gd_selVehiculo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selVehiculo").getSelectionModel().getSelected();
-											Ext.getCmp("co_vehiculo").setValue(record.data.co_vehiculo);
-											Ext.getCmp("tx_placa").setValue(record.data.tx_placa);
-											Ext.getCmp("tx_marca").setValue(record.data.tx_marca);
-											Ext.getCmp("tx_modelo").setValue(record.data.tx_modelo);
-											Ext.getCmp("tx_unidad").setValue(record.data.tx_unidad);
-											winVehiculo.hide();
+										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
+											Ext.getCmp("co_activo").setValue(record.data.co_activo);
+											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
+											winActivo.hide();
 										}
 								  }
 							   },{
 								  text : 'Cancelar',
 								  handler : function(){
-											winVehiculo.hide();
+											winActivo.hide();
 								  }
 						}]
 				});
 		}
-		winVehiculo.show();	
+		winActivo.show();	
 }
 
+function selPersona(){
+storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_persona.php"}});
+	if(!winPersona){
+				winPersona = new Ext.Window({
+						applyTo : 'winPersona',
+						layout : 'fit',
+						width : 550,
+						height : 300,
+						closeAction :'hide',
+						plain : true,
+						items : [{
+								xtype: 'grid',
+								//ds: ds,
+								id: 'gd_selPersona',
+								store: storePersona,
+								cm: colModelPersona,
+								sm: new Ext.grid.RowSelectionModel({
+									singleSelect: true
+								}),
+								//autoExpandColumn: 'email',
+								loadMask: true,
+								/*plugins: filtersCond,
+								bbar: pagingBarCond,*/
+								height: 200,
+								title:'Lista de Persona',
+								border: true,
+								listeners: {
+												/*render: function(g) {
+													g.getSelectionModel().selectRow(0);
+												},*/
+												delay: 10 // Allow rows to be rendered.
+								}
+						}],
+						buttons:[{
+								  text : 'Aceptar',
+								  handler : function(){
+										/**/
+										if(Ext.getCmp("gd_selPersona").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_selPersona").getSelectionModel().getSelected();
+											Ext.getCmp("co_indicador").setValue(record.data.co_indicador);
+											winPersona.hide();
+										}
+								  }
+							   },{
+								  text : 'Cancelar',
+								  handler : function(){
+											winPersona.hide();
+								  }
+						}]
+				});
+		}
+		winPersona.show();	
+}
 	
-storeEquipo.load({params: { start: 0, limit: 50, accion:"refrescar"}});
+storeEquipo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_requerido.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_equipo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_cliente").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
-			Ext.getCmp("frm3").enable();
 		}
 		Ext.getCmp("co_equipo_requerido").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerLinea = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerLinea.onTriggerClick = selLinea;
-		triggerLinea.applyToMarkup('co_linea');	
-
-
-var triggerVehiculo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerVehiculo.onTriggerClick = selVehiculo;
-		triggerVehiculo.applyToMarkup('co_vehiculo');	
+var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerActivo.onTriggerClick = selActivo;
+		triggerActivo.applyToMarkup('nb_activo');
+var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
+		triggerPersona.onTriggerClick = selPersona;
+		triggerPersona.applyToMarkup('co_indicador');
 });
 
 </script>
@@ -635,13 +736,23 @@ var triggerVehiculo = new Ext.form.TriggerField({triggerClass : 'x-form-search-t
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winCond" class="x-hidden">
-    <div class="x-window-header">Ejegir Linea</div>
+<div id="winActivo" class="x-hidden">
+    <div class="x-window-header">Ejegir Activo</div>
 	
 </div>
-<div id="winPiloto" class="x-hidden">
-    <div class="x-window-header">Ejegir Vehiculo</div>
+<div id="winPersona" class="x-hidden">
+    <div class="x-window-header">Ejegir Persona</div>
 	
 </div>
 </body>
 </html>
+
+
+
+
+	
+
+	
+
+	   		
+							
