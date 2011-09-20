@@ -95,30 +95,34 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:640,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Grupos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
+					labelWidth:120,
+					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Grupo',
+                        fieldLabel: 'Numero Grupo',
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }, {
-                        fieldLabel: 'Nombre',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Grupo',
 						xtype:'textfield',
-						vtype:'validos',
 						id: 'nb_grupo',
                         name: 'nb_grupo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
