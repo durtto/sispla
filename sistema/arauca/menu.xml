@@ -1,47 +1,91 @@
 <authors>
 
-	<author first="Continuidad Operativa" gender="" titulo="Continuidad">
-		<book title="Informacion General" titulo="Informacion" url="../administracion/adm_datos_plan.php"></book>
-		
-		<author first="Plan Maestro" gender="" titulo="Plan Maestro">
-			<book title="Plan Maestro" titulo="Plan Maestro" url="../administracion/adm_plan_maestro.php"></book>
-			<book title="Procesos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
-			<book title="Roles y Responsabilidad" titulo="Rol" url="../administracion/adm_rol_res.php"></book>
-				
-				<author first="Gestion de Guardia" gender="" titulo="Plan de logistica">
-					<book title="Guardia" titulo="Guardias" url="../administracion/adm_guardia.php"></book>
-					<book title="Rol personal" titulo="Roles" url="../administracion/adm_rol_persona.php"></book>
-				</author>
-			
-			<author first="Plan de Logistica" gender="" titulo="Plan de logistica">
-				<book title="Alimentacion" titulo="Alimentacion" url="../administracion/adm_alimentacion.php"></book>
-				
-				<author first="Transporte" gender="" titulo="Transporte" url="../administracion/adm_transporte.php">
-					<book title="Vehiculo" titulo="Vehiculo" url="../administracion/adm_vehiculo.php"></book>
-					<book title="Linea de Taxi" titulo="Linea" url="../administracion/adm_linea.php"></book>
-				
-				</author>
-				<book title="Hospedaje" titulo="Hospedaje" url="../administracion/adm_alimentacion.php"></book>
-			</author>
-			<book title="Equipo Requerido AIT" titulo="Equipo" url="../administracion/adm_equipo_requerido.php"></book>
+	<author first="Continuidad Operativa" gender="" titulo="Continuidad Operativa">
+		<author first="Informacion General" gender="" titulo="Informacion General">
+			<book title="Informacion General" titulo="Informacion General" url="../administracion/adm_datos_plan.php"></book>
 		</author>
-   
-    </author>
-    
-	<author first="Administracion" gender="" titulo="Administracion">
-		<book title="Privilgi" titulo="Informacion" url="../administracion/adm_datos_plan.php"></book>
-
+		<author first="Plan Maestro" gender="" titulo="Plan Maestro">
+			<book title="Procesos Criticos" titulo="Procesos Criticos" url="../administracion/adm_proceso.php"></book>
+			<book title="Activos Criticos" titulo="Activos Criticos"></book>
+			<book title="Ubicacion Geografica" titulo="Ubicacion Geografica"></book>
+			<book title="Roles y Responsabilidad" titulo="Roles y Responsabilidad" url="../administracion/adm_rol_res.php"></book>
+		</author>	
+			<author first="Plan de Localizacion" gender="" titulo="Plan de Localizacion">
+				<book title="Plan localizacion" titulo="Plan loc" url="../administracion/adm_plan_localizacion.php"></book>
+				<book title="Equipo de Continuidad" titulo="Equipo de Continuidad"></book>
+				<book title="Proveedor" titulo="Proveedor" url="../administracion/adm_proveedor.php"></book>
+				<book title="Directorio" titulo="Directorio" url="../administracion/adm_directorio.php"></book>
+			</author>
+			<author first="Gestion de Guardias" gender="" titulo="Gestion de Guardias">
+				<book title="Grupo" titulo="Grupo" url="../administracion/adm_grupo.php"></book>
+				<book title="Guardia" titulo="Guardia" url="../administracion/adm_guardia.php"></book>
+			</author>
+			<author first="Plan de Logistica" gender="" titulo="Plan de Logistica">
+				<book title="Alimentacion" titulo="Alimentacion" url="../administracion/adm_alimentacion.php"></book>
+				<book title="Transporte" titulo="Transporte" url="../administracion/adm_transporte.php"></book>
+				<book title="Alojamiento" titulo="Alojamiento" url="../administracion/adm_alojamiento.php"></book>
+			</author>	
+			<author first="Recursos Requeridos" gender="" titulo="Recursos Requeridos">
+				<book title="Equipo Operativos" titulo="Equipo" url="../administracion/adm_equipo_requerido.php"></book>
+				<book title="Equipos Sala Estrategica" titulo="Equipos Sala Estrategica"></book>
+			</author>
+		<author first="Plan de Contingencia" gender="" titulo="Plan de Contingencia">
+			<book title="Esquema de Continuidad" titulo="Esquema de Continuidad" url="../administracion/adm_continuidad.php"></book>
+			<book title="Esquema de Respaldo" titulo="Esquema de Respaldo" url="../administracion/adm_respaldo.php"></book>
+			<book title="Procedimientos Emergencia y desastres" titulo="Procedimientos Emergencia y desastres" ></book>		
+		</author>
+		<author first="Plan Operativo" gender="" titulo="Plan Operativo">
+			<book title="Procedimientos Operativos" titulo="Procedimientos Operativos"></book>
+		</author>
+	</author>	
+	
+	<author first="Reportes" gender="" titulo="Reportes">
+		<book title="Organigrama del Personal" titulo="Organigrama del Personal"></book>
+		<book title="Esquema de Guardia" titulo="Esquema de Guardia"></book>
+		<book title="Plan de Localizacion" titulo="Plan de Localizacion"></book>
+		<book title="Equipo de Continuidad AIT" titulo="Equipo de Continuidad AIT"></book>
+		<author first="Premisas del Plan Maestro" gender="" titulo="Premisas del Plan Maestro">	
+			<book title="Estados de Alertas" titulo="Estados de Alertas"></book>
+			<book title="Roles y Responsabilidades" titulo="Roles y Responsabilidades"></book>
+			<book title="Acciones del Equipo" titulo="Acciones del Equipo"></book>
+			<book title="Flujograma de Reportes" titulo="Flujograma de Reportes"></book>
+		</author>
+		<book title="Procedimientos Operativos" titulo="Procedimientos Operativos"></book>
+		<book title="Listado de Clientes del Proceso" titulo="Listado de Clientes del Proceso"></book>
+		<book title="Listado de Activos Criticos" titulo="Listado de Activos Criticos"></book>
+		<book title="Esquema de Continuidad" titulo="Esquema de Continuidad"></book>
+		<book title="Esquema de Respaldo" titulo="Esquema de Respaldo"></book>
+		<book title="Listado de Proveedores" titulo="Listado de Proveedores"></book>
+		<book title="Listado de Recursos Requeridos" titulo="Listado de Recursos Requeridos"></book>
+		<book title="Procedimientos Emergencia y desastres" titulo="Procedimientos Emergencia y desastres"></book>	
+		<book title="Directorio Telefonico" titulo="Directorio Telefonico"></book>
 	</author>
-
-
-
-
-
-
-
-
-
-
-
-    
-</authors>
+		
+	<author first="Base Documental" gender="" titulo="Base Documental">
+		<book title="Procedimientos de Seguridad Logica" titulo="Procedimientos de Seguridad Logica"></book>
+		<book title="Marco Legal" titulo="Marco Legal"></book>
+		<author first="Formatos de Activacion de Sala" gender="" titulo="Formatos de Activacion de Sala">	
+			<book title="Lista de Chequeo" titulo="Lista de Chequeo"></book>
+			<book title="Informe de Evaluacion" titulo="Informe de Evaluacion"></book>
+			<book title="Prioridades de Recuperacion" titulo="Prioridades de Recuperacion"></book>
+			<book title="Gestion de Guardias" titulo="Gestion de Guardias"></book>
+		</author>
+		<author first="Componente de Continuidad" gender="" titulo="Componente de Continuidad">	
+			<book title="Plan Maestro" titulo="Plan Maestro"></book>
+			<book title="Plan de Contingencia" titulo="Plan de Contingenci"></book>
+			<book title="Plan Operativo" titulo="Plan Operativo"></book>
+		</author>
+	</author>
+	
+	<author first="Administracion" gender="" titulo="Administracion">
+		<book title="Privilegio" titulo="Privilegio" url="../administracion/adm_privilegio_usuario.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="../administracion/adm_rol_persona.php"></book>
+		<book title="Usuario" titulo="Usuario" url="../administracion/adm_usuario.php"></book>
+	</author>
+	
+	<author first="Ayuda en Linea" gender="" titulo="Ayuda en Linea">
+		<book title="Manual del Usuario" titulo="Manual del Usuario"></book>
+		<book title="Glosario" titulo="Glosario"></book>
+	</author>
+	
+</authors>		
