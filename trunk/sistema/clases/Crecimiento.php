@@ -39,7 +39,7 @@ class Crecimiento extends MyPDO
    * 
    * @access public
    */
-  public $columCrecimiento= array('co_crecimiento'=>'co_crecimiento', 'ca_demanda_futura'=>'ca_demanda_futura', 'fe_actual'=>'fe_actual', 'fe_tope_demanda'=>'fe_tope_demanda', 'co_tipo_activo'=>'co_tipo_activo');
+  public $columCrecimiento= array('co_crecimiento'=>'co_crecimiento', 'ca_demanda_futura'=>'ca_demanda_futura', 'fe_actual'=>'fe_actual', 'fe_tope_demanda'=>'fe_tope_demanda', 'co_tipo_activo'=>'co_tipo_activo', 'tx_descripcion'=>'tx_descripcion');
   
   /**
    * 
@@ -117,6 +117,7 @@ class Crecimiento extends MyPDO
   tr037_crecimiento.ca_demanda_futura, 
   tr037_crecimiento.fe_actual, 
   tr037_crecimiento.fe_tope_demanda, 
+  tr037_crecimiento.tx_descripcion, 
   tr014_tipo_activo.nb_tipo_activo
 FROM 
   public.tr037_crecimiento, 
