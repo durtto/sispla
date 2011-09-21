@@ -132,7 +132,7 @@ Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
             xtype: 'treepanel',
             id: 'tree-panel',
             region: 'center',
-			height: 740,
+			height: 600,
             margins: '80 0 0 0',
 			cmargins:'80 0 0 0',
             autoScroll: true,
