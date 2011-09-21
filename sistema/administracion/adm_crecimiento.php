@@ -95,7 +95,8 @@ Ext.onReady(function(){
 		        {name: 'ca_demanda_futura'},
 		        {name: 'fe_actual'},
 		        {name: 'fe_tope_demanda'},
-		        {name: 'nb_tipo_activo'},
+		        {name: 'tx_descripcion'},
+				{name: 'nb_tipo_activo'},
 		        {name: 'resp'}]
         });
     storeCrecimiento.setDefaultSort('co_crecimiento', 'ASC');
@@ -107,6 +108,8 @@ Ext.onReady(function(){
         {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
         {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
         {header: "Tipo Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+
       ]);
 	
 		 
@@ -124,6 +127,46 @@ Ext.onReady(function(){
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
+	   		xtype:'fieldset',
+			id: 'frm2',
+			disabled: true,
+			labelAlign: 'center',
+			width:640,
+			buttonAlign:'center',
+			layout:'column',
+			title: 'Tipo de Activo',
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.55,
+					border:false,
+					items: [{
+                        fieldLabel: 'Codigo de Activo',
+						xtype:'numberfield',
+						id: 'co_tipo_activo',
+                        name: 'co_tipo_activo',
+                        disabled:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        hidden: true,
+						hideLabel: true,
+                    },{
+                        fieldLabel: 'Tipo Activo',
+						xtype:'textfield',
+						id: 'nb_tipo_activo',
+                        name: 'nb_tipo_activo',
+                        disabled:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    }]
+			}]
+			},{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
@@ -180,49 +223,19 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
-			}]
 			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Tipo de Activo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Activo',
-						xtype:'numberfield',
-						id: 'co_tipo_activo',
-                        name: 'co_tipo_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
 					layout: 'form',
 					border:false,
-					columnWidth:.45,
+					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Nombre de Activo',
-						xtype:'textfield',
-						id: 'nb_tipo_activo',
-                        name: 'nb_tipo_activo',
-                        disabled:true,
+                        fieldLabel: 'Descripcion',
+						xtype:'htmleditor',
+						id: 'tx_descripcion',
+                        name: 'tx_descripcion',
+                        height: 100,
+            			anchor: '100%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
                     }]
 			}]
 			},{
@@ -272,6 +285,7 @@ Ext.onReady(function(){
 								columnas += '"ca_demanda_futura" : "'+Ext.getCmp("ca_demanda_futura").getValue()+'", ';
 								columnas += '"fe_actual" : "'+convFecha(Ext.getCmp("fe_actual").getValue())+'", ';
 								columnas += '"fe_tope_demanda" : "'+convFecha(Ext.getCmp("fe_tope_demanda").getValue())+'", ';
+								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
 								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}';
 							storeCrecimiento.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'"}', 
@@ -443,7 +457,7 @@ gridForm.render('form');
 /********************************************************************************************************/
 var triggerTipoActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerTipoActivo.onTriggerClick = selTipoActivo;
-		triggerTipoActivo.applyToMarkup('co_tipo_activo');
+		triggerTipoActivo.applyToMarkup('nb_tipo_activo');
 		
 		//showJustificacion: function(tx_justificacion,tx_justificacion){  
 			//tx_justificacion.attr = 'style="white-space:normal"';  
