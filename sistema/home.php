@@ -114,7 +114,7 @@ Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
             layout:'border',
             items:[{
                 region:'west',
-                id:'west-panel',
+                id:'wezzst-panel',
                 title:'Menu de Usuario',
                 split:true,
 				width: 200,
