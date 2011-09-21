@@ -1,71 +1,207 @@
 <authors>
 
 	<author first="Todo" gender="" titulo="Todo">
-	<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
-	<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
-	<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>
-	<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
-	<book title="Caracteristica" titulo="Caracteristica" url="administracion/adm_caracteristica.php"></book>
-	<book title="Categoria" titulo="Categoria" url="administracion/adm_categoria.php"></book>
-	<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
-	<book title="Contacto Proveedor" titulo="Contacto" url="administracion/adm_contacto_proveedor.php"></book>
-	<book title="Continuidad" titulo="Continuidad" url="administracion/adm_continuidad.php"></book>
-	<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
-	<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
-	<book title="Departamento" titulo="Departamento" url="administracion/adm_departamento.php"></book>
-	<book title="Directorio" titulo="Directorio" url="administracion/adm_directorio.php"></book>
-	<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
-	<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
-	<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
-	<book title="Estado" titulo="Estado" url="administracion/adm_estado.php"></book>
-	<book title="Fabricate" titulo="Fabricate" url="administracion/adm_fabricante.php"></book>
-	<book title="Falla" titulo="Falla" url="administracion/adm_falla.php"></book>
-	<book title="Garantia" titulo="Garantia" url="administracion/adm_garantia.php"></book>
-	<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
-	<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
-	<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>
-	<book title="Modelo" titulo="Modelo" url="administracion/adm_modelo.php"></book>
-	<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
-	<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
-	<book title="Persona" titulo="Personan" url="administracion/adm_persona.php"></book>
-	<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
-	<book title="Privilegio" titulo="Privilegio" url="administracion/adm_privilegio_usuario.php"></book>
-	<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
-	<book title="Proveedor" titulo="Proveedor" url="administracion/adm_proveedor.php"></book>
-	<book title="Respaldo" titulo="Respaldo" url="administracion/adm_respaldo.php"></book>
-	<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
-	<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
-	<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
-	<book title="Tipo Activo" titulo="Tipo Activo" url="administracion/adm_tipo_activo.php"></book>
-	<book title="Tipo Directorio" titulo="Tipo Directorio" url="administracion/adm_tipo_directorio.php"></book>
-	<book title="Tipo Respaldo" titulo="Tipo Respaldo" url="administracion/adm_tipo_respaldo.php"></book>
-	<book title="Tipo Ubicacion" titulo="Tipo Ubicacion" url="administracion/adm_tipo_ubicacion.php"></book>
-	<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
-	<book title="Ubicacion" titulo="Ubicacion" url="administracion/adm_ubicacion.php"></book>
-	<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
-	<book title="Usuario" titulo="Usuario" url="administracion/adm_usuario.php"></book>
-	<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
-	<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+		<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>
+		<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
+		<book title="Caracteristica" titulo="Caracteristica" url="administracion/adm_caracteristica.php"></book>
+		<book title="Categoria" titulo="Categoria" url="administracion/adm_categoria.php"></book>
+		<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
+		<book title="Contacto Proveedor" titulo="Contacto" url="administracion/adm_contacto_proveedor.php"></book>
+		<book title="Continuidad" titulo="Continuidad" url="administracion/adm_continuidad.php"></book>
+		<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
+		<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
+		<book title="Departamento" titulo="Departamento" url="administracion/adm_departamento.php"></book>
+		<book title="Directorio" titulo="Directorio" url="administracion/adm_directorio.php"></book>
+		<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
+		<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Estado" titulo="Estado" url="administracion/adm_estado.php"></book>
+		<book title="Fabricate" titulo="Fabricate" url="administracion/adm_fabricante.php"></book>
+		<book title="Falla" titulo="Falla" url="administracion/adm_falla.php"></book>
+		<book title="Garantia" titulo="Garantia" url="administracion/adm_garantia.php"></book>
+		<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
+		<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
+		<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>
+		<book title="Modelo" titulo="Modelo" url="administracion/adm_modelo.php"></book>
+		<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
+		<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
+		<book title="Privilegio" titulo="Privilegio" url="administracion/adm_privilegio_usuario.php"></book>
+		<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
+		<book title="Proveedor" titulo="Proveedor" url="administracion/adm_proveedor.php"></book>
+		<book title="Respaldo" titulo="Respaldo" url="administracion/adm_respaldo.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
+		<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
+		<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
+		<book title="Tipo Activo" titulo="Tipo Activo" url="administracion/adm_tipo_activo.php"></book>
+		<book title="Tipo Directorio" titulo="Tipo Directorio" url="administracion/adm_tipo_directorio.php"></book>
+		<book title="Tipo Respaldo" titulo="Tipo Respaldo" url="administracion/adm_tipo_respaldo.php"></book>
+		<book title="Tipo Ubicacion" titulo="Tipo Ubicacion" url="administracion/adm_tipo_ubicacion.php"></book>
+		<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
+		<book title="Ubicacion" titulo="Ubicacion" url="administracion/adm_ubicacion.php"></book>
+		<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
+		<book title="Usuario" titulo="Usuario" url="administracion/adm_usuario.php"></book>
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
 	</author>
+	
 	<author first="Necesarios" gender="" titulo="Necesarios">
-	<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
-	<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>	
-	<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
-	<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
-	<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
-	<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
-	<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
-	<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
-	<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
-	<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>	
-	<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
-	<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
-	<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
-	<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
-	<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
-	<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
-	<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
-	<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
-	<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+		<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>	
+		<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
+		<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
+		<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
+		<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
+		<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
+		<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
+		<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>	
+		<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
+		<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
+		<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
+		<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
+		<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
+		<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
+		<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
+		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
 	</author>
+	
+	<author first="Activo" gender="" titulo="Activo">
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+		<book title="Caracteristica" titulo="Caracteristica" url="administracion/adm_caracteristica.php"></book>
+		<book title="Categoria" titulo="Categoria" url="administracion/adm_categoria.php"></book>
+		<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
+		<book title="Contacto Proveedor" titulo="Contacto" url="administracion/adm_contacto_proveedor.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Estado" titulo="Estado" url="administracion/adm_estado.php"></book>
+		<book title="Fabricate" titulo="Fabricate" url="administracion/adm_fabricante.php"></book>
+		<book title="Falla" titulo="Falla" url="administracion/adm_falla.php"></book>
+		<book title="Garantia" titulo="Garantia" url="administracion/adm_garantia.php"></book>
+		<book title="Modelo" titulo="Modelo" url="administracion/adm_modelo.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Proveedor" titulo="Proveedor" url="administracion/adm_proveedor.php"></book>
+		<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
+		<book title="Tipo Activo" titulo="Tipo Activo" url="administracion/adm_tipo_activo.php"></book>
+		<book title="Ubicacion" titulo="Ubicacion" url="administracion/adm_ubicacion.php"></book>
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	</author>
+	
+	
+	<author first="Personal" gender="" titulo="Personal">
+		<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
+		<book title="Departamento" titulo="Departamento" url="administracion/adm_departamento.php"></book>
+		<book title="Directorio" titulo="Directorio" url="administracion/adm_directorio.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
+		<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Privilegio" titulo="Privilegio" url="administracion/adm_privilegio_usuario.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
+		<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
+		<book title="Tipo Directorio" titulo="Tipo Directorio" url="administracion/adm_tipo_directorio.php"></book>
+		<book title="Usuario" titulo="Usuario" url="administracion/adm_usuario.php"></book>
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	</author>
+	
+	<author first="Planes" gender="" titulo="Planes">
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+		<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>
+		<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
+		<book title="Continuidad" titulo="Continuidad" url="administracion/adm_continuidad.php"></book>
+		<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
+		<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
+		<book title="Directorio" titulo="Directorio" url="administracion/adm_directorio.php"></book>
+		<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
+		<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
+		<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
+		<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>
+		<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
+		<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
+		<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
+		<book title="Respaldo" titulo="Respaldo" url="administracion/adm_respaldo.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
+		<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
+		<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
+		<book title="Tipo Directorio" titulo="Tipo Directorio" url="administracion/adm_tipo_directorio.php"></book>
+		<book title="Tipo Respaldo" titulo="Tipo Respaldo" url="administracion/adm_tipo_respaldo.php"></book>
+		<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
+		<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
+		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+	</author>
+	
+	<author first="Continuidad" gender="" titulo="Continuidad">
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+		<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>
+		<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
+		<book title="Categoria" titulo="Categoria" url="administracion/adm_categoria.php"></book>
+		<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
+		<book title="Contacto Proveedor" titulo="Contacto" url="administracion/adm_contacto_proveedor.php"></book>
+		<book title="Continuidad" titulo="Continuidad" url="administracion/adm_continuidad.php"></book>
+		<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
+		<book title="Departamento" titulo="Departamento" url="administracion/adm_departamento.php"></book>
+		<book title="Directorio" titulo="Directorio" url="administracion/adm_directorio.php"></book>
+		<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
+		<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
+		<book title="Equipo Requerido" titulo="Equipo" url="administracion/adm_equipo_requerido.php"></book>
+		<book title="Estado" titulo="Estado" url="administracion/adm_estado.php"></book>
+		<book title="Fabricate" titulo="Fabricate" url="administracion/adm_fabricante.php"></book>
+		<book title="Falla" titulo="Falla" url="administracion/adm_falla.php"></book>
+		<book title="Garantia" titulo="Garantia" url="administracion/adm_garantia.php"></book>
+		<book title="Grupo" titulo="Grupo" url="administracion/adm_grupo.php"></book>
+		<book title="Guardia" titulo="Guardia" url="administracion/adm_guardia.php"></book>
+		<book title="Linea" titulo="Linea" url="administracion/adm_linea.php"></book>
+		<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Plan localizacion" titulo="Plan loc" url="administracion/adm_plan_localizacion.php"></book>
+		<book title="Privilegio" titulo="Privilegio" url="administracion/adm_privilegio_usuario.php"></book>
+		<book title="Proceso" titulo="Proceso" url="administracion/adm_proceso.php"></book>
+		<book title="Proveedor" titulo="Proveedor" url="administracion/adm_proveedor.php"></book>
+		<book title="Respaldo" titulo="Respaldo" url="administracion/adm_respaldo.php"></book>
+		<book title="Rol Persona" titulo="Rol" url="administracion/adm_rol_persona.php"></book>
+		<book title="Responsabilidad" titulo="Responsabilidad" url="administracion/adm_rol_res.php"></book>
+		<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
+		<book title="Tipo Directorio" titulo="Tipo Directorio" url="administracion/adm_tipo_directorio.php"></book>
+		<book title="Tipo Respaldo" titulo="Tipo Respaldo" url="administracion/adm_tipo_respaldo.php"></book>
+		<book title="Transporte" titulo="Transporte" url="administracion/adm_transporte.php"></book>
+		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+	</author>
+	
+	<author first="Capacidad" gender="" titulo="Capacidad">
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+		<book title="Capacidad" titulo="Capacidad" url="administracion/adm_capacidad.php"></book>
+		<book title="Caracteristica" titulo="Caracteristica" url="administracion/adm_caracteristica.php"></book>
+		<book title="Categoria" titulo="Categoria" url="administracion/adm_categoria.php"></book>
+		<book title="Cliente" titulo="Cliente" url="administracion/adm_cliente.php"></book>
+		<book title="Contacto Proveedor" titulo="Contacto" url="administracion/adm_contacto_proveedor.php"></book>
+		<book title="Crecimiento" titulo="Crecimiento" url="administracion/adm_crecimiento.php"></book>
+		<book title="Datos Plan" titulo="Datos Plan" url="administracion/adm_datos_plan.php"></book>
+		<book title="Documento Componente" titulo="Informacion" url="administracion/adm_doc_componente.php"></book>
+		<book title="Documento" titulo="Documento" url="administracion/adm_documento.php"></book>
+		<book title="Estado" titulo="Estado" url="administracion/adm_estado.php"></book>
+		<book title="Fabricate" titulo="Fabricate" url="administracion/adm_fabricante.php"></book>
+		<book title="Falla" titulo="Falla" url="administracion/adm_falla.php"></book>
+		<book title="Garantia" titulo="Garantia" url="administracion/adm_garantia.php"></book>
+		<book title="Modelo" titulo="Modelo" url="administracion/adm_modelo.php"></book>
+		<book title="Necesidad" titulo="Necesidad" url="administracion/adm_necesidad.php"></book>
+		<book title="Nivel de obsolescencia" titulo="Nivel" url="administracion/adm_nivel_obsolescencia.php"></book>
+		<book title="Persona" titulo="Persona" url="administracion/adm_persona.php"></book>
+		<book title="Proveedor" titulo="Proveedor" url="administracion/adm_proveedor.php"></book>
+		<book title="Servicio" titulo="Servicio" url="administracion/adm_servicio.php"></book>
+		<book title="Tipo Activo" titulo="Tipo Activo" url="administracion/adm_tipo_activo.php"></book>
+		<book title="Tipo Ubicacion" titulo="Tipo Ubicacion" url="administracion/adm_tipo_ubicacion.php"></book>
+		<book title="Ubicacion" titulo="Ubicacion" url="administracion/adm_ubicacion.php"></book>
+		<book title="Unidad demanda" titulo="Unidad" url="administracion/adm_unidad_demanda.php"></book>	
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	</author>	
+		
 </authors>
