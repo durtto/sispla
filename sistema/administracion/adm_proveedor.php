@@ -3,6 +3,8 @@
 <title>Proveedor</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
+<link rel="stylesheet" type="text/css" href="../css/loading.css">
+
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -331,7 +333,12 @@ gridForm.render('form');
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
-
+<div id="loading-mask" style=""></div>
+  <div id="loading">
+  <div class="loading-indicator">
+  <img src="../imagenes/loading.gif" width="16" height="16" style="margin-right:8px;" align="absmiddle"/>Cargando...
+  </div>
+  </div>
   <table  align="center">
     <tr>
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
