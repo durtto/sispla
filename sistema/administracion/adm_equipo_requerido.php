@@ -202,8 +202,8 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'equiposrequeridos',
         totalProperty: 'total',
-		idProperty: 'co_equipo_requerido_requerido',
-        fields: [{name: 'co_equipo_requerido_requerido'},
+		idProperty: 'co_equipo_requerido',
+        fields: [{name: 'co_equipo_requerido'},
 				{name: 'nb_activo'},
 				{name: 'co_indicador'},
          		{name: 'nu_cedula'},
@@ -237,7 +237,7 @@ Ext.onReady(function(){
 	
 	
     var colModelEquipo = new Ext.grid.ColumnModel([
-        {id:'co_equipo_requerido',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_requerido_requerido'},
+        {id:'co_equipo_requerido',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_requerido'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
 		{header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
 		{header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
@@ -375,77 +375,71 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-	            		xtype: 'radiogroup',
-	            		fieldLabel: 'Maletin de Herramientas',
-	            		id: 'bo_maletin_herramientas',
-		                name: 'bo_maletin_herramientas',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'herramientas', inputValue: 1},
-			                {boxLabel: 'No', name: 'herramientas', inputValue: 0},
-			           			]
-        		},{
-	           			xtype: 'radiogroup',
-	            		fieldLabel: 'Multimetro Digital',
-	            		id: 'bo_multimetro_digital',
-		                name: 'bo_multimetro_digital',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'multimetro', inputValue: 1},
-			                {boxLabel: 'No', name: 'multimetro', inputValue: 0},
-			           			]
-        		}]
+                        fieldLabel: 'Persona',
+						xtype:'textfield',
+						id: 'co_indicador',
+                        name: 'co_indicador',
+                        width:120
+                    }]
 				},{
 					layout: 'form',
 					labelWidth:130,
 					columnWidth:.45,
 					border:false,
 					items: [{
-                        fieldLabel: 'Persona',
-						xtype:'textfield',
-						id: 'co_indicador',
-                        name: 'co_indicador',
-                        width:120
-                    },{
-	            		xtype: 'radiogroup',
+	            		xtype: 'checkbox',
 	            		fieldLabel: 'Vehiculo',
 	            		id: 'bo_vehiculo',
 		                name: 'bo_vehiculo',
 			            columns: 2,
 			            items: [
 			                {boxLabel: 'Si', name: 'vehiculo', inputValue: 1},
-			                {boxLabel: 'No', name: 'vehiculo', inputValue: 0},
 			           			]
         		},{
-	            		xtype: 'radiogroup',
+	            		xtype: 'checkbox',
 	            		fieldLabel: 'Laptop',
 	            		id: 'bo_laptop',
 		                name: 'bo_laptop',
 			            columns: 2,
 			            items: [
 			                {boxLabel: 'Si', name: 'laptop', inputValue: 1},
-			                {boxLabel: 'No', name: 'laptop', inputValue: 0},
 			           			]
         		},{
-	            		xtype: 'radiogroup',
+	            		xtype: 'checkbox',
+	            		fieldLabel: 'Maletin de Herramientas',
+	            		id: 'bo_maletin_herramientas',
+		                name: 'bo_maletin_herramientas',
+			            columns: 2,
+			            items: [
+			                {boxLabel: '1', name: 'herramientas', inputValue: 1},
+			           			]
+        		},{
+	            		xtype: 'checkbox',
 	            		fieldLabel: 'Radio',
 	            		id: 'bo_radio',
 		                name: 'bo_radio',
 			            columns: 2,
 			            items: [
 			                {boxLabel: 'Si', name: 'radio', inputValue: 1},
-			                {boxLabel: 'No', name: 'radio', inputValue: 0},
 			           			]
         		},{
-	            		xtype: 'radiogroup',
+	           			xtype: 'checkbox',
+	            		fieldLabel: 'Multimetro Digital',
+	            		id: 'bo_multimetro_digital',
+		                name: 'bo_multimetro_digital',
+			            columns: 2,
+			            items: [
+			                {boxLabel: 'Si', name: 'multimetro', inputValue: 1},
+			           			]
+        		},{
+	            		xtype: 'checkbox',
 	            		fieldLabel: 'HART',
 	            		id: 'bo_hart',
 		                name: 'bo_hart',
 			            columns: 2,
 			            items: [
 			                {boxLabel: 'Si', name: 'hart', inputValue: 1},
-			                {boxLabel: 'No', name: 'hart', inputValue: 0},
-			           			]
+			         			]
         		}]
 			}]
 			},{
