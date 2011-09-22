@@ -124,11 +124,23 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                 collapsible: true,
                 margins:'80 0 0 0',
                 cmargins:'80 0 0 0',
-                //layout:'accordion',
+                layout:'accordion',
                 layoutConfig:{
                     animate:true
                 },
                 items: [{
+                    title: 'Continuidad Operativa',
+                    iconCls: 'nav' // see the HEAD section for style used
+                }, {
+                    title: 'Settings',
+                    html: '<p>Some settings in here.</p>',
+                    iconCls: 'settings'
+                }, {
+                    title: 'Information',
+                    html: '<p>Some info in here.</p>',
+                    iconCls: 'info'
+                },{
+            title:'Contenido',
             xtype: 'treepanel',
             id: 'tree-panel',
             region: 'center',
@@ -154,7 +166,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                     })
 	            }
 	        }
-        }]
+	       }]
             },{
                 region:'east',
                 id:'east-panel',
