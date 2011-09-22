@@ -99,7 +99,7 @@ class TpDirectorio extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTpDirectorio( ) {
+  public function cargarTpDirectorio() {
 
 	$query = "SELECT *
                 FROM tr050_tipo_directorio;

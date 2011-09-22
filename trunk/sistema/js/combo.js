@@ -1,7 +1,7 @@
 // name: GetCombo
 // @param
 // @return
-function GetCombo(nombre,etiqueta){
+ function GetCombo(nombre,etiqueta){
  co_nombre=nombre;
  nb_nombre='nb_'+nombre.substring(3);
  accion=nombre.substring(3);
@@ -15,13 +15,13 @@ function GetCombo(nombre,etiqueta){
   fieldLabel:etiqueta,
   displayField:nb_nombre,
   editable: false,
-  anchor: '80%',
+  anchor: '90%',
   listWidth:220,
   typeAhead:true,
   mode: 'remote',
   triggerAction:'all',
   store: new Ext.data.JsonStore({
-   url: '../clases/Combos.php',
+   url: '../interfaz/interfaz_combo.php',
    root: 'Resultados',
    idProperty: co_nombre,
    baseParams: {
@@ -31,4 +31,4 @@ function GetCombo(nombre,etiqueta){
   })
  });
  return combo;
-}
+} 
