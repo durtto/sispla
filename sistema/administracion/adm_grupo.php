@@ -224,7 +224,7 @@ Ext.onReady(function(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Borrados con exito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
