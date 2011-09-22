@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vehiculo</title>
+<title>Transporte</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -48,7 +48,7 @@
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_vehiculo'] = 'Codigo Vehiculo';
+	camposReq['co_transporte'] = 'Codigo Transporte';
 	
     var bd = Ext.getBody();
 
@@ -57,33 +57,26 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-/**************************/StoreVehiculo/**************************/
 	
-  var storeVehiculo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_vehiculo.php',
+  var storeTransporte = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_transporte.php',
 		remoteSort : true,
-		root: 'vehiculos',
+		root: 'transportes',
         totalProperty: 'total',
-		idProperty: 'co_vehiculo',
-        fields: [{name: 'co_vehiculo'},
-		        {name: 'tx_placa'},
-		        {name: 'tx_marca'},
-		        {name: 'tx_modelo'},
-		        {name: 'tx_unidad'},
-		        {name: 'resp'}]
+		idProperty: 'co_transporte',
+        fields: [{name: 'co_transporte'},
+       			{name: 'fe_elaboracion'},
+        		{name: 'resp'}]
         });
-    storeVehiculo.setDefaultSort('co_vehiculo', 'ASC');
+    storeTransporte.setDefaultSort('co_transporte', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelVehiculo = new Ext.grid.ColumnModel([
-        {id:'co_vehiculo',header: "Vehiculo", width: 100, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
-        {header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'tx_placa'},
-		{header: "Marca", width: 100, sortable: true, locked:false, dataIndex: 'tx_marca'},        
-		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-		{header: "Unidad", width: 159, sortable: true, locked:false, dataIndex: 'tx_unidad'},
+    var colModelTransporte = new Ext.grid.ColumnModel([
+        {id:'co_transporte',header: "Transporte", width: 100, sortable: true, locked:false, dataIndex: 'co_transporte'},
+        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
-/*******************************************************************/	
+	
+	
 	
 /*
  *    Here is where we create the Form
@@ -91,10 +84,10 @@ Ext.onReady(function(){
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_vehiculo',
+        id: 'frm_transporte',
         frame: true,
 		labelAlign: 'center',
-        title: 'Vehiculos',
+        title: 'Transporte',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:660,
 		items: [{
@@ -105,7 +98,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			//layout:'column',
-			title: 'Vehiculos',
+			title: 'Transporte',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -113,62 +106,21 @@ Ext.onReady(function(){
 					//columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Vehiculo',
+                        fieldLabel: 'Numero de Transporte',
 						xtype:'numberfield',
-						id: 'co_vehiculo',
-                        name: 'co_vehiculo',
+						id: 'co_transporte',
+                        name: 'co_transporte',
                         //hidden: true,
 						//hideLabel: true,
                         width:160
                     }, {
-                        fieldLabel: 'Placa',
-						xtype:'textfield',
+                        fieldLabel: 'Fecha de Elaboracion',
+						xtype:'datefield',
 						vtype:'validos',
-						id: 'tx_placa',
-                        name: 'tx_placa',
+						id: 'fe_elaboracion',
+                        name: 'fe_elaboracion',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Marca',
-						xtype:'textfield',
-						id: 'tx_marca',
-                        name: 'tx_marca',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Modelo',
-						xtype:'textfield',
-						id: 'tx_modelo',
-                        name: 'tx_modelo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'textfield',
-						id: 'tx_unidad',
-                        name: 'tx_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
+                        width:140
                     }]
 			}]
 			},{
@@ -180,14 +132,14 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeVehiculo.getCount();
+					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_vehiculo").focus();
+					Ext.getCmp("co_transporte").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -197,7 +149,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_vehiculo").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_transporte").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -210,22 +162,19 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeVehiculo.baseParams = {'accion': 'insertar'};
+								storeTransporte.baseParams = {'accion': 'insertar'};
 							else
-								storeVehiculo.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'", ';
-							columnas += '"tx_placa" : "'+Ext.getCmp("tx_placa").getValue()+'", ';
-							columnas += '"tx_marca" : "'+Ext.getCmp("tx_marca").getValue()+'", ';
-							columnas += '"tx_modelo" : "'+Ext.getCmp("tx_modelo").getValue()+'", ';
-							columnas += '"tx_unidad" : "'+Ext.getCmp("tx_unidad").getValue()+'"}';
-							storeVehiculo.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_vehiculo.php"},
+								storeTransporte.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
+							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
+							storeTransporte.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
-										if(storeVehiculo.getAt(0).data.resp!=true){		
+										if(storeTransporte.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeVehiculo.getAt(0).data.resp, 
+												msg: storeTransporte.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -240,24 +189,24 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_vehiculo.php'};
+							storeTransporte.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_transporte.php'};
 						}
 				}
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Vehiculo',
+			tooltip:'Eliminar Grupo',
 			disabled: true,
 			handler: function(){
-										storeVehiculo.baseParams = {'accion': 'eliminar'};
-										storeVehiculo.load({params:{
-												"condiciones": '{ "co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_vehiculo.php"},
+										storeTransporte.baseParams = {'accion': 'eliminar'};
+										storeTransporte.load({params:{
+												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
-										if(storeVehiculo.getAt(0).data.resp!=true){		
+										if(storeTransporte.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeVehiculo.getAt(0).data.resp,
+												msg: storeTransporte.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -277,21 +226,21 @@ Ext.onReady(function(){
 			width:640,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_vehiculo',
-                store: storeVehiculo,
-                cm: colModelVehiculo,
+				id: 'gd_planlocalizacion',
+                store: storeTransporte,
+                cm: colModelTransporte,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_vehiculo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_planlocalizacion").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Vehiculos',
+				title:'Lista de Transportes',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -299,7 +248,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeVehiculo,
+				store: storeTransporte,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -315,10 +264,10 @@ Ext.onReady(function(){
 
 	
 	
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_vehiculo.php"}});
+storeTransporte.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_transporte.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_vehiculo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_planlocalizacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -326,7 +275,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_vehiculo").focus();
+		Ext.getCmp("co_transporte").focus();
 		nroReg=rowIdx;
 		
 });

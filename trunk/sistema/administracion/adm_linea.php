@@ -57,6 +57,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+    
+/**************************/StoreLinea/**************************/
 	
   var storeLinea = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_linea_taxi.php',
