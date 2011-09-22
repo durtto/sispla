@@ -21,8 +21,6 @@ public function cargarTpActivo() {
   $query = "SELECT 
   					tr014_tipo_activo.co_tipo_activo, 
   					tr014_tipo_activo.nb_tipo_activo, 
-  					tr011_categoria.nb_categoria, 
-  					tr013_servicio.nb_servicio
 			FROM 
   					public.tr014_tipo_activo, 
   					public.tr013_servicio, 
@@ -34,5 +32,49 @@ public function cargarTpActivo() {
    echo '{"Resultados":'.json_encode($r).'}';
 
   } // end of member function cargarDocumento
+  
+public function cargarDepartamento() {
+	
+  $query = "SELECT *
+                FROM tr007_departamento;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  }  
+
+public function cargarRol() {
+	
+  $query = "SELECT *
+				FROM tr008_rol_persona;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  } 
+public function cargarResponsabilidad() {
+	
+  $query = "SELECT *
+				FROM tr002_rol_responsabilidad;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  } 
+  
+public function cargarGrupo() {
+	
+  $query = "SELECT *
+				FROM tr001_grupo;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  }  
+public function cargarGuardia() {
+	
+  $query = "SELECT *
+				FROM tr009_guardia;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  }
+  
 }
 ?>
