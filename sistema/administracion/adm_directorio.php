@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../js/combo.js"></script>
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -46,39 +47,7 @@
  */
  var nuevo;
  var winTpDirectorio;
- 
- function GetCombo(nombre,etiqueta){
- co_nombre=nombre;
- nb_nombre='nb_'+nombre.substring(3);
- accion=nombre.substring(3);
- var combo = new Ext.form.ComboBox({
-  name: nombre,
-  id: nombre,
-  emptyText: 'Seleccione..',
-  //hiddenName: nombre+"hide",
-  //forceSelection: true,
-  valueField:nombre,
-  fieldLabel:etiqueta,
-  displayField:nb_nombre,
-  editable: false,
-  anchor: '80%',
-  listWidth:220,
-  typeAhead:true,
-  mode: 'remote',
-  triggerAction:'all',
-  store: new Ext.data.JsonStore({
-   url: '../clases/Combos.php',
-   root: 'Resultados',
-   idProperty: co_nombre,
-   baseParams: {
-    accion: accion
-   },
-   fields: [co_nombre, nb_nombre]
-  })
- });
- return combo;
-}   
- 
+
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -163,35 +132,13 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [{GetCombo('co_tipo_directorio','Tipo_directorio')},{
+					items: [GetCombo('co_tipo_directorio','Tipo_directorio'),{
                         fieldLabel: 'Numero Directorio',
 						xtype:'numberfield',
 						id: 'co_directorio',
                         name: 'co_directorio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Codigo de TpDirectorio',
-						xtype:'numberfield',
-						id: 'co_tipo_directorio1',
-                        name: 'co_tipo_directorio1',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    }, {
-                        fieldLabel: 'Tipo de Directorio',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_tipo_directorio',
-						disabled:true,
-                        name: 'nb_tipo_directorio',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
                     }]
 				},{
 					layout: 'form',
