@@ -46,7 +46,6 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winTpDirectorio;
 
 Ext.onReady(function(){
 	var nroReg;
@@ -60,26 +59,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-    
- 
-	var storeTpDirectorio = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_tipo_directorio.php',
-		remoteSort : true,
-		root: 'tpdirectorios',
-        totalProperty: 'total',
-		idProperty: 'co_tipo_directorio',
-        fields: [{name: 'co_tipo_directorio'},
-		        {name: 'nb_tipo_directorio'},
-		        {name: 'resp'}]
-        });
-    storeTpDirectorio.setDefaultSort('co_tipo_directorio', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelTpDirectorio = new Ext.grid.ColumnModel([
-        {id:'co_tipo_directorio',header: "Directorio", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
-      ]);
       
   var storeDirectorio = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_directorio.php',
@@ -138,7 +117,7 @@ Ext.onReady(function(){
 						id: 'co_directorio',
                         name: 'co_directorio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        width:160
                     }]
 				},{
 					layout: 'form',
@@ -151,7 +130,7 @@ Ext.onReady(function(){
 						id: 'nb_directorio',
                         name: 'nb_directorio',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -305,61 +284,6 @@ Ext.onReady(function(){
 		}],
         
     });
-
-function selTpDirectorio(){
-storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_directorio.php"}});
-	if(!winTpDirectorio){
-				winTpDirectorio = new Ext.Window({
-						applyTo : 'winTpDirectorio',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selTpDirectorio',
-								store: storeTpDirectorio,
-								cm: colModelTpDirectorio,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de TpDirectorio',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selTpDirectorio").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selTpDirectorio").getSelectionModel().getSelected();
-											Ext.getCmp("co_tipo_directorio").setValue(record.data.co_tipo_directorio);
-											Ext.getCmp("nb_tipo_directorio").setValue(record.data.nb_tipo_directorio);
-											winTpDirectorio.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winTpDirectorio.hide();
-								  }
-						}]
-				});
-		}
-		winTpDirectorio.show();	
-}
  
 	
 storeDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_directorio.php"}});
@@ -378,9 +302,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerTpDirectorio = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerTpDirectorio.onTriggerClick = selTpDirectorio;
-		triggerTpDirectorio.applyToMarkup('nb_tipo_directorio');
+
 });
 
 </script>
@@ -397,9 +319,6 @@ var triggerTpDirectorio = new Ext.form.TriggerField({triggerClass : 'x-form-sear
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winTpDirectorio" class="x-hidden">
-    <div class="x-window-header">Ejegir Tipo Directorio</div>
-	
-</div>
+
 </body>
 </html>
