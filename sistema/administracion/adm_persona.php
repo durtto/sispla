@@ -58,9 +58,7 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-   
     
-         
   var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,

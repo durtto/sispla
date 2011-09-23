@@ -45,7 +45,6 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winPrivilegio;
  var winPersona;
  
 Ext.onReady(function(){
@@ -60,26 +59,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-	var storePrivilegio = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_privilegio_usuario.php',
-		remoteSort : true,
-		root: 'privilegios',
-        totalProperty: 'total',
-		idProperty: 'co_privilegio',
-        fields: [{name: 'co_privilegio'},
-        		{name: 'nb_privilegio'},
-        		{name: 'tx_descripcion'},
-        		{name: 'resp'}]
-        });
-    storePrivilegio.setDefaultSort('co_privilegio', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelPrivilegio = new Ext.grid.ColumnModel([
-        {id:'co_privilegio',header: "Privilegio", width: 100, sortable: true, locked:false, dataIndex: 'co_privilegio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
     
     var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
@@ -145,7 +124,8 @@ Ext.onReady(function(){
 		        {name: 'co_privilegio'},
         		{name: 'nb_privilegio'},
 		        {name: 'co_indicador'},
-        		{name: 'nu_cedula'},
+        		{name: 'nb_persona'},
+        		{name: 'tx_apellido'},
 		        {name: 'resp'}]
         });
     storeUsuario.setDefaultSort('co_usuario', 'ASC');
@@ -154,9 +134,10 @@ Ext.onReady(function(){
     var colModelUsuario = new Ext.grid.ColumnModel([
         {id:'co_usuario',header: "Usuario", width: 100, sortable: true, locked:false, dataIndex: 'co_usuario'},
         {header: "Privilegio", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
-        {header: "Privilegio", width: 338, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
-        {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Persona", width: 338, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Privilegio", width: 150, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+        {header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
       ]);
 	
 	     
@@ -195,83 +176,27 @@ Ext.onReady(function(){
                         name: 'co_usuario',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Privilegio',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
+                    },GetCombo('co_privilegio','Privilegio')
+				]
+                    },{
 					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Privilegio',
-						xtype:'numberfield',
-						id: 'co_privilegio',
-                        name: 'co_privilegio',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }]
-			},{
-					layout: 'form',
-					labelWidth:140,
+					labelWidth:100,
 					columnWidth:.45,
 					border:false,
 					items: [{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Persona',
 						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_privilegio',
-						disabled:true,
-                        name: 'nb_privilegio',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+						id: 'co_indicador',
+                        name: 'co_indicador',
+                        //hidden: true,
+						//hideLabel: true,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm3',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Persona',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Persona',
-						xtype:'numberfield',
-						id: 'co_indicador',
-                        name: 'co_indicador',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }]
-			},{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.45,
-					border:false,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',
@@ -279,7 +204,7 @@ Ext.onReady(function(){
 						disabled:true,
                         name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -301,8 +226,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
-						Ext.getCmp("frm3").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_usuario").focus();
@@ -428,64 +351,11 @@ Ext.onReady(function(){
         
     });
 
-function selPrivilegio(){
-storePrivilegio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_privilegio.php"}});
-	if(!winPrivilegio){
-				winPrivilegio = new Ext.Window({
-						applyTo : 'winPrivilegio',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selPrivilegio',
-								store: storePrivilegio,
-								cm: colModelPrivilegio,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Privilegio',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selPrivilegio").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selPrivilegio").getSelectionModel().getSelected();
-											Ext.getCmp("co_privilegio").setValue(record.data.co_privilegio);
-											Ext.getCmp("nb_privilegio").setValue(record.data.nb_privilegio);
-											winPrivilegio.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winPrivilegio.hide();
-								  }
-						}]
-				});
-		}
-		winPrivilegio.show();	
-}
+
 
 function selPersona(){
 storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_persona.php"}});
-	if(!winPrivilegio){
+	if(!winPersona){
 				winPersona = new Ext.Window({
 						applyTo : 'winPersona',
 						layout : 'fit',
@@ -522,7 +392,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 										/**/
 										if(Ext.getCmp("gd_selPersona").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selPersona").getSelectionModel().getSelected();
-											Ext.getCmp("co_indicador").setValue(record.data.co_co_indicador);
+											Ext.getCmp("co_indicador").setValue(record.data.co_indicador);
 											Ext.getCmp("nb_persona").setValue(record.data.nb_persona);
 											winPersona.hide();
 										}
@@ -548,16 +418,14 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
+
 		}
 		Ext.getCmp("co_usuario").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerPrivilegio = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerPrivilegio.onTriggerClick = selPrivilegio;
-		triggerPrivilegio.applyToMarkup('co_privilegio');
+
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
 		triggerPersona.applyToMarkup('co_indicador');
@@ -577,8 +445,8 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winPrivilegio" class="x-hidden">
-    <div class="x-window-header">Ejegir Privilegio</div>
+<div id="winPersona" class="x-hidden">
+    <div class="x-window-header">Ejegir Persona</div>
 	
 </div>
 </body>

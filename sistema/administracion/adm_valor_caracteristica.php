@@ -45,8 +45,6 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winActivo;
- var winCaracteristica;
  
 Ext.onReady(function(){
 	var nroReg;
@@ -62,109 +60,7 @@ Ext.onReady(function(){
     };
     var local = true;
     
-	  var storeActivo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_activo.php',
-		remoteSort : true,
-		root: 'activos',
-        totalProperty: 'total',
-		idProperty: 'co_activo',
-        fields: [{name: 'co_activo'},
-				{name: 'nb_activo'},
-				{name: 'tx_descripcion'},
-				{name: 'co_sap'},
-				{name: 'nu_serial'},
-				{name: 'nu_etiqueta'},
-				{name: 'bo_critico'},
-				{name: 'bo_vulnerable'},
-				{name: 'fe_incorporacion'},
-				{name: 'nu_vida_util'},
-				{name: 'co_activo_padre'},
-				{name: 'co_estado'},
-				{name: 'nb_estado'},
-				{name: 'co_fabricante'},
-				{name: 'nb_fabricante'},
-				{name: 'co_indicador'},
-				{name: 'nb_persona'},
-				{name: 'co_ubicacion'},
-				{name: 'nb_ubicacion'},
-				{name: 'co_proceso'},
-				{name: 'nb_proceso'},
-				{name: 'co_proveedor'},
-				{name: 'nb_proveedor'},
-				{name: 'co_unidad'},
-				{name: 'nb_unidad'},
-				{name: 'co_nivel'},
-				{name: 'nb_nivel'},
-		        {name: 'resp'}]
-        });
-    storeActivo.setDefaultSort('co_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Numero de serial", width: 100, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de etiqueta", width: 100, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
-      	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 100, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
-      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
-      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
-      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
-      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Persona", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
-      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
-      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 100, sortable: true, hidden: false, locked:false, dataIndex: 'co_proveedor'},
-      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
-      ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
-      
-    var storeCaracteristica = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_caracteristica.php',
-		remoteSort : true,
-		root: 'caracteristicas',
-        totalProperty: 'total',
-		idProperty: 'co_caracteristica',
-        fields: [{name: 'co_caracteristica'},
-		        {name: 'nb_caracteristica'},
-		        {name: 'nb_modelo'},
-		        {name: 'resp'}]
-        });
-	 storeCaracteristica.setDefaultSort('co_caracteristica', 'ASC');
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelCaracteristica = new Ext.grid.ColumnModel([
-        {id:'co_caracteristica',header: "Caracteristica", width: 100, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
-        {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},      
-      ]);
-      
+	        
     var storeValor = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_valor_caracteristica.php',
 		remoteSort : true,
@@ -215,57 +111,13 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [{
-                        fieldLabel: 'Numero Activo',
-						xtype:'numberfield',
-						id: 'co_activo',
-                        name: 'co_activo',
-                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        hidden: true,
-						hideLabel: true
-                    },{
-                        fieldLabel: 'Activo',
-						xtype:'textfield',
-						id: 'nb_activo',
-                        name: 'nb_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:123,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+					items: [GetCombo('co_activo','Activo')]
 				},{
 					layout: 'form',
 					border:false,
 					columnWidth:.45,
 					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Numero Activo',
-						xtype:'numberfield',
-						id: 'co_caracteristica',
-                        name: 'co_activo',
-                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        hidden: true,
-						hideLabel: true
-                    },{
-                        fieldLabel: 'Caracteristica',
-						xtype:'textfield',
-						id: 'nb_caracteristica',
-                        name: 'nb_caracteristica',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:123,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+					items: [GetCombo('co_caracteristica','Caracteristica')]
 			},{
 					layout: 'form',
 					border:false,
@@ -420,114 +272,7 @@ Ext.onReady(function(){
     });
 
 			
-function selActivo(){
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
-	if(!winActivo){
-				winActivo = new Ext.Window({
-						applyTo : 'winActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selActivo',
-								store: storeActivo,
-								cm: colModelActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Activo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_activo").setValue(record.data.co_activo);
-											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
-											winActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winActivo.hide();
-								  }
-						}]
-				});
-		}
-		winActivo.show();	
-}
-function selCaracteristica(){
-storeCaracteristica.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_caracteristica.php"}});
-	if(!winCaracteristica){
-				winCaracteristica = new Ext.Window({
-						applyTo : 'winCaracteristica',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selCaracteristica',
-								store: storeCaracteristica,
-								cm: colModelCaracteristica,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Caracteristica',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selCaracteristica").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selCaracteristica").getSelectionModel().getSelected();
-											Ext.getCmp("co_caracteristica").setValue(record.data.co_caracteristica);
-											Ext.getCmp("nb_caracteristica").setValue(record.data.nb_caracteristica);
-											winCaracteristica.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winCaracteristica.hide();
-								  }
-						}]
-				});
-		}
-		winCaracteristica.show();	
-} 
+
 	
 storeValor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_valor_caracteristica.php"}});
 gridForm.render('form');
@@ -545,17 +290,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('nb_activo');
-var triggerCaracteristica = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerCaracteristica.onTriggerClick = selCaracteristica;
-		triggerCaracteristica.applyToMarkup('nb_caracteristica');	
-			
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>
@@ -572,13 +307,6 @@ var triggerCaracteristica = new Ext.form.TriggerField({triggerClass : 'x-form-se
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Activo</div>
-	
-</div>
-<div id="winCaracteristica" class="x-hidden">
-    <div class="x-window-header">Ejegir Tipo Valor</div>
-	
-</div>
+
 </body>
 </html>

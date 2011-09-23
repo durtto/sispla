@@ -35,7 +35,7 @@ class Usuario extends MyPDO
    * 
    * @access public
    */
-  public $columUsuario= array('co_usuario'=>'co_usuario', 'nb_usuario'=>'nb_usuario', 'co_indicador'=>'co_indicador', 'co_privilegio'=>'co_privilegio');
+  public $columUsuario= array('co_usuario'=>'co_usuario', 'co_indicador'=>'co_indicador', 'co_privilegio'=>'co_privilegio');
 
   /**
    * 
@@ -104,8 +104,20 @@ class Usuario extends MyPDO
    */
   public function cargarUsuario() {
 
-	$query = "SELECT *
-				FROM tr047_usuario;";
+	$query = "SELECT 
+  tr047_usuario.co_usuario, 
+  tr047_usuario.co_indicador, 
+  tr022_privilegio_usuario.nb_privilegio, 
+  tr010_persona.nb_persona, 
+  tr010_persona.tx_apellido
+FROM 
+  public.tr047_usuario, 
+  public.tr010_persona, 
+  public.tr022_privilegio_usuario
+WHERE 
+  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
+  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio;
+";
 
 	$r = $this->pdo->_query($query);
 	
