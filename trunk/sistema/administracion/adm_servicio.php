@@ -45,7 +45,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winCapacidad;
+
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -155,29 +155,7 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Codigo de Capacidad',
-						xtype:'numberfield',
-						id: 'co_capacidad',
-                        name: 'co_capacidad',
-                        hidden: true,
-						hideLabel: true,
-                        width:160
-                    },{
-                        fieldLabel: 'Capacidad',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_capacidad',
-						disabled:true,
-                        name: 'nb_capacidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },GetCombo('co_capacidad','Capacidad')]
 			},{
 					layout: 'form',
 					border:false,
@@ -331,63 +309,7 @@ Ext.onReady(function(){
 			
 		}],
         
-    });
-
-function selCapacidad(){
-storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_capacidad.php"}});
-	if(!winCapacidad){
-				winCapacidad = new Ext.Window({
-						applyTo : 'winCapacidad',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selCapacidad',
-								store: storeCapacidad,
-								cm: colModelCapacidad,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Capacidad',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selCapacidad").getSelectionModel().getSelected();
-											Ext.getCmp("co_capacidad").setValue(record.data.co_capacidad);
-											Ext.getCmp("nb_capacidad").setValue(record.data.nb_capacidad);
-											winCapacidad.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winCapacidad.hide();
-								  }
-						}]
-				});
-		}
-		winCapacidad.show();	
-}
- 
+    }); 
 	
 storeServicio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_servicio.php"}});
 gridForm.render('form');
@@ -405,9 +327,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerCapacidad.onTriggerClick = selCapacidad;
-		triggerCapacidad.applyToMarkup('nb_capacidad');
+
 });
 
 </script>
@@ -424,9 +344,6 @@ var triggerCapacidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winCapacidad" class="x-hidden">
-    <div class="x-window-header">Ejegir Capacidad</div>
-	
-</div>
+
 </body>
 </html>

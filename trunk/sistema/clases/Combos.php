@@ -13,8 +13,23 @@ public function cargarTpDirectorio() {
    $r = $this->pdo->_query($query);
    echo '{"Resultados":'.json_encode($r).'}';
 
-  } // end of member function cargarDocumento
+  } 
+public function cargarTpUbicacion() {
+	
+  $query = "SELECT *
+                FROM tr005_tipo_ubicacion;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
 
+  }
+public function cargarTpRespaldo() {
+	
+  $query = "SELECT *
+                FROM tr034_tipo_respaldo;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  } // end of member function cargarDocumento
 
 public function cargarTpActivo() {
 	
@@ -147,5 +162,37 @@ public function cargarServicio() {
    echo '{"Resultados":'.json_encode($r).'}';
 //d
   } 
+public function cargarCapacidad() {
+	
+  $query = "SELECT *
+			FROM tr012_capacidad;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }
+public function cargarCategoria() {
+	
+  $query = "SELECT *
+				FROM tr011_categoria;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }
+public function cargarPrivilegio() {
+	
+  $query = "SELECT *
+				FROM tr022_privilegio_usuario;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }
+public function cargarCaracteristica() {
+	
+  $query = "SELECT *
+				FROM tr030_caracteristica;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }    
 }
 ?>

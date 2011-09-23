@@ -80,11 +80,11 @@ Ext.onReady(function(){
 	
 	
     var colModelUbicacion = new Ext.grid.ColumnModel([
-        {id:'co_rol_resp',header: "Ubicacion", width: 80, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {id:'co_ubicacion',header: "Ubicacion", width: 80, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
         {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
-        {header: "Tipo Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
+        {header: "Tipo Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
 
         ]);
         function obsoleto(bo_obsoleto) {
@@ -95,26 +95,6 @@ Ext.onReady(function(){
         }
         return bo_obsoleto;
     	}
-        
-        
-	var storeTpUbicacion = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_tipo_ubicacion.php',
-		remoteSort : true,
-		root: 'tpubicaciones',
-        totalProperty: 'total',
-		idProperty: 'co_tipo_ubicacion',
-        fields: [{name: 'co_tipo_ubicacion'},
-        		{name: 'nb_tipo_ubicacion'},
-				{name: 'resp'}]
-        });
-    storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelTpUbicacion = new Ext.grid.ColumnModel([
-        {id:'co_tipo_ubicacion',header: "Tipo Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
-      ]);
-	
 
     var gridForm = new Ext.FormPanel({
         id: 'frm_ubicacion',
@@ -172,27 +152,9 @@ Ext.onReady(function(){
                         name: 'co_ubicacion_padre',
                         //hidden: true,
 						//hideLabel: true,
-						width:140
+						width:121
                     
-				},{
-                        fieldLabel: 'Tipo Ubicacion',
-						xtype:'numberfield',
-						id: 'co_tipo_ubicacion',
-                        name: 'co_tipo_ubicacion',
-                        hidden: true,
-						hideLabel: true,
-						width:140
-                    
-				},{
-                        fieldLabel: 'Tipo Ubicacion',
-						xtype:'textfield',
-						id: 'nb_tipo_ubicacion',
-                        name: 'nb_tipo_ubicacion',
-                        //hidden: true,
-						//hideLabel: true,
-						width:140
-                    
-				},{
+				},GetCombo('co_tipo_ubicacion','Tipo Ubicacion'),{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Obsoleto',
 	            		id: 'bo_obsoleto',
@@ -399,61 +361,6 @@ Ext.onReady(function(){
 		}
 		winUbicacion.show();	
 }
-function selTpUbicacion(){
-storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_directorio.php"}});
-	if(!winTpUbicacion){
-				winTpUbicacion = new Ext.Window({
-						applyTo : 'winTpUbicacion',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selTpUbicacion',
-								store: storeTpUbicacion,
-								cm: colModelTpUbicacion,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de TpUbicacion',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selTpUbicacion").getSelectionModel().getSelected();
-											Ext.getCmp("co_tipo_ubicacion").setValue(record.data.co_tipo_ubicacion);
-											Ext.getCmp("nb_tipo_ubicacion").setValue(record.data.nb_tipo_ubicacion);
-
-											winTpUbicacion.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winTpUbicacion.hide();
-								  }
-						}]
-				});
-		}
-		winTpUbicacion.show();	
-}
 	
 storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
 gridForm.render('form');
@@ -474,10 +381,7 @@ gridForm.render('form');
 var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerUbicacion.onTriggerClick = selUbicacion;
 		triggerUbicacion.applyToMarkup('co_ubicacion_padre');	
-
-var triggerTpUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerTpUbicacion.onTriggerClick = selTpUbicacion;
-		triggerTpUbicacion.applyToMarkup('nb_tipo_ubicacion');	
+	
 });
 </script>
 </head>
@@ -497,9 +401,6 @@ var triggerTpUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-searc
     <div class="x-window-header">Ejegir Rol Padre</div>
 	
 </div>
-<div id="winTpUbicacion" class="x-hidden">
-    <div class="x-window-header">Ejegir Rol Padre</div>
-	
-</div>
+
 </body>
 </html>

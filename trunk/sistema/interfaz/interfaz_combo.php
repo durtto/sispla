@@ -16,6 +16,14 @@
 	$resultado = $combo->cargarTpDirectorio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
 	break;
+	case 'tipo_respaldo':
+	$resultado = $combo->cargarTpRespaldo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'tipo_ubicacion':
+	$resultado = $combo->cargarTpUbicacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
 	case 'tipo_activo':
 	$resultado = $combo->cargarTpActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
@@ -80,6 +88,26 @@
 	$resultado = $combo->cargarServicio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
 	break;	
+	case 'capacidad':
+	$resultado = $combo->cargarCapacidad($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'categoria':
+	$resultado = $combo->cargarCategoria($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'privilegio':
+	$resultado = $combo->cargarPrivilegio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'caracteristica':
+	$resultado = $combo->cargarCaracteristica($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	
+	
+	
+	
 	}
 
 ?>

@@ -70,6 +70,7 @@ Ext.onReady(function(){
 		idProperty: 'co_caracteristica',
         fields: [{name: 'co_caracteristica'},
 		        {name: 'nb_caracteristica'},
+		        {name: 'co_modelo'},
 		        {name: 'nb_modelo'},
 		        {name: 'resp'}]
         });
@@ -79,7 +80,8 @@ Ext.onReady(function(){
     var colModelCaracteristica = new Ext.grid.ColumnModel([
         {id:'co_caracteristica',header: "Codigo de Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
         {header: "Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
-        {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},      
+        {header: "Modelo", width: 200, hidden:true,sortable: true, locked:false, dataIndex: 'co_modelo'},  
+        {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},    
       ]);
 	
 	     

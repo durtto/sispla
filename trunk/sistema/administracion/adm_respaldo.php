@@ -225,14 +225,14 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [{
+					items: [GetCombo('co_activo', 'Activo'),{
                         fieldLabel: 'Numero',
 						xtype:'numberfield',
 						id: 'co_respaldo',
                         name: 'co_respaldo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
+                    },GetCombo('co_tipo_respaldo', 'Tipo respaldo'),{
                         fieldLabel: 'Dias de la Semana',
 						xtype:'textfield',
 						id: 'tx_dias_semana',
@@ -246,31 +246,6 @@ Ext.onReady(function(){
                         name: 'fe_ultimo_respaldo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Tipo Respaldo',
-						xtype:'numberfield',
-						id: 'co_tipo_respaldo',
-                        name: 'co_tipo_respaldo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        hidden: true,
-						hideLabel: true
-                    },{
-                        fieldLabel: 'Tipo Respaldo',
-						xtype:'textfield',
-						id: 'nb_tipo_respaldo',
-                        name: 'nb_tipo_respaldo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:123
-                    },{
-                        fieldLabel: 'Numero Activo',
-						xtype:'numberfield',
-						id: 'co_activo',
-                        name: 'co_activo',
-                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        hidden: true,
-						hideLabel: true
                     }]
 				},{
 					layout: 'form',
@@ -298,19 +273,6 @@ Ext.onReady(function(){
                         name: 'tx_ubicacion_logica_fisica',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Activo',
-						xtype:'textfield',
-						id: 'nb_activo',
-                        name: 'nb_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:123,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
                     }]
 			},{
 					layout: 'form',
@@ -471,116 +433,6 @@ Ext.onReady(function(){
 		}],
         
     });
-
-			
-function selActivo(){
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
-	if(!winActivo){
-				winActivo = new Ext.Window({
-						applyTo : 'winActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selActivo',
-								store: storeActivo,
-								cm: colModelActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Activo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_activo").setValue(record.data.co_activo);
-											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
-											winActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winActivo.hide();
-								  }
-						}]
-				});
-		}
-		winActivo.show();	
-}
-function selTpRespaldo(){
-storeTpRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_respaldo.php"}});
-	if(!winTpRespaldo){
-				winTpRespaldo = new Ext.Window({
-						applyTo : 'winTpRespaldo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selTpRespaldo',
-								store: storeTpRespaldo,
-								cm: colModelTpRespaldo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Tipo Respaldo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selTpRespaldo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selTpRespaldo").getSelectionModel().getSelected();
-											Ext.getCmp("co_tipo_respaldo").setValue(record.data.co_tipo_respaldo);
-											Ext.getCmp("nb_tipo_respaldo").setValue(record.data.nb_tipo_respaldo);
-											winTpRespaldo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winTpRespaldo.hide();
-								  }
-						}]
-				});
-		}
-		winTpRespaldo.show();	
-} 
 	
 storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_respaldo.php"}});
 gridForm.render('form');
@@ -598,17 +450,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('nb_activo');
-var triggerTpRespaldo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerTpRespaldo.onTriggerClick = selTpRespaldo;
-		triggerTpRespaldo.applyToMarkup('nb_tipo_respaldo');	
-			
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>
@@ -625,13 +467,6 @@ var triggerTpRespaldo = new Ext.form.TriggerField({triggerClass : 'x-form-search
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Activo</div>
-	
-</div>
-<div id="winTpRespaldo" class="x-hidden">
-    <div class="x-window-header">Ejegir Tipo Respaldo</div>
-	
-</div>
+
 </body>
 </html>
