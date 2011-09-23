@@ -58,24 +58,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-	var storeProveedor = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_proveedor.php',
-		remoteSort : true,
-		root: 'proveedores',
-        totalProperty: 'total',
-		idProperty: 'co_proveedor',
-        fields: [{name: 'co_proveedor'},
-        		{name: 'nb_proveedor'},		
-        		{name: 'resp'}]
-        });
-    storeProveedor.setDefaultSort('co_proveedor', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelProveedor = new Ext.grid.ColumnModel([
-        {id:'co_proveedor',header: "Codigo de Proveedor", width: 200, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-      ]);
       
   var storeContacto = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_contacto_proveedor.php',
@@ -183,29 +165,7 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Codigo de Proveedor',
-						xtype:'numberfield',
-						id: 'co_proveedor',
-                        name: 'co_proveedor',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proveedor',
-						disabled:true,
-                        name: 'nb_proveedor',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },GetCombo('co_proveedor','Proveedor')]
 				},{
 					layout: 'form',
 					border:false,
@@ -398,60 +358,7 @@ Ext.onReady(function(){
         
     });
 
-function selProveedor(){
-storeProveedor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_proveedor.php"}});
-	if(!winProveedor){
-				winProveedor = new Ext.Window({
-						applyTo : 'winProveedor',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selProveedor',
-								store: storeProveedor,
-								cm: colModelProveedor,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Proveedor',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selProveedor").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selProveedor").getSelectionModel().getSelected();
-											Ext.getCmp("co_proveedor").setValue(record.data.co_proveedor);
-											Ext.getCmp("nb_proveedor").setValue(record.data.nb_proveedor);
-											winProveedor.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winProveedor.hide();
-								  }
-						}]
-				});
-		}
-		winProveedor.show();	
-}
+
  
 	
 storeContacto.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_contacto_proveedor.php"}});
@@ -470,9 +377,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerProveedor = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerProveedor.onTriggerClick = selProveedor;
-		triggerProveedor.applyToMarkup('nb_proveedor');
+
 });
 
 </script>

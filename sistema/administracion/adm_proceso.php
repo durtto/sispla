@@ -83,16 +83,7 @@ Ext.onReady(function(){
         {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       ]);
       
-      //Funcion para cambiar el coloer en el boolean
-      
-		function critico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
+
 	
 /*
  *    Here is where we create the Form

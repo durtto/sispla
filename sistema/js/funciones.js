@@ -86,8 +86,8 @@
 	Ext.form.VTypes["validosText"] = 'Este campo solo admite caracteres alfanumericos y simbolos estandares...';
 	
 	// Validacion con formato de solo letras
-	Ext.form.VTypes["validos%"] =  /^([-_.,a-zA-Z0-9\/:ñÑ#%&+*;\)\( ])+$/i;
-	Ext.form.VTypes["validos%Mask"] = /([-_.,a-zA-Z0-9\/:ñÑ#%&+*;\)\( ])/i; //[A-Z]|[0-9]| ||||||||||||||||-|_|#|&|+|,|.|\/|\(|\)|*
+	Ext.form.VTypes["validos%"] =  /^([-_.,a-zA-Z0-9\/:ï¿½ï¿½#%&+*;\)\( ])+$/i;
+	Ext.form.VTypes["validos%Mask"] = /([-_.,a-zA-Z0-9\/:ï¿½ï¿½#%&+*;\)\( ])/i; //[A-Z]|[0-9]| ||||||||||||||||-|_|#|&|+|,|.|\/|\(|\)|*
 	Ext.form.VTypes["validos%Text"] = 'Este campo solo admite caracteres alfanumericos y simbolos estandares...';
 		
 	// Validacion con formato de hora militar ##:##(0:00 - 23:59)
@@ -127,7 +127,42 @@
 	function convPass(){
 			return '<b>********</b>';
 	}
-  
+	
+	
+			// name: GetCombo
+			// @param
+			// @return
+			 function GetCombo(nombre,etiqueta){
+			 co_nombre=nombre;
+			 nb_nombre='nb_'+nombre.substring(3);
+			 accion=nombre.substring(3);
+			 var combo = new Ext.form.ComboBox({
+			  name: nombre,
+			  id: nombre,
+			  emptyText: 'Seleccione..',
+			  //hiddenName: nombre+"hide",
+			  //forceSelection: true,
+			  valueField:nombre,
+			  fieldLabel:etiqueta,
+			  displayField:nb_nombre,
+			  editable: false,
+			  anchor: '90%',
+			  listWidth:220,
+			  typeAhead:true,
+			  mode: 'remote',
+			  triggerAction:'all',
+			  store: new Ext.data.JsonStore({
+			   url: '../interfaz/interfaz_combo.php',
+			   root: 'Resultados',
+			   idProperty: co_nombre,
+			   baseParams: {
+			    accion: accion
+			   },
+			   fields: [co_nombre, nb_nombre]
+			  })
+			 });
+			 return combo;
+			} 
 	/*******************************************************************************************/
 	//		function verifObligatorios() : Con esta funcion validamos que los campos que consideramos como requeridos u obligatorios
 	// en un formulario hayan sido introducidos, recibe como parametro de entrada un array asociativo de los campos a verificar y
@@ -616,7 +651,16 @@
         }
         return val;
     }
- 
+       //Funcion para cambiar el coloer en el boolean
+      
+		function critico(bo_critico) {
+        if (bo_critico == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_critico == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_critico;
+    	}
 	/*******************************************************************************************/
 	//
 	// example of custom renderer function
@@ -971,7 +1015,7 @@ function ver_comentario(){
   	cont_coment += '</tr>';
   	cont_coment += '<tr>';
     cont_coment += '<td background="../imagenes/Comentario/coment_NS_azul_r3_c2.gif"></td>';
-	cont_coment += '<td id="tdContenido" background="../imagenes/Comentario/coment_NS_azul_r3_c3.gif"><table><tr><td class="celda_med_Negro">Fecha Actualización: '+convFechaDMY(fecha)+'</td><td align="left" class="txto_variosPeqNegro"></td></tr>';
+	cont_coment += '<td id="tdContenido" background="../imagenes/Comentario/coment_NS_azul_r3_c3.gif"><table><tr><td class="celda_med_Negro">Fecha Actualizaciï¿½n: '+convFechaDMY(fecha)+'</td><td align="left" class="txto_variosPeqNegro"></td></tr>';
 	//for(var i=0; i < vec_coment[4].length; i++){
 	cont_coment += '                                                    <tr><td class="celda_med_Negro"colspan="2">Fuente: '+fuente+'</td></tr>';
 	cont_coment += '                                                    <tr><td class="celda_med_Negro"colspan="2"><a style="text-decoration:underline" href="javascript:actualizarPrecio(true, \''+this.getEl().id+'\');">Actualizar</a></td></tr>';

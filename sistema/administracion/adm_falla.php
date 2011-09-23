@@ -45,7 +45,6 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winActivo;
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -205,30 +204,7 @@ Ext.onReady(function(){
                         name: 'co_falla',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Numero Activo',
-						xtype:'numberfield',
-						id: 'co_activo',
-                        name: 'co_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                       hidden: true,
-						hideLabel: true,
-                    },{
-                        fieldLabel: 'Activo',
-						xtype:'textfield',
-						id: 'nb_activo',
-                        name: 'nb_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },GetCombo('co_activo','Activo')]
 				},{
 					layout: 'form',
 					border:false,
@@ -407,62 +383,6 @@ Ext.onReady(function(){
         
     });
 
-			
-function selActivo(){
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
-	if(!winActivo){
-				winActivo = new Ext.Window({
-						applyTo : 'winActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selActivo',
-								store: storeActivo,
-								cm: colModelActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Activo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_activo").setValue(record.data.co_activo);
-											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
-											winActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winActivo.hide();
-								  }
-						}]
-				});
-		}
-		winActivo.show();	
-}
- 
 	
 storeFalla.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_falla.php"}});
 gridForm.render('form');
@@ -480,14 +400,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('nb_activo');
-		
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>
@@ -504,9 +417,6 @@ var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Activo</div>
-	
-</div>
+
 </body>
 </html>

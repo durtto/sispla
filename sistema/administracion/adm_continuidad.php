@@ -46,7 +46,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winActivo;
+
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -220,7 +220,7 @@ Ext.onReady(function(){
 			width:640,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Continuidades',
+			title: 'Continuidad',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -233,26 +233,25 @@ Ext.onReady(function(){
 						id: 'co_continuidad',
                         name: 'co_continuidad',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    },{
+                        width:157
+                    },GetCombo('co_activo','Activo'),{
                         fieldLabel: 'MTD',
 						xtype:'datefield',
 						id: 'fe_mtd',
                         name: 'fe_mtd',
                         format:'Y-m-d', 
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        width:157
                     },{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Esquema alterno interno',
+	            		xtype: 'checkbox',
+	            		fieldLabel: 'Esquema Interno',
 	            		id: 'bo_esquema_alterno_interno',
 		                name: 'bo_esquema_alterno_interno',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'interno', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'interno', inputValue: 0},
+			                {boxLabel: '1', name: 'interno', inputValue: 1},
 			           			]
-                    }]
+        		}]
 				},{
 					layout: 'form',
 					border:false,
@@ -277,60 +276,15 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        xtype: 'radiogroup',
-	            		fieldLabel: 'Esquema alterno externo',
+	            		xtype: 'checkbox',
+	            		fieldLabel: 'Esuema Externo',
 	            		id: 'bo_esquema_alterno_externo',
 		                name: 'bo_esquema_alterno_externo',
 			            columns: 2,
 			            items: [
-			                {boxLabel: 'Si', name: 'externo', checked : true, inputValue: 1},
-			                {boxLabel: 'No', name: 'externo', inputValue: 0},
+			                {boxLabel: '1', name: 'externo', inputValue: 1},
 			           			]
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Activos',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Activo',
-						xtype:'numberfield',
-						id: 'co_activo',
-                        name: 'co_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						id: 'nb_activo',
-                        name: 'nb_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+        		}]
 			}]
 			},{
 				width: 640,  
@@ -346,7 +300,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_continuidad").focus();
@@ -477,61 +430,7 @@ Ext.onReady(function(){
     });
 
 			
-function selActivo(){
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
-	if(!winActivo){
-				winActivo = new Ext.Window({
-						applyTo : 'winActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selActivo',
-								store: storeActivo,
-								cm: colModelActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Activo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_activo").setValue(record.data.co_activo);
-											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
-											winActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winActivo.hide();
-								  }
-						}]
-				});
-		}
-		winActivo.show();	
-}
- 
+
 	
 storeContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_continuidad.php"}});
 gridForm.render('form');
@@ -543,21 +442,13 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_continuidad").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('co_activo');
-		
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>
@@ -574,9 +465,6 @@ var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Activo</div>
-	
-</div>
+
 </body>
 </html>

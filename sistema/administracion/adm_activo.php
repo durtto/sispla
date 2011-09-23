@@ -45,14 +45,8 @@
  */
  var nuevo;
  var winActivo;
- var winEstado;
- var winFabricante;
  var winPersona;
- var winUbicacion;
- var winProceso;
- var winProveedor;
- var winUnidad;
- var winNivel;
+
    
 Ext.onReady(function(){
 	var nroReg;
@@ -66,54 +60,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-	var storeEstado = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_estado.php',
-		remoteSort : true,
-		root: 'estados',
-        totalProperty: 'total',
-		idProperty: 'co_estado',
-        fields: [{name: 'co_estado'},
-        		{name: 'nb_estado'},
-        		{name: 'tx_descripcion'},
-        		{name: 'bo_critico'},
-        		{name: 'resp'}]
-        });
-    storeEstado.setDefaultSort('co_estado', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelEstado = new Ext.grid.ColumnModel([
-        {id:'co_estado',header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'co_estado'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
-	   
-	   
-	   var storeFabricante = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_fabricante.php',
-		remoteSort : true,
-		root: 'fabricantes',
-        totalProperty: 'total',
-		idProperty: 'co_fabricante',
-        fields: [{name: 'co_fabricante'},
-        		{name: 'nb_fabricante'},
-        		{name: 'di_ubicacion'},
-        		{name: 'nu_telefono'},
-        		{name: 'tx_correo_electronico'},
-        		{name: 'tx_pagina_web'},
-        		{name: 'resp'}]
-        });
-    storeFabricante.setDefaultSort('co_fabricante', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelFabricante = new Ext.grid.ColumnModel([
-        {id:'co_fabricante',header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'co_fabricante'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'nu_telefono'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Pagina Web", width: 100, sortable: true, locked:false, dataIndex: 'tx_pagina_web'},
-      ]);
       
       var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
@@ -168,138 +114,7 @@ Ext.onReady(function(){
         {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
       
       ]);
-	var storeUbicacion = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_ubicacion.php',
-		remoteSort : true,
-		root: 'ubicaciones',
-        totalProperty: 'total',
-		idProperty: 'co_ubicacion',
-        fields: [{name: 'co_ubicacion'},
-        		{name: 'nb_ubicacion'},
-        		{name: 'bo_obsoleto'},
-        		{name: 'co_ubicacion_padre'},
-        		{name: 'nb_tipo_ubicacion'},
-        		{name: 'resp'}]
-        });
-    storeUbicacion.setDefaultSort('co_ubicacion', 'ASC');
-	
-	
-    var colModelUbicacion = new Ext.grid.ColumnModel([
-        {id:'co_rol_resp',header: "Ubicacion", width: 80, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
-        {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
-        {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
-        {header: "Tipo Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
-
-        ]);
-        function obsoleto(bo_obsoleto) {
-        if (bo_obsoleto == 'SI') {
-            return '<span style="color:gray;">' + 'SI' + '</span>';
-        } else if (bo_obsoleto == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_obsoleto;
-    	}
-    var storeProceso = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_proceso.php',
-		remoteSort : true,
-		root: 'procesos',
-        totalProperty: 'total',
-		idProperty: 'co_proceso',
-        fields: [{name: 'co_proceso'},
-		        {name: 'nb_proceso'},
-		        {name: 'tx_descripcion'},
-		        {name: 'bo_critico'},
-		        {name: 'resp'}]
-        });
-    storeProceso.setDefaultSort('co_proceso', 'ASC');
-	    
-
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 659//
-	
-    var colModelProceso = new Ext.grid.ColumnModel([
-        {id:'co_proceso',header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'co_proceso'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
-      ]);
-      
-      //Funcion para cambiar el coloer en el boolean
-      
-		function critico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
-    	 var storeProveedor = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_proveedor.php',
-		remoteSort : true,
-		root: 'proveedores',
-        totalProperty: 'total',
-		idProperty: 'co_proveedor',
-        fields: [{name: 'co_proveedor'},
-        		{name: 'nb_proveedor'},
-        		{name: 'di_oficina'},
-        		{name: 'tx_telefono_oficina'},
-        		{name: 'tx_url_pagina'},
-        		{name: 'resp'}]
-        });
-    storeProveedor.setDefaultSort('co_proveedor', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelProveedor = new Ext.grid.ColumnModel([
-        {id:'co_proveedor',header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Pagina Web", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},
-      ]);
-      var storeUnidad = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_unidad_demanda.php',
-		remoteSort : true,
-		root: 'unidades',
-        totalProperty: 'total',
-		idProperty: 'co_unidad',
-        fields: [{name: 'co_unidad'},
-        		{name: 'nb_unidad'},
-        		{name: 'tx_descripcion'},
-        		{name: 'bo_critico'},
-        		{name: 'resp'}]
-        });
-    storeUnidad.setDefaultSort('co_unidad', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelUnidad = new Ext.grid.ColumnModel([
-        {id:'co_unidad',header: "Unidad", width: 100, sortable: true, locked:false, dataIndex: 'co_unidad'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
-  var storeNivel = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_nivel_obsolescencia.php',
-		remoteSort : true,
-		root: 'nivelesobsolescencia',
-        totalProperty: 'total',
-		idProperty: 'co_nivel',
-        fields: [{name: 'co_nivel'},
-		        {name: 'nb_nivel'},
-		        {name: 'tx_descripcion'},
-		        {name: 'bo_obsoleto'},
-		        {name: 'resp'}]
-        });
-    storeNivel.setDefaultSort('co_nivel', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelNivel = new Ext.grid.ColumnModel([
-        {id:'co_nivel',header: "Nivel", width: 100, sortable: true, locked:false, dataIndex: 'co_nivel'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
-      ]);
-             
+       
   var storeActivo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
@@ -417,14 +232,14 @@ Ext.onReady(function(){
 						id: 'co_activo',
                         name: 'co_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:152
                     },{
                         fieldLabel: 'Serial',
 						xtype:'numberfield',
 						id: 'nu_serial',
                         name: 'nu_serial',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:152
                     },{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Critico',
@@ -441,42 +256,20 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'fe_incorporacion',
                         name: 'fe_incorporacion',
-                        width:160
+                        width:152
                     },{
                         fieldLabel: 'Vida Util',
 						xtype:'numberfield',
 						id: 'nu_vida_util',
                         name: 'nu_vida_util',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Estado',
-						xtype:'numberfield',
-						id: 'co_estado',
-                        name: 'co_estado',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Estado',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_estado',
-						disabled:true,
-                        name: 'nb_estado',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
+                        width:150
                     },{
                         fieldLabel: 'Indicador',
 						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
-                        width:140
+                        width:139
                     },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
@@ -485,7 +278,7 @@ Ext.onReady(function(){
 						disabled:true,
                         name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
+                        width:150,
                         hidden: true,
 						hideLabel: true,
                         listeners:{
@@ -493,51 +286,10 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Proceso',
-						xtype:'numberfield',
-						id: 'co_proceso',
-                        name: 'co_proceso',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Proceso',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proceso',
-						disabled:true,
-                        name: 'nb_proceso',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'numberfield',
-						id: 'co_unidad',
-                        name: 'co_unidad',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Unidad',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_unidad',
-						disabled:true,
-                        name: 'nb_unidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },
+                    GetCombo('co_estado','Estado'),
+                    GetCombo('co_proceso','Proceso'),
+                    GetCombo('co_unidad','Unidad')]
 				},{
 					layout: 'form',
 					border:false,
@@ -549,7 +301,7 @@ Ext.onReady(function(){
 						id: 'nb_activo',
                         name: 'nb_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
@@ -561,7 +313,7 @@ Ext.onReady(function(){
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:140
                     },{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Vulnerable',
@@ -578,103 +330,19 @@ Ext.onReady(function(){
 						id: 'co_sap',
                         name: 'co_sap',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:140
                     },{
                         fieldLabel: 'Activo Padre',
 						xtype:'numberfield',
 						id: 'co_activo_padre',
                         name: 'co_activo_padre',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:141
-                    },{
-                        fieldLabel: 'Fabricante',
-						xtype:'numberfield',
-						id: 'co_fabricante',
-                        name: 'co_fabricante',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Fabricante',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_fabricante',
-						disabled:true,
-                        name: 'nb_fabricante',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Ubicacion',
-						xtype:'numberfield',
-						id: 'co_ubicacion',
-                        name: 'co_ubicacion',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Ubicacion',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_ubicacion',
-						disabled:true,
-                        name: 'nb_ubicacion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Proveedor',
-						xtype:'numberfield',
-						id: 'co_proveedor',
-                        name: 'co_proveedor',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Proveedor',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proveedor',
-						disabled:true,
-                        name: 'nb_proveedor',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Nivel',
-						xtype:'numberfield',
-						id: 'co_nivel',
-                        name: 'co_nivel',
-                        hidden: true,
-						hideLabel: true,
-                        width:140
-                    },{
-                        fieldLabel: 'Nivel',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_nivel',
-						disabled:true,
-                        name: 'nb_nivel',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                        width:122
+                    },
+                    GetCombo('co_fabricante','Fabricante'),
+                    GetCombo('co_ubicacion','Ubicacion'),
+                    GetCombo('co_proveedor','Proveedor'),
+                    GetCombo('co_nivel','Nivel')]
 			},{
 					layout: 'form',
 					border:false,
@@ -898,115 +566,6 @@ function selActivo(){
 		}
 		winActivo.show();	
 }
- function selEstado(){
-storeEstado.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_rol_activo.php"}});
-	if(!winEstado){
-				winEstado = new Ext.Window({
-						applyTo : 'winEstado',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selEstado',
-								store: storeEstado,
-								cm: colModelEstado,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Estados',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selEstado").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selEstado").getSelectionModel().getSelected();
-											Ext.getCmp("co_estado").setValue(record.data.co_estado);
-											Ext.getCmp("nb_estado").setValue(record.data.nb_estado);
-											winEstado.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winEstado.hide();
-								  }
-						}]
-				});
-		}
-		winEstado.show();	
-}
-
-function selFabricante(){
-storeFabricante.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_rol_responsabilidad.php"}});
-	if(!winFabricante){
-				winFabricante = new Ext.Window({
-						applyTo : 'winFabricante',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selFabricante',
-								store: storeFabricante,
-								cm: colModelFabricante,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Fabricantes',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selFabricante").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selFabricante").getSelectionModel().getSelected();
-											Ext.getCmp("co_fabricante").setValue(record.data.co_fabricante);
-											Ext.getCmp("nb_fabricante").setValue(record.data.nb_fabricante);
-											winFabricante.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winFabricante.hide();
-								  }
-						}]
-				});
-		}
-		winFabricante.show();	
-}
 
 function selPersona(){
 storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_persona.php"}});
@@ -1063,277 +622,6 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 		winPersona.show();	
 }
 
-function selUbicacion(){
-storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_ubicacion.php"}});
-	if(!winUbicacion){
-				winUbicacion = new Ext.Window({
-						applyTo : 'winUbicacion',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selUbicacion',
-								store: storeUbicacion,
-								cm: colModelUbicacion,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Ubicacion',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selUbicacion").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selUbicacion").getSelectionModel().getSelected();
-											Ext.getCmp("co_ubicacion").setValue(record.data.co_ubicacion);
-											Ext.getCmp("nb_ubicacion").setValue(record.data.nb_ubicacion);
-											winUbicacion.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winUbicacion.hide();
-								  }
-						}]
-				});
-		}
-		winUbicacion.show();	
-}
-
-function selProceso(){
-storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_proceso.php"}});
-	if(!winProceso){
-				winProceso = new Ext.Window({
-						applyTo : 'winProceso',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selProceso',
-								store: storeProceso,
-								cm: colModelProceso,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Proceso',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selProceso").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selProceso").getSelectionModel().getSelected();
-											Ext.getCmp("co_proceso").setValue(record.data.co_proceso);
-											Ext.getCmp("nb_proceso").setValue(record.data.nb_proceso);
-											winProceso.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winProceso.hide();
-								  }
-						}]
-				});
-		}
-		winProceso.show();	
-}	
-function selProveedor(){
-storeProveedor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_proveedor.php"}});
-	if(!winProveedor){
-				winProveedor = new Ext.Window({
-						applyTo : 'winProveedor',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selProveedor',
-								store: storeProveedor,
-								cm: colModelProveedor,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Proveedor',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selProveedor").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selProveedor").getSelectionModel().getSelected();
-											Ext.getCmp("co_proveedor").setValue(record.data.co_proveedor);
-											Ext.getCmp("nb_proveedor").setValue(record.data.nb_proveedor);
-											winProveedor.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winProveedor.hide();
-								  }
-						}]
-				});
-		}
-		winProveedor.show();	
-}
-function selUnidad(){
-storeUnidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_unidad_demanda.php"}});
-	if(!winUnidad){
-				winUnidad = new Ext.Window({
-						applyTo : 'winUnidad',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selUnidad',
-								store: storeUnidad,
-								cm: colModelUnidad,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Unidad',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selUnidad").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selUnidad").getSelectionModel().getSelected();
-											Ext.getCmp("co_unidad").setValue(record.data.co_unidad);
-											Ext.getCmp("nb_unidad").setValue(record.data.nb_unidad);
-											winUnidad.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winUnidad.hide();
-								  }
-						}]
-				});
-		}
-		winUnidad.show();	
-}
-function selNivel(){
-storeNivel.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_nivel_obsolescencia.php"}});
-	if(!winNivel){
-				winNivel = new Ext.Window({
-						applyTo : 'winNivel',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selNivel',
-								store: storeNivel,
-								cm: colModelNivel,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Nivel',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selNivel").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selNivel").getSelectionModel().getSelected();
-											Ext.getCmp("co_nivel").setValue(record.data.co_nivel);
-											Ext.getCmp("nb_nivel").setValue(record.data.nb_nivel);
-											winNivel.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winNivel.hide();
-								  }
-						}]
-				});
-		}
-		winNivel.show();	
-}
 storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
@@ -1353,37 +641,9 @@ var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
 		triggerActivo.onTriggerClick = selActivo;
 		triggerActivo.applyToMarkup('co_activo_padre');
 		
-var triggerEstado = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerEstado.onTriggerClick = selEstado;
-		triggerEstado.applyToMarkup('nb_estado');
-		
-var triggerFabricante = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerFabricante.onTriggerClick = selFabricante;
-		triggerFabricante.applyToMarkup('nb_fabricante');
-		
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
-		triggerPersona.applyToMarkup('co_indicador');
-		
-var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerUbicacion.onTriggerClick = selUbicacion;
-		triggerUbicacion.applyToMarkup('nb_ubicacion');
-		
-var triggerProceso = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerProceso.onTriggerClick = selProceso;
-		triggerProceso.applyToMarkup('nb_proceso');		
-		
-var triggerProveedor = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerProveedor.onTriggerClick = selProveedor;
-		triggerProveedor.applyToMarkup('nb_proveedor');	
-				
-var triggerUnidad = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerUnidad.onTriggerClick = selUnidad;
-		triggerUnidad.applyToMarkup('nb_unidad');		
-
-var triggerNivel = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerNivel.onTriggerClick = selNivel;
-		triggerNivel.applyToMarkup('nb_nivel');	
+		triggerPersona.applyToMarkup('co_indicador');		
 			
 });
 
@@ -1405,29 +665,12 @@ var triggerNivel = new Ext.form.TriggerField({triggerClass : 'x-form-search-trig
 	<div id="winActivo" class="x-hidden">
     <div class="x-window-header">Ejegir Activo</div>
 	</div>
-	<div id="winEstado" class="x-hidden">
-    <div class="x-window-header">Ejegir Estado</div>
-	</div>
-	<div id="winFabricante" class="x-hidden">
-    <div class="x-window-header">Ejegir Fabricante</div>
-	</div>
+	
 	<div id="winPersona" class="x-hidden">
     <div class="x-window-header">Ejegir Persona</div>
 	</div>
-	<div id="winUbicacion" class="x-hidden">
-    <div class="x-window-header">Ejegir Ubicacion</div>
-	</div>
-	<div id="winProceso" class="x-hidden">
-    <div class="x-window-header">Ejegir Proceso</div>
-	</div>
-	<div id="winProveedor" class="x-hidden">
-    <div class="x-window-header">Ejegir Proveedor</div>
-	</div>
-	<div id="winUnidad" class="x-hidden">
-    <div class="x-window-header">Ejegir Unidad</div>
-	</div>
-	<div id="winNivel" class="x-hidden">
-    <div class="x-window-header">Ejegir Nivel</div>
-	</div>
+
+
+
 </body>
 </html>
