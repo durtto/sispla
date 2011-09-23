@@ -79,7 +79,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
         resizeTabs:true, // turn on tab resizing
 		activeTab: 'Inicio',
         minTabWidth: 115,
-        tabWidth:115,
+        tabWidth:150,
 		height:'auto',
 		//autoHeight:true,
 		//enableTabScroll:true,
@@ -100,7 +100,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 				autoHeight:true,
 				hideMode: 'offsets',		
 				iconCls: 'tabs',
-				html: '<iframe id="'+nom+'" name="'+nom+'" src="'+pagina+'" width="100%"  height="95%" frameBorder="0" marginHeight="10" marginWidth="10"></iframe>',
+				html: '<iframe id="'+nom+'" name="'+nom+'" src="'+pagina+'" width="100%"  height="95%" frameBorder="0" marginHeight="100" marginWidth="10"></iframe>',
 				closable:true
 			}).show();
 		}else{
