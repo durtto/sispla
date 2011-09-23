@@ -1,0 +1,25 @@
+<authors>
+
+	<author first="Reportes" gender="" titulo="Reportes">
+		<book title="Organigrama del Personal" titulo="Organigrama del Personal"></book>
+		<book title="Esquema de Guardia" titulo="Esquema de Guardia"></book>
+		<book title="Plan de Localizacion" titulo="Plan de Localizacion"></book>
+		<book title="Equipo de Continuidad AIT" titulo="Equipo de Continuidad AIT"></book>
+		<author first="Premisas del Plan Maestro" gender="" titulo="Premisas del Plan Maestro">	
+			<book title="Estados de Alertas" titulo="Estados de Alertas"></book>
+			<book title="Roles y Responsabilidades" titulo="Roles y Responsabilidades"></book>
+			<book title="Acciones del Equipo" titulo="Acciones del Equipo"></book>
+			<book title="Flujograma de Reportes" titulo="Flujograma de Reportes"></book>
+		</author>
+		<book title="Procedimientos Operativos" titulo="Procedimientos Operativos"></book>
+		<book title="Listado de Clientes del Proceso" titulo="Listado de Clientes del Proceso"></book>
+		<book title="Listado de Activos Criticos" titulo="Listado de Activos Criticos"></book>
+		<book title="Esquema de Continuidad" titulo="Esquema de Continuidad"></book>
+		<book title="Esquema de Respaldo" titulo="Esquema de Respaldo"></book>
+		<book title="Listado de Proveedores" titulo="Listado de Proveedores"></book>
+		<book title="Listado de Recursos Requeridos" titulo="Listado de Recursos Requeridos"></book>
+		<book title="Procedimientos Emergencia y desastres" titulo="Procedimientos Emergencia y desastres"></book>	
+		<book title="Directorio Telefonico" titulo="Directorio Telefonico"></book>
+	</author>
+		
+</authors>		
