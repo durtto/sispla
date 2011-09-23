@@ -1,0 +1,19 @@
+<authors>
+
+	<author first="Base Documental" gender="" titulo="Base Documental">
+		<book title="Procedimientos de Seguridad Logica" titulo="Procedimientos de Seguridad Logica"></book>
+		<book title="Marco Legal" titulo="Marco Legal"></book>
+		<author first="Formatos de Activacion de Sala" gender="" titulo="Formatos de Activacion de Sala">	
+			<book title="Lista de Chequeo" titulo="Lista de Chequeo"></book>
+			<book title="Informe de Evaluacion" titulo="Informe de Evaluacion"></book>
+			<book title="Prioridades de Recuperacion" titulo="Prioridades de Recuperacion"></book>
+			<book title="Gestion de Guardias" titulo="Gestion de Guardias"></book>
+		</author>
+		<author first="Componente de Continuidad" gender="" titulo="Componente de Continuidad">	
+			<book title="Plan Maestro" titulo="Plan Maestro"></book>
+			<book title="Plan de Contingencia" titulo="Plan de Contingencia"></book>
+			<book title="Plan Operativo" titulo="Plan Operativo"></book>
+		</author>
+	</author>
+
+</authors>		

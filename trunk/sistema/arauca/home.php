@@ -1,7 +1,8 @@
 <?php session_start(); ?>
 <html>
 <head>
-<title>Home</title>
+<title>Arauca</title>
+<link rel="shortcut icon" href="../imagenes/iconARAUCA.png"> 
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
@@ -130,30 +131,127 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                 },
                 items: [{
                     title: 'Continuidad Operativa',
-                    iconCls: 'nav' // see the HEAD section for style used
-                }, {
-                    title: 'Settings',
-                    html: '<p>Some settings in here.</p>',
-                    iconCls: 'settings'
-                }, {
-                    title: 'Information',
-                    html: '<p>Some info in here.</p>',
-                    iconCls: 'info'
-                },{
-            title:'Contenido',
-            xtype: 'treepanel',
-            id: 'tree-panel',
-            region: 'center',
-			height: 600,
-            margins: '80 0 0 0',
-			cmargins:'80 0 0 0',
-            autoScroll: true,
-	        rootVisible: false,
-	        root: new Ext.tree.AsyncTreeNode(),
+                    xtype: 'treepanel',
+           			id: 'tree-panel1',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
 
             // Our custom TreeLoader:
 	        loader: new Ext.app.BookLoader({
 	            dataUrl:'menu.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+                },{
+            		title:'Reportes',
+            		xtype: 'treepanel',
+           			id: 'tree-panel2',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu1.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	        },{
+            		title:'Base Documental',
+            		xtype: 'treepanel',
+           			id: 'tree-panel3',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu2.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	     },{
+            		title:'Administracion',
+            		xtype: 'treepanel',
+           			id: 'tree-panel4',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu3.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	      },{
+            	title:'Ayuda en Linea',
+            	xtype: 'treepanel',
+           		id: 'tree-panel5',
+            	region: 'center',
+				height: 600,
+            	margins: '80 0 0 0',
+				cmargins:'80 0 0 0',
+            	autoScroll: true,
+	        	rootVisible: false,
+	        	root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu4.xml'
 	        }),
 
 	        listeners: {
