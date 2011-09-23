@@ -37,7 +37,6 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
-		<script type="text/javascript" src="../js/combo.js"></script>
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -46,11 +45,6 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winDepartamento;
- var winRol;
- var winRolResp;
- var winGrupo;
- var winGuardia;
   
 Ext.onReady(function(){
 	var nroReg;
@@ -65,105 +59,7 @@ Ext.onReady(function(){
     };
     var local = true;
    
-    var storeGuardia = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_guardia.php',
-		remoteSort : true,
-		root: 'guardias',
-        totalProperty: 'total',
-		idProperty: 'co_guardia',
-        fields: [{name: 'co_guardia'},			
-        		{name: 'nb_guardia'},				
-        		{name: 'nu_numero'},	 
-        		{name: 'tx_descripcion'},		
-        		{name: 'resp'}]
-       
-        });
-    storeGuardia.setDefaultSort('co_guardia', 'ASC');
-	
-	
-    var colModelGuardia = new Ext.grid.ColumnModel([
-        {id:'co_guardia',header: "Guardia", width: 80, sortable: true, locked:false, dataIndex: 'co_guardia'},
-        {header: "Nombre Guardia", width: 250, sortable: true, locked:false, dataIndex: 'nb_guardia'},
-        {header: "Numero", width: 50, sortable: true, locked:false, dataIndex: 'nu_numero'},
-        {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
-    var storeGrupo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_grupo.php',
-		remoteSort : true,
-		root: 'grupos',
-        totalProperty: 'total',
-		idProperty: 'co_grupo',
-        fields: [{name: 'co_grupo'},
-        		{name: 'nb_grupo'},
-        		{name: 'resp'}]
-        });
-    storeGrupo.setDefaultSort('co_grupo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelGrupo = new Ext.grid.ColumnModel([
-        {id:'co_grupo',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_grupo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},
-      ]);
     
-   var storeRolResp = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_rol_responsabilidad.php',
-		remoteSort : true,
-		root: 'rolresponsabilidades',
-        totalProperty: 'total',
-		idProperty: 'co_rol_resp',
-        fields: [{name: 'co_rol_resp'},
-        		{name: 'nb_rol_resp'},
-        		{name: 'tx_descripcion'},
-        		{name: 'co_rol_padre'},
-        		{name: 'resp'}]
-        });
-    storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
-	
-	
-    var colModelRolResp = new Ext.grid.ColumnModel([
-        {id:'co_rol_resp',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
-        ]);
-        
-	var storeDepartamento = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_departamento.php',
-		remoteSort : true,
-		root: 'departamentos',
-        totalProperty: 'total',
-		idProperty: 'co_departamento',
-        fields: [{name: 'co_departamento'},
-        		{name: 'nb_departamento'},	
-        		{name: 'resp'}]
-        });
-    storeDepartamento.setDefaultSort('co_departamento', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelDepartamento = new Ext.grid.ColumnModel([
-        {id:'co_departamento',header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'co_departamento'},
-        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},
-      ]);
-	
-     var storeRol = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_rol_persona.php',
-		remoteSort : true,
-		root: 'rolpersonas',
-        totalProperty: 'total',
-		idProperty: 'co_rol',
-        fields: [{name: 'co_rol'},
-		        {name: 'nb_rol'},
-		        {name: 'tx_descripcion'},
-		        {name: 'resp'}]
-        });
-    storeRol.setDefaultSort('co_rol', 'ASC');
-	
-	
-    var colModelRol = new Ext.grid.ColumnModel([
-        {id:'co_rol',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
-        {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        ]);
          
   var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',

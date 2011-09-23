@@ -59,23 +59,7 @@ Ext.onReady(function(){
     };
     var local = true;
     
-	  var storeServicio = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_servicio.php',
-		remoteSort : true,
-		root: 'servicios',
-        totalProperty: 'total',
-		idProperty: 'co_servicio',
-        fields: [{name: 'co_servicio'},
-		        {name: 'nb_servicio'},
-		        {name: 'resp'}]
-        });
-    storeServicio.setDefaultSort('co_servicio', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelServicio = new Ext.grid.ColumnModel([
-        {id:'co_servicio',header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'co_servicio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
-     ]);
+	  
       
   var storeNecesidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_necesidad.php',
@@ -141,7 +125,7 @@ Ext.onReady(function(){
                         name: 'co_necesidad',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
+                    },GetCombo('co_servicio', 'Servicio'),{
                         fieldLabel: 'Fecha Actual',
 						xtype:'datefield',
 						id: 'fe_annio',
@@ -211,50 +195,6 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Servicios',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Servicio',
-						xtype:'numberfield',
-						id: 'co_servicio',
-                        name: 'co_servicio',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						id: 'nb_servicio',
-                        name: 'nb_servicio',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
 				width: 640,  
 				buttonAlign:'center',
 				layout: 'fit', 	
@@ -268,7 +208,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_necesidad").focus();
@@ -399,60 +338,7 @@ Ext.onReady(function(){
     });
 
 			
-function selServicio(){
-storeServicio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_servicio.php"}});
-	if(!winServicio){
-				winServicio = new Ext.Window({
-						applyTo : 'winServicio',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selServicio',
-								store: storeServicio,
-								cm: colModelServicio,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Servicio',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selServicio").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selServicio").getSelectionModel().getSelected();
-											Ext.getCmp("co_servicio").setValue(record.data.co_servicio);
-											Ext.getCmp("nb_servicio").setValue(record.data.nb_servicio);
-											winServicio.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winServicio.hide();
-								  }
-						}]
-				});
-		}
-		winServicio.show();	
-}
+
  
 	
 storeNecesidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_necesidad.php"}});
@@ -465,21 +351,13 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_necesidad").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerServicio = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerServicio.onTriggerClick = selServicio;
-		triggerServicio.applyToMarkup('co_servicio');
-		
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>

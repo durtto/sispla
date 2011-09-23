@@ -39,6 +39,47 @@
 	case 'guardia':
 	$resultado = $combo->cargarGuardia($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
-	break;			
+	break;		
+	case 'estado':
+	$resultado = $combo->cargarEstado($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'proceso':
+	$resultado = $combo->cargarProceso($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'proveedor':
+	$resultado = $combo->cargarProveedor($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'nivel':
+	$resultado = $combo->cargarNivel($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'unidad':
+	$resultado = $combo->cargarUnidad($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'ubicacion':
+	$resultado = $combo->cargarUbicacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'fabricante':
+	$resultado = $combo->cargarFabricante($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'modelo':
+	$resultado = $combo->cargarModelo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'activo':
+	$resultado = $combo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
+	case 'servicio':
+	$resultado = $combo->cargarServicio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
 	}
+
 ?>

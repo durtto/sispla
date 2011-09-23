@@ -269,8 +269,6 @@ Ext.onReady(function(){
 		}],
         
     });
-
-
 	
 	
 storeGrupo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_grupo.php"}});

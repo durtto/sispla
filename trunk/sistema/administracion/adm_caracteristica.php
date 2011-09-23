@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../js/combo.js"></script>
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -59,23 +60,7 @@ Ext.onReady(function(){
     };
     var local = true;
     
-	var storeModelo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_modelo.php',
-		remoteSort : true,
-		root: 'modelos',
-        totalProperty: 'total',
-		idProperty: 'co_modelo',
-        fields: [{name: 'co_modelo'},
-        		{name: 'nb_modelo'},
-        		{name: 'resp'}]
-        });
-    storeModelo.setDefaultSort('co_modelo', 'ASC');
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelModelo = new Ext.grid.ColumnModel([
-        {id:'co_modelo',header: "Modelo", width: 100, sortable: true, locked:false, dataIndex: 'co_modelo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_modelo'},
-      ]);
       
   var storeCaracteristica = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_caracteristica.php',
@@ -131,87 +116,32 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_caracteristica',
                         name: 'co_caracteristica',
+                        //renderer: incremental,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                        width:140,
+						//hidden: true,
+						//hideLabel: true,
+
+                    },{
                         fieldLabel: 'Caracteristica',
 						xtype:'textfield',
 						id: 'nb_caracteristica',
                         name: 'nb_caracteristica',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
+                        width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
                     }]
-			},{
+				},{
 					layout: 'form',
-					border:false,
-					columnWidth:"100%",
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Descripcion',
-						xtype:'htmleditor',
-						id: 'tx_descripcion',
-                        name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Modelo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Modelo',
-						xtype:'numberfield',
-						id: 'co_modelo',
-                        name: 'co_modelo',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                    }]
-			},{
-					layout: 'form',
-					labelWidth:140,
+					labelWidth:80,
 					columnWidth:.45,
 					border:false,
-					items: [{
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_modelo',
-						disabled:true,
-                        name: 'nb_modelo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
+					items: [GetCombo('co_modelo','Modelo')]
+				}]
 			},{
 				width: 640,  
 				buttonAlign:'center',
@@ -351,62 +281,6 @@ Ext.onReady(function(){
 		}],
         
     });
-
-function selModelo(){
-storeModelo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_modelo.php"}});
-	if(!winModelo){
-				winModelo = new Ext.Window({
-						applyTo : 'winModelo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selModelo',
-								store: storeModelo,
-								cm: colModelModelo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de Modelo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selModelo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selModelo").getSelectionModel().getSelected();
-											Ext.getCmp("co_modelo").setValue(record.data.co_modelo);
-											Ext.getCmp("nb_modelo").setValue(record.data.nb_modelo);
-											winModelo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winModelo.hide();
-								  }
-						}]
-				});
-		}
-		winModelo.show();	
-}
- 
 	
 storeCaracteristica.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_caracteristica.php"}});
 gridForm.render('form');
@@ -425,9 +299,7 @@ gridForm.render('form');
 		
 });
 /********************************************************************************************************/
-var triggerModelo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerModelo.onTriggerClick = selModelo;
-		triggerModelo.applyToMarkup('co_modelo');
+
 });
 
 </script>
@@ -444,9 +316,6 @@ var triggerModelo = new Ext.form.TriggerField({triggerClass : 'x-form-search-tri
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winModelo" class="x-hidden">
-    <div class="x-window-header">Ejegir Modelo</div>
-	
-</div>
+
 </body>
 </html>

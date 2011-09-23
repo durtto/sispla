@@ -45,7 +45,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winTipoActivo;
+
 Ext.onReady(function(){
 	var nroReg;
 	var camposReq = new Array(10);
@@ -58,35 +58,7 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-	  var storeTipoActivo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_tipo_activo.php',
-		remoteSort : true,
-		root: 'tpactivos',
-        totalProperty: 'total',
-		idProperty: 'co_tipo_activo',
-        fields: [{name: 'co_tipo_activo'},
-		        {name: 'nb_tipo_activo'},
-		        {name: 'co_categoria'},
-		        {name: 'nb_categoria'},
-		        {name: 'co_servicio'},
-		        {name: 'nb_servicio'},
-		        {name: 'resp'}]
-        });
-    storeTipoActivo.setDefaultSort('co_tipo_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelTipoActivo = new Ext.grid.ColumnModel([
-        {id:'co_tipo_activo',header: "Tipo Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
-        {header: "co_Categoria", width: 200, sortable: true, locked:false,hidden:true, dataIndex: 'co_categoria'},      
-		{header: "Categoria", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
-		{header: "co_Servicio", width: 100, sortable: true,hidden:true, locked:false, dataIndex: 'co_servicio'},
-		{header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
-      
-		
-      ]);
-      
+
   var storeCrecimiento = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_crecimiento.php',
 		remoteSort : true,
@@ -130,46 +102,6 @@ Ext.onReady(function(){
 		width:660,
 		items: [{
 	   		xtype:'fieldset',
-			id: 'frm2',
-			disabled: true,
-			labelAlign: 'center',
-			width:640,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Tipo de Activo',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Activo',
-						xtype:'numberfield',
-						id: 'co_tipo_activo',
-                        name: 'co_tipo_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        hidden: true,
-						hideLabel: true,
-                    },{
-                        fieldLabel: 'Tipo Activo',
-						xtype:'textfield',
-						id: 'nb_tipo_activo',
-                        name: 'nb_tipo_activo',
-                        disabled:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
@@ -183,7 +115,7 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [{
+					items: [GetCombo('co_tipo_activo','Tipo Activo'),{
                         fieldLabel: 'Numero Crecimiento',
 						xtype:'numberfield',
 						id: 'co_crecimiento',
@@ -254,7 +186,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_crecimiento").focus();
@@ -382,62 +313,6 @@ Ext.onReady(function(){
 		}],
         
     });
-
-			
-function selTipoActivo(){
-storeTipoActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_tipo_activo.php"}});
-	if(!winTipoActivo){
-				winTipoActivo = new Ext.Window({
-						applyTo : 'winTipoActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								//ds: ds,
-								id: 'gd_selTipoActivo',
-								store: storeTipoActivo,
-								cm: colModelTipoActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								//autoExpandColumn: 'email',
-								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
-								height: 200,
-								title:'Lista de TipoActivo',
-								border: true,
-								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										/**/
-										if(Ext.getCmp("gd_selTipoActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selTipoActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
-											Ext.getCmp("nb_tipo_activo").setValue(record.data.nb_tipo_activo);
-											winTipoActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winTipoActivo.hide();
-								  }
-						}]
-				});
-		}
-		winTipoActivo.show();	
-}
  
 	
 storeCrecimiento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_crecimiento.php"}});
@@ -450,21 +325,13 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_crecimiento").focus();
 		nroReg=rowIdx;
 		
 });
 /********************************************************************************************************/
-var triggerTipoActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerTipoActivo.onTriggerClick = selTipoActivo;
-		triggerTipoActivo.applyToMarkup('nb_tipo_activo');
-		
-		//showJustificacion: function(tx_justificacion,tx_justificacion){  
-			//tx_justificacion.attr = 'style="white-space:normal"';  
-   		 	//return tx_justificacion;  
-			//} 
+
 });
 
 </script>
