@@ -47,6 +47,7 @@
  var nuevo;
  var winActivo;
 Ext.onReady(function(){
+	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
 	camposReq['co_garantia'] = 'Codigo Garantia';
