@@ -98,13 +98,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Caracteristica',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Caracteristicas',
@@ -146,7 +146,7 @@ Ext.onReady(function(){
 					items: [GetCombo('co_modelo','Modelo')]
 				}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -247,7 +247,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_caracteristica',

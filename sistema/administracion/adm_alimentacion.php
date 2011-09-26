@@ -97,13 +97,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Logistica de Alimentacion',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Alimentacion',
@@ -157,7 +157,7 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -259,7 +259,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_alimentacion',

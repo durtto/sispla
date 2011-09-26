@@ -46,6 +46,8 @@
 		<book title="Usuario" titulo="Usuario" url="administracion/adm_usuario.php"></book>
 		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
 		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+		<book title="AAC" titulo="Vehiculo" url="reporte/reporte_activo_criticos.php"></book>
+
 	</author>
 	
 	<author first="Necesarios" gender="" titulo="Necesarios">
