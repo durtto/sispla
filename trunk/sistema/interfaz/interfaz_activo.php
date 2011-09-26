@@ -18,6 +18,14 @@
 			$total = count($resultado);
 			
 			break;
+			
+		case 'critico':
+			
+			$resultado = $activo->cargarActivoCritico($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$total = count($resultado);
+			
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];
