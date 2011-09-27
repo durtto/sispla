@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 <head>
-<title>Home</title>
+<title>Orinoco</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
@@ -124,20 +124,21 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                 collapsible: true,
                 margins:'80 0 0 0',
                 cmargins:'80 0 0 0',
-                //layout:'accordion',
+                layout:'accordion',
                 layoutConfig:{
                     animate:true
                 },
                 items: [{
-            xtype: 'treepanel',
-            id: 'tree-panel',
-            region: 'center',
-			height: 600,
-            margins: '80 0 0 0',
-			cmargins:'80 0 0 0',
-            autoScroll: true,
-	        rootVisible: false,
-	        root: new Ext.tree.AsyncTreeNode(),
+                    title: 'Capacidad',
+                    xtype: 'treepanel',
+           			id: 'tree-panel1',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
 
             // Our custom TreeLoader:
 	        loader: new Ext.app.BookLoader({
@@ -154,7 +155,115 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                     })
 	            }
 	        }
-        }]
+                },{
+            		title:'Reportes',
+            		xtype: 'treepanel',
+           			id: 'tree-panel2',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu1.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	        },{
+            		title:'Documentos',
+            		xtype: 'treepanel',
+           			id: 'tree-panel3',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu2.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	     },{
+            		title:'Administracion',
+            		xtype: 'treepanel',
+           			id: 'tree-panel4',
+            		region: 'center',
+					height: 600,
+            		margins: '80 0 0 0',
+					cmargins:'80 0 0 0',
+            		autoScroll: true,
+	        		rootVisible: false,
+	        		root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu3.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	      },{
+            	title:'Ayuda en Linea',
+            	xtype: 'treepanel',
+           		id: 'tree-panel5',
+            	region: 'center',
+				height: 600,
+            	margins: '80 0 0 0',
+				cmargins:'80 0 0 0',
+            	autoScroll: true,
+	        	rootVisible: false,
+	        	root: new Ext.tree.AsyncTreeNode(),
+
+            // Our custom TreeLoader:
+	        loader: new Ext.app.BookLoader({
+	            dataUrl:'menu4.xml'
+	        }),
+
+	        listeners: {
+	            'render': function(tp){
+                    tp.getSelectionModel().on('selectionchange', function(tree, node){
+						if(node.attributes.titulo!='')
+						addTab(node.attributes.titulo,node.attributes.url);
+                        //var el = Ext.getCmp('details-panel').body;
+	                   
+                    })
+	            }
+	        }
+	       }]
             },{
                 region:'east',
                 id:'east-panel',
