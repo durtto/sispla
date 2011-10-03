@@ -48,7 +48,7 @@ class Necesidad extends MyPDO
    * 
    * @access public
    */
-  public $columNecesidad= array('co_necesidad'=>'co_necesidad', 'tx_necesidad'=>'tx_necesidad', 'ca_requerida'=>'ca_requerida', 'tx_justificacion'=>'tx_justificacion', 'tx_beneficio'=>'tx_beneficio', 'fe_annio'=>'fe_annio', 'co_servicio'=>'co_servicio');
+  public $columNecesidad= array('co_necesidad'=>'co_necesidad', 'tx_necesidad_detectada'=>'tx_necesidad_detectada', 'ca_requerida'=>'ca_requerida', 'tx_justificacion'=>'tx_justificacion', 'tx_beneficio'=>'tx_beneficio', 'fe_annio'=>'fe_annio', 'co_servicio'=>'co_servicio');
   
   /**
    * 

@@ -46,6 +46,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -133,6 +135,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_alojamiento',
                         name: 'co_alojamiento',
+                        allowBlank:false,
                         //hidden: true,
 						//hideLabel: true,
                         width:160
@@ -142,6 +145,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'nb_establecimiento',
                         name: 'nb_establecimiento',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -155,6 +159,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'di_ubicacion',
                         name: 'di_ubicacion',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -193,6 +198,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'tx_telefono',
                         name: 'tx_telefono',
+                        allowBlank:false,
 						width:160
                     }]
 			}]

@@ -91,7 +91,28 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_activo', 'ASC');
-	
+		var filters = new Ext.ux.grid.GridFilters ({
+	  filters:[
+	    {type: 'numeric',  dataIndex: 'co_activo'},
+	    {type: 'string',  dataIndex: 'nb_activo'},
+	    {type: 'string',  dataIndex: 'tx_descripcion'},
+	    {type: 'numeric',  dataIndex: 'co_sap'},
+	    {type: 'numeric',  dataIndex: 'nu_serial'},
+	    {type: 'numeric',  dataIndex: 'nu_etiqueta'},
+	    {type: 'string',  dataIndex: 'bo_critico'},
+	    {type: 'string',  dataIndex: 'bo_vulnerable'},
+	    {type: 'numeric',  dataIndex: 'fe_incorporacion'},
+	    {type: 'numeric',  dataIndex: 'nu_vida_util'},
+	    {type: 'string',  dataIndex: 'co_activo_padre'},
+	    {type: 'string',  dataIndex: 'nb_estado'},
+	    {type: 'string',  dataIndex: 'nb_fabricante'},
+		{type: 'string',  dataIndex: 'co_indicador'},
+		{type: 'string', dataIndex: 'nb_ubicacion'},
+		{type: 'string', dataIndex: 'nb_proceso'},
+		{type: 'string', dataIndex: 'nb_proveedor'},
+		{type: 'string', dataIndex: 'nb_unidad'},
+		{type: 'string', dataIndex: 'nb_nivel'},
+	]});
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
@@ -100,7 +121,7 @@ Ext.onReady(function(){
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
       	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
       	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
@@ -122,22 +143,6 @@ Ext.onReady(function(){
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
       ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
 
 /*
  *    Here is where we create the Form
@@ -150,15 +155,15 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Activo',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:800,
+		width:820,
 		items: [{
-			width:780,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_activo',
                 store: storeActivo,
                 cm: colModelActivo,
-			//plugins: [filters],
+			plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -182,7 +187,7 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
+				plugins: [filters]
 				})
             }]
 			

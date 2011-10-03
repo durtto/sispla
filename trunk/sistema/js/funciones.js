@@ -81,8 +81,8 @@
 	Ext.form.VTypes["letrasText"] = 'Este campo solo admite caracteres alfabeticos...';
 	
 	// Validacion con formato de solo letras
-	Ext.form.VTypes["validos"] =  /^([-_.,a-zA-Z0-9\/:#&+*;\)\( ])+$/i;
-	Ext.form.VTypes["validosMask"] = /([-_.,a-zA-Z0-9\/:#&+*;\)\( ])/i; //[A-Z]|[0-9]| ||||||||||||||||-|_|#|&|+|,|.|\/|\(|\)|*
+	Ext.form.VTypes["validos"] =  /^([-_.,a-zA-Z0-9\/:#&+*;@\)\( ])+$/i;
+	Ext.form.VTypes["validosMask"] = /([-_.,a-zA-Z0-9\/:#&+*;@\)\( ])/i; //[A-Z]|[0-9]| ||||||||||||||||-|_|#|&|+|,|.|\/|\(|\)|*
 	Ext.form.VTypes["validosText"] = 'Este campo solo admite caracteres alfanumericos y simbolos estandares...';
 	
 	// Validacion con formato de solo letras
@@ -661,6 +661,65 @@
         }
         return bo_critico;
     	}
+    	
+    	
+    	function vehiculo(bo_vehiculo) {
+        if (bo_vehiculo == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_vehiculo == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_vehiculo;
+    	}
+    	function laptop(bo_laptop) {
+        if (bo_laptop == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_laptop == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_laptop;
+    	}
+    	function maletin(bo_maletin_herramientas) {
+        if (bo_maletin_herramientas == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_maletin_herramientas == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_maletin_herramientas;
+    	}
+    	function radio(bo_radio) {
+        if (bo_radio == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_radio == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_radio;
+    	}
+	    function multimetro(bo_multimetro_digital) {
+        if (bo_multimetro_digital == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_multimetro_digital == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_multimetro_digital;
+    	}
+    	function hart(bo_hart) {
+        if (bo_hart == 'SI') {
+            return '<span style="color:blue;">' + 'SI' + '</span>';
+        } else if (bo_hart == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_hart;
+    	}
+    		function vulnerable(bo_vulnerable) {
+        if (bo_vulnerable == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_vulnerable == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_vulnerable;
+    	}
+
 	/*******************************************************************************************/
 	//
 	// example of custom renderer function

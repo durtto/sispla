@@ -45,9 +45,10 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winActivo;
-  var winTpRespaldo;
+
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -60,107 +61,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-    var storeTpRespaldo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_tipo_respaldo.php',
-		remoteSort : true,
-		root: 'tprespaldos',
-        totalProperty: 'total',
-		idProperty: 'co_tipo_respaldo',
-        fields: [{name: 'co_tipo_respaldo'},
-		        {name: 'nb_tipo_respaldo'},
-		        {name: 'resp'}]
-        });
-    storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelTpRespaldo = new Ext.grid.ColumnModel([
-        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
-      ]);
-	  var storeActivo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_activo.php',
-		remoteSort : true,
-		root: 'activos',
-        totalProperty: 'total',
-		idProperty: 'co_activo',
-        fields: [{name: 'co_activo'},
-				{name: 'nb_activo'},
-				{name: 'tx_descripcion'},
-				{name: 'co_sap'},
-				{name: 'nu_serial'},
-				{name: 'nu_etiqueta'},
-				{name: 'bo_critico'},
-				{name: 'bo_vulnerable'},
-				{name: 'fe_incorporacion'},
-				{name: 'nu_vida_util'},
-				{name: 'co_activo_padre'},
-				{name: 'co_estado'},
-				{name: 'nb_estado'},
-				{name: 'co_fabricante'},
-				{name: 'nb_fabricante'},
-				{name: 'co_indicador'},
-				{name: 'nb_persona'},
-				{name: 'co_ubicacion'},
-				{name: 'nb_ubicacion'},
-				{name: 'co_proceso'},
-				{name: 'nb_proceso'},
-				{name: 'co_proveedor'},
-				{name: 'nb_proveedor'},
-				{name: 'co_unidad'},
-				{name: 'nb_unidad'},
-				{name: 'co_nivel'},
-				{name: 'nb_nivel'},
-		        {name: 'resp'}]
-        });
-    storeActivo.setDefaultSort('co_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Numero de serial", width: 100, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de etiqueta", width: 100, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
-      	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 100, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
-      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
-      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
-      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
-      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Persona", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
-      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
-      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 100, sortable: true, hidden: false, locked:false, dataIndex: 'co_proveedor'},
-      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
-      ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
       
   var storeRespaldo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_respaldo.php',
@@ -210,13 +110,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Respaldo',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Respaldos',
@@ -231,6 +131,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_respaldo',
                         name: 'co_respaldo',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },GetCombo('co_tipo_respaldo', 'Tipo respaldo'),{
@@ -238,6 +139,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_dias_semana',
                         name: 'tx_dias_semana',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -258,6 +160,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'nu_veces_al_dia',
                         name: 'nu_veces_al_dia',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -265,6 +168,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'nu_tiempo_retencion_data',
                         name: 'nu_tiempo_retencion_data',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -272,6 +176,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_ubicacion_logica_fisica',
                         name: 'tx_ubicacion_logica_fisica',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
@@ -285,13 +190,13 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion_data',
                         name: 'tx_descripcion_data',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -397,7 +302,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_respaldo',

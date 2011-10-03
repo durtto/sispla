@@ -46,6 +46,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -59,7 +61,7 @@ Ext.onReady(function(){
     };
     var local = true;
     
-/**************************/StoreVehiculo/**************************/
+/******************************************************************************StoreVehiculo******************************************************************************/
 	
   var storeVehiculo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_vehiculo.php',
@@ -84,7 +86,7 @@ Ext.onReady(function(){
 		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'tx_modelo'},
 		{header: "Unidad", width: 159, sortable: true, locked:false, dataIndex: 'tx_unidad'},
       ]);
-/*******************************************************************/	
+/**************************************************************************************************************************************************************************/	
 	
 /*
  *    Here is where we create the Form
@@ -97,13 +99,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Vehiculos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			//layout:'column',
 			title: 'Vehiculos',
@@ -127,6 +129,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'tx_placa',
                         name: 'tx_placa',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -139,6 +142,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_marca',
                         name: 'tx_marca',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -151,6 +155,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_modelo',
                         name: 'tx_modelo',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -163,6 +168,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_unidad',
                         name: 'tx_unidad',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -173,7 +179,7 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -275,7 +281,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_vehiculo',

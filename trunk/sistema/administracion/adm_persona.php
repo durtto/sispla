@@ -47,6 +47,9 @@
  var nuevo;
   
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	Ext.QuickTips.init();
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -89,7 +92,25 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storePersona.setDefaultSort('co_indicador', 'ASC');
-	
+	 /*** Filtros para la tabla de seleccion del grid ***/
+	var filters = new Ext.ux.grid.GridFilters ({
+	  filters:[
+	    {type: 'string',  dataIndex: 'co_indicador'},
+	    {type: 'numeric',  dataIndex: 'nu_cedula'},
+	    {type: 'string',  dataIndex: 'nb_persona'},
+	    {type: 'string',  dataIndex: 'tx_apellido'},
+	    {type: 'string',  dataIndex: 'di_oficina'},
+	    {type: 'numeric',  dataIndex: 'tx_telefono_oficina'},
+	    {type: 'string',  dataIndex: 'tx_correo_electronico'},
+	    {type: 'string',  dataIndex: 'di_habitacion'},
+	    {type: 'numeric',  dataIndex: 'tx_telefono_habitacion'},
+	    {type: 'numeric',  dataIndex: 'tx_telefono_personal'},
+	    {type: 'string',  dataIndex: 'nb_departamento'},
+	    {type: 'string',  dataIndex: 'nb_rol'},
+	    {type: 'string',  dataIndex: 'nb_rol_resp'},
+		{type: 'string',  dataIndex: 'nb_grupo'},
+		{type: 'string', dataIndex: 'nb_guardia'},
+	]});
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
@@ -127,13 +148,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Persona',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Personas',
@@ -148,6 +169,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -155,13 +177,15 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'nu_cedula',
                         name: 'nu_cedula',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        allowBlank:false,
                         width:140,
                     },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'nb_persona',
                         name: 'nb_persona',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -172,8 +196,10 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Apellido',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'tx_apellido',
                         name: 'tx_apellido',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -184,8 +210,10 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Correo Electronico',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'tx_correo_electronico',
                         name: 'tx_correo_electronico',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -204,8 +232,10 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'Oficina',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'di_oficina',
                         name: 'di_oficina',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -216,16 +246,19 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Oficina',
 						xtype:'numberfield',
+						vtype:'phone',
 						id: 'tx_telefono_oficina',
                         name: 'tx_telefono_oficina',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        allowBlank:false,
                         width:140,
                       
                     },{
                         fieldLabel: 'Habitacion',
 						xtype:'textfield',
+						vtype:'validos',
 						id: 'di_habitacion',
                         name: 'di_habitacion',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -236,16 +269,20 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Habitacion',
 						xtype:'numberfield',
+						vtype:'phone',
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                        
                     },{
                         fieldLabel: 'Telefono Personal',
 						xtype:'numberfield',
+						vtype:'phone',
 						id: 'tx_telefono_personal',
                         name: 'tx_telefono_personal',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                        
@@ -253,7 +290,7 @@ Ext.onReady(function(){
                     GetCombo('co_guardia','Guardia')]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -365,13 +402,13 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_indicador',
                 store: storePersona,
                 cm: colModelPersona,
-			//plugins: [filters],
+				plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -395,7 +432,7 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
+				plugins: [filters]
 				})
             }]
 			

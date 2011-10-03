@@ -46,6 +46,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -100,13 +102,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Tipo Activo',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Tipo Activos',
@@ -121,6 +123,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_tipo_activo',
                         name: 'co_tipo_activo',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },GetCombo('co_servicio','Servicio')]
@@ -134,6 +137,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'nb_tipo_activo',
                         name: 'nb_tipo_activo',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -144,7 +148,7 @@ Ext.onReady(function(){
                     },GetCombo('co_categoria','Categoria')]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -245,7 +249,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_tpactivo',

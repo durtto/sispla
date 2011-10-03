@@ -49,6 +49,8 @@
 
    
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 	var nroReg;
@@ -153,7 +155,29 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_activo', 'ASC');
-	
+		 /*** Filtros para la tabla de seleccion del grid ***/
+	var filters = new Ext.ux.grid.GridFilters ({
+	  filters:[
+	    {type: 'numeric',  dataIndex: 'co_activo'},
+	    {type: 'string',  dataIndex: 'nb_activo'},
+	    {type: 'string',  dataIndex: 'tx_descripcion'},
+	    {type: 'numeric',  dataIndex: 'co_sap'},
+	    {type: 'numeric',  dataIndex: 'nu_serial'},
+	    {type: 'numeric',  dataIndex: 'nu_etiqueta'},
+	    {type: 'string',  dataIndex: 'bo_critico'},
+	    {type: 'string',  dataIndex: 'bo_vulnerable'},
+	    {type: 'numeric',  dataIndex: 'fe_incorporacion'},
+	    {type: 'numeric',  dataIndex: 'nu_vida_util'},
+	    {type: 'string',  dataIndex: 'co_activo_padre'},
+	    {type: 'string',  dataIndex: 'nb_estado'},
+	    {type: 'string',  dataIndex: 'nb_fabricante'},
+		{type: 'string',  dataIndex: 'co_indicador'},
+		{type: 'string', dataIndex: 'nb_ubicacion'},
+		{type: 'string', dataIndex: 'nb_proceso'},
+		{type: 'string', dataIndex: 'nb_proveedor'},
+		{type: 'string', dataIndex: 'nb_unidad'},
+		{type: 'string', dataIndex: 'nb_nivel'},
+	]});
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
@@ -162,7 +186,7 @@ Ext.onReady(function(){
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
       	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
       	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
@@ -182,24 +206,23 @@ Ext.onReady(function(){
         {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
       	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
       ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
+		
+		
+		function nivel(nb_nivel) {
+        if (nb_nivel == 'ADECUADO') {
+            return '<img src="../imagenes/amarillo.png">'+'<span style="color:yellow;">' + 'ADECUADO' +'</span>';
+        } else if (nb_nivel == 'FUNCIONAL') {
+            return '<img src="../imagenes/verde.png">'+'<span style="color:green;">' + 'FUNCIONAL' +'</span>';
+        }else if (nb_nivel == 'CRITICO') {
+            return '<img src="../imagenes/rojo.png">'+'<span style="color:red;">' + 'CRITICO' +'</span>';
         }
-        return bo_vulnerable;
+ 		return nb_nivel;
     	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
+
+
+
 
 /*
  *    Here is where we create the Form
@@ -232,6 +255,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Codigo del Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
+						allowBlank:false,
                         name: 'co_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
@@ -239,12 +263,14 @@ Ext.onReady(function(){
                         fieldLabel: 'Serial',
 						xtype:'numberfield',
 						id: 'nu_serial',
+						allowBlank:false,
                         name: 'nu_serial',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
                     },{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Critico',
+	            		allowBlank:false,
 	            		id: 'bo_critico',
 		                name: 'bo_critico',
 			            columns: 2,
@@ -263,6 +289,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Vida Util',
 						xtype:'numberfield',
 						id: 'nu_vida_util',
+						allowBlank:false,
                         name: 'nu_vida_util',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:150
@@ -278,6 +305,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'nb_persona',
 						disabled:true,
+						allowBlank:false,
                         name: 'nb_persona',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:150,
@@ -301,6 +329,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_activo',
+						allowBlank:false,
                         name: 'nb_activo',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
@@ -314,6 +343,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -330,6 +360,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Codigo SAP',
 						xtype:'numberfield',
 						id: 'co_sap',
+						allowBlank:false,
                         name: 'co_sap',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
@@ -338,6 +369,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_activo_padre',
                         name: 'co_activo_padre',
+                        emptyText : null,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:122
                     },
@@ -355,8 +387,8 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
@@ -483,7 +515,7 @@ Ext.onReady(function(){
 				id: 'gd_activo',
                 store: storeActivo,
                 cm: colModelActivo,
-			//plugins: [filters],
+			plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -507,7 +539,7 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
+				plugins: [filters]
 				})
             }]
 			
