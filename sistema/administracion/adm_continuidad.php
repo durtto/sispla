@@ -38,6 +38,10 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/composite-field.js"></script>
+
+	
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -48,11 +52,13 @@
  var nuevo;
 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
 	camposReq['co_continuidad'] = 'Codigo Continuidad';
-	
+	Ext.QuickTips.init();
     var bd = Ext.getBody();
 
 	var url = {
@@ -233,14 +239,47 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_continuidad',
                         name: 'co_continuidad',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:157
                     },GetCombo('co_activo','Activo'),{
+                        xtype: 'compositefield',
+                        fieldLabel: 'Time worked',
+                        combineErrors: false,
+                        items: [
+                           {
+                               name : 'hours',
+                               xtype: 'numberfield',
+                               width: 48,
+                               allowBlank: false
+                           },{
+                               name : 'hours',
+                               xtype: 'numberfield',
+                               width: 48,
+                               allowBlank: false
+                           }
+                           {
+                               xtype: 'displayfield',
+                               value: 'hours'
+                           },
+                           {
+                               name : 'minutes',
+                               xtype: 'numberfield',
+                               width: 48,
+                               allowBlank: false
+                           },
+                           {
+                               xtype: 'displayfield',
+                               value: 'mins'
+                           }
+                        ]
+                    },{
                         fieldLabel: 'MTD',
 						xtype:'datefield',
 						id: 'fe_mtd',
                         name: 'fe_mtd',
                         format:'Y-m-d', 
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:157
                     },{
@@ -273,7 +312,8 @@ Ext.onReady(function(){
 						xtype:'datefield',
 						id: 'fe_rto',
                         name: 'fe_rto',
-                        format:'H:i:s', 
+                        format:'H:i:s',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{

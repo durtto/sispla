@@ -274,8 +274,7 @@ WHERE
 			
 	return $r;
   } // end of member function cargarActivo
-   
-  public function cargarActivoCritico( ) {
+   public function cargarActivoCritico() {
 
 	$query = "SELECT 
   tr027_activo.co_activo, 
@@ -341,6 +340,7 @@ WHERE
 	
 			
 	return $r;
-  } // end of member function cargarActivoCritico
+  } // end of member function cargarActivo
+  
 }
 ?>

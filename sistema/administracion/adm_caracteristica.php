@@ -48,6 +48,8 @@
  var nuevo;
  var winModelo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -119,6 +121,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_caracteristica',
                         name: 'co_caracteristica',
+                        allowBlank:false,
                         //renderer: incremental,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
@@ -130,6 +133,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'nb_caracteristica',
                         name: 'nb_caracteristica',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{

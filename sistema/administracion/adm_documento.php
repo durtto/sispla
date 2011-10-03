@@ -46,6 +46,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -94,13 +96,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Documentos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:660,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Documento',
@@ -115,6 +117,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_documento',
                         name: 'co_documento',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
@@ -128,6 +131,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'nb_documento',
                         name: 'nb_documento',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -141,6 +145,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'tx_url_direccion',
                         name: 'tx_url_direccion',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     }]
@@ -154,13 +159,13 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -261,7 +266,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_documento',

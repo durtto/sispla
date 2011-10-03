@@ -47,6 +47,8 @@
  var nuevo;
  var winProveedor;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -128,6 +130,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_contacto',
                         name: 'co_contacto',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     },{
@@ -135,6 +138,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'nb_contacto',
                         name: 'nb_contacto',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -147,6 +151,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_apellido',
                         name: 'tx_apellido',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -159,6 +164,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'tx_correo_electronico',
                         name: 'tx_correo_electronico',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -177,6 +183,7 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'di_oficina',
                         name: 'di_oficina',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -189,7 +196,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'tx_telefono_oficina',
                         name: 'tx_telefono_oficina',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        vtype:'phone',
+                        allowBlank:false,
                         width:160,
                       
                     },{
@@ -209,7 +217,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        vtype:'phone',
                         width:160,
                        
                     }]

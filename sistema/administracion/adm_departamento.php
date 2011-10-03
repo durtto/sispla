@@ -46,6 +46,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -90,13 +92,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Departamentos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Departamento',
@@ -111,6 +113,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_departamento',
                         name: 'co_departamento',
+                        allowBlank: false,
                         //hidden: true,
 						//hideLabel: true,
                         width:140
@@ -126,6 +129,7 @@ Ext.onReady(function(){
 						vtype:'validos',
 						id: 'nb_departamento',
                         name: 'nb_departamento',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         listeners:{
@@ -136,7 +140,7 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -235,7 +239,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_departamento',

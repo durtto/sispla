@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/shared/icons/silk.css" />
 	<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/RowEditor.css" />
-
+	<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css" />
 
     <!-- extensions para los filtros -->
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
@@ -37,6 +37,9 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Spinner.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/SpinnerField.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -47,6 +50,8 @@
  var nuevo;
 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -100,13 +105,13 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Crecimiento',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Crecimientos',
@@ -119,23 +124,25 @@ Ext.onReady(function(){
 					items: [GetCombo('co_tipo_activo','Tipo Activo'),{
                         fieldLabel: 'Numero Crecimiento',
 						xtype:'numberfield',
+						allowBlank:false,
 						id: 'co_crecimiento',
                         name: 'co_crecimiento',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Cantidad Requerida',
-						xtype:'textfield',
-						id: 'ca_demanda_futura',
-                        name: 'ca_demanda_futura',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Cantidad Requerida',
+			            	name: 'ca_demanda_futura',
+			            	id: 'ca_demanda_futura',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							})]
 				},{
 					layout: 'form',
 					border:false,
@@ -146,7 +153,10 @@ Ext.onReady(function(){
 						xtype:'datefield',
 						id: 'fe_actual',
                         name: 'fe_actual',
-                        format:'Y-m-d', 
+                        format:'Y-m-d',
+                        vtype: 'daterange',
+                        endDateField: 'fe_tope_demanda',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -155,6 +165,9 @@ Ext.onReady(function(){
 						id: 'fe_tope_demanda',
                         name: 'fe_tope_demanda',
                         format:'Y-m-d', 
+                        vtype: 'daterange',
+                        startDateField: 'fe_actual',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
@@ -168,13 +181,13 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -277,7 +290,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_crecimiento',

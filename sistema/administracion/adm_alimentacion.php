@@ -37,6 +37,11 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Spinner.js"></script>
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/SpinnerField.js"></script>
+
+
+<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css" />
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -46,6 +51,8 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 	var nroReg;
@@ -110,60 +117,94 @@ Ext.onReady(function(){
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
+					labelWidth:80,
+					columnWidth:.25,
 					border:false,
-					items: [{
-                        fieldLabel: 'Codigo de Gestion ',
+					items: [new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Desayunos',
+			            	name: 'ca_desayuno',
+			            	id: 'ca_desayuno',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							}),{
+								fieldLabel: 'Numero',
 						xtype:'numberfield',
 						id: 'co_alimentacion',
                         name: 'co_alimentacion',
+                        allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }, {
-                        fieldLabel: 'Nro de desayunos',
-						xtype:'numberfield',
-						id: 'ca_desayuno',
-                        name: 'ca_desayuno',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }, {
-                        fieldLabel: 'Nro de Almuerzo',
-						xtype:'numberfield',
-						id: 'ca_almuerzo',
-                        name: 'ca_almuerzo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
+                        width:60
+							}]
+				},{
+					layout: 'form',
+					labelWidth:80,
+					columnWidth:.25,
+					border:false,
+					items: [new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Almuerzos',
+			            	name: 'ca_almuerzo',
+			            	id: 'ca_almuerzo',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							})]
 				},{
 					layout: 'form',
 					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Nro de Cenas',
-						xtype:'numberfield',
-						id: 'ca_cena',
-                        name: 'ca_cena',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    },{
-                        fieldLabel: 'Cantidad de Personas',
-						xtype:'numberfield',
-						id: 'ca_persona',
-                        name: 'ca_persona',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }]
-			}]
+					columnWidth:.25,
+					labelWidth:80,
+					items: [new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Cenas',
+			            	name: 'ca_cena',
+			            	id: 'ca_cena',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							})]
+			},{
+					layout: 'form',
+					labelWidth:80,
+					columnWidth:.25,
+					border:false,
+					items: [new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Cantidad de Personas',
+			            	name: 'ca_persona',
+			            	id: 'ca_persona',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowBlank:false,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							})]
+				}]
 			},{
 				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
-			text: 'Nuevo', 
-			tooltip:'',
-			handler: function(){
+				text: 'Nuevo', 
+				tooltip:'',
+				handler: function(){
 					nuevo = true;
 					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();

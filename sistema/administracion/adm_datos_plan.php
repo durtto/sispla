@@ -46,6 +46,8 @@
  */
  var nuevo;
  Ext.onReady(function(){
+ 	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
  	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
@@ -100,13 +102,13 @@
 		labelAlign: 'center',
         title: 'Datos de Planes',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Datos',
@@ -121,6 +123,7 @@
 						xtype:'numberfield',
 						id: 'co_componente',
                         name: 'co_componente',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -129,6 +132,7 @@
 						vtype:'validos',
 						id: 'fe_vigencia',
                         name: 'fe_vigencia',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -136,6 +140,7 @@
 						xtype:'textfield',
 						id: 'tx_identificacion_negocio',
                         name: 'tx_identificacion_negocio',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -154,6 +159,7 @@
 						xtype:'textfield',
 						id: 'tx_localidad',
                         name: 'tx_localidad',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -166,6 +172,7 @@
 						xtype:'textfield',
 						id: 'tx_organizacion',
                         name: 'tx_organizacion',
+                        allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
                         listeners:{
@@ -184,21 +191,21 @@
 						xtype:'htmleditor',
 						id: 'tx_objetivo',
                         name: 'tx_objetivo',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     },{
                         fieldLabel: 'Alcance',
 						xtype:'htmleditor',
 						id: 'tx_alcance',
                         name: 'tx_alcance',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',	
 				}]
 		    }]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -302,7 +309,7 @@
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_dato',
