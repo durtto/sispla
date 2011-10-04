@@ -662,6 +662,14 @@
         return bo_critico;
     	}
     	
+    	function obsoleto(bo_obsoleto) {
+        if (bo_obsoleto == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_obsoleto == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_obsoleto;
+    	}
     	
     	function vehiculo(bo_vehiculo) {
         if (bo_vehiculo == 'SI') {
@@ -719,7 +727,30 @@
         }
         return bo_vulnerable;
     	}
-
+		 function interno(bo_esquema_alterno_interno) {
+        if (bo_esquema_alterno_interno == 'SI') {
+            return '<span style="color:green;">' + 'SI' + '</span>';
+        } else if (bo_esquema_alterno_interno == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_esquema_alterno_interno;
+    	}
+		function externo(bo_esquema_alterno_externo) {
+        if (bo_esquema_alterno_externo == 'SI') {
+            return '<span style="color:green;">' + 'SI' + '</span>';
+        } else if (bo_esquema_alterno_externo == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_esquema_alterno_externo;
+    	}
+    	function prioridad(bo_prioridad_rec) {
+        if (bo_prioridad_rec == 'ALTA') {
+            return '<span style="color:red;">' + 'ALTA' + '</span>';
+        } else if (bo_prioridad_rec == 'BAJA') {
+            return '<span style="color:green;">' + 'BAJA' + '</span>';
+        }
+        return bo_prioridad_rec;
+    	}
 	/*******************************************************************************************/
 	//
 	// example of custom renderer function

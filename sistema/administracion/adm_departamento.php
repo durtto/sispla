@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_departamento'] = 'Codigo Departamento';
 	
     var bd = Ext.getBody();
 
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDepartamento = new Ext.grid.ColumnModel([
-        {id:'co_departamento',header: "Codigo", width: 150, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {id:'co_departamento',header: "Codigo", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_departamento'},
         {header: "Departamento", width: 150, sortable: true, locked:false, dataIndex: 'nb_departamento'},
       ]);
 	
@@ -113,17 +112,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_departamento',
                         name: 'co_departamento',
-                        allowBlank: false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:140
-                    }]
-			},{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.45,
-					border:false,
-					items: [{
+                    },{
                         fieldLabel: 'Departamento',
 						xtype:'textfield',
 						vtype:'validos',

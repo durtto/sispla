@@ -117,7 +117,9 @@ class TpActivo extends MyPDO
 	$query = "SELECT 
   					tr014_tipo_activo.co_tipo_activo, 
   					tr014_tipo_activo.nb_tipo_activo, 
+  					tr014_tipo_activo.co_categoria,
   					tr011_categoria.nb_categoria, 
+  					tr014_tipo_activo.co_servicio,
   					tr013_servicio.nb_servicio
 			FROM 
   					public.tr014_tipo_activo, 
@@ -125,7 +127,7 @@ class TpActivo extends MyPDO
   					public.tr011_categoria
 			WHERE 
   					tr014_tipo_activo.co_categoria = tr011_categoria.co_categoria AND
-  					tr014_tipo_activo.co_servicio = tr013_servicio.co_servicio;";
+  					tr014_tipo_activo.co_servicio = tr013_servicio.co_servicio";
 
 	$r = $this->pdo->_query($query);
 	

@@ -84,7 +84,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelContacto = new Ext.grid.ColumnModel([
-        {id:'co_contacto',header: "Contacto", width: 100, sortable: true, locked:false, dataIndex: 'co_contacto'},
+        {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
@@ -130,7 +130,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_contacto',
                         name: 'co_contacto',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     },{

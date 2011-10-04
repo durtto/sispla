@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_tipo_directorio'] = 'Codigo Tipo Ubicacion';
 	
     var bd = Ext.getBody();
 
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModeltpDirectorio = new Ext.grid.ColumnModel([
-        {id:'co_tipo_directorio',header: "Directorio", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
+        {id:'co_tipo_directorio',header: "Directorio", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
       ]);
 	
@@ -114,8 +113,8 @@ Ext.onReady(function(){
 						id: 'co_tipo_directorio',
                         name: 'co_tipo_directorio',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',

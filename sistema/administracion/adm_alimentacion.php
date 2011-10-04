@@ -57,7 +57,6 @@ Ext.onReady(function(){
 
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_alimentacion'] = 'Codigo Alimentacion';
 	
     var bd = Ext.getBody();
 
@@ -84,7 +83,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelAlimentacion = new Ext.grid.ColumnModel([
-        {id:'co_alimentacion',header: "Codigo de Gestion", width: 130, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+        {id:'co_alimentacion',header: "Codigo de Gestion", hidden:true, width: 130, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
         {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
         {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
         {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
@@ -137,7 +136,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_alimentacion',
                         name: 'co_alimentacion',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:60
 							}]

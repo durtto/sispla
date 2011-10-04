@@ -54,7 +54,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_equipo_requerido'] = 'Codigo Equipo';
 	
     var bd = Ext.getBody();
 
@@ -225,6 +224,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_equipo_requerido',
                         name: 'co_equipo_requerido',
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:158
                     },GetCombo('co_activo', 'Activo'),{

@@ -39,7 +39,6 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
 	
-		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/composite-field.js"></script>
 
 	
 <script type="text/javascript">
@@ -57,7 +56,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_continuidad'] = 'Codigo Continuidad';
 	Ext.QuickTips.init();
     var bd = Ext.getBody();
 
@@ -112,7 +110,7 @@ Ext.onReady(function(){
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Numero de serial", width: 100, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "Numero de etiqueta", width: 100, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
       	{header: "Fecha de Incorporacion", width: 100, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
       	{header: "Vida Util", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
@@ -134,22 +132,7 @@ Ext.onReady(function(){
       	{header: "Nivel de Obsolescencia", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
       ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
+
       
   var storeContinuidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_continuidad.php',
@@ -171,7 +154,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelContinuidad = new Ext.grid.ColumnModel([
-        {id:'co_continuidad',header: "Continuidad", width: 100, sortable: true, locked:false, dataIndex: 'co_continuidad'},
+        {id:'co_continuidad',header: "Continuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_continuidad'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Prioridad", width: 100, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
         {header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd'},      
@@ -182,30 +165,7 @@ Ext.onReady(function(){
         
       ]);
 	
-		 function interno(bo_esquema_alterno_interno) {
-        if (bo_esquema_alterno_interno == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_interno == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_interno;
-    	}
-		function externo(bo_esquema_alterno_externo) {
-        if (bo_esquema_alterno_externo == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_externo == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_externo;
-    	}
-    	function prioridad(bo_prioridad_rec) {
-        if (bo_prioridad_rec == 'ALTA') {
-            return '<span style="color:red;">' + 'ALTA' + '</span>';
-        } else if (bo_prioridad_rec == 'BAJA') {
-            return '<span style="color:green;">' + 'BAJA' + '</span>';
-        }
-        return bo_prioridad_rec;
-    	}
+
 
 /*
  *    Here is where we create the Form
@@ -239,41 +199,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_continuidad',
                         name: 'co_continuidad',
-                        allowBlank: false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        hidden:true,
+                        hideLabel:true,
                         width:157
                     },GetCombo('co_activo','Activo'),{
-                        xtype: 'compositefield',
-                        fieldLabel: 'Time worked',
-                        combineErrors: false,
-                        items: [
-                           {
-                               name : 'hours',
-                               xtype: 'numberfield',
-                               width: 48,
-                               allowBlank: false
-                           },{
-                               name : 'hours',
-                               xtype: 'numberfield',
-                               width: 48,
-                               allowBlank: false
-                           }
-                           {
-                               xtype: 'displayfield',
-                               value: 'hours'
-                           },
-                           {
-                               name : 'minutes',
-                               xtype: 'numberfield',
-                               width: 48,
-                               allowBlank: false
-                           },
-                           {
-                               xtype: 'displayfield',
-                               value: 'mins'
-                           }
-                        ]
-                    },{
                         fieldLabel: 'MTD',
 						xtype:'datefield',
 						id: 'fe_mtd',
@@ -343,7 +272,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_continuidad").focus();
+					Ext.getCmp("fe_mtd").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -484,7 +413,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_continuidad").focus();
+		Ext.getCmp("fe_mtd").focus();
 		nroReg=rowIdx;
 		
 });

@@ -51,8 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_capacidad'] = 'Codigo Capacidad';
-	
     var bd = Ext.getBody();
 
 	var url = {
@@ -75,7 +73,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCapacidad = new Ext.grid.ColumnModel([
-        {id:'co_capacidad',header: "Codigo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
+        {id:'co_capacidad',header: "Codigo de Capacidad", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
         {header: "Tipo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
       ]);
 	
@@ -105,7 +103,7 @@ Ext.onReady(function(){
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:130,
+					labelWidth:160,
 					columnWidth:.55,
 					border:false,
 					items: [{
@@ -114,16 +112,10 @@ Ext.onReady(function(){
 						id: 'co_capacidad',
                         name: 'co_capacidad',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
-                        width:130
-                    }]
+                        hidden: true,
+						hideLabel: true,
+                        width:160
                     },{
-					layout: 'form',
-					labelWidth:130,
-					columnWidth:.45,
-					border:false,
-					items: [{
                         fieldLabel: 'Nombre de Capacidad',
 						xtype:'textfield',
 						vtype:'validos',
@@ -131,14 +123,14 @@ Ext.onReady(function(){
                         name: 'nb_capacidad',
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:130,
+                        width:160,
                         listeners:{
                         	change: function(t, newVal, oldVal){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
                     }]
-			}]
+                    }]
 			},{
 				width: 800,  
 				buttonAlign:'center',
@@ -155,7 +147,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_capacidad").focus();
+					Ext.getCmp("nb_capacidad").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -291,7 +283,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_capacidad").focus();
+		Ext.getCmp("nb_capacidad").focus();
 		nroReg=rowIdx;
 		
 });

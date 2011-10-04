@@ -51,8 +51,7 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_alojamiento'] = 'Codigo Alojamiento';
-	
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -79,9 +78,9 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelAlojamiento = new Ext.grid.ColumnModel([
-        {id:'co_alojamiento',header: "Alojamiento", width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
+        {id:'co_alojamiento',header: "Alojamiento", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
+        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
         {header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel', renderer: hotel},
         {header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada', renderer: hotel},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
@@ -135,9 +134,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_alojamiento',
                         name: 'co_alojamiento',
-                        allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',

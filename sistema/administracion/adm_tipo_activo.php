@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_tipo_activo'] = 'Codigo Tipo Activo';
 	
     var bd = Ext.getBody();
 
@@ -79,12 +78,12 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelTipoActivo = new Ext.grid.ColumnModel([
-        {id:'co_tipo_activo',header: "Tipo Activo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {id:'co_tipo_activo',header: "Tipo Activo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
         {header: "co_Categoria", width: 200, sortable: true, locked:false,hidden:true, dataIndex: 'co_categoria'},      
 		{header: "Categoria", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
 		{header: "co_Servicio", width: 100, sortable: true,hidden:true, locked:false, dataIndex: 'co_servicio'},
-		{header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+		{header: "Servicio", width: 250, sortable: true, locked:false, dataIndex: 'nb_servicio'},
       
 		
       ]);
@@ -123,10 +122,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_tipo_activo',
                         name: 'co_tipo_activo',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },GetCombo('co_servicio','Servicio')]
+                    },GetCombo('co_servicio','Servicio'),GetCombo('co_categoria','Categoria')]
 				},{
 					layout: 'form',
 					border:false,
@@ -145,7 +145,7 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },GetCombo('co_categoria','Categoria')]
+                    }]
 			}]
 			},{
 				width: 800,  
@@ -288,7 +288,7 @@ Ext.onReady(function(){
     });
 
 
-storeTipoActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
+storeTipoActivo.load({params: { start: 0, limit: 30, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
 	Ext.getCmp("gd_tpactivo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		

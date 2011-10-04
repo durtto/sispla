@@ -51,8 +51,7 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_categoria'] = 'Codigo Categoria';
-	
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCategoria = new Ext.grid.ColumnModel([
-        {id:'co_categoria',header: "Codigo de Categoria", width: 200, sortable: true, locked:false, dataIndex: 'co_categoria'},
+        {id:'co_categoria',header: "Codigo de Categoria", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_categoria'},
         {header: "Categorias", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
       ]);
 	
@@ -114,16 +113,10 @@ Ext.onReady(function(){
 						id: 'co_categoria',
                         name: 'co_categoria',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:130
-                    }]
                     },{
-					layout: 'form',
-					labelWidth:130,
-					columnWidth:.45,
-					border:false,
-					items: [{
                         fieldLabel: 'Categoria',
 						xtype:'textfield',
 						vtype:'validos',

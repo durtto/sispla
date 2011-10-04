@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_proceso'] = 'Codigo Proceso';
 	
     var bd = Ext.getBody();
 
@@ -80,7 +79,7 @@ Ext.onReady(function(){
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 659//
 	
     var colModelProceso = new Ext.grid.ColumnModel([
-        {id:'co_proceso',header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'co_proceso'},
+        {id:'co_proceso',header: "Proceso", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
         {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
@@ -120,16 +119,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_proceso',
                         name: 'co_proceso',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_proceso',
@@ -142,7 +136,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Critico',
 	            		id: 'bo_critico',

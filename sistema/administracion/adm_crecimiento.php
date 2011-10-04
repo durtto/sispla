@@ -55,8 +55,7 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_crecimiento'] = 'Codigo Crecimiento';
-	
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -83,7 +82,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCrecimiento = new Ext.grid.ColumnModel([
-        {id:'co_crecimiento',header: "Crecimiento", width: 150, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
+        {id:'co_crecimiento',header: "Crecimiento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
         {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
         {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
         {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
@@ -127,7 +126,8 @@ Ext.onReady(function(){
 						allowBlank:false,
 						id: 'co_crecimiento',
                         name: 'co_crecimiento',
-                        allowBlank: false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },new Ext.ux.form.SpinnerField({

@@ -55,7 +55,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_necesidad'] = 'Codigo Necesidad';
 	
     var bd = Ext.getBody();
 
@@ -86,13 +85,13 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelNecesidad = new Ext.grid.ColumnModel([
-        {id:'co_necesidad',header: "Necesidad", width: 100, sortable: true, locked:false, dataIndex: 'co_necesidad'},
+        {id:'co_necesidad',header: "Necesidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_necesidad'},
+        {header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
         {header: "Necesidad Detectada", width: 200, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
         {header: "Cantidad Requerida", width: 200, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
         {header: "Justificacion", width: 400, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
         {header: "Beneficio", width: 400, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
         {header: "Annio Actual", width: 100, sortable: true, locked:false, dataIndex: 'fe_annio'},
-        {header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
       ]);
 	
 		 
@@ -129,7 +128,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_necesidad',
                         name: 'co_necesidad',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        hidden:true,
+                        hideLabel:true,
                         width:140
                     },GetCombo('co_servicio', 'Servicio'),{
                         fieldLabel: 'Fecha Actual',

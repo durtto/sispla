@@ -51,8 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_rol'] = 'Codigo Rol';
-	camposReq['nb_rol'] = 'Nombre Rol';
 	
     var bd = Ext.getBody();
 
@@ -79,7 +77,7 @@ Ext.onReady(function(){
 	
 	
     var colModelRol = new Ext.grid.ColumnModel([
-        {id:'co_rol',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol'},
+        {id:'co_rol',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol'},
         {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
         {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
@@ -98,7 +96,7 @@ Ext.onReady(function(){
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:640,
+			width:800,
 			buttonAlign:'center',
 			//layout:'column',
 			title: 'Roles',
@@ -114,8 +112,8 @@ Ext.onReady(function(){
 						id: 'co_rol',
                         name: 'co_rol',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
 						width:140
                     
 				},{
@@ -142,7 +140,7 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 640,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -242,7 +240,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_rol',
