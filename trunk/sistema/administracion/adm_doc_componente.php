@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Documentos de Componentes</title>
+<title>Documento Componente</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_doc_componente'] = 'Codigo del Componente';
 	
     var bd = Ext.getBody();
 
@@ -61,22 +60,22 @@ Ext.onReady(function(){
     };
     var local = true;
 	
-  var storeDocComponente = new Ext.data.JsonStore({
+  var storeDocumento = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_doc_componente.php',
 		remoteSort : true,
 		root: 'doccomponentes',
         totalProperty: 'total',
-		idProperty: 'co_doc_componente',
-        fields: [{name: 'co_doc_componente'},
+		idProperty: 'co_documento_componente',
+        fields: [{name: 'co_documento_componente'},
         		{name: 'tx_url_direccion'},
         		{name: 'resp'}]
         });
-    storeDocComponente.setDefaultSort('co_doc_componente', 'ASC');
+    storeDocumento.setDefaultSort('co_documento_componente', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelDocComponente = new Ext.grid.ColumnModel([
-        {id:'co_doc_componente',header: "Documento", width: 250, sortable: true, locked:false, dataIndex: 'co_doc_componente'},
-        {header: "Direccion", width: 250, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
+    var colModelDocumento = new Ext.grid.ColumnModel([
+        {id:'co_documento_componente',header: "Documento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_documento_componente'},
+        {header: "Direccion", width: 165, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
       ]);
 	
 	
@@ -87,10 +86,10 @@ Ext.onReady(function(){
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_doc_componente',
+        id: 'frm_documento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Componentes',
+        title: 'Documentos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -101,7 +100,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Documento del Componente',
+			title: 'Documento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -109,29 +108,27 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Componente',
+                        fieldLabel: 'Numero Documento',
 						xtype:'numberfield',
-						id: 'co_doc_componente',
-                        name: 'co_doc_componente',
-                        allowBlank: false,
-                        //hidden: true,
-						//hideLabel: true,
-                        width:160
-                       }]
-                    }, {
-                    	layout: 'form',
-						border:false,
-						columnWidth:.45,
-						labelWidth:100,
-						items: [{
-                        fieldLabel: 'Direccion Servidor',
+						id: 'co_documento_componente',
+                        name: 'co_documento_componente',
+                        hidden:true,
+                        hideLabel:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Direccion Web',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'tx_url_direccion',
                         name: 'tx_url_direccion',
                         allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			}]
 			},{
@@ -143,14 +140,14 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeDocComponente.getCount();
+					//nroReg=storeDocumento.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_doc_componente").focus();
+					Ext.getCmp("co_documento_componente").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -160,7 +157,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_doc_componente").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_documento").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -173,19 +170,19 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeDocComponente.baseParams = {'accion': 'insertar'};
+								storeDocumento.baseParams = {'accion': 'insertar'};
 							else
-								storeDocComponente.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'", ';
+								storeDocumento.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'", ';
 							columnas += '"tx_url_direccion" : "'+Ext.getCmp("tx_url_direccion").getValue()+'"}';
-							storeDocComponente.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'"}', 
+							storeDocumento.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_doc_componente.php"},
 										callback: function () {
-										if(storeDocComponente.getAt(0).data.resp!=true){		
+										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDocComponente.getAt(0).data.resp, 
+												msg: storeDocumento.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -200,7 +197,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeDocComponente.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_doc_componenteo.php'};
+							storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_doc_componente.php'};
 						}
 				}
 			},{
@@ -209,15 +206,15 @@ Ext.onReady(function(){
 			tooltip:'Eliminar Documento',
 			disabled: true,
 			handler: function(){
-										storeDocComponente.baseParams = {'accion': 'eliminar'};
-										storeDocComponente.load({params:{
-												"condiciones": '{ "co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'"}', 
+										storeDocumento.baseParams = {'accion': 'eliminar'};
+										storeDocumento.load({params:{
+												"condiciones": '{ "co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_doc_componente.php"},
 										callback: function () {
-										if(storeDocComponente.getAt(0).data.resp!=true){		
+										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeDocComponente.getAt(0).data.resp,
+												msg: storeDocumento.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -237,15 +234,15 @@ Ext.onReady(function(){
 			width:800,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_doc_componente',
-                store: storeDocComponente,
-                cm: colModelDocComponente,
+				id: 'gd_documento',
+                store: storeDocumento,
+                cm: colModelDocumento,
 			//plugins: [filters],
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_doc_componente").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_documento").getForm().loadRecord(rec);
                         }
                     }
                 }),
@@ -259,7 +256,7 @@ Ext.onReady(function(){
                     } // Allow rows to be rendered.
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeDocComponente,
+				store: storeDocumento,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -275,10 +272,10 @@ Ext.onReady(function(){
 
 	
 	
-storeDocComponente.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_doc_componente.php"}});
+storeDocumento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_doc_componente.php"}});
 gridForm.render('form');
 	/****************************************************************************************************/
-	Ext.getCmp("gd_doc_componente").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_documento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
@@ -286,7 +283,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_doc_componente").focus();
+		Ext.getCmp("co_documento_componente").focus();
 		nroReg=rowIdx;
 		
 });

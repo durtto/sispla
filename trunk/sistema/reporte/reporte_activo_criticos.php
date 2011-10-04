@@ -224,8 +224,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
-
-
 </body>
 </html>

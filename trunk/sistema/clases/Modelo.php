@@ -38,7 +38,7 @@ class Modelo extends MyPDO
    * 
    * @access public
    */
-  public $columModelo= array('co_modelo'=>'co_modelo', 'nb_modelo'=>'nb_modelo');
+  public $columModelo= array('co_modelo'=>'co_modelo', 'nb_modelo'=>'nb_modelo', 'co_tipo_activo'=>'co_tipo_activo');
   
   /**
    * 
@@ -111,8 +111,17 @@ class Modelo extends MyPDO
    */
   public function cargarModelo( ) {
 
-	$query = "SELECT *
-                FROM tr029_modelo;
+	$query = "SELECT 
+  tr029_modelo.co_modelo, 
+  tr029_modelo.nb_modelo, 
+  tr014_tipo_activo.nb_tipo_activo, 
+  tr029_modelo.co_tipo_activo
+FROM 
+  public.tr029_modelo, 
+  public.tr014_tipo_activo
+WHERE 
+  tr029_modelo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;
+
 ";
 
 	$r = $this->pdo->_query($query);

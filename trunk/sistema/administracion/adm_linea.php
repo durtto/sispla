@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_linea'] = 'Codigo Linea';
 	
     var bd = Ext.getBody();
 
@@ -61,7 +60,7 @@ Ext.onReady(function(){
     };
     var local = true;
     
-/**************************/StoreLinea/**************************/
+/**************************StoreLinea**************************/
 	
   var storeLinea = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_linea_taxi.php',
@@ -79,7 +78,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelLinea = new Ext.grid.ColumnModel([
-        {id:'co_linea',header: "Linea", width: 100, sortable: true, locked:false, dataIndex: 'co_linea'},
+        {id:'co_linea',header: "Linea", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_linea'},
         {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_linea'},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
         {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
@@ -119,8 +118,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_linea',
                         name: 'co_linea',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',

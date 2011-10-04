@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_unidad'] = 'Codigo Unidad';
 	
     var bd = Ext.getBody();
 
@@ -77,7 +76,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelUnidad = new Ext.grid.ColumnModel([
-        {id:'co_unidad',header: "Unidad", width: 100, sortable: true, locked:false, dataIndex: 'co_unidad'},
+        {id:'co_unidad',header: "Unidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_unidad'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);

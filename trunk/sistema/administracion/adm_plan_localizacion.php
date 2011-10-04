@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_plan_localizacion'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
-        {id:'co_plan_localizacion',header: "Plan Localizacion", width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
+        {id:'co_plan_localizacion',header: "Plan Localizacion",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
         {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
@@ -113,8 +112,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_plan_localizacion',
                         name: 'co_plan_localizacion',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Fecha de Elaboracion',

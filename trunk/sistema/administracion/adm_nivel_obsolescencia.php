@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_nivel'] = 'Codigo Nivel';
 	
     var bd = Ext.getBody();
 
@@ -77,7 +76,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelNivel = new Ext.grid.ColumnModel([
-        {id:'co_nivel',header: "Nivel", width: 100, sortable: true, locked:false, dataIndex: 'co_nivel'},
+        {id:'co_nivel',header: "Nivel", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_nivel'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
@@ -117,16 +116,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_nivel',
                         name: 'co_nivel',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        hidden:true,
+                        hideLabel:true,
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_nivel',
@@ -139,9 +132,15 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         xtype: 'radiogroup',
-	            		fieldLabel: 'obsoleto',
+	            		fieldLabel: 'Obsoleto',
 	            		id: 'bo_obsoleto',
 		                name: 'bo_obsoleto',
 			            columns: 2,
@@ -160,8 +159,8 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]

@@ -37,6 +37,11 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+			<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Spinner.js"></script>
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/SpinnerField.js"></script>
+
+
+<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css" />
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -51,7 +56,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_guardia'] = 'Codigo Guardia';
 	
     var bd = Ext.getBody();
 
@@ -80,7 +84,7 @@ Ext.onReady(function(){
 	
 	
     var colModelGuardia = new Ext.grid.ColumnModel([
-        {id:'co_guardia',header: "Guardia", width: 80, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        {id:'co_guardia',header: "Guardia", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_guardia'},
         {header: "Nombre Guardia", width: 250, sortable: true, locked:false, dataIndex: 'nb_guardia'},
         {header: "Numero", width: 50, sortable: true, locked:false, dataIndex: 'nu_numero'},
         {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
@@ -120,16 +124,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_guardia',
                         name: 'co_guardia',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre Guardia',
 						xtype:'textfield',
 						vtype:'validos',
@@ -142,14 +140,25 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Numero',
-						xtype:'numberfield',
-						id: 'nu_numero',
-                        name: 'nu_numero',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
                     }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	fieldLabel: 'Numero',
+			            	name: 'nu_numero',
+			            	id: 'nu_numero',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:60
+							})]
 			},{
 					layout: 'form',
 					border:false,
@@ -160,8 +169,8 @@ Ext.onReady(function(){
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
-                        height: 100,
-            			anchor: '100%',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]

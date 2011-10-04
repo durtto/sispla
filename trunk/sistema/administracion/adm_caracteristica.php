@@ -53,7 +53,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_caracteristica'] = 'Codigo Caracteristica';
 	
     var bd = Ext.getBody();
 
@@ -81,7 +80,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCaracteristica = new Ext.grid.ColumnModel([
-        {id:'co_caracteristica',header: "Codigo de Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
+        {id:'co_caracteristica',header: "Codigo de Caracteristica", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
         {header: "Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
         {header: "Modelo", width: 200, hidden:true,sortable: true, locked:false, dataIndex: 'co_modelo'},  
         {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},    
@@ -121,12 +120,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_caracteristica',
                         name: 'co_caracteristica',
-                        allowBlank:false,
-                        //renderer: incremental,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
-						//hidden: true,
-						//hideLabel: true,
+						hidden: true,
+						hideLabel: true,
 
                     },{
                         fieldLabel: 'Caracteristica',
@@ -163,7 +160,6 @@ Ext.onReady(function(){
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
-						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_caracteristica").focus();
@@ -299,7 +295,6 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_caracteristica").focus();
 		nroReg=rowIdx;

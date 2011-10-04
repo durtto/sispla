@@ -52,7 +52,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_directorio'] = 'Codigo Directorio';
 	
     var bd = Ext.getBody();
 
@@ -78,7 +77,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDirectorio = new Ext.grid.ColumnModel([
-        {id:'co_directorio',header: "Directorio", width: 150, sortable: true, locked:false, dataIndex: 'co_directorio'},
+        {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
         {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
         {header: "Numero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
@@ -118,7 +117,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_directorio',
                         name: 'co_directorio',
-                        allowBlank: false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
                     }]

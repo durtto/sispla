@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_privilegio'] = 'Codigo Privilegio';
 	
     var bd = Ext.getBody();
 
@@ -76,7 +75,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPrivilegio = new Ext.grid.ColumnModel([
-        {id:'co_privilegio',header: "Privilegio", width: 100, sortable: true, locked:false, dataIndex: 'co_privilegio'},
+        {id:'co_privilegio',header: "Privilegio", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
@@ -115,15 +114,10 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_privilegio',
                         name: 'co_privilegio',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_privilegio',

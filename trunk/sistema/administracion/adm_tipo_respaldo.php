@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_tipo_respaldo'] = 'Codigo Tipo Respaldo';
 	
     var bd = Ext.getBody();
 
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModeltpRespaldo = new Ext.grid.ColumnModel([
-        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
+        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
       ]);
 	
@@ -114,16 +113,10 @@ Ext.onReady(function(){
 						id: 'co_tipo_respaldo',
                         name: 'co_tipo_respaldo',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
-                    }]
-			},{
-				layout: 'form',
-					labelWidth:100,
-					columnWidth:.45,
-					border:false,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						vtype:'validos',

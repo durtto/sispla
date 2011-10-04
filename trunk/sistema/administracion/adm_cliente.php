@@ -54,7 +54,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_cliente'] = 'Codigo Cliente';
 	
     var bd = Ext.getBody();
 
@@ -109,7 +108,7 @@ Ext.onReady(function(){
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
       	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
       	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
@@ -131,22 +130,6 @@ Ext.onReady(function(){
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
       ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
     
     var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
@@ -219,7 +202,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCliente = new Ext.grid.ColumnModel([
-        {id:'co_cliente',header: "Cliente", width: 100, sortable: true, locked:false, dataIndex: 'co_cliente'},
+        {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
         {header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
@@ -260,7 +243,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_cliente',
                         name: 'co_cliente',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:120
                     },{

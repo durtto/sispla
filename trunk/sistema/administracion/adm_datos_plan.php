@@ -51,7 +51,6 @@
  	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_componente'] = 'Codigo del Componente';
 	
     var bd = Ext.getBody();
 
@@ -80,7 +79,7 @@
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDato = new Ext.grid.ColumnModel([
-        {id:'co_componente',header: "Componente", width: 150, sortable: true, locked:false, dataIndex: 'co_componente'},
+        {id:'co_componente',header: "Componente", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_componente'},
         {header: "Fecha de Vigencia", width: 150, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
         {header: "Objetivos", width: 200, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
         {header: "Alcance", width: 200, sortable: true, locked:false, dataIndex: 'tx_alcance'},
@@ -123,7 +122,8 @@
 						xtype:'numberfield',
 						id: 'co_componente',
                         name: 'co_componente',
-                        allowBlank: false,
+						hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{

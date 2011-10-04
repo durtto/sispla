@@ -55,8 +55,7 @@ Ext.onReady(function(){
 
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_activo'] = 'Codigo Activo';
-	
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -180,7 +179,7 @@ Ext.onReady(function(){
 	]});
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
      	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
@@ -255,8 +254,9 @@ Ext.onReady(function(){
                         fieldLabel: 'Codigo del Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
-						allowBlank:false,
                         name: 'co_activo',
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
                     },{

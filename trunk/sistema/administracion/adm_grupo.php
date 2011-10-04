@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_grupo'] = 'Codigo Grupo';
 	
     var bd = Ext.getBody();
 
@@ -75,7 +74,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelGrupo = new Ext.grid.ColumnModel([
-        {id:'co_grupo',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {id:'co_grupo',header: "Grupo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},
       ]);
 	
@@ -113,15 +112,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Grupo',
 						xtype:'textfield',
 						id: 'nb_grupo',

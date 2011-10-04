@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_fabricante'] = 'Codigo Fabricante';
 	
     var bd = Ext.getBody();
 
@@ -79,7 +78,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelFabricante = new Ext.grid.ColumnModel([
-        {id:'co_fabricante',header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'co_fabricante'},
+        {id:'co_fabricante',header: "Fabricante", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_fabricante'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'nu_telefono'},
@@ -121,8 +120,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_fabricante',
                         name: 'co_fabricante',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',

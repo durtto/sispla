@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_vehiculo'] = 'Codigo Vehiculo';
 	
     var bd = Ext.getBody();
 
@@ -80,7 +79,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelVehiculo = new Ext.grid.ColumnModel([
-        {id:'co_vehiculo',header: "Vehiculo", width: 100, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
+        {id:'co_vehiculo',header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
         {header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'tx_placa'},
 		{header: "Marca", width: 100, sortable: true, locked:false, dataIndex: 'tx_marca'},        
 		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'tx_modelo'},
@@ -107,21 +106,21 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:800,
 			buttonAlign:'center',
-			//layout:'column',
+			layout:'column',
 			title: 'Vehiculos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
+					columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero Vehiculo',
 						xtype:'numberfield',
 						id: 'co_vehiculo',
                         name: 'co_vehiculo',
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Placa',
@@ -150,7 +149,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    }]
                     },{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.45,
+					border:false,
+					items: [{
                         fieldLabel: 'Modelo',
 						xtype:'textfield',
 						id: 'tx_modelo',

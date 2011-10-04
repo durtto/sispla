@@ -53,7 +53,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_ubicacion'] = 'Codigo Ubicacion';
 	camposReq['nb_ubicacion'] = 'Nombre';
 	
     var bd = Ext.getBody();
@@ -83,21 +82,13 @@ Ext.onReady(function(){
 	
 	
     var colModelUbicacion = new Ext.grid.ColumnModel([
-        {id:'co_ubicacion',header: "Ubicacion", width: 80, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {id:'co_ubicacion',header: "Ubicacion", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
         {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
         {header: "Tipo Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
 
         ]);
-        function obsoleto(bo_obsoleto) {
-        if (bo_obsoleto == 'SI') {
-            return '<span style="color:gray;">' + 'SI' + '</span>';
-        } else if (bo_obsoleto == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_obsoleto;
-    	}
 
     var gridForm = new Ext.FormPanel({
         id: 'frm_ubicacion',
@@ -127,8 +118,8 @@ Ext.onReady(function(){
 						id: 'co_ubicacion',
                         name: 'co_ubicacion',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
 						width:140
                     
 				},{
@@ -144,7 +135,7 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }]
+                    },GetCombo('co_tipo_ubicacion','Tipo Ubicacion')]
 				},{
 					layout: 'form',
 					border:false,
@@ -159,7 +150,7 @@ Ext.onReady(function(){
 						//hideLabel: true,
 						width:121
                     
-				},GetCombo('co_tipo_ubicacion','Tipo Ubicacion'),{
+				},{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Obsoleto',
 	            		id: 'bo_obsoleto',

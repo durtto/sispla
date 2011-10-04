@@ -51,8 +51,7 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_grupo'] = 'Codigo Grupo';
-	
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -69,14 +68,19 @@ Ext.onReady(function(){
 		idProperty: 'co_modelo',
         fields: [{name: 'co_modelo'},
         		{name: 'nb_modelo'},
+        		{name: 'co_tipo_activo'},
+        		{name: 'nb_tipo_activo'},
         		{name: 'resp'}]
         });
     storeModelo.setDefaultSort('co_modelo', 'ASC');
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelModelo = new Ext.grid.ColumnModel([
-        {id:'co_modelo',header: "Modelo", width: 100, sortable: true, locked:false, dataIndex: 'co_modelo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_modelo'},
+        {id:'co_modelo',header: "Modelo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_modelo'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},
+       	{header: "Tipo Activo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Tipo Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+
       ]);
 	
 	
@@ -113,15 +117,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_modelo',
                         name: 'co_modelo',
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Modelo',
 						xtype:'textfield',
 						id: 'nb_modelo',
@@ -134,6 +134,12 @@ Ext.onReady(function(){
                         	}
                         }
                     }]
+                    },{
+					layout: 'form',
+					labelWidth:100,
+					columnWidth:.45,
+					border:false,
+					items: [GetCombo('co_tipo_activo', 'Tipo Activo')]
 			}]
 			},{
 				width: 800,  

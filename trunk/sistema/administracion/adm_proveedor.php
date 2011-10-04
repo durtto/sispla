@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_proveedor'] = 'Codigo Proveedor';
 	
     var bd = Ext.getBody();
 
@@ -78,7 +77,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelProveedor = new Ext.grid.ColumnModel([
-        {id:'co_proveedor',header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'co_proveedor'},
+        {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
@@ -120,8 +119,8 @@ Ext.onReady(function(){
 						id: 'co_proveedor',
                         name: 'co_proveedor',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',

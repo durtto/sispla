@@ -52,8 +52,7 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_rol_resp'] = 'Codigo Rol';
-	camposReq['nb_rol'] = 'Nombre Rol';
+
 	
     var bd = Ext.getBody();
 
@@ -81,9 +80,9 @@ Ext.onReady(function(){
 	
 	
     var colModelRolResp = new Ext.grid.ColumnModel([
-        {id:'co_rol_resp',header: "Rol", width: 50, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
+        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
 	
@@ -117,8 +116,8 @@ Ext.onReady(function(){
 						id: 'co_rol_resp',
                         name: 'co_rol_resp',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
 						width:140
                     
 				},{

@@ -52,7 +52,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_servicio'] = 'Codigo Servicio';
 	
     var bd = Ext.getBody();
 
@@ -97,7 +96,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelServicio = new Ext.grid.ColumnModel([
-        {id:'co_servicio',header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'co_servicio'},
+        {id:'co_servicio',header: "Servicio", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_servicio'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
 		{header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Capacidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_capacidad'},
@@ -138,16 +137,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_servicio',
                         name: 'co_servicio',
-                        allowBlank:false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_servicio',
@@ -160,7 +154,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },GetCombo('co_capacidad','Capacidad')]
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [GetCombo('co_capacidad','Capacidad')]
 			},{
 					layout: 'form',
 					border:false,

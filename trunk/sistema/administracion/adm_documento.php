@@ -51,7 +51,6 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
 	var camposReq = new Array(10);
-	camposReq['co_documento'] = 'Codigo Documento';
 	
     var bd = Ext.getBody();
 
@@ -77,7 +76,7 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelDocumento = new Ext.grid.ColumnModel([
-        {id:'co_documento',header: "Documento", width: 150, sortable: true, locked:false, dataIndex: 'co_documento'},
+        {id:'co_documento',header: "Documento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_documento'},
         {header: "Nombre", width: 158, sortable: true, locked:false, dataIndex: 'nb_documento'},
         {header: "Descripcion", width: 165, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Direccion", width: 165, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
@@ -117,16 +116,11 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_documento',
                         name: 'co_documento',
-                        allowBlank: false,
+                        hidden:true,
+                        hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_documento',
@@ -139,7 +133,13 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Direccion Web',
 						xtype:'textfield',
 						vtype:'validos',
@@ -147,7 +147,11 @@ Ext.onReady(function(){
                         name: 'tx_url_direccion',
                         allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
+                        width:160,listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
                     }]
 			},{
 					layout: 'form',
