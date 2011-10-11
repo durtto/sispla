@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -56,7 +56,12 @@ Ext.onReady(function(){
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     
+
 	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
 	
     var bd = Ext.getBody();
 
@@ -65,6 +70,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreAlimentacion******************************************/     
 	
   var storeAlimentacion = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_alimentacion.php',
@@ -80,8 +87,12 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeAlimentacion.setDefaultSort('co_alimentacion', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreAlimentacion*****************************************/
+
+
+/******************************************INICIO**colModelAlimentacion******************************************/     
+
     var colModelAlimentacion = new Ext.grid.ColumnModel([
         {id:'co_alimentacion',header: "Codigo de Gestion", hidden:true, width: 130, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
         {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
@@ -90,12 +101,12 @@ Ext.onReady(function(){
         {header: "Cantidad de Personas", width: 144, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelAlimentacion******************************************/     
 
+
+	
+	
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_alimentacion',
@@ -131,16 +142,17 @@ Ext.onReady(function(){
 			            	incrementValue: 1,
 			            	accelerate: true,
 			            	width:60
-							}),{
-								fieldLabel: 'Numero',
-						xtype:'numberfield',
-						id: 'co_alimentacion',
-                        name: 'co_alimentacion',
-                        hidden:true,
-                        hideLabel:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:60
-							}]
+							}),
+							{
+							fieldLabel: 'Numero',
+							xtype:'numberfield',
+							id: 'co_alimentacion',
+	                        name: 'co_alimentacion',
+	                        hidden:true,
+	                        hideLabel:true,
+							style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+	                        width:60
+								}]
 				},{
 					layout: 'form',
 					labelWidth:80,
@@ -206,7 +218,6 @@ Ext.onReady(function(){
 				tooltip:'',
 				handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -219,6 +230,7 @@ Ext.onReady(function(){
 			text: 'Guardar', 
 			id: 'btnGuardar',
 			tooltip:'',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -271,7 +283,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar alimentacion',
 			disabled: true,
 			handler: function(){
@@ -306,7 +319,8 @@ Ext.onReady(function(){
 				id: 'gd_alimentacion',
                 store: storeAlimentacion,
                 cm: colModelAlimentacion,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -316,13 +330,11 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Comidas',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeAlimentacion,
@@ -330,7 +342,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -343,7 +354,12 @@ Ext.onReady(function(){
 	
 storeAlimentacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_alimentacion.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_alimentacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
@@ -356,7 +372,8 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
-/********************************************************************************************************/
+
+/****************************************************************************************************/
 
 });
 

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,8 +50,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
-	
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -59,8 +63,9 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreVehiculo******************************************/     
     
-/******************************************************************************StoreVehiculo******************************************************************************/
 	
   var storeVehiculo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_vehiculo.php',
@@ -76,8 +81,13 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeVehiculo.setDefaultSort('co_vehiculo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreVehiculo*****************************************/
+
+
+
+/******************************************INICIO**colModelVehiculo******************************************/     
+   
     var colModelVehiculo = new Ext.grid.ColumnModel([
         {id:'co_vehiculo',header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
         {header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'tx_placa'},
@@ -85,13 +95,13 @@ Ext.onReady(function(){
 		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'tx_modelo'},
 		{header: "Unidad", width: 159, sortable: true, locked:false, dataIndex: 'tx_unidad'},
       ]);
-/**************************************************************************************************************************************************************************/	
-	
-/*
- *    Here is where we create the Form
- */
+      
+/******************************************FIN****colModelVehiculo******************************************/     
 
-		
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
     var gridForm = new Ext.FormPanel({
         id: 'frm_vehiculo',
         frame: true,
@@ -192,7 +202,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeVehiculo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -204,7 +213,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Vehiculo',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -257,7 +267,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete',
 			tooltip:'Eliminar Vehiculo',
 			disabled: true,
 			handler: function(){
@@ -292,7 +303,8 @@ Ext.onReady(function(){
 				id: 'gd_vehiculo',
                 store: storeVehiculo,
                 cm: colModelVehiculo,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -302,13 +314,11 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Vehiculos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeVehiculo,
@@ -316,7 +326,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -329,10 +338,14 @@ Ext.onReady(function(){
 	
 storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_vehiculo.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_vehiculo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -342,6 +355,7 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -360,6 +374,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,7 +50,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
 
     var bd = Ext.getBody();
 
@@ -59,6 +64,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreCategoria******************************************/     
 	
   var storeCategoria = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_categoria.php',
@@ -71,19 +78,24 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeCategoria.setDefaultSort('co_categoria', 'ASC');
+    
+/*****************************************FIN****StoreCategoria*****************************************/
+
+
+
+
+/******************************************INICIO**colModelCategoria******************************************/     
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCategoria = new Ext.grid.ColumnModel([
         {id:'co_categoria',header: "Codigo de Categoria", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_categoria'},
         {header: "Categorias", width: 200, sortable: true, locked:false, dataIndex: 'nb_categoria'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelCategoria******************************************/     
 
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_categoria',
@@ -133,30 +145,30 @@ Ext.onReady(function(){
                     }]
 			}]
 			},{
-				width: 800,  
-				buttonAlign:'center',
-				layout: 'fit', 	
-				buttons: [{
-			text: 'Nuevo', 
-			tooltip:'',
-			handler: function(){
-					nuevo = true;
-					//nroReg=storeGrupo.getCount();
-					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
+			width: 800,  
+			buttonAlign:'center',
+			layout: 'fit', 	
+			buttons: [{
+				text: 'Nuevo', 
+				tooltip:'',
+				handler: function(){
+						nuevo = true;
+						Ext.getCmp("btnGuardar").enable();
+						Ext.getCmp("btnEliminar").enable();
+						if(Ext.getCmp("frm1").disabled){
+							Ext.getCmp("frm1").enable();
+						}
+						if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+						Ext.getCmp("co_categoria").focus();
 					}
-					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_categoria").focus();
-				}
-			},{
-			text: 'Guardar', 
-			id: 'btnGuardar',
-			tooltip:'',
-			disabled: true,
-			waitMsg: 'Saving...',
-			handler: function(){
+				},{
+				text: 'Guardar', 
+				id: 'btnGuardar',
+				tooltip:'Guardar Categoria',
+				iconCls: 'save',
+				disabled: true,
+				waitMsg: 'Saving...',
+				handler: function(){
 						var campos='';
 						var camposForm = Ext.getCmp("frm_categoria").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
@@ -201,12 +213,13 @@ Ext.onReady(function(){
 							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
 						}
 				}
-			},{
-			id: 'btnEliminar',
-			text: 'Eliminar', 
-			tooltip:'Eliminar Categoria',
-			disabled: true,
-			handler: function(){
+				},{
+				id: 'btnEliminar',
+				text: 'Eliminar',
+				iconCls: 'delete', 
+				tooltip:'Eliminar Categoria',
+				disabled: true,
+				handler: function(){
 										storeCategoria.baseParams = {'accion': 'eliminar'};
 										storeCategoria.load({params:{
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
@@ -230,15 +243,16 @@ Ext.onReady(function(){
 											});
 										}
 							}})}
-			}]
-			},{
-			width:800,
-			items:[{
+				}]
+				},{
+				width:800,
+				items:[{
                 xtype: 'grid',
 				id: 'gd_categoria',
                 store: storeCategoria,
                 cm: colModelCategoria,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -248,13 +262,11 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Categorias',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeCategoria,
@@ -262,7 +274,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -275,10 +286,13 @@ Ext.onReady(function(){
 	
 storeCategoria.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_categoria.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+/****************************************************************************************************/
+
 	Ext.getCmp("gd_categoria").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -306,6 +320,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

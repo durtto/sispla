@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,9 +50,13 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
-	camposReq['co_tipo_ubicacion'] = 'Codigo Grupo';
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -60,6 +64,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreUbicacion******************************************/     
 	
   var storeTpUbicacion = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_tipo_ubicacion.php',
@@ -72,20 +78,24 @@ Ext.onReady(function(){
 				{name: 'resp'}]
         });
     storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreTpUbicacion*****************************************/
+
+
+
+/******************************************INICIO**colModelTpUbicacion******************************************/     
+    
     var colModelTpUbicacion = new Ext.grid.ColumnModel([
         {id:'co_tipo_ubicacion',header: "Grupo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelTpUbicacion******************************************/     
 
-		
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+	
     var gridForm = new Ext.FormPanel({
         id: 'frm_grupo',
         frame: true,
@@ -141,7 +151,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeTpUbicacion.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -153,7 +162,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Tipo de ubicacion',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -203,7 +213,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Tipo Ubicacion',
 			disabled: true,
 			handler: function(){
@@ -238,7 +249,8 @@ Ext.onReady(function(){
 				id: 'gd_tpubicacion',
                 store: storeTpUbicacion,
                 cm: colModelTpUbicacion,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -253,8 +265,7 @@ Ext.onReady(function(){
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeTpUbicacion,
@@ -262,7 +273,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -275,10 +285,14 @@ Ext.onReady(function(){
 	
 storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_ubicacion.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_tpubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -288,6 +302,7 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -306,6 +321,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,8 +50,13 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -59,6 +64,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreProceso******************************************/     
 	
   var storeProceso = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_proceso.php',
@@ -73,23 +80,25 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeProceso.setDefaultSort('co_proceso', 'ASC');
-	    
+    
+/*****************************************FIN****StoreProceso*****************************************/
 
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 659//
-	
+
+
+/******************************************INICIO**colModelProceso******************************************/     
+    
     var colModelProceso = new Ext.grid.ColumnModel([
         {id:'co_proceso',header: "Proceso", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
         {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
+        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
       ]);
       
+/******************************************FIN****colModelProceso*****************************************/     
 
-	
-/*
- *    Here is where we create the Form
- */
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 		
     var gridForm = new Ext.FormPanel({
@@ -188,7 +197,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Proceso',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -240,7 +250,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar proceso',
 			disabled: true,
 			handler: function(){
@@ -275,6 +286,8 @@ Ext.onReady(function(){
 				id: 'gd_proceso',
                 store: storeProceso,
                 cm: colModelProceso,
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -309,7 +322,11 @@ Ext.onReady(function(){
 	
 storeProceso.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_proceso.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_proceso").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 
@@ -322,6 +339,7 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -340,6 +358,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

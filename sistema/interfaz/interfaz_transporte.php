@@ -16,9 +16,18 @@
 		case 'refrescar':
 			$resultado = $transporte->cargarTransporte($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
-		
-		
 		break;
+		
+		case 'vehiculo':
+			$resultado = $transporte->cargarTransporteVehiculo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$total = count($resultado);
+		break;
+		
+		case 'linea':
+			$resultado = $transporte->cargarTransporteLinea($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$total = count($resultado);
+		break;
+		
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

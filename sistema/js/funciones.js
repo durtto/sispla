@@ -661,7 +661,14 @@
         }
         return bo_critico;
     	}
-    	
+    	function pcritico(bo_critico) {
+        if (bo_critico == 'SI') {
+            return '<span style="color:red;">' + 'SI' + '</span>';
+        } else if (bo_critico == 'NO') {
+            return '<span style="color:gray;">' + 'NO' + '</span>';
+        }
+        return bo_critico;
+    	}
     	function obsoleto(bo_obsoleto) {
         if (bo_obsoleto == 'SI') {
             return '<span style="color:red;">' + 'SI' + '</span>';
@@ -719,7 +726,7 @@
         }
         return bo_hart;
     	}
-    		function vulnerable(bo_vulnerable) {
+    	function vulnerable(bo_vulnerable) {
         if (bo_vulnerable == 'SI') {
             return '<span style="color:red;">' + 'SI' + '</span>';
         } else if (bo_vulnerable == 'NO') {
@@ -750,6 +757,34 @@
             return '<span style="color:green;">' + 'BAJA' + '</span>';
         }
         return bo_prioridad_rec;
+    	}
+    	
+    	function nivel(nb_nivel) {
+        if (nb_nivel == 'ADECUADO') {
+            return '<img src="../imagenes/amarillo.png">'+'<span style="color:yellow;">' + 'ADECUADO' +'</span>';
+        } else if (nb_nivel == 'FUNCIONAL') {
+            return '<img src="../imagenes/verde.png">'+'<span style="color:green;">' + 'FUNCIONAL' +'</span>';
+        }else if (nb_nivel == 'CRITICO') {
+            return '<img src="../imagenes/rojo.png">'+'<span style="color:red;">' + 'CRITICO' +'</span>';
+        }
+ 		return nb_nivel;
+    	}
+    	    	
+    	function hotel(bo_hotel) {
+        if (bo_hotel == 'SI') {
+            return '<span style="color:gray;">' + 'SI' + '</span>';
+        } else if (bo_hotel == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_hotel;
+    	}
+	function posada(bo_posada) {
+        if (bo_posada == 'SI') {
+            return '<span style="color:gray;">' + 'SI' + '</span>';
+        } else if (bo_posada == 'NO') {
+            return '<span style="color:green;">' + 'NO' + '</span>';
+        }
+        return bo_posada;
     	}
 	/*******************************************************************************************/
 	//

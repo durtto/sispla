@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -54,7 +54,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
 
     var bd = Ext.getBody();
 
@@ -63,6 +68,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreCrecimiento******************************************/     
 
   var storeCrecimiento = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_crecimiento.php',
@@ -80,7 +87,12 @@ Ext.onReady(function(){
         });
     storeCrecimiento.setDefaultSort('co_crecimiento', 'ASC');
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/*****************************************FIN****StoreCrecimiento*****************************************/
+
+
+
+/******************************************INICIO**colModelCrecimiento******************************************/     
+
     var colModelCrecimiento = new Ext.grid.ColumnModel([
         {id:'co_crecimiento',header: "Crecimiento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
         {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
@@ -91,12 +103,11 @@ Ext.onReady(function(){
 
       ]);
 	
-		 
+/******************************************FIN****colModelCrecimiento******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_crecimiento',
@@ -120,7 +131,9 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [GetCombo('co_tipo_activo','Tipo Activo'),{
+					items: [GetCombo('co_tipo_activo','Tipo Activo'),
+					
+					{
                         fieldLabel: 'Numero Crecimiento',
 						xtype:'numberfield',
 						allowBlank:false,
@@ -130,7 +143,8 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },new Ext.ux.form.SpinnerField({
+                    },new Ext.ux.form.SpinnerField(
+                    	{
 			                xtype: 'spinnerfield',
 			            	fieldLabel: 'Cantidad Requerida',
 			            	name: 'ca_demanda_futura',
@@ -195,7 +209,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -207,7 +220,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Crecimiento',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -261,7 +275,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Crecimiento',
 			disabled: true,
 			handler: function(){
@@ -296,7 +311,8 @@ Ext.onReady(function(){
 				id: 'gd_crecimiento',
                 store: storeCrecimiento,
                 cm: colModelCrecimiento,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -307,7 +323,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Crecimiento',
                 border: true,
                 listeners: {
@@ -320,7 +335,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -331,10 +345,13 @@ Ext.onReady(function(){
 	
 storeCrecimiento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_crecimiento.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_crecimiento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -344,6 +361,7 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -364,7 +382,6 @@ gridForm.render('form');
   </table>
 <div id="winTipoActivo" class="x-hidden">
     <div class="x-window-header">Ejegir Tipo Activo</div>
-	
 </div>
 </body>
 </html>

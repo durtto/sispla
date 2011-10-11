@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -51,10 +51,13 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
-	camposReq['co_caracteristica'] = 'Codigo';
-	camposReq['co_activo'] = 'Codigo';
-	camposReq['nu_valor'] = 'Codigo';
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -62,7 +65,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
+
+/******************************************INICIO**StoreValor******************************************/     
 	        
     var storeValor = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_valor_caracteristica.php',
@@ -78,8 +82,13 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeValor.setDefaultSort('co_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreValor*****************************************/
+
+
+
+/******************************************INICIO**colModelValor******************************************/     
+   
     var colModelValor = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Caracteristica", width: 200, sortable: true, locked:false,hidden:true, dataIndex: 'co_caracteristica'}, 
@@ -87,10 +96,12 @@ Ext.onReady(function(){
         {header: "Caracteristica", width: 100, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
         {header: "Valor", width: 200, sortable: true, locked:false, dataIndex: 'nu_valor'}    
       ]);
-/*
- *    Here is where we create the Form
- */
+      
+/******************************************FIN****colModelValor******************************************/     
 
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_valor',
@@ -157,7 +168,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Valor Caracteristica',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -208,7 +220,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete',
 			tooltip:'Eliminar Valor',
 			disabled: true,
 			handler: function(){
@@ -243,7 +256,8 @@ Ext.onReady(function(){
 				id: 'gd_valor',
                 store: storeValor,
                 cm: colModelValor,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -254,7 +268,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Valor',
                 border: true,
                 listeners: {
@@ -267,7 +280,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -275,15 +287,17 @@ Ext.onReady(function(){
         
     });
 
-			
-
 	
 storeValor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_valor_caracteristica.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_valor").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -293,11 +307,13 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
 
 </script>
+
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
 <div id="loading-mask" style=""></div>
@@ -311,6 +327,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

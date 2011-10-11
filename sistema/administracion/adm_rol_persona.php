@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +37,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -50,17 +52,22 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
+
+/******************************************INICIO**StoreRol******************************************/     
 	
   var storeRol = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_rol_persona.php',
@@ -74,15 +81,30 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeRol.setDefaultSort('co_rol', 'ASC');
-	
-	
+    
+/*****************************************FIN****StoreRol*****************************************/
+
+
+  var expanderRol = new Ext.ux.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p><b>Descripcion:</b> {tx_descripcion}</p>'
+        )
+    });
+    
+/******************************************INICIO**colModelRol******************************************/     
+    
     var colModelRol = new Ext.grid.ColumnModel([
+    	//expanderRol,
         {id:'co_rol',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol'},
         {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
         {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
-	
-	
+        
+/******************************************FIN****colModelRol******************************************/     
+
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
     var gridForm = new Ext.FormPanel({
         id: 'frm_rol',
@@ -98,13 +120,11 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:800,
 			buttonAlign:'center',
-			//layout:'column',
 			title: 'Roles',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
-					//columnWidth:.55,
 					border:false,
 					items: [{
                         fieldLabel: 'Codigo de Rol',
@@ -160,7 +180,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Rol de Persona',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -211,7 +232,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Capacidad',
 			disabled: true,
 			handler: function(){
@@ -246,7 +268,8 @@ Ext.onReady(function(){
 				id: 'gd_rol',
                 store: storeRol,
                 cm: colModelRol,
-			//	plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -256,13 +279,12 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Roles',
+				plugins: expanderRol,
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeRol,
@@ -270,7 +292,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -283,10 +304,14 @@ Ext.onReady(function(){
 	
 storeRol.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_persona.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -296,11 +321,23 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
 
 </script>
+<style type="text/css">
+        body .x-panel {
+            margin-bottom:20px;
+        }
+        .icon-grid {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/grid.png) !important;
+        }
+        #button-grid .x-panel-body {
+            border:1px solid #99bbe8;
+            border-top:0 none;
+</style>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
 <div id="loading-mask" style=""></div>
@@ -314,6 +351,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

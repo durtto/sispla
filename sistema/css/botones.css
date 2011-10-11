@@ -1,0 +1,25 @@
+body .x-panel {
+            margin-bottom:20px;
+        }
+        .icon-grid {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/grid.png) !important;
+        }
+        #button-grid .x-panel-body {
+            border:1px solid #99bbe8;
+            border-top:0 none;
+        }
+       .save {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/save.gif) !important;
+        } 
+        .cancel {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/cross.gif) !important;
+        }
+        .accept {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/accept.png) !important;
+        } 
+        .delete {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/delete.gif) !important;
+        } 
+        .add {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/add.gif) !important;
+        }

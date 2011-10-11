@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,8 +50,13 @@
 	Ext.form.Field.prototype.msgTarget = 'side';
  	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -59,7 +64,9 @@
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-       
+
+/******************************************INICIO**StoreDato******************************************/     
+
   var storeDato = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_dato_plan.php',
 		remoteSort : true,
@@ -76,8 +83,13 @@
         		{name: 'resp'}]
         });
     storeDato.setDefaultSort('co_componente', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreDato*****************************************/
+
+
+
+/******************************************INICIO**colModelDato******************************************/     
+
     var colModelDato = new Ext.grid.ColumnModel([
         {id:'co_componente',header: "Componente", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_componente'},
         {header: "Fecha de Vigencia", width: 150, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
@@ -87,13 +99,12 @@
         {header: "Localidad", width: 150, sortable: true, locked:false, dataIndex: 'tx_localidad'},
         {header: "Organizacion", width: 150, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
       ]);
-	
-		 
+      
+/******************************************FIN****colModelDato******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_dato',
@@ -213,7 +224,6 @@
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeDato.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -225,8 +235,9 @@
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Datos del Plan',
 			disabled: true,
+			iconCls: 'save',
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
@@ -280,7 +291,8 @@
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Datos',
 			disabled: true,
 			handler: function(){
@@ -315,7 +327,8 @@
 				id: 'gd_dato',
                 store: storeDato,
                 cm: colModelDato,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -339,7 +352,6 @@
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -349,10 +361,13 @@
 
 storeDato.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_dato_plan.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_dato").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -362,8 +377,11 @@ gridForm.render('form');
 		nroReg=rowIdx;
 
 });
+
 /********************************************************************************************************/
+
 });
+
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
@@ -378,6 +396,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

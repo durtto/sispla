@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -50,8 +50,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
-	
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -59,8 +63,10 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-	
-  var storeUnidad = new Ext.data.JsonStore({
+
+/******************************************INICIO**StoreUnidad******************************************/     
+
+ var storeUnidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_unidad_demanda.php',
 		remoteSort : true,
 		root: 'unidades',
@@ -73,20 +79,24 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeUnidad.setDefaultSort('co_unidad', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreUnidad*****************************************/
+
+
+
+/******************************************INICIO**colModelUnidad******************************************/     
+    
     var colModelUnidad = new Ext.grid.ColumnModel([
         {id:'co_unidad',header: "Unidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_unidad'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_unidad'},
         {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
 	
-	     
+/******************************************FIN****colModelUnidad******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_unidad',
@@ -110,20 +120,6 @@ Ext.onReady(function(){
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [{
-                        fieldLabel: 'Numero Unidad',
-						xtype:'numberfield',
-						id: 'co_unidad',
-                        name: 'co_unidad',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
 					items: [{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
@@ -149,7 +145,7 @@ Ext.onReady(function(){
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
                         height: 100,
-            			anchor: '100%',
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                     }]
 			}]
@@ -162,19 +158,19 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_unidad").focus();
+					Ext.getCmp("nb_unidad").focus();
 				}
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Unidad de Demanda',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -226,6 +222,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
+			iconCls: 'delete',
 			tooltip:'Eliminar unidad',
 			disabled: true,
 			handler: function(){
@@ -260,7 +257,8 @@ Ext.onReady(function(){
 				id: 'gd_unidad',
                 store: storeUnidad,
                 cm: colModelUnidad,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -271,7 +269,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Unidades',
                 border: true,
                 listeners: {
@@ -284,7 +281,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -297,19 +293,24 @@ Ext.onReady(function(){
 	
 storeUnidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_unidad_demanda.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_unidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_unidad").focus();
+		Ext.getCmp("nb_unidad").focus();
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -328,6 +329,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>
