@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -38,12 +38,14 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
 <script type="text/javascript">
+
 /*!
  * Ext JS Library 3.2.1
  * Copyright(c) 2006-2010 Ext JS, Inc.
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
+
  var nuevo;
  var winActivo;
  var winPersona;
@@ -53,8 +55,13 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -62,8 +69,73 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StorePersona******************************************/     
+      
+      var storePersona = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_persona.php',
+		remoteSort : true,
+		root: 'personas',
+        totalProperty: 'total',
+		idProperty: 'co_indicador',
+        fields: [{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono_oficina'},
+		        {name: 'tx_correo_electronico'},
+		        {name: 'di_habitacion'},
+		        {name: 'tx_telefono_habitacion'},
+		        {name: 'tx_telefono_personal'},
+		        {name: 'co_departamento'},
+		        {name: 'nb_departamento'},
+		        {name: 'co_rol'},
+		        {name: 'nb_rol'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        		{name: 'co_grupo'},
+        		{name: 'nb_grupo'},
+        		{name: 'co_guardia'},			
+        		{name: 'nb_guardia'},
+		        {name: 'resp'}]
+        });
+    storePersona.setDefaultSort('co_indicador', 'ASC');
     
-	var storeActivo = new Ext.data.JsonStore({
+/*****************************************FIN****StorePersona*****************************************/
+
+
+
+/******************************************INICIO**colModelPersona******************************************/     
+
+    var colModelPersona = new Ext.grid.ColumnModel([
+        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
+      	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
+      ]);
+      
+/******************************************FIN****colModelPersona******************************************/     
+
+
+/******************************************INICIO**StoreActivo******************************************/     
+      
+  var storeActivo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
 		root: 'activos',
@@ -99,10 +171,14 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreActivo*****************************************/
+
+
+/******************************************INICIO**colModelActivo******************************************/     
+
     var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
      	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
@@ -128,62 +204,14 @@ Ext.onReady(function(){
         {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
       	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
       ]);
-    
-    var storePersona = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_persona.php',
-		remoteSort : true,
-		root: 'personas',
-        totalProperty: 'total',
-		idProperty: 'co_indicador',
-        fields: [{name: 'co_indicador'},
-         		{name: 'nu_cedula'},
-		        {name: 'nb_persona'},
-		        {name: 'tx_apellido'},
-		        {name: 'di_oficina'},
-		        {name: 'tx_telefono_oficina'},
-		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
-		        {name: 'tx_telefono_personal'},
-		        {name: 'co_departamento'},
-		        {name: 'nb_departamento'},
-		        {name: 'co_rol'},
-		        {name: 'nb_rol'},
-		        {name: 'co_rol_resp'},
-        		{name: 'nb_rol_resp'},
-        		{name: 'co_grupo'},
-        		{name: 'nb_grupo'},
-        		{name: 'co_guardia'},			
-        		{name: 'nb_guardia'},
-		        {name: 'resp'}]
-        });
-    storePersona.setDefaultSort('co_indicador', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelPersona = new Ext.grid.ColumnModel([
-        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
-        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
-        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
-     	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
-        {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
-      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
-      	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
-        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
-      	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
-        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
-      
-      ]);
+		
+/******************************************FIN****colModelActivo******************************************/     
+
+
+
+/******************************************INICIO**StoreCliente******************************************/     
    
   var storeCliente = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_cliente.php',
@@ -199,23 +227,26 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeCliente.setDefaultSort('co_cliente', 'ASC');
+    
+/*****************************************FIN****StoreCliente*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelCliente = new Ext.grid.ColumnModel([
+/******************************************INICIO**colModelCliente******************************************/     
+
+	    var colModelCliente = new Ext.grid.ColumnModel([
         {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
         {header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
       ]);
-	
-	     
+      
+/******************************************FIN****colModelCliente******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
-		
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
     var gridForm = new Ext.FormPanel({
         id: 'frm_cliente',
         frame: true,
@@ -311,7 +342,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -323,8 +353,9 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Cliente',
 			disabled: true,
+			iconCls: 'save',
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
@@ -375,6 +406,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
+			iconCls: 'delete',
 			tooltip:'Eliminar Cliente',
 			disabled: true,
 			handler: function(){
@@ -409,7 +441,8 @@ Ext.onReady(function(){
 				id: 'gd_cliente',
                 store: storeCliente,
                 cm: colModelCliente,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -420,7 +453,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Cliente',
                 border: true,
                 listeners: {
@@ -433,13 +465,14 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
 		}],
         
     });
+    
+/******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
 function selActivo(){
 storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
@@ -453,31 +486,23 @@ storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "
 						plain : true,
 						items : [{
 								xtype: 'grid',
-								//ds: ds,
 								id: 'gd_selActivo',
 								store: storeActivo,
 								cm: colModelActivo,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
-								//autoExpandColumn: 'email',
 								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
 								height: 200,
 								title:'Lista de Activo',
 								border: true,
 								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
+												delay: 10
 								}
 						}],
 						buttons:[{
 								  text : 'Aceptar',
 								  handler : function(){
-										/**/
 										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
 											Ext.getCmp("co_activo").setValue(record.data.co_activo);
@@ -508,31 +533,23 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 						plain : true,
 						items : [{
 								xtype: 'grid',
-								//ds: ds,
 								id: 'gd_selPersona',
 								store: storePersona,
 								cm: colModelPersona,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
-								//autoExpandColumn: 'email',
 								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
 								height: 200,
 								title:'Lista de Persona',
 								border: true,
 								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
+												delay: 10
 								}
 						}],
 						buttons:[{
 								  text : 'Aceptar',
 								  handler : function(){
-										/**/
 										if(Ext.getCmp("gd_selPersona").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selPersona").getSelectionModel().getSelected();
 											Ext.getCmp("co_indicador").setValue(record.data.co_indicador);
@@ -550,13 +567,19 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 		}
 		winPersona.show();	
 }
+
+/******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 	
 storeCliente.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_cliente.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_cliente").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -566,13 +589,21 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
+
+
+/******************************************TRIGGERS*******************************************/
+
 var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerActivo.onTriggerClick = selActivo;
 		triggerActivo.applyToMarkup('nb_activo');
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
 		triggerPersona.applyToMarkup('nb_persona');
+		
+/******************************************FIN**TRIGGERS*******************************************/
+
 });
 
 </script>
@@ -591,11 +622,9 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
   </table>
 <div id="winActivo" class="x-hidden">
     <div class="x-window-header">Ejegir Activo</div>
-	
 </div>
 <div id="winPersona" class="x-hidden">
     <div class="x-window-header">Ejegir Persona</div>
-	
 </div>
 </body>
 </html>

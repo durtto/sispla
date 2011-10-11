@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -52,7 +52,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+	
 	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
 	
     var bd = Ext.getBody();
 
@@ -63,6 +68,7 @@ Ext.onReady(function(){
     var local = true;
     
 	
+/******************************************INICIO**StoreCaracteristica******************************************/     
       
   var storeCaracteristica = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_caracteristica.php',
@@ -77,21 +83,26 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeCaracteristica.setDefaultSort('co_caracteristica', 'ASC');
+    
+/*****************************************FIN****StoreCaracteristica*****************************************/
+
+
+
+
+/******************************************INICIO**colModelCaracteristica******************************************/     
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCaracteristica = new Ext.grid.ColumnModel([
         {id:'co_caracteristica',header: "Codigo de Caracteristica", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_caracteristica'},
         {header: "Caracteristica", width: 200, sortable: true, locked:false, dataIndex: 'nb_caracteristica'},
         {header: "Modelo", width: 200, hidden:true,sortable: true, locked:false, dataIndex: 'co_modelo'},  
         {header: "Modelo", width: 200, sortable: true, locked:false, dataIndex: 'nb_modelo'},    
       ]);
-	
-	     
+      
+/******************************************FIN****colModelCaracteristica******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
         id: 'frm_caracteristica',
@@ -155,7 +166,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -167,7 +177,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Caracteristica',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -218,7 +229,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Caracteristica',
 			disabled: true,
 			handler: function(){
@@ -253,7 +265,8 @@ Ext.onReady(function(){
 				id: 'gd_caracteristica',
                 store: storeCaracteristica,
                 cm: colModelCaracteristica,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -277,7 +290,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -287,7 +299,10 @@ Ext.onReady(function(){
 	
 storeCaracteristica.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_caracteristica.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_caracteristica").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)

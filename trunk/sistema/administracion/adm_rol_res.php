@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -51,19 +51,23 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
 
-	
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
-	
+
+/******************************************INICIO**StoreRolResp******************************************/     
+
   var storeRolResp = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_rol_responsabilidad.php',
 		remoteSort : true,
@@ -77,16 +81,29 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
+    
+/*****************************************FIN****StoreRolResp*****************************************/
+
+
+
+/******************************************INICIO**colModelRolResp******************************************/     
 	
 	
     var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
         {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: showDescription},
         {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
 	
-	
+/******************************************FIN****colModelRolResp******************************************/     
+
+   function showDescription(tx_descripcion,descripcion){  
+   descripcion = 'style="white-space:normal"';  
+   return tx_descripcion;  
+   }  
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
     var gridForm = new Ext.FormPanel({
         id: 'frm_rol',
@@ -144,8 +161,6 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_rol_padre',
                         name: 'co_rol_padre',
-                        //hidden: true,
-						//hideLabel: true,
 						width:140
                     
 				}]
@@ -185,7 +200,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Rol y Responsabilidad',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -237,7 +253,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Rol responsabilidad',
 			disabled: true,
 			handler: function(){
@@ -272,7 +289,8 @@ Ext.onReady(function(){
 				id: 'gd_rol',
                 store: storeRolResp,
                 cm: colModelRolResp,
-			//	plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -287,8 +305,7 @@ Ext.onReady(function(){
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeRolResp,
@@ -296,7 +313,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -304,6 +320,7 @@ Ext.onReady(function(){
         
     });
 
+/******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
 	function selRolResp(){
 	storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
@@ -317,31 +334,25 @@ Ext.onReady(function(){
 						plain : true,
 						items : [{
 								xtype: 'grid',
-								//ds: ds,
 								id: 'gd_selRolResp',
 								store: storeRolResp,
 								cm: colModelRolResp,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
-								//autoExpandColumn: 'email',
 								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
 								height: 200,
 								title:'Lista de Roles',
 								border: true,
 								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
+
+												delay: 10 
 								}
 						}],
 						buttons:[{
 								  text : 'Aceptar',
+								  iconCls: 'accept',
 								  handler : function(){
-										/**/
 										if(Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selRolResp").getSelectionModel().getSelected();
 											Ext.getCmp("co_rol_padre").setValue(record.data.co_rol_resp);
@@ -350,6 +361,7 @@ Ext.onReady(function(){
 								  }
 							   },{
 								  text : 'Cancelar',
+								  iconCls: 'cancel',
 								  handler : function(){
 											winRolResp.hide();
 								  }
@@ -358,13 +370,17 @@ Ext.onReady(function(){
 		}
 		winRolResp.show();	
 }
+/******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 	
 storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_rol").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -374,10 +390,17 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
+
+/******************************************TRIGGERS*******************************************/
+
 var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerRolResp.onTriggerClick = selRolResp;
 		triggerRolResp.applyToMarkup('co_rol_padre');	
+		
+/******************************************FIN**TRIGGERS*******************************************/
+
 });
 
 </script>
@@ -396,7 +419,6 @@ var triggerRolResp = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
   </table>
 <div id="winRolResp" class="x-hidden">
     <div class="x-window-header">Ejegir Rol Padre</div>
-	
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +37,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -52,8 +54,12 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
 	var camposReq = new Array(10);
-	
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -61,8 +67,10 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-    var storePersona = new Ext.data.JsonStore({
+
+/******************************************INICIO**StorePersona******************************************/     
+      
+      var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
@@ -91,8 +99,13 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storePersona.setDefaultSort('co_indicador', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StorePersona*****************************************/
+
+
+
+/******************************************INICIO**colModelPersona******************************************/     
+
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
@@ -113,8 +126,12 @@ Ext.onReady(function(){
         {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
         {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
-      
       ]);
+      
+/******************************************FIN****colModelPersona******************************************/     
+
+
+/******************************************INICIO**StoreUsuario******************************************/     
    
   var storeUsuario = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_usuario.php',
@@ -131,8 +148,12 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeUsuario.setDefaultSort('co_usuario', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreUsuario*****************************************/
+
+
+/******************************************INICIO**colModelUsuario******************************************/     
+    
     var colModelUsuario = new Ext.grid.ColumnModel([
         {id:'co_usuario',header: "Usuario", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_usuario'},
         {header: "Privilegio", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
@@ -144,11 +165,12 @@ Ext.onReady(function(){
 	
 	     
 
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelUsuario******************************************/     
 
-		
+
+
+/******************************************INICIO**StoreCliente******************************************/     
+   
     var gridForm = new Ext.FormPanel({
         id: 'frm_usuario',
         frame: true,
@@ -192,8 +214,6 @@ Ext.onReady(function(){
 						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
-                        //hidden: true,
-						//hideLabel: true,
                         width:140,
                         listeners:{
                         	change: function(t, newVal, oldVal){
@@ -226,7 +246,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -238,7 +257,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Usuario',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -289,7 +309,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete',
 			tooltip:'Eliminar Usuario',
 			disabled: true,
 			handler: function(){
@@ -324,7 +345,8 @@ Ext.onReady(function(){
 				id: 'gd_usuario',
                 store: storeUsuario,
                 cm: colModelUsuario,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -335,7 +357,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Usuario',
                 border: true,
                 listeners: {
@@ -348,7 +369,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -356,6 +376,7 @@ Ext.onReady(function(){
         
     });
 
+/******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
 
 function selPersona(){
@@ -377,24 +398,18 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
 								}),
-								//autoExpandColumn: 'email',
 								loadMask: true,
-								/*plugins: filtersCond,
-								bbar: pagingBarCond,*/
 								height: 200,
 								title:'Lista de Persona',
 								border: true,
 								listeners: {
-												/*render: function(g) {
-													g.getSelectionModel().selectRow(0);
-												},*/
-												delay: 10 // Allow rows to be rendered.
+												delay: 10
 								}
 						}],
 						buttons:[{
 								  text : 'Aceptar',
+								  iconCls: 'accept',
 								  handler : function(){
-										/**/
 										if(Ext.getCmp("gd_selPersona").getSelectionModel().getSelected()){
 											var record = Ext.getCmp("gd_selPersona").getSelectionModel().getSelected();
 											Ext.getCmp("co_indicador").setValue(record.data.co_indicador);
@@ -404,6 +419,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								  }
 							   },{
 								  text : 'Cancelar',
+								  iconCls: 'cancel',
 								  handler : function(){
 											winPersona.hide();
 								  }
@@ -412,13 +428,18 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 		}
 		winPersona.show();	
 }
+/******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 	
 storeUsuario.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_usuario.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_usuario").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -429,11 +450,18 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
+
+
+/******************************************TRIGGERS*******************************************/
 
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
 		triggerPersona.applyToMarkup('co_indicador');
+		
+/******************************************FIN**TRIGGERS*******************************************/
+
 });
 
 </script>
@@ -452,7 +480,6 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
   </table>
 <div id="winPersona" class="x-hidden">
     <div class="x-window-header">Ejegir Persona</div>
-	
 </div>
 </body>
 </html>

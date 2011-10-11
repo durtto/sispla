@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -48,14 +48,19 @@
  * http://www.extjs.com/license
  */
  var nuevo;
- var winServicio;
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -63,9 +68,9 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-	  
-      
+
+/******************************************INICIO**StoreNecesidad******************************************/     
+
   var storeNecesidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_necesidad.php',
 		remoteSort : true,
@@ -82,8 +87,12 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeNecesidad.setDefaultSort('co_necesidad', 'ASC');
+    
+/*****************************************FIN****StoreNecesidad*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/******************************************INICIO**colModelNecesidad******************************************/     
+
     var colModelNecesidad = new Ext.grid.ColumnModel([
         {id:'co_necesidad',header: "Necesidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_necesidad'},
         {header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
@@ -93,14 +102,13 @@ Ext.onReady(function(){
         {header: "Beneficio", width: 400, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
         {header: "Annio Actual", width: 100, sortable: true, locked:false, dataIndex: 'fe_annio'},
       ]);
+      
+/******************************************FIN****colModelNecesidad******************************************/     
+
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 	
-		 
-
-/*
- *    Here is where we create the Form
- */
-
-		
     var gridForm = new Ext.FormPanel({
         id: 'frm_necesidad',
         frame: true,
@@ -120,8 +128,8 @@ Ext.onReady(function(){
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
+					labelWidth:80,
+					columnWidth:.40,
 					border:false,
 					items: [{
                         fieldLabel: 'Numero Necesidad',
@@ -130,20 +138,14 @@ Ext.onReady(function(){
                         name: 'co_necesidad',
                         hidden:true,
                         hideLabel:true,
-                        width:140
-                    },GetCombo('co_servicio', 'Servicio'),{
-                        fieldLabel: 'Fecha Actual',
-						xtype:'datefield',
-						id: 'fe_annio',
-                        name: 'fe_annio',
-                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
+                        width:100
+                    	},GetCombo('co_servicio', 'Servicio')
+                    	]
 				},{
 					layout: 'form',
 					border:false,
-					columnWidth:.45,
-					labelWidth:100,
+					columnWidth:.30,
+					labelWidth:80,
 					items: [new Ext.ux.form.SpinnerField({
 			                xtype: 'spinnerfield',
 			            	fieldLabel: 'Cantidad Requerida',
@@ -157,6 +159,19 @@ Ext.onReady(function(){
 			            	accelerate: true,
 			            	width:60
 							})]
+			},{
+					layout: 'form',
+					border:false,
+					columnWidth:.30,
+					labelWidth:80,
+					items: [{
+                        fieldLabel: 'Fecha Actual',
+						xtype:'datefield',
+						id: 'fe_annio',
+                        name: 'fe_annio',
+                        style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:100
+                    }]
 			},{
 					layout: 'form',
 					border:false,
@@ -209,7 +224,6 @@ Ext.onReady(function(){
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
-					//nroReg=storeGrupo.getCount();
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
@@ -221,7 +235,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Necesidad',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -276,7 +291,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Necesidad',
 			disabled: true,
 			handler: function(){
@@ -311,7 +327,8 @@ Ext.onReady(function(){
 				id: 'gd_necesidad',
                 store: storeNecesidad,
                 cm: colModelNecesidad,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -322,7 +339,6 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Necesidad',
                 border: true,
                 listeners: {
@@ -335,7 +351,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -349,10 +364,14 @@ Ext.onReady(function(){
 	
 storeNecesidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_necesidad.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_necesidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -362,6 +381,7 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
 
 });
@@ -380,9 +400,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winServicio" class="x-hidden">
-    <div class="x-window-header">Ejegir Servicio</div>
-	
-</div>
 </body>
 </html>

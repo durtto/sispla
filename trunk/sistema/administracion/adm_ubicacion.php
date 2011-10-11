@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -46,25 +46,59 @@
  */
  var nuevo;
   var winUbicacion;
-   var winTpUbicacion;
+  var winTpUbicacion;
+   
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	var camposReq = new Array(10);
-	camposReq['nb_ubicacion'] = 'Nombre';
 	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
-        local:  '../jsonp/grid-filter.json',  // static data file
-        remote: '../jsonp/grid-filter.php'
+       local:  '../jsonp/grid-filter.json',  // static data file
+       remote: '../jsonp/grid-filter.php'
     };
-    //var encode = false;
-    // configure whether filtering is performed locally or remotely (initially)
     var local = true;
+
+
+/******************************************INICIO**StoreUbicacion******************************************/     
 	
+  var storeTpUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_ubicacion.php',
+		remoteSort : true,
+		root: 'tpubicaciones',
+        totalProperty: 'total',
+		idProperty: 'co_tipo_ubicacion',
+        fields: [{name: 'co_tipo_ubicacion'},
+        		{name: 'nb_tipo_ubicacion'},
+				{name: 'resp'}]
+        });
+    storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
+    
+/*****************************************FIN****StoreTpUbicacion*****************************************/
+
+
+
+/******************************************INICIO**colModelTpUbicacion******************************************/     
+    
+    var colModelTpUbicacion = new Ext.grid.ColumnModel([
+        {id:'co_tipo_ubicacion',header: "Grupo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
+        {header: "Nombre", width: 375, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
+      ]);
+	
+/******************************************FIN****colModelTpUbicacion******************************************/     
+
+
+/******************************************INICIO**StoreUbicacion******************************************/     
+
   var storeUbicacion = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_ubicacion.php',
 		remoteSort : true,
@@ -79,6 +113,11 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeUbicacion.setDefaultSort('co_ubicacion', 'ASC');
+    
+/*****************************************FIN****StoreUbicacion*****************************************/
+
+
+/******************************************INICIO**colModelUbicacion******************************************/     
 	
 	
     var colModelUbicacion = new Ext.grid.ColumnModel([
@@ -87,8 +126,13 @@ Ext.onReady(function(){
         {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
         {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
         {header: "Tipo Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
-
         ]);
+        
+/******************************************FIN****colModelUbicacion******************************************/     
+
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
     var gridForm = new Ext.FormPanel({
         id: 'frm_ubicacion',
@@ -146,8 +190,6 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_ubicacion_padre',
                         name: 'co_ubicacion_padre',
-                        //hidden: true,
-						//hideLabel: true,
 						width:121
                     
 				},{
@@ -183,7 +225,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			iconCls: 'save',
+			tooltip:'Guardar Ubicacion',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -237,6 +280,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
+			iconCls: 'delete',
 			tooltip:'Eliminar Ubicacion',
 			disabled: true,
 			handler: function(){
@@ -271,7 +315,9 @@ Ext.onReady(function(){
 				id: 'gd_ubicacion',
                 store: storeUbicacion,
                 cm: colModelUbicacion,
-			//	plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -281,13 +327,17 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				//width:670,
+                tbar:[{
+			            text:'Agregar Tipo de Ubicacion',
+			            tooltip:'Agregar Tipo de Ubicacion',
+			            handler: AgregarTpUbicacion,
+			            iconCls:'add'
+			        }],
 				title:'Ubicaciones',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeUbicacion,
@@ -295,7 +345,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -303,6 +352,7 @@ Ext.onReady(function(){
         
     });
 
+/******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
 	function selUbicacion(){
 	storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
@@ -339,6 +389,7 @@ Ext.onReady(function(){
 						}],
 						buttons:[{
 								  text : 'Aceptar',
+								  iconCls: 'accept',
 								  handler : function(){
 										/**/
 										if(Ext.getCmp("gd_selUbicacion").getSelectionModel().getSelected()){
@@ -349,6 +400,7 @@ Ext.onReady(function(){
 								  }
 							   },{
 								  text : 'Cancelar',
+								  iconCls: 'cancel',
 								  handler : function(){
 											winUbicacion.hide();
 								  }
@@ -357,13 +409,240 @@ Ext.onReady(function(){
 		}
 		winUbicacion.show();	
 }
-	
+
+	function AgregarTpUbicacion(){
+	if(!winTpUbicacion){
+				winTpUbicacion = new Ext.Window({
+						applyTo : 'winTpUbicacion',
+						layout : 'fit',
+						width : 420,
+						height : 450,
+						closeAction :'hide',
+						plain : true,
+						items : [new Ext.FormPanel({
+				        id: 'frm_grupo',
+				        frame: true,
+						labelAlign: 'center',
+				        title: 'Tipo Ubicacion',
+				        bodyStyle:'padding:5px 5px 5px 5px',
+						width:400,
+						items: [{
+					   		xtype:'fieldset',
+							id: 'frm1',
+							disabled: true,
+							labelAlign: 'center',
+							width:380,
+							buttonAlign:'center',
+							title: 'Tipo Ubicacion',
+				            bodyStyle:'padding:5px 5px 0px 5px',
+							items:[{
+									layout: 'form',
+									labelWidth:140,
+									border:false,
+									items: [{
+				                        fieldLabel: 'Numero de Tipo',
+										xtype:'numberfield',
+										id: 'co_tipo_ubicacion',
+				                        name: 'co_tipo_ubicacion',
+				                        hidden: true,
+										hideLabel: true,
+				                        width:160
+				                    },{
+				                        fieldLabel: 'Nombre',
+										xtype:'textfield',
+										vtype:'validos',
+										id: 'nb_tipo_ubicacion',
+				                        name: 'nb_tipo_ubicacion',
+				                        allowBlank:false,
+										style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+				                        width:160,
+				                        listeners:{
+				                        	change: function(t, newVal, oldVal){
+				                        		t.setValue(newVal.toUpperCase())
+				                        	}
+				                        }
+				                    }]
+							}]
+			},{
+				width: 380,  
+				buttonAlign:'center',
+				layout: 'fit', 	
+				buttons: [{
+			text: 'Nuevo', 
+			tooltip:'',
+			handler: function(){
+					nuevo = true;
+					Ext.getCmp("btnGuardar").enable();
+					Ext.getCmp("btnEliminar").enable();
+					if(Ext.getCmp("frm1").disabled){
+						Ext.getCmp("frm1").enable();
+					}
+					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+					Ext.getCmp("co_tipo_ubicacion").focus();
+				}
+			},{
+			text: 'Guardar', 
+			id: 'btnGuardar',
+			tooltip:'Guardar Tipo de Ubicacion',
+			iconCls: 'save',
+			disabled: true,
+			waitMsg: 'Saving...',
+			handler: function(){
+						var campos='';
+						var camposForm = Ext.getCmp("frm_grupo").getForm().getValues(false);	
+						campos = verifObligatorios(camposForm, camposReq);
+						if(campos != ''){		
+							Ext.MessageBox.show({
+								title: 'ATENCION',
+								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
+								buttons: Ext.MessageBox.OK,
+								icon: Ext.MessageBox.WARNING
+							});
+						}
+						else
+						{
+							if(nuevo)						
+								storeTpUbicacion.baseParams = {'accion': 'insertar'};
+							else
+								storeTpUbicacion.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'", ';
+							columnas += '"nb_tipo_ubicacion" : "'+Ext.getCmp("nb_tipo_ubicacion").getValue()+'"}';
+							storeTpUbicacion.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
+										callback: function () {
+										if(storeTpUbicacion.getAt(0).data.resp!=true){		
+											Ext.MessageBox.show({
+												title: 'ERROR',
+												msg: storeTpUbicacion.getAt(0).data.resp, 
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.ERROR
+											});						
+										}
+										else{
+											
+											Ext.MessageBox.show({
+												title: 'INFORMACION',
+												msg: "Datos Guardados con exito",
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.INFO
+											});
+										}
+							}});
+							storeTpUbicacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_ubicacion.php'};
+						}
+				}
+			},{
+			id: 'btnEliminar',
+			text: 'Eliminar', 
+			iconCls: 'delete',
+			tooltip:'Eliminar Tipo Ubicacion',
+			disabled: true,
+			handler: function(){
+										storeTpUbicacion.baseParams = {'accion': 'eliminar'};
+										storeTpUbicacion.load({params:{
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
+										callback: function () {
+										if(storeTpUbicacion.getAt(0).data.resp!=true){		
+											Ext.MessageBox.show({
+												title: 'ERROR',
+												msg: storeTpUbicacion.getAt(0).data.resp,
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.ERROR
+											});						
+										}
+										else{
+											
+											Ext.MessageBox.show({
+												title: 'INFORMACION',
+												msg: "Datos Guardados con exito",
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.INFO
+											});
+										}
+							}})}
+			}]
+			},{
+			width:380,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_tpubicacion',
+                store: storeTpUbicacion,
+                cm: colModelTpUbicacion,
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_grupo").getForm().loadRecord(rec);
+                        }
+                    }
+                }),
+                height: 250,
+				//width:670,
+				title:'Lista de TpUbicacion',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                    }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeTpUbicacion,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }]
+			
+		}],
+        
+    })],
+						buttons:[{
+								  text : 'Aceptar',
+								  iconCls: 'accept',
+								  handler : function(){
+											winTpUbicacion.hide();
+storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
+
+								  }
+							   },{
+								  text : 'Cancelar',
+								  iconCls: 'cancel',
+								  handler : function(){
+											winTpUbicacion.hide();
+								  }
+						}]
+				});
+		}
+		winTpUbicacion.show();	
+storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
+	Ext.getCmp("gd_tpubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+		nuevo = false;
+		Ext.getCmp("btnGuardar").enable();
+		Ext.getCmp("btnEliminar").enable();
+		if(Ext.getCmp("frm1").disabled){
+			Ext.getCmp("frm1").enable();
+		}
+		Ext.getCmp("co_tipo_ubicacion").focus();
+		nroReg=rowIdx;
+		
+});
+
+
+}
+/******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
+storeTpUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_ubicacion.php"}});
 storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 	Ext.getCmp("gd_ubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
@@ -373,11 +652,17 @@ gridForm.render('form');
 		nroReg=rowIdx;
 		
 });
+
 /********************************************************************************************************/
+
+/******************************************TRIGGERS*******************************************/
+
 var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerUbicacion.onTriggerClick = selUbicacion;
 		triggerUbicacion.applyToMarkup('co_ubicacion_padre');	
 	
+/******************************************FIN**TRIGGERS*******************************************/
+
 });
 </script>
 </head>
@@ -395,8 +680,9 @@ var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-
   </table>
 <div id="winUbicacion" class="x-hidden">
     <div class="x-window-header">Ejegir Rol Padre</div>
-	
 </div>
-
+        <div id="winTpUbicacion" class="x-hidden">
+    <div class="x-window-header">Registrar Tipo Ubicacion</div>
+</div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -92,26 +92,8 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storePersona.setDefaultSort('co_indicador', 'ASC');
-	 /*** Filtros para la tabla de seleccion del grid ***/
-	var filters = new Ext.ux.grid.GridFilters ({
-	  filters:[
-	    {type: 'string',  dataIndex: 'co_indicador'},
-	    {type: 'numeric',  dataIndex: 'nu_cedula'},
-	    {type: 'string',  dataIndex: 'nb_persona'},
-	    {type: 'string',  dataIndex: 'tx_apellido'},
-	    {type: 'string',  dataIndex: 'di_oficina'},
-	    {type: 'numeric',  dataIndex: 'tx_telefono_oficina'},
-	    {type: 'string',  dataIndex: 'tx_correo_electronico'},
-	    {type: 'string',  dataIndex: 'di_habitacion'},
-	    {type: 'numeric',  dataIndex: 'tx_telefono_habitacion'},
-	    {type: 'numeric',  dataIndex: 'tx_telefono_personal'},
-	    {type: 'string',  dataIndex: 'nb_departamento'},
-	    {type: 'string',  dataIndex: 'nb_rol'},
-	    {type: 'string',  dataIndex: 'nb_rol_resp'},
-		{type: 'string',  dataIndex: 'nb_grupo'},
-		{type: 'string', dataIndex: 'nb_guardia'},
-	]});
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+
+//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
@@ -246,7 +228,6 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Oficina',
 						xtype:'numberfield',
-						vtype:'phone',
 						id: 'tx_telefono_oficina',
                         name: 'tx_telefono_oficina',
                         allowBlank:false,
@@ -269,7 +250,6 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Habitacion',
 						xtype:'numberfield',
-						vtype:'phone',
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
                         allowBlank:false,
@@ -279,7 +259,6 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Personal',
 						xtype:'numberfield',
-						vtype:'phone',
 						id: 'tx_telefono_personal',
                         name: 'tx_telefono_personal',
                         allowBlank:false,
@@ -310,7 +289,8 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'',
+			tooltip:'Guardar Persona',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -373,7 +353,8 @@ Ext.onReady(function(){
 				}
 			},{
 			id: 'btnEliminar',
-			text: 'Eliminar', 
+			text: 'Eliminar',
+			iconCls: 'delete', 
 			tooltip:'Eliminar Persona',
 			disabled: true,
 			handler: function(){
@@ -408,7 +389,8 @@ Ext.onReady(function(){
 				id: 'gd_indicador',
                 store: storePersona,
                 cm: colModelPersona,
-				plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
@@ -432,7 +414,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				plugins: [filters]
 				})
             }]
 			

@@ -99,13 +99,59 @@ class Transporte extends MyPDO
    */
   public function cargarTransporte() {
 
-	$query = "SELECT *
-				FROM tr021_transporte;";
+	$query = "SELECT 
+  *
+FROM 
+  public.tr021_transporte;";
 
 	$r = $this->pdo->_query($query);
 	
 			
 	return $r;
   } // end of member function cargarTransporte
+
+
+
+
+
+  public function cargarTransporteVehiculo() {
+
+	$query = "SELECT 
+  tr021_transporte.co_transporte, 
+  tr021_transporte.fe_elaboracion, 
+  tr020_vehiculo_empresa.tx_placa, 
+  tr020_vehiculo_empresa.tx_marca, 
+  tr020_vehiculo_empresa.tx_unidad, 
+  tr020_vehiculo_empresa.tx_modelo
+FROM 
+  public.tr020_vehiculo_empresa, 
+  public.tr021_transporte, 
+  public.tr040_rel_transporte_vehiculo_empresa
+WHERE 
+  tr021_transporte.co_transporte = tr040_rel_transporte_vehiculo_empresa.co_transporte AND
+  tr040_rel_transporte_vehiculo_empresa.co_vehiculo = tr020_vehiculo_empresa.co_vehiculo;";
+
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
+  
+  
+  public function insertarTransporteVehiculo($transporte) {
+  	
+	$this->pdo->beginTransaction();	
+
+	$transporte = array_intersect_key($transporte, $this->columTransporte);
+	
+	$r1 = $this->pdo->_insert('tr040_rel_transporte_vehiculo_empresa', $transporte);
+	
+	if($r1)
+			{$this->pdo->commit(); return true;}
+	else		
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
+  
+  } // end of member function insertarTransporte
+  
 }
 ?>
