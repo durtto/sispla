@@ -39,6 +39,7 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
 	
+<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css" />
 
 	
 <script type="text/javascript">
@@ -222,14 +223,48 @@ Ext.onReady(function(){
                         hideLabel:true,
                         width:157
                     },GetCombo('co_activo','Activo'),{
-                        fieldLabel: 'MTD',
-						xtype:'datefield',
-						id: 'fe_mtd',
-                        name: 'fe_mtd',
-                        format:'Y-m-d', 
-                        allowBlank: false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:157
+                        xtype: 'compositefield',
+                        fieldLabel: 'MTD (D-H-M)',
+						id: "fe_mtd",
+                        combineErrors: false,
+                        items: [
+                           new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'mtd_dias',
+			            	id: 'mtd_dias',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+                           new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'mtd_horas',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	id: 'mtd_horas',
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+							new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'mtd_minutos',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	id:'mtd_minutos',
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+                        ]
                     },{
 	            		xtype: 'checkbox',
 	            		fieldLabel: 'Esquema Interno',
@@ -256,14 +291,48 @@ Ext.onReady(function(){
 			                {boxLabel: 'BAJA', name: 'prioridad', inputValue: 0},
 			           			]
                     },{
-                        fieldLabel: 'RTO',
-						xtype:'datefield',
-						id: 'fe_rto',
-                        name: 'fe_rto',
-                        format:'H:i:s',
-                        allowBlank: false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        xtype: 'compositefield',
+                        fieldLabel: 'RTO (D-H-M)',
+                        id: "fe_rto",
+                        combineErrors: false,
+                        items: [
+                           new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'dias',
+			            	id:'dias',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+                           new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'horas',
+			            	id: 'horas',
+			            	minValue: 0,
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+							new Ext.ux.form.SpinnerField({
+			                xtype: 'spinnerfield',
+			            	name: 'minutos',
+			            	minValue: 0,
+			            	id: 'minutos',
+			            	maxValue: 100,
+			            	allowDecimals: false,
+			            	decimalPrecision: 1,
+			            	incrementValue: 1,
+			            	accelerate: true,
+			            	width:50
+							}),
+                        ]
                     },{
 	            		xtype: 'checkbox',
 	            		fieldLabel: 'Esuema Externo',
@@ -290,7 +359,6 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("fe_mtd").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -319,8 +387,8 @@ Ext.onReady(function(){
 								storeContinuidad.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'", ';
 								columnas += '"bo_prioridad_rec" : "'+Ext.getCmp("bo_prioridad_rec").getValue()+'", ';
-								columnas += '"fe_mtd" : "'+convFecha(Ext.getCmp("fe_mtd").getValue())+'", ';
-								columnas += '"fe_rto" : "'+convFecha(Ext.getCmp("fe_rto").getValue())+'", ';
+								columnas += '"fe_mtd" : "'+Ext.getCmp("fe_mtd").getValue()+'", ';
+								columnas += '"fe_rto" : "'+Ext.getCmp("fe_rto").getValue()+'", ';
 								columnas += '"bo_esquema_alterno_interno" : "'+Ext.getCmp("bo_esquema_alterno_interno").getValue()+'", ';
 								columnas += '"bo_esquema_alterno_externo" : "'+Ext.getCmp("bo_esquema_alterno_externo").getValue()+'", ';
 								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}';
@@ -437,7 +505,6 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("fe_mtd").focus();
 		nroReg=rowIdx;
 		
 });

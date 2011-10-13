@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -38,6 +38,9 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	
+
+	
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -48,7 +51,17 @@
  var nuevo;
 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -56,6 +69,87 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreActivo******************************************/     
+      
+  var storeActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_activo.php',
+		remoteSort : true,
+		root: 'activos',
+        totalProperty: 'total',
+		idProperty: 'co_activo',
+        fields: [{name: 'co_activo'},
+				{name: 'nb_activo'},
+				{name: 'tx_descripcion'},
+				{name: 'co_sap'},
+				{name: 'nu_serial'},
+				{name: 'nu_etiqueta'},
+				{name: 'bo_critico'},
+				{name: 'bo_vulnerable'},
+				{name: 'fe_incorporacion'},
+				{name: 'nu_vida_util'},
+				{name: 'co_activo_padre'},
+				{name: 'co_estado'},
+				{name: 'nb_estado'},
+				{name: 'co_fabricante'},
+				{name: 'nb_fabricante'},
+				{name: 'co_indicador'},
+				{name: 'nb_persona'},
+				{name: 'co_ubicacion'},
+				{name: 'nb_ubicacion'},
+				{name: 'co_proceso'},
+				{name: 'nb_proceso'},
+				{name: 'co_proveedor'},
+				{name: 'nb_proveedor'},
+				{name: 'co_unidad'},
+				{name: 'nb_unidad'},
+				{name: 'co_nivel'},
+				{name: 'nb_nivel'},
+		        {name: 'resp'}]
+        });
+    storeActivo.setDefaultSort('co_activo', 'ASC');
+    
+/*****************************************FIN****StoreActivo*****************************************/
+
+
+/******************************************INICIO**colModelActivo******************************************/     
+
+    var colModelActivo = new Ext.grid.ColumnModel([
+        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
+      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
+      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
+      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
+      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
+      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
+      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
+      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
+      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
+      	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
+      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
+      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
+      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
+      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
+      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
+      	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
+      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
+        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
+      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
+      ]);
+		
+/******************************************FIN****colModelActivo******************************************/     
+
+
+
+/******************************************INICIO**StoreContinuidad******************************************/     
+      
   var storeContinuidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_continuidad.php',
 		remoteSort : true,
@@ -73,10 +167,14 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeContinuidad.setDefaultSort('co_continuidad', 'ASC');
+    
+/*****************************************FIN****StoreContinuidad*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/******************************************INICIO**colModelcontinuidad******************************************/     
+	
     var colModelContinuidad = new Ext.grid.ColumnModel([
-        {id:'co_continuidad',header: "Continuidad", width: 100, sortable: true, locked:false, dataIndex: 'co_continuidad'},
+        {id:'co_continuidad',header: "Continuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_continuidad'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Prioridad", width: 100, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
         {header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd'},      
@@ -86,63 +184,39 @@ Ext.onReady(function(){
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         
       ]);
-	
-		 function interno(bo_esquema_alterno_interno) {
-        if (bo_esquema_alterno_interno == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_interno == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_interno;
-    	}
-		function externo(bo_esquema_alterno_externo) {
-        if (bo_esquema_alterno_externo == 'SI') {
-            return '<span style="color:green;">' + 'SI' + '</span>';
-        } else if (bo_esquema_alterno_externo == 'NO') {
-            return '<span style="color:gray;">' + 'NO' + '</span>';
-        }
-        return bo_esquema_alterno_externo;
-    	}
-    	function prioridad(bo_prioridad_rec) {
-        if (bo_prioridad_rec == 'ALTA') {
-            return '<span style="color:red;">' + 'ALTA' + '</span>';
-        } else if (bo_prioridad_rec == 'BAJA') {
-            return '<span style="color:green;">' + 'BAJA' + '</span>';
-        }
-        return bo_prioridad_rec;
-    	}
+      
+/******************************************FIN****colModelContinuidad******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
-        id: 'reporte_continuidad',
+        id: 'frm_continuidad',
         frame: true,
 		labelAlign: 'center',
         title: 'Continuidad',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_continuidad',
                 store: storeContinuidad,
                 cm: colModelContinuidad,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_continuidad").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_continuidad").getForm().loadRecord(rec);
                         }
                         
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Continuidad',
                 border: true,
                 listeners: {
@@ -155,7 +229,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -168,11 +241,12 @@ Ext.onReady(function(){
 	
 storeContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_continuidad.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_continuidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		
-});
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
+	
 /********************************************************************************************************/
 
 });

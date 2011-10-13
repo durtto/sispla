@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -44,9 +44,20 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
+	var nuevo;
+
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -54,7 +65,37 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreTpRespaldo******************************************/     
+  
+  var storeTpRespaldo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_respaldo.php',
+		remoteSort : true,
+		root: 'tprespaldos',
+        totalProperty: 'total',
+		idProperty: 'co_tipo_respaldo',
+        fields: [{name: 'co_tipo_respaldo'},
+		        {name: 'nb_tipo_respaldo'},
+		        {name: 'resp'}]
+        });
+    storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
+    
+/*****************************************FIN****StoreTpRespaldo*****************************************/
+
+
+
+/******************************************INICIO**colModelTpRespaldo******************************************/     
    
+    var colModeltpRespaldo = new Ext.grid.ColumnModel([
+        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
+        {header: "Nombre", width: 375, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
+      ]);
+	
+/******************************************FIN****colModelTpRespaldo******************************************/     
+
+
+/******************************************INICIO**StoreRespaldo******************************************/     
+
   var storeRespaldo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_respaldo.php',
 		remoteSort : true,
@@ -75,10 +116,14 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeRespaldo.setDefaultSort('co_respaldo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreRespaldo*****************************************/
+
+
+/******************************************INICIO**colModelRespaldo******************************************/     
+    
     var colModelRespaldo = new Ext.grid.ColumnModel([
-        {id:'co_respaldo',header: "Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'co_respaldo'},
+        {id:'co_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_respaldo'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Veces por dia", width: 100, sortable: true, locked:false, dataIndex: 'nu_veces_al_dia'},
         {header: "Dias de semana", width: 100, sortable: true, locked:false, dataIndex: 'tx_dias_semana'},      
@@ -89,40 +134,31 @@ Ext.onReady(function(){
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Respaldo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
         {header: "Tipo Respaldo", width: 100, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
-
       ]);
 	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelRespaldo******************************************/     
 
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
-        id: 'reporte_respaldo',
+        id: 'frm_respaldo',
         frame: true,
 		labelAlign: 'center',
         title: 'Respaldo',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_respaldo',
                 store: storeRespaldo,
                 cm: colModelRespaldo,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_respaldo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 height: 250,
-				//width:670,
 				title:'Lista de Respaldo',
                 border: true,
                 listeners: {
@@ -135,21 +171,16 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
 		}],
         
     });
-	
 storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_respaldo.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_respaldo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-});
-/********************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 

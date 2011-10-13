@@ -4,6 +4,8 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
+
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -46,7 +48,17 @@
  var nuevo;
    
 Ext.onReady(function(){
+	Ext.QuickTips.init();
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	
+	var nroReg;
+	
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+	
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -55,6 +67,8 @@ Ext.onReady(function(){
     };
     var local = true;
 
+/******************************************INICIO**StoreActivo******************************************/     
+      
   var storeActivo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
@@ -91,23 +105,27 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_activo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreActivo*****************************************/
+
+
+/******************************************INICIO**colModelActivo******************************************/     
+
     var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 80, sortable: true, locked:false, dataIndex: 'co_activo'},
+        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
      	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
       	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: acritico},
+      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
       	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
       	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
       	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
+      	{header: "Fabricante1", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
       	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
       	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
       	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
@@ -120,56 +138,42 @@ Ext.onReady(function(){
         {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
       	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel'},       
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
       ]);
-	function vulnerable(bo_vulnerable) {
-        if (bo_vulnerable == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_vulnerable == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_vulnerable;
-    	}
-	function acritico(bo_critico) {
-        if (bo_critico == 'SI') {
-            return '<span style="color:red;">' + 'SI' + '</span>';
-        } else if (bo_critico == 'NO') {
-            return '<span style="color:green;">' + 'NO' + '</span>';
-        }
-        return bo_critico;
-    	}
-
-/*
- *    Here is where we create the Form
- */
-
 		
+/******************************************FIN****colModelActivo******************************************/     
+
+
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
     var gridForm = new Ext.FormPanel({
-        id: 'reporte_activo',
+        id: 'frm_activo',
         frame: true,
 		labelAlign: 'center',
         title: 'Activo',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_activo',
                 store: storeActivo,
                 cm: colModelActivo,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_activo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
                         }
                         
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Activo',
                 border: true,
                 listeners: {
@@ -182,7 +186,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -190,20 +193,13 @@ Ext.onReady(function(){
         
     });
 
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
+storeActivo.load({params: { start: 0, limit: 50, accion:"critico", interfaz: "../interfaz/interfaz_activo.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_activo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
-		nroReg=rowIdx;
-		
-});
-/********************************************************************************************************/
 
-			
-});
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
+
+});
 
 </script>
 </head>
@@ -219,8 +215,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
-
-
 </body>
 </html>

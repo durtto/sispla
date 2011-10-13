@@ -29,7 +29,7 @@ class Cliente extends MyPDO
    * 
    * @access public
    */
-  public $columCliente= array('co_cliente'=>'co_cliente', 'co_indicador'=>'co_indicador', 'co_activo'=>'co_activo');
+  public $columCliente= array('co_cliente'=>'co_cliente', 'co_indicador'=>'co_indicador', 'co_proceso'=>'co_proceso');
   
   /**
    * 
@@ -104,18 +104,35 @@ class Cliente extends MyPDO
   public function cargarCliente( ) {
 
 	$query = "SELECT 
-  tr052_cliente.co_cliente, 
-  tr052_cliente.co_indicador, 
-  tr052_cliente.co_activo, 
-  tr027_activo.nb_activo, 
-  tr010_persona.nb_persona
+  *
 FROM 
-  public.tr010_persona, 
-  public.tr027_activo, 
-  public.tr052_cliente
+  public.tr052_cliente;
+";
+
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  } // end of member function cargarCliente
+  
+  
+    public function cargarClienteProceso( ) {
+
+	$query = "SELECT 
+  tr010_persona.nb_persona, 
+  tr010_persona.tx_apellido, 
+  tr010_persona.di_oficina, 
+  tr010_persona.tx_telefono_oficina, 
+  tr016_proceso.nb_proceso, 
+  tr016_proceso.tx_descripcion, 
+  tr016_proceso.bo_critico
+FROM 
+  public.tr052_cliente, 
+  public.tr016_proceso, 
+  public.tr010_persona
 WHERE 
   tr052_cliente.co_indicador = tr010_persona.co_indicador AND
-  tr052_cliente.co_activo = tr027_activo.co_activo;
+  tr052_cliente.co_proceso = tr016_proceso.co_proceso;
 ";
 
 	$r = $this->pdo->_query($query);

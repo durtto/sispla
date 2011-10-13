@@ -47,8 +47,7 @@
  */
 
  var nuevo;
- var winActivo;
- var winPersona;
+  var winPersona;
  
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -133,81 +132,36 @@ Ext.onReady(function(){
 /******************************************FIN****colModelPersona******************************************/     
 
 
-/******************************************INICIO**StoreActivo******************************************/     
-      
-  var storeActivo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_activo.php',
+/******************************************INICIO**StoreProceso******************************************/     
+	
+  var storeProceso = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_proceso.php',
 		remoteSort : true,
-		root: 'activos',
+		root: 'procesos',
         totalProperty: 'total',
-		idProperty: 'co_activo',
-        fields: [{name: 'co_activo'},
-				{name: 'nb_activo'},
-				{name: 'tx_descripcion'},
-				{name: 'co_sap'},
-				{name: 'nu_serial'},
-				{name: 'nu_etiqueta'},
-				{name: 'bo_critico'},
-				{name: 'bo_vulnerable'},
-				{name: 'fe_incorporacion'},
-				{name: 'nu_vida_util'},
-				{name: 'co_activo_padre'},
-				{name: 'co_estado'},
-				{name: 'nb_estado'},
-				{name: 'co_fabricante'},
-				{name: 'nb_fabricante'},
-				{name: 'co_indicador'},
-				{name: 'nb_persona'},
-				{name: 'co_ubicacion'},
-				{name: 'nb_ubicacion'},
-				{name: 'co_proceso'},
-				{name: 'nb_proceso'},
-				{name: 'co_proveedor'},
-				{name: 'nb_proveedor'},
-				{name: 'co_unidad'},
-				{name: 'nb_unidad'},
-				{name: 'co_nivel'},
-				{name: 'nb_nivel'},
+		idProperty: 'co_proceso',
+        fields: [{name: 'co_proceso'},
+		        {name: 'nb_proceso'},
+		        {name: 'tx_descripcion'},
+		        {name: 'bo_critico'},
 		        {name: 'resp'}]
         });
-    storeActivo.setDefaultSort('co_activo', 'ASC');
+    storeProceso.setDefaultSort('co_proceso', 'ASC');
     
-/*****************************************FIN****StoreActivo*****************************************/
+/*****************************************FIN****StoreProceso*****************************************/
 
 
-/******************************************INICIO**colModelActivo******************************************/     
 
-    var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
-      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
-      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
-      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
-      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
-      	{header: "Fabricante", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
-      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
-      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
-      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
-      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
+/******************************************INICIO**colModelProceso******************************************/     
+    
+    var colModelProceso = new Ext.grid.ColumnModel([
+        {id:'co_proceso',header: "Proceso", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proceso'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
+        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
       ]);
-		
-/******************************************FIN****colModelActivo******************************************/     
+      
+/******************************************FIN****colModelProceso*****************************************/     
 
 
 
@@ -220,8 +174,8 @@ Ext.onReady(function(){
         totalProperty: 'total',
 		idProperty: 'co_cliente',
         fields: [{name: 'co_cliente'},
-		        {name: 'co_activo'},
-        		{name: 'nb_activo'},
+		        {name: 'co_proceso'},
+        		{name: 'nb_proceso'},
 		        {name: 'co_indicador'},
         		{name: 'nb_persona'},
 		        {name: 'resp'}]
@@ -235,8 +189,8 @@ Ext.onReady(function(){
 
 	    var colModelCliente = new Ext.grid.ColumnModel([
         {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
-        {header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {header: "Proceso", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_proceso'},
+        {header: "Proceso", width: 200, sortable: true, locked:false, dataIndex: 'nb_proceso'},
         {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
       ]);
@@ -278,37 +232,14 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:120
-                    },{
-                        fieldLabel: 'Activo',
-						xtype:'numberfield',
-						id: 'co_activo',
-                        name: 'co_activo',
-                        hidden: true,
-						hideLabel: true,
-                        width:120
-                    },{
-                        fieldLabel: 'Activo',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_activo',
-						allowBlank:false,
-						disabled:true,
-                        name: 'nb_activo',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
+                    },GetCombo("co_proceso", "Proceso")]
 				},{
 					layout: 'form',
 					labelWidth:130,
 					columnWidth:.45,
 					border:false,
 					items: [{
-                        fieldLabel: 'Activo',
+                        fieldLabel: 'Persona',
 						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
@@ -376,7 +307,7 @@ Ext.onReady(function(){
 							else
 								storeCliente.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_cliente" : "'+Ext.getCmp("co_cliente").getValue()+'", ';
-								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'", ';
+								columnas += '"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
 								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
 							storeCliente.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_cliente" : "'+Ext.getCmp("co_cliente").getValue()+'"}', 
@@ -474,53 +405,6 @@ Ext.onReady(function(){
     
 /******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
-function selActivo(){
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_activo.php"}});
-	if(!winActivo){
-				winActivo = new Ext.Window({
-						applyTo : 'winActivo',
-						layout : 'fit',
-						width : 550,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [{
-								xtype: 'grid',
-								id: 'gd_selActivo',
-								store: storeActivo,
-								cm: colModelActivo,
-								sm: new Ext.grid.RowSelectionModel({
-									singleSelect: true
-								}),
-								loadMask: true,
-								height: 200,
-								title:'Lista de Activo',
-								border: true,
-								listeners: {
-												delay: 10
-								}
-						}],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-										if(Ext.getCmp("gd_selActivo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_selActivo").getSelectionModel().getSelected();
-											Ext.getCmp("co_activo").setValue(record.data.co_activo);
-											Ext.getCmp("nb_activo").setValue(record.data.nb_activo);
-											winActivo.hide();
-										}
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winActivo.hide();
-								  }
-						}]
-				});
-		}
-		winActivo.show();	
-}
-
 function selPersona(){
 storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "'../interfaz/interfaz_persona.php"}});
 	if(!winPersona){
@@ -595,9 +479,6 @@ gridForm.render('form');
 
 /******************************************TRIGGERS*******************************************/
 
-var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerActivo.onTriggerClick = selActivo;
-		triggerActivo.applyToMarkup('nb_activo');
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
 		triggerPersona.applyToMarkup('nb_persona');
@@ -620,9 +501,6 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Activo</div>
-</div>
 <div id="winPersona" class="x-hidden">
     <div class="x-window-header">Ejegir Persona</div>
 </div>
