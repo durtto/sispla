@@ -302,6 +302,7 @@ Ext.onReady(function(){
 				id: 'gd_directorio',
                 store: storeDirectorio,
                 cm: colModelDirectorio,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {

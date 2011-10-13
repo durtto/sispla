@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -46,14 +46,25 @@
  */
  var nuevo;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
-	var bd = Ext.getBody();
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
+    var bd = Ext.getBody();
 
 	var url = {
        local:  '../jsonp/grid-filter.json',  // static data file
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreProveedor******************************************/     
 	
   var storeProveedor = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_proveedor.php',
@@ -69,54 +80,58 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeProveedor.setDefaultSort('co_proveedor', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreProveedor*****************************************/
+
+
+
+/******************************************INICIO**colModelProveedor******************************************/     
+   
     var colModelProveedor = new Ext.grid.ColumnModel([
-        {id:'co_proveedor',header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'co_proveedor'},
+        {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
         {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         {header: "Pagina Web", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelProveedor******************************************/     
+
+
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 		
     var gridForm = new Ext.FormPanel({
-        id: 'reporte_proveedor',
+        id: 'frm_proveedor',
         frame: true,
 		labelAlign: 'center',
         title: 'Proveedores',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_proveedor',
                 store: storeProveedor,
                 cm: colModelProveedor,
-			//plugins: [filters],
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_proveedor").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_proveedor").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
-				//width:670,
 				title:'Lista de Proveedors',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeProveedor,
@@ -124,7 +139,6 @@ Ext.onReady(function(){
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
@@ -137,7 +151,11 @@ Ext.onReady(function(){
 	
 storeProveedor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_proveedor.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
+
+/****************************************************************************************************/
 	Ext.getCmp("gd_proveedor").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		//if(usrRol.indexOf('Administrador') >= 0)
@@ -155,6 +173,7 @@ gridForm.render('form');
 });
 
 </script>
+
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
 <div id="loading-mask" style=""></div>
@@ -168,6 +187,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

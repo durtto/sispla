@@ -1,10 +1,10 @@
 <html>
 <head>
-<title>Vehiculo</title>
+<title>Responsabilidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -45,7 +45,19 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+  var winRolResp;
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -53,97 +65,95 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
-/**************************/StoreVehiculo/**************************/
-	
-  var storeVehiculo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_vehiculo.php',
-		remoteSort : true,
-		root: 'vehiculos',
-        totalProperty: 'total',
-		idProperty: 'co_vehiculo',
-        fields: [{name: 'co_vehiculo'},
-		        {name: 'tx_placa'},
-		        {name: 'tx_marca'},
-		        {name: 'tx_modelo'},
-		        {name: 'tx_unidad'},
-		        {name: 'resp'}]
-        });
-    storeVehiculo.setDefaultSort('co_vehiculo', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelVehiculo = new Ext.grid.ColumnModel([
-        {id:'co_vehiculo',header: "Vehiculo", width: 100, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
-        {header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'tx_placa'},
-		{header: "Marca", width: 100, sortable: true, locked:false, dataIndex: 'tx_marca'},        
-		{header: "Modelo", width: 180, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-		{header: "Unidad", width: 159, sortable: true, locked:false, dataIndex: 'tx_unidad'},
-      ]);
-/*******************************************************************/	
-	
-/*
- *    Here is where we create the Form
- */
 
-		
+/******************************************INICIO**StoreRolResp******************************************/     
+
+  var storeRolResp = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_rol_responsabilidad.php',
+		remoteSort : true,
+		root: 'rolresponsabilidades',
+        totalProperty: 'total',
+		idProperty: 'co_rol_resp',
+        fields: [{name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        		{name: 'tx_descripcion'},
+        		{name: 'co_rol_padre'},
+        		{name: 'resp'}]
+        });
+    storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
+    
+/*****************************************FIN****StoreRolResp*****************************************/
+
+
+
+/******************************************INICIO**colModelRolResp******************************************/     
+	
+	
+    var colModelRolResp = new Ext.grid.ColumnModel([
+        {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
+        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: showDescription},
+        {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
+        ]);
+	
+/******************************************FIN****colModelRolResp******************************************/     
+
+   function showDescription(tx_descripcion,descripcion){  
+   descripcion = 'style="white-space:normal"';  
+   return tx_descripcion;  
+   }  
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
     var gridForm = new Ext.FormPanel({
-        id: 'reporte_vehiculo',
+        id: 'frm_rol',
         frame: true,
 		labelAlign: 'center',
-        title: 'Vehiculos',
+        title: 'Roles',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_vehiculo',
-                store: storeVehiculo,
-                cm: colModelVehiculo,
-			//plugins: [filters],
+				id: 'gd_rol',
+                store: storeRolResp,
+                cm: colModelRolResp,
+                stripeRows: true,
+                iconCls: 'icon-grid',
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_vehiculo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_rol").getForm().loadRecord(rec);
                         }
                     }
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Vehiculos',
+				title:'Roles',
                 border: true,
                 listeners: {
                     viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
+                    }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeVehiculo,
+				store: storeRolResp,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
 				})
             }]
 			
 		}],
         
     });
-
-
-	
-	
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_vehiculo.php"}});
+storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_vehiculo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		nroReg=rowIdx;
-		
-});
-/********************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
+
 
 });
 
@@ -161,6 +171,5 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>
