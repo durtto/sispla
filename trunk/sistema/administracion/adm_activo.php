@@ -517,6 +517,7 @@ Ext.onReady(function(){
                 height: 250,
 				title:'Lista de Activo',
                 border: true,
+                //tools: [{id:'save'},{id:'print'}],
                 listeners: {
                     viewready: function(g) {
                                           }
