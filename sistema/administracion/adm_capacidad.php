@@ -73,6 +73,7 @@ Ext.onReady(function(){
 		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
+        baseParams: {start:0, limit:10, accion: "refrescar", interfaz: '../interfaz/interfaz_capacidad.php'},
         fields: [{name: 'co_capacidad'},
         		{name: 'nb_capacidad'},		
         		{name: 'resp'}]
@@ -270,7 +271,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeCapacidad,
-				pageSize: 50,
+				pageSize: 10,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -284,7 +285,7 @@ Ext.onReady(function(){
 
 	
 	
-storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
+storeCapacidad.load({params: { start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

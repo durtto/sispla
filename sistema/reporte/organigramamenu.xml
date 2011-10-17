@@ -1,0 +1,36 @@
+<authors>
+
+	<author first="Todo" gender="" titulo="Todo">
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+	</author>
+	
+	<author first="Necesarios" gender="" titulo="Necesarios">
+		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
+	</author>
+	
+	<author first="Activo" gender="" titulo="Activo">
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	</author>
+	
+	
+	<author first="Personal" gender="" titulo="Personal">
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	
+	
+	<author first="Planes" gender="" titulo="Planes">
+		<book title="Vehiculo" titulo="Vehiculo" url="administracion/adm_vehiculo.php"></book>
+	
+	
+	
+	<author first="Continuidad" gender="" titulo="Continuidad">
+		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
+	
+	
+	<author first="Capacidad" gender="" titulo="Capacidad">
+		<book title="Valor Caracteristica" titulo="Valor" url="administracion/adm_valor_caracteristica.php"></book>
+	</author>
+	</author>
+	</author>	
+	</author>	
+</authors>

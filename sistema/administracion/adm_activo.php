@@ -38,6 +38,10 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	
+	
+		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/paging.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1

@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		root: 'tpactivos',
         totalProperty: 'total',
 		idProperty: 'co_tipo_activo',
+		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
         fields: [{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'co_categoria'},
@@ -283,7 +284,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeTipoActivo,
-				pageSize: 50,
+				pageSize: 10,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -295,7 +296,7 @@ Ext.onReady(function(){
     });
 
 
-storeTipoActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
+storeTipoActivo.load({params: { start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

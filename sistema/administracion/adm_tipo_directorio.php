@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'tpdirectorios',
         totalProperty: 'total',
+        baseParams: {start:0, limit:5, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_directorio.php'},
 		idProperty: 'co_tipo_directorio',
         fields: [{name: 'co_tipo_directorio'},
 		        {name: 'nb_tipo_directorio'},
@@ -87,7 +88,7 @@ Ext.onReady(function(){
     
     var colModeltpDirectorio = new Ext.grid.ColumnModel([
         {id:'co_tipo_directorio',header: "Directorio", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {header: "Nombre", width: 400, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
       ]);
 	
 /******************************************FIN****colModelTpDirectorio******************************************/     
@@ -267,7 +268,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeTpDirectorio,
-				pageSize: 50,
+				pageSize: 5,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -281,7 +282,7 @@ Ext.onReady(function(){
 
 	
 	
-storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
+storeTpDirectorio.load({params: { start: 0, limit: 5, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
