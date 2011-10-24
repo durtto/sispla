@@ -285,7 +285,7 @@ Ext.onReady(function(){
 
 	
 	
-storeCapacidad.load({params: { start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
+storeCapacidad.load({params:{start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

@@ -100,12 +100,11 @@ class Capacidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarCapacidad( ) {
+  public function cargarCapacidad($start='0', $limit='ALL', $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr012_capacidad;
-";
-
+                FROM tr012_capacidad";
+	$query .= "	LIMIT ".$limit." OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			
