@@ -103,7 +103,7 @@ class Caracteristica extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarCaracteristica( ) {
+  public function cargarCaracteristica($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr030_caracteristica.co_caracteristica, 
@@ -114,8 +114,12 @@ FROM
   public.tr030_caracteristica, 
   public.tr029_modelo
 WHERE 
-  tr030_caracteristica.co_modelo = tr029_modelo.co_modelo;";
-
+  tr030_caracteristica.co_modelo = tr029_modelo.co_modelo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

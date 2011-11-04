@@ -5,28 +5,21 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
 <link rel="stylesheet" type="text/css" href="../css/botones.css">
-
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
  	<script type="text/javascript" src="../lib/ext-3.2.1/adapter/ext/ext-base.js"></script>
  	<!-- ENDLIBS -->
-
     <script type="text/javascript" src="../lib/ext-3.2.1/ext-all.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/shared/extjs/App.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowEditor.js"></script>
     <!-- overrides to base library -->
-
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/GridFilters.css" />
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/RangeMenu.css" />
-
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/shared/icons/silk.css" />
 	<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/RowEditor.css" />
-
-
     <!-- extensions para los filtros -->
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
-
 	<script type="text/javascript" src="../js/ext-lang-es.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
@@ -34,14 +27,9 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/StringFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
-
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
-	
-	
-		<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/paging.js"></script>
-
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -53,16 +41,15 @@
  var winActivo;
  var winPersona;
 
-   
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	
 	var nroReg;
-	
+
 /******************************************CAMPOS REQUERIDOS******************************************/     	
-	
+
 	var camposReq = new Array(10);
 
 /*****************************************************************************************************/     
@@ -76,7 +63,7 @@ Ext.onReady(function(){
     var local = true;
 
 /******************************************INICIO**StorePersona******************************************/     
-      
+
       var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
@@ -110,7 +97,6 @@ Ext.onReady(function(){
 /*****************************************FIN****StorePersona*****************************************/
 
 
-
 /******************************************INICIO**colModelPersona******************************************/     
 
     var colModelPersona = new Ext.grid.ColumnModel([
@@ -134,12 +120,12 @@ Ext.onReady(function(){
       	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
         {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
       ]);
-      
+
 /******************************************FIN****colModelPersona******************************************/     
 
 
 /******************************************INICIO**StoreActivo******************************************/     
-      
+
   var storeActivo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
@@ -173,10 +159,12 @@ Ext.onReady(function(){
 				{name: 'nb_unidad'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
+				{name: 'co_tipo_activo'},
+		        {name: 'nb_tipo_activo'},
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_activo', 'ASC');
-    
+
 /*****************************************FIN****StoreActivo*****************************************/
 
 
@@ -210,11 +198,12 @@ Ext.onReady(function(){
       	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
+        {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+
       ]);
-		
+
 /******************************************FIN****colModelActivo******************************************/     
-
-
 
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
@@ -310,7 +299,8 @@ Ext.onReady(function(){
                     },
                     GetCombo('co_estado','Estado'),
                     GetCombo('co_proceso','Proceso'),
-                    GetCombo('co_unidad','Unidad')]
+                    GetCombo('co_unidad','Unidad'),
+                    GetCombo('co_tipo_activo','Tipo Activo')]
 				},{
 					layout: 'form',
 					border:false,
@@ -443,6 +433,7 @@ Ext.onReady(function(){
 								columnas += '"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
 								columnas += '"co_unidad" : "'+Ext.getCmp("co_unidad").getValue()+'", ';
+								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
 								columnas += '"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}';
 							storeActivo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
@@ -649,6 +640,7 @@ gridForm.render('form');
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 /****************************************************************************************************/
+
 	Ext.getCmp("gd_activo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
@@ -657,8 +649,7 @@ gridForm.render('form');
 		}
 		Ext.getCmp("co_activo").focus();
 		nroReg=rowIdx;
-		
-});
+		});
 
 /********************************************************************************************************/
 
@@ -668,15 +659,14 @@ gridForm.render('form');
 var triggerActivo = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerActivo.onTriggerClick = selActivo;
 		triggerActivo.applyToMarkup('co_activo_padre');
-		
+
 var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
 		triggerPersona.onTriggerClick = selPersona;
 		triggerPersona.applyToMarkup('co_indicador');
 
 /******************************************FIN**TRIGGERS*******************************************/
-			
-});
 
+});
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
@@ -694,7 +684,6 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
 	<div id="winActivo" class="x-hidden">
     <div class="x-window-header">Ejegir Activo</div>
 	</div>
-	
 	<div id="winPersona" class="x-hidden">
     <div class="x-window-header">Ejegir Persona</div>
 	</div>

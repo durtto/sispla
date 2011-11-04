@@ -110,12 +110,15 @@ class Garantia extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarGarantia( ) {
+  public function cargarGarantia($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr032_garantia;
-";
-
+                FROM tr032_garantia";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

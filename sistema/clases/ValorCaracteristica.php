@@ -97,22 +97,26 @@ class Valor extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarValor() {
+  public function cargarValor($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr031_valor_caracteristica.co_activo, 
-  tr027_activo.nb_activo, 
-  tr031_valor_caracteristica.co_caracteristica, 
-  tr030_caracteristica.nb_caracteristica, 
-  tr031_valor_caracteristica.nu_valor
-FROM 
-  public.tr027_activo, 
-  public.tr031_valor_caracteristica, 
-  public.tr030_caracteristica
-WHERE 
-  tr031_valor_caracteristica.co_activo = tr027_activo.co_activo AND
-  tr031_valor_caracteristica.co_caracteristica = tr030_caracteristica.co_caracteristica;";
-
+	  tr031_valor_caracteristica.co_activo, 
+	  tr027_activo.nb_activo, 
+	  tr031_valor_caracteristica.co_caracteristica, 
+	  tr030_caracteristica.nb_caracteristica, 
+	  tr031_valor_caracteristica.nu_valor
+	FROM 
+	  public.tr027_activo, 
+	  public.tr031_valor_caracteristica, 
+	  public.tr030_caracteristica
+	WHERE 
+	  tr031_valor_caracteristica.co_activo = tr027_activo.co_activo AND
+	  tr031_valor_caracteristica.co_caracteristica = tr030_caracteristica.co_caracteristica";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -188,13 +188,14 @@ Ext.onReady(function(){
 
 	
 /******************************************INICIO**colModelTransporte******************************************/     
-    
+    var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_transporte'},
+        {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
         {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
-        {header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
-		{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-		{header: "Unidad", width: 160, sortable: true, locked:false, dataIndex: 'tx_unidad'},
+        //{header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
+		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
+		//{header: "Unidad", width: 160, sortable: true, locked:false, dataIndex: 'tx_unidad'},
+      sm3,
       ]);
 	
 /******************************************FIN****colModelTransporte******************************************/     
@@ -230,8 +231,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_transporte',
                         name: 'co_transporte',
-                        hidden: true,
-						hideLabel: true,
+                       // hidden: true,
+						//hideLabel: true,
                         width:120
                     }, {
                         fieldLabel: 'Fecha de Elaboracion',
@@ -242,6 +243,14 @@ Ext.onReady(function(){
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:120
+                    },{
+                        fieldLabel: 'Numero de Transporte',
+						xtype:'numberfield',
+						id: 'co_vehiculo',
+                        name: 'co_vehiculo',
+                        //hidden: true,
+						//hideLabel: true,
+                        width:120
                     }]
 			}]
 			},{
@@ -249,13 +258,12 @@ Ext.onReady(function(){
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
-			text: 'Nuevo', 
+			text: 'Nuevo',
+			iconCls: 'add', 
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnlinea").enable();
-					Ext.getCmp("btnvehiculo").enable();
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
@@ -268,6 +276,7 @@ Ext.onReady(function(){
 			id: 'btnGuardar',
 			tooltip:'',
 			disabled: true,
+			iconCls: 'save',
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
@@ -289,7 +298,9 @@ Ext.onReady(function(){
 								storeTransporte.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							storeTransporte.load({params:{"columnas" : columnas,
+							var vehiculos   = '{"co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'", ';
+							vehiculos += '"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}';
+							storeTransporte.load({params:{"columnas" : columnas, "vehiculos": vehiculos,
 												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
@@ -319,6 +330,7 @@ Ext.onReady(function(){
 			text: 'Eliminar', 
 			tooltip:'Eliminar Grupo',
 			disabled: true,
+			iconCls: 'delete',
 			handler: function(){
 										storeTransporte.baseParams = {'accion': 'eliminar'};
 										storeTransporte.load({params:{
@@ -370,8 +382,12 @@ Ext.onReady(function(){
 			        }],
 	                border: true,
 	                listeners: {
-	                    viewready: function(g) {
-	                    }
+						handler : function(){
+										if(Ext.getCmp("gd_vehiculo").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_vehiculo").getSelectionModel().getSelected();
+											Ext.getCmp("co_vehiculo").setValue(record.data.co_vehiculo);
+										}
+								  }
 	                },
 					bbar: new Ext.PagingToolbar({
 					store: storeVehiculo,
@@ -406,6 +422,42 @@ Ext.onReady(function(){
 	                },
 					bbar: new Ext.PagingToolbar({
 					store: storeLinea,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
+	            }]
+			
+		},{
+					layout:'column',
+					border: true,
+					width:800,
+					items:[{
+					columnWidth:.50,
+					border:false,
+					width:398,
+					stripeRows: true,
+	                xtype: 'grid',
+					id: 'gd_transporte',
+	                store: storeTransporte,
+	                cm: colModelTransporte,
+					sm: sm3,
+	                height: 250,
+	                iconCls: 'icon-grid',
+	                //plugins: expanderVehiculo,
+					title:'Lista de Transporte',
+	                border: true,
+	                listeners: {
+						handler : function(){
+										if(Ext.getCmp("gd_transporte").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_transporte").getSelectionModel().getSelected();
+											Ext.getCmp("co_transporte").setValue(record.data.co_transporte);
+										}
+								  }
+	                },
+					bbar: new Ext.PagingToolbar({
+					store: storeTransporte,
 					pageSize: 50,
 					displayInfo: true,
 					displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -840,6 +892,8 @@ Ext.onReady(function(){
 		}
 		winLinea.show();	
 }
+
+
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 	
 	
@@ -854,17 +908,18 @@ gridForm.render('form');
 
 /****************************************************************************************************/
 	
-	Ext.getCmp("gd_vehiculo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+/*	Ext.getCmp("gd_transporte").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
+		Ext.getCmp("btnGuardarTV").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
 		Ext.getCmp("co_transporte").focus();
 		nroReg=rowIdx;
 		
-});
+});*/
 
 /********************************************************************************************************/
 

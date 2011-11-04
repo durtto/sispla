@@ -99,12 +99,15 @@ class TpDirectorio extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTpDirectorio() {
+  public function cargarTpDirectorio($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr050_tipo_directorio;
-";
-
+                FROM tr050_tipo_directorio";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

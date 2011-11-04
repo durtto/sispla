@@ -119,12 +119,15 @@ class Fabricante extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarFabricante( ) {
+  public function cargarFabricante($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr003_fabricante;
-";
-
+                FROM tr003_fabricante";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -100,11 +100,15 @@ class Capacidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarCapacidad($start='0', $limit='ALL', $dir = "ASC") {
+  public function cargarCapacidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
                 FROM tr012_capacidad";
-	$query .= "	LIMIT ".$limit." OFFSET ".$start;
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

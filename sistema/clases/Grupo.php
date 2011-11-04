@@ -99,12 +99,15 @@ class Grupo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarGrupo( ) {
+  public function cargarGrupo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr001_grupo;
-";
-
+                FROM tr001_grupo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

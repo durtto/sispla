@@ -94,11 +94,15 @@ class RolResponsabilidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarRolResponsabilidad() {
+  public function cargarRolResponsabilidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr002_rol_responsabilidad;";
-
+				FROM tr002_rol_responsabilidad";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

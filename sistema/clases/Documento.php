@@ -109,12 +109,15 @@ class Documento extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDocumento( ) {
+  public function cargarDocumento($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr048_documento;
-";
-
+                FROM tr048_documento";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -119,7 +119,7 @@ class Dato extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDato( ) {
+  public function cargarDato($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
 					tr015_datos_plan.co_componente, 
@@ -130,8 +130,12 @@ class Dato extends MyPDO
   					tr015_datos_plan.tx_localidad, 
   					tr015_datos_plan.tx_organizacion
 				FROM 
-  					public.tr015_datos_plan;";
-
+  					public.tr015_datos_plan";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

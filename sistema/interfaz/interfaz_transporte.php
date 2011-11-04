@@ -11,6 +11,7 @@
 	$transportes = array_filter($_REQUEST, "vacio");
 	//$filtro = str_replace('\"','"',$_REQUEST["filter"]);
 	//$filtros = json_decode($filtro, true);	
+	//$vehiculos = array_filter($_REQUEST, "vacio");
 	
 	switch($accion){
 		case 'refrescar':
@@ -18,7 +19,7 @@
 			$total = count($resultado);
 		break;
 		
-		case 'vehiculo':
+		case 'cargarvehiculo':
 			$resultado = $transporte->cargarTransporteVehiculo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 		break;
@@ -35,8 +36,13 @@
 			$transportes = json_decode($cond, true);
 			$transportes = array_filter($transportes, "vacio");
 
+			$con1 = $_REQUEST['vehiculos']; 	
+			$con1	= str_replace('\"','"',$con1);
+			$vehiculos = json_decode($con1, true);
+			$vehiculos = array_filter($vehiculos, "vacio");
 			
-			$respuesta = $transporte->insertarTransporte($transportes);	
+			$respuesta = $transporte->insertarTransporte($transportes, $vehiculos);	
+			
 			$resultado = $transporte->cargarTransporte($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
@@ -45,7 +51,8 @@
 				
 
 			break;
-		case 'actualizar':
+			
+			case 'actualizar':
 			
 			
 			$col = $_REQUEST['columnas']; 			
@@ -66,6 +73,7 @@
 			
 
 			break;
+			
 			/*$respuesta = $general->actualizarGeneral($columnas, $condiciones);		
 			$resultado = $general->cargarGeneral($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$tot = $general->contarGeneral();

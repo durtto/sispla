@@ -108,12 +108,15 @@ class Linea extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarLinea( ) {
+  public function cargarLinea($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr019_linea_taxi;
-";
-
+                FROM tr019_linea_taxi";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

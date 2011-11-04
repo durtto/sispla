@@ -110,12 +110,15 @@ class Falla extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarFalla( ) {
+  public function cargarFalla($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr028_falla;
-";
-
+                FROM tr028_falla";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

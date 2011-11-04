@@ -104,12 +104,15 @@ class Estado extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarEstado( ) {
+  public function cargarEstado($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr004_estado;
-";
-
+                FROM tr004_estado";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

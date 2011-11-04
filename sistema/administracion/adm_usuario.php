@@ -242,7 +242,8 @@ Ext.onReady(function(){
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
-			text: 'Nuevo', 
+			text: 'Nuevo',
+			iconCls: 'adduser',
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
@@ -310,7 +311,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar',
-			iconCls: 'delete',
+			iconCls: 'deleteuser',
 			tooltip:'Eliminar Usuario',
 			disabled: true,
 			handler: function(){

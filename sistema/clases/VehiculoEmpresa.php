@@ -109,11 +109,15 @@ class VehiculoEmpresa extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarVehiculo( ) {
+  public function cargarVehiculo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr020_vehiculo_empresa;";
-
+				FROM tr020_vehiculo_empresa";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

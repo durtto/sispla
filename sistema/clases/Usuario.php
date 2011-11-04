@@ -102,23 +102,26 @@ class Usuario extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarUsuario() {
+  public function cargarUsuario($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr047_usuario.co_usuario, 
-  tr047_usuario.co_indicador, 
-  tr022_privilegio_usuario.nb_privilegio, 
-  tr010_persona.nb_persona, 
-  tr010_persona.tx_apellido
-FROM 
-  public.tr047_usuario, 
-  public.tr010_persona, 
-  public.tr022_privilegio_usuario
-WHERE 
-  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
-  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio;
-";
-
+	  tr047_usuario.co_usuario, 
+	  tr047_usuario.co_indicador, 
+	  tr022_privilegio_usuario.nb_privilegio, 
+	  tr010_persona.nb_persona, 
+	  tr010_persona.tx_apellido
+	FROM 
+	  public.tr047_usuario, 
+	  public.tr010_persona, 
+	  public.tr022_privilegio_usuario
+	WHERE 
+	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
+	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -94,11 +94,15 @@ class TpUbicacion extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTpUbicacion() {
+  public function cargarTpUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr005_tipo_ubicacion;";
-
+				FROM tr005_tipo_ubicacion";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -23,3 +23,9 @@ body .x-panel {
         .add {
             background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/add.gif) !important;
         }
+        .adduser {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/user_add.gif) !important;
+        }
+       	.deleteuser {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/user_delete.png) !important;
+        }

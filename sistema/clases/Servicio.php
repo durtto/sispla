@@ -109,7 +109,7 @@ class Servicio extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarServicio() {
+  public function cargarServicio($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr013_servicio.co_servicio, 
@@ -122,9 +122,12 @@ FROM
   public.tr013_servicio, 
   public.tr012_capacidad
 WHERE 
-  tr013_servicio.co_capacidad = tr012_capacidad.co_capacidad;
-";
-
+  tr013_servicio.co_capacidad = tr012_capacidad.co_capacidad";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			
