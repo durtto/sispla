@@ -109,7 +109,7 @@ class Modelo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarModelo( ) {
+  public function cargarModelo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr029_modelo.co_modelo, 
@@ -120,10 +120,12 @@ FROM
   public.tr029_modelo, 
   public.tr014_tipo_activo
 WHERE 
-  tr029_modelo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;
-
-";
-
+  tr029_modelo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -182,7 +182,7 @@ class Persona extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarPersona() {
+  public function cargarPersona($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr010_persona.co_indicador, 
@@ -217,9 +217,12 @@ WHERE
   tr010_persona.co_rol = tr008_rol_persona.co_rol AND
   tr010_persona.co_rol_resp = tr002_rol_responsabilidad.co_rol_resp AND
   tr010_persona.co_grupo = tr001_grupo.co_grupo AND
-  tr010_persona.co_guardia = tr009_guardia.co_guardia;
-";
-
+  tr010_persona.co_guardia = tr009_guardia.co_guardia";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -113,11 +113,15 @@ class PlanLocalizacion extends MyPDO {
    * @return string
    * @access public
    */
-  public function cargarPlanLocalizacion() {
+  public function cargarPlanLocalizacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr036_plan_localizacion;";
-
+				FROM tr036_plan_localizacion";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

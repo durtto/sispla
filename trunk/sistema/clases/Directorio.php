@@ -105,7 +105,7 @@ class Directorio extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDirectorio( ) {
+  public function cargarDirectorio($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr051_directorio.co_directorio, 
@@ -117,8 +117,12 @@ FROM
   public.tr051_directorio, 
   public.tr050_tipo_directorio
 WHERE 
-  tr051_directorio.co_tipo_directorio = tr050_tipo_directorio.co_tipo_directorio;";
-
+  tr051_directorio.co_tipo_directorio = tr050_tipo_directorio.co_tipo_directorio";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

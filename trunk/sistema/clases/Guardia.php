@@ -109,12 +109,15 @@ class Guardia extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarGuardia( ) {
+  public function cargarGuardia($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr009_guardia;
-";
-
+                FROM tr009_guardia";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

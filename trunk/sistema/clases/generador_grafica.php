@@ -58,7 +58,18 @@ require_once 'Estado.php';
 	else{
 		switch($_REQUEST['base']){
 			case 1:
-				$query="SELECT nb_estado AS nombre,COUNT(co_control_doc) AS valor
+			$query="SELECT 
+			COUNT (a.co_nivel) AS valor
+			FROM 
+			  public.tr027_activo a,
+			  public.tr023_nivel_obsolescencia n
+			WHERE 
+			a.co_nivel = n.co_nivel AND
+			a.co_nivel = '$co_nivel'
+			GROUP BY a.co_nivel;";
+			$r = $this->pdo->_query($query);
+			return $r;
+				/*$query="SELECT nb_estado AS nombre,COUNT(co_control_doc) AS valor
 						FROM (SELECT co_control_doc,(SELECT ude2.co_estado 
 												FROM c006t_usr_doc_estado ude2,i005t_estado e2
 												WHERE fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin'
@@ -72,67 +83,26 @@ require_once 'Estado.php';
 								GROUP BY co_control_doc) d,i005t_estado e
 								WHERE d.co_estado=e.co_estado
 								GROUP BY e.co_estado
-								ORDER BY e.nu_orden";
+								ORDER BY e.nu_orden";*/
+								
+								
+								
+								
 			break;
 			case 2:
-				$query="SELECT nb_distrito AS nombre,COUNT(ude.co_control_doc) AS valor
-							FROM c006t_usr_doc_estado ude,i005t_estado e,c001t_documento d,i002t_distrito dis
-							WHERE ude.co_estado=e.co_estado AND ude.co_control_doc=d.co_control_doc
-							AND d.co_distrito=dis.co_distrito AND ude.co_estado=$estado_grafica
-							AND fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin' 
-							GROUP BY d.co_distrito
-							";
+
 			break;
 			case 3:
-				$query="SELECT nb_departamento AS nombre,COUNT(ude.co_control_doc) AS valor
-							FROM c006t_usr_doc_estado ude,i005t_estado e,c001t_documento d,i002t_distrito dis,i008t_departamento dep
-							WHERE ude.co_estado=e.co_estado AND ude.co_control_doc=d.co_control_doc
-							AND d.co_departamento=dep.co_departamento
-							AND d.co_distrito=dis.co_distrito AND ude.co_estado=$estado_grafica
-							AND fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin' 
-							GROUP BY d.co_departamento
-							ORDER BY valor DESC";
+
 			break;
 			case 4:
-				$query="SELECT nb_tipo_doc_graf AS nombre,COUNT(ude.co_control_doc) AS valor
-							FROM c006t_usr_doc_estado ude,i005t_estado e,c001t_documento d,i002t_distrito dis,
-							i008t_departamento dep,i006t_tipo_documento td
-							WHERE ude.co_estado=e.co_estado AND ude.co_control_doc=d.co_control_doc
-							AND d.co_departamento=dep.co_departamento
-							AND d.co_tipo_doc=td.co_tipo_doc
-							AND d.co_distrito=dis.co_distrito AND ude.co_estado=$estado_grafica
-							AND fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin' 
-							GROUP BY d.co_tipo_doc
-							";
+
 			break;
 			case 5:
-				$query="SELECT nb_prioridad AS nombre,COUNT(ude.co_control_doc) AS valor
-							FROM c006t_usr_doc_estado ude,i005t_estado e,c001t_documento d,i002t_distrito dis,
-							i008t_departamento dep,i006t_tipo_documento td,i007t_prioridad p
-							WHERE ude.co_estado=e.co_estado AND ude.co_control_doc=d.co_control_doc
-							AND d.co_departamento=dep.co_departamento
-							AND d.co_tipo_doc=td.co_tipo_doc
-							AND d.co_prioridad=p.co_prioridad
-							AND d.co_distrito=dis.co_distrito AND ude.co_estado=$estado_grafica
-							AND fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin' 
-							GROUP BY d.co_prioridad
-							";
+
 			break;
 			case 6:
-				$query="SELECT nb_distrito AS nombre,COUNT(doc.co_control_doc) AS valor
-						FROM (SELECT co_control_doc,(SELECT ude2.co_estado 
-																		FROM c006t_usr_doc_estado ude2,i005t_estado e2
-																		WHERE fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin'
-																		AND ude2.co_estado IN(1,2,3,4,5,9)
-																		AND ude.co_control_doc=ude2.co_control_doc
-																		AND ude2.co_estado=e2.co_estado
-																		ORDER BY ude2.fe_ho_cambio DESC,e2.nu_orden DESC
-																		LIMIT 1) AS co_estado
-														FROM c006t_usr_doc_estado ude
-														WHERE fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin'
-														GROUP BY co_control_doc) d,c001t_documento doc,i002t_distrito di
-						WHERE d.co_control_doc=doc.co_control_doc AND doc.co_distrito=di.co_distrito AND d.co_estado=$estado_grafica
-						GROUP BY doc.co_distrito";
+
 			break;
 		}
 		$result=mysql_query($query);

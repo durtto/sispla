@@ -112,7 +112,7 @@ class TpActivo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTpActivo() {
+  public function cargarTpActivo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   					tr014_tipo_activo.co_tipo_activo, 
@@ -128,7 +128,11 @@ class TpActivo extends MyPDO
 			WHERE 
   					tr014_tipo_activo.co_categoria = tr011_categoria.co_categoria AND
   					tr014_tipo_activo.co_servicio = tr013_servicio.co_servicio";
-
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

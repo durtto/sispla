@@ -120,7 +120,7 @@ class Respaldo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarRespaldo() {
+  public function cargarRespaldo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr039_respaldo.co_respaldo, 
@@ -140,8 +140,12 @@ FROM
   public.tr027_activo
 WHERE 
   tr039_respaldo.co_activo = tr027_activo.co_activo AND
-  tr039_respaldo.co_tipo_respaldo = tr034_tipo_respaldo.co_tipo_respaldo;";
-
+  tr039_respaldo.co_tipo_respaldo = tr034_tipo_respaldo.co_tipo_respaldo";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

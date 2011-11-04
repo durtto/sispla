@@ -110,7 +110,7 @@ class Crecimiento extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarCrecimiento( ) {
+  public function cargarCrecimiento($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr037_crecimiento.co_crecimiento, 
@@ -123,8 +123,12 @@ FROM
   public.tr037_crecimiento, 
   public.tr014_tipo_activo
 WHERE 
-  tr037_crecimiento.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;";
-
+  tr037_crecimiento.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

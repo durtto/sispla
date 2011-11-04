@@ -309,8 +309,8 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="left" ><img src="../imagenes/ARAUCA1.png" width="205" height="79"></td>
-    <td align="center"><img src="../imagenes/ARAUCA2.png" width="1205"  height="79"></td>
+    <td align="left" ><img src="../imagenes/ARAUCA1.png" width="200" height="79"></td>
+    <td align="center"><img src="../imagenes/ARAUCA2.png" width="1080"  height="79"></td>
 	
   </tr>
 </table>

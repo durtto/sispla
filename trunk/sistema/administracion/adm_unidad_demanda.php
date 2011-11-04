@@ -121,6 +121,14 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
+                        fieldLabel: 'Codigo del Activo',
+						xtype:'numberfield',
+						id: 'co_unidad',
+                        name: 'co_unidad',
+                        hidden:true,
+                        hideLabel:true,
+                        width:152
+                    },{
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
 						id: 'nb_unidad',

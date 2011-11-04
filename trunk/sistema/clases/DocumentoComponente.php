@@ -93,14 +93,18 @@ class DocComponente extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDocComponente( ) {
+  public function cargarDocComponente($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   					tr053_documento_componente.co_doc_componente, 
   					tr053_documento_componente.tx_url_direccion
 				FROM 
-  					public.tr053_documento_componente;";
-
+  					public.tr053_documento_componente";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

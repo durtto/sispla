@@ -118,7 +118,7 @@ class Alojamiento extends MyPDO
    * @return string
    * @access public
    */
- public function cargarAlojamiento() {
+ public function cargarAlojamiento($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
 	                tr017_alojamiento.co_alojamiento, 
@@ -138,7 +138,12 @@ class Alojamiento extends MyPDO
   					ELSE 'NO'
   					END AS bo_posada
 				FROM 
-  					public.tr017_alojamiento;";
+  					public.tr017_alojamiento";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;				
 	$r = $this->pdo->_query($query);
 	
 			

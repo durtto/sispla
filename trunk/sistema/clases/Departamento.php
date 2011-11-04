@@ -100,12 +100,15 @@ class Departamento extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarDepartamento( ) {
+  public function cargarDepartamento($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr007_departamento;
-";
-
+                FROM tr007_departamento";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

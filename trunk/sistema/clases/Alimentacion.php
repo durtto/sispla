@@ -113,11 +113,15 @@ class Alimentacion extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarAlimentacion( ) {
+  public function cargarAlimentacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr018_alimentacion;
-";
+                FROM tr018_alimentacion";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 
 	$r = $this->pdo->_query($query);
 	

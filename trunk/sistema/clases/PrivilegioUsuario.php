@@ -99,11 +99,15 @@ class PrivilegioUsuario extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarPrivilegioUsuario() {
+  public function cargarPrivilegioUsuario($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr022_privilegio_usuario;";
-
+				FROM tr022_privilegio_usuario";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

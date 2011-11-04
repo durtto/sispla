@@ -105,7 +105,7 @@ class NivelObsolescencia extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarNivelObsolescencia() {
+  public function cargarNivelObsolescencia($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr023_nivel_obsolescencia.co_nivel, 
@@ -117,8 +117,12 @@ CASE
    ELSE 'NO'
    END AS bo_obsoleto
 FROM 
-  public.tr023_nivel_obsolescencia;";
-
+  public.tr023_nivel_obsolescencia";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

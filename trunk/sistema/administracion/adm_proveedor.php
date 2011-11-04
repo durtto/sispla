@@ -78,12 +78,12 @@ Ext.onReady(function(){
         fields: [{name: 'co_proveedor'},
         		{name: 'nb_proveedor'},
         		{name: 'di_oficina'},
-        		{name: 'tx_telefono_oficina'},
+        		{name: 'tx_telefono'},
         		{name: 'tx_url_pagina'},
         		{name: 'co_contacto'},
         		{name: 'nb_contacto'},
 		        {name: 'tx_apellido'},
-		        //{name: 'di_oficina'},
+		        {name: 'di_oficina_contacto'},
 		        {name: 'tx_telefono_oficina'},
 		        {name: 'tx_correo_electronico'},
 		        {name: 'di_habitacion'},
@@ -112,7 +112,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
         {header: "Direccion", width: 150, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Telefono", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Telefono", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono'},
         {header: "Pagina Web", width: 150, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},	
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
@@ -138,7 +138,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         fields: [{name: 'co_contacto'},
 		        {name: 'nb_contacto'},
 		        {name: 'tx_apellido'},
-		        {name: 'di_oficina'},
+		        {name: 'di_oficina_contacto'},
 		        {name: 'tx_telefono_oficina'},
 		        {name: 'tx_correo_electronico'},
 		        {name: 'di_habitacion'},
@@ -159,7 +159,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina_contacto'},
 		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
         {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
@@ -202,8 +202,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 						id: 'co_proveedor',
                         name: 'co_proveedor',
                         allowBlank:false,
-                        hidden: true,
-						hideLabel: true,
+                        //hidden: true,
+						//hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',
@@ -242,9 +242,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 					items: [{
                         fieldLabel: 'Telefono',
 						xtype:'numberfield',
-						id: 'tx_telefono_oficina',
-                        name: 'tx_telefono_oficina',
-                        vtype:'phone',
+						id: 'tx_telefono',
+                        name: 'tx_telefono',
 						width:160
                     }, {
                         fieldLabel: 'Pagina Web',
@@ -255,6 +254,119 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160
+                    }]
+			}]
+			},{
+	   		xtype:'fieldset',
+			id: 'frm2',
+			disabled: true,
+			labelAlign: 'center',
+			width:800,
+			buttonAlign:'center',
+			layout:'column',
+			title: 'Contactos',
+			checkboxToggle:true,
+			collapsed: true,
+            bodyStyle:'padding:5px 5px 0px 5px',
+			items:[{
+					layout: 'form',
+					labelWidth:140,
+					columnWidth:.55,
+					border:false,
+					items: [{
+                        fieldLabel: 'Numero Contacto',
+						xtype:'numberfield',
+						id: 'co_contacto',
+                        name: 'co_contacto',
+                        hidden:true,
+                        hideLabel:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160
+                    },{
+                        fieldLabel: 'Nombre',
+						xtype:'textfield',
+						id: 'nb_contacto',
+                        name: 'nb_contacto',
+                        allowBlank:false,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Apellido',
+						xtype:'textfield',
+						id: 'tx_apellido',
+                        name: 'tx_apellido',
+                        allowBlank:false,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Correo Electronico',
+						xtype:'textfield',
+						id: 'tx_correo_electronico',
+                        name: 'tx_correo_electronico',
+                        allowBlank:false,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    	}]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Oficina',
+						xtype:'textfield',
+						id: 'di_oficina_contacto',
+                        name: 'di_oficina_contacto',
+                        allowBlank:false,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Telefono Oficina',
+						xtype:'numberfield',
+						id: 'tx_telefono_oficina',
+                        name: 'tx_telefono_oficina',
+                        allowBlank:false,
+                        width:160,
+                      
+                    },{
+                        fieldLabel: 'Habitacion',
+						xtype:'textfield',
+						id: 'di_habitacion',
+                        name: 'di_habitacion',
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:160,
+                        listeners:{
+                        	change: function(t, newVal, oldVal){
+                        		t.setValue(newVal.toUpperCase())
+                        	}
+                        }
+                    },{
+                        fieldLabel: 'Telefono Habitacion',
+						xtype:'numberfield',
+						id: 'tx_telefono_habitacion',
+                        name: 'tx_telefono_habitacion',
+                        width:160,
+                       
                     }]
 			}]
 			},{
@@ -270,6 +382,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 					Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
+						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_proveedor").focus();
@@ -302,7 +415,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 							var columnas   = '{"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
 							columnas += '"nb_proveedor" : "'+Ext.getCmp("nb_proveedor").getValue()+'", ';
 							columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'", ';
-							columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
+							columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
 							columnas += '"tx_url_pagina" : "'+Ext.getCmp("tx_url_pagina").getValue()+'"}';
 							storeProveedor.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}', 
@@ -326,8 +439,45 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 											});
 										}
 							}});
-							storeProveedor.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proveedor.php'};
+						if(frm2=true)						
+								storeContacto.baseParams = {'accion': 'insertar'};
+							else
+								storeContacto.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'", ';
+								columnas += '"nb_contacto" : "'+Ext.getCmp("nb_contacto").getValue()+'", ';
+								columnas += '"tx_apellido" : "'+Ext.getCmp("tx_apellido").getValue()+'", ';
+								columnas += '"di_oficina_contacto" : "'+Ext.getCmp("di_oficina_contacto").getValue()+'", ';
+								columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
+								columnas += '"tx_correo_electronico" : "'+Ext.getCmp("tx_correo_electronico").getValue()+'", ';
+								columnas += '"di_habitacion" : "'+Ext.getCmp("di_habitacion").getValue()+'", ';
+								columnas += '"tx_telefono_habitacion" : "'+Ext.getCmp("tx_telefono_habitacion").getValue()+'", ';
+								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}';
+							storeContacto.load({params:{"columnas" : columnas,
+												"condiciones": '{ "co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_contacto_proveedor.php"},
+										callback: function () {
+										if(storeContacto.getAt(0).data.resp!=true){		
+											Ext.MessageBox.show({
+												title: 'ERROR',
+												msg: storeContacto.getAt(0).data.resp, 
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.ERROR
+											});						
+										}
+										else{
+											
+											Ext.MessageBox.show({
+												title: 'INFORMACION',
+												msg: "Datos Guardados con exito",
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.INFO
+											});
+										}
+							}});
+
 						}
+						storeProveedor.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proveedor.php'};
+
 				}
 			},{
 			id: 'btnEliminar',
@@ -415,6 +565,7 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
+			Ext.getCmp("frm2").enable();
 		}
 		Ext.getCmp("co_proveedor").focus();
 		nroReg=rowIdx;

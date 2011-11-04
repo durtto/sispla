@@ -275,6 +275,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'adduser',
 			handler: function(){
 					nuevo = true;
 					//nroReg=storeGrupo.getCount();
@@ -354,7 +355,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar',
-			iconCls: 'delete', 
+			iconCls: 'deleteuser', 
 			tooltip:'Eliminar Persona',
 			disabled: true,
 			handler: function(){

@@ -191,8 +191,8 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'Oficina',
 						xtype:'textfield',
-						id: 'di_oficina',
-                        name: 'di_oficina',
+						id: 'di_oficina_contacto',
+                        name: 'di_oficina_contacto',
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:160,
@@ -204,8 +204,8 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Telefono Oficina',
 						xtype:'numberfield',
-						id: 'tx_telefono_oficina',
-                        name: 'tx_telefono_oficina',
+						id: 'tx_telefono_oficina_contacto',
+                        name: 'tx_telefono_oficina_contacto',
                         vtype:'phone',
                         allowBlank:false,
                         width:160,
@@ -277,8 +277,8 @@ Ext.onReady(function(){
 							var columnas   = '{"co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'", ';
 								columnas += '"nb_contacto" : "'+Ext.getCmp("nb_contacto").getValue()+'", ';
 								columnas += '"tx_apellido" : "'+Ext.getCmp("tx_apellido").getValue()+'", ';
-								columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'", ';
-								columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
+								columnas += '"di_oficina_contacto" : "'+Ext.getCmp("di_oficina_contacto").getValue()+'", ';
+								columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina_contacto").getValue()+'", ';
 								columnas += '"tx_correo_electronico" : "'+Ext.getCmp("tx_correo_electronico").getValue()+'", ';
 								columnas += '"di_habitacion" : "'+Ext.getCmp("di_habitacion").getValue()+'", ';
 								columnas += '"tx_telefono_habitacion" : "'+Ext.getCmp("tx_telefono_habitacion").getValue()+'", ';

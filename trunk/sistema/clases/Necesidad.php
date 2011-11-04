@@ -119,7 +119,7 @@ class Necesidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarNecesidad( ) {
+  public function cargarNecesidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr038_necesidad.co_necesidad, 
@@ -133,10 +133,12 @@ FROM
   public.tr038_necesidad, 
   public.tr013_servicio
 WHERE 
-  tr038_necesidad.co_servicio = tr013_servicio.co_servicio;
-
-";
-
+  tr038_necesidad.co_servicio = tr013_servicio.co_servicio";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

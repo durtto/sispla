@@ -100,11 +100,15 @@ class Unidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarUnidad() {
+  public function cargarUnidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr024_unidad_demanda;";
-
+				FROM tr024_unidad_demanda";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -116,25 +116,28 @@ FROM
   } // end of member function cargarCliente
   
   
-    public function cargarClienteProceso( ) {
+    public function cargarClienteProceso($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr010_persona.nb_persona, 
-  tr010_persona.tx_apellido, 
-  tr010_persona.di_oficina, 
-  tr010_persona.tx_telefono_oficina, 
-  tr016_proceso.nb_proceso, 
-  tr016_proceso.tx_descripcion, 
-  tr016_proceso.bo_critico
-FROM 
-  public.tr052_cliente, 
-  public.tr016_proceso, 
-  public.tr010_persona
-WHERE 
-  tr052_cliente.co_indicador = tr010_persona.co_indicador AND
-  tr052_cliente.co_proceso = tr016_proceso.co_proceso;
-";
-
+		  tr010_persona.nb_persona, 
+		  tr010_persona.tx_apellido, 
+		  tr010_persona.di_oficina, 
+		  tr010_persona.tx_telefono_oficina, 
+		  tr016_proceso.nb_proceso, 
+		  tr016_proceso.tx_descripcion, 
+		  tr016_proceso.bo_critico
+			FROM 
+		  public.tr052_cliente, 
+		  public.tr016_proceso, 
+		  public.tr010_persona
+			WHERE 
+		  tr052_cliente.co_indicador = tr010_persona.co_indicador AND
+		  tr052_cliente.co_proceso = tr016_proceso.co_proceso";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

@@ -89,11 +89,15 @@ class TpRespaldo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTpRespaldo() {
+  public function cargarTpRespaldo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr034_tipo_respaldo;";
-
+				FROM tr034_tipo_respaldo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

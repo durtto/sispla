@@ -104,7 +104,7 @@ class Proceso extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarProceso() {
+  public function cargarProceso($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   					tr016_proceso.co_proceso, 
@@ -116,11 +116,12 @@ class Proceso extends MyPDO
      			ELSE 'NO'
      			END AS bo_critico
 				FROM 
-  					public.tr016_proceso;";
-			/*$query = "SELECT 
-  					*
-				FROM 
-  					public.tr016_proceso;";*/
+  					public.tr016_proceso";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

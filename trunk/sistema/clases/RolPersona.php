@@ -99,11 +99,15 @@ class RolPersona extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarRolPersona() {
+  public function cargarRolPersona($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-				FROM tr008_rol_persona;";
-
+				FROM tr008_rol_persona";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

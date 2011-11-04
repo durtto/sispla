@@ -120,7 +120,7 @@ class Continuidad extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarContinuidad( ) {
+  public function cargarContinuidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
 			  	tr035_continuidad.co_continuidad, 
@@ -147,8 +147,12 @@ class Continuidad extends MyPDO
 			  	public.tr035_continuidad, 
 			  	public.tr027_activo
 			  WHERE 
-				tr035_continuidad.co_activo = tr027_activo.co_activo;";
-
+				tr035_continuidad.co_activo = tr027_activo.co_activo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			

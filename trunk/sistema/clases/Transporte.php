@@ -1,6 +1,6 @@
 <?php
 require_once 'MyPDO.php';
-
+require_once 'VehiculoEmpresa.php';
 
 
 /**
@@ -32,6 +32,7 @@ class Transporte extends MyPDO
    * @access public
    */
   public $columTransporte= array('co_transporte'=>'co_transporte', 'fe_elaboracion'=>'fe_elaboracion');
+  public $columTransporteVehiculo= array('co_transporte'=>'co_transporte', 'co_vehiculo'=>'co_vehiculo');
 
   /**
    * 
@@ -39,18 +40,26 @@ class Transporte extends MyPDO
    * @return string
    * @access public
    */
-  public function insertarTransporte($transporte) {
+  public function insertarTransporte($transporte, $vehiculos) {
   	
 	$this->pdo->beginTransaction();	
 
 	$transporte = array_intersect_key($transporte, $this->columTransporte);
 	
 	$r1 = $this->pdo->_insert('tr021_transporte', $transporte);
-	
-	if($r1)
+			
+	if(isset($vehiculos) && count($vehiculos)>0){
+	foreach($vehiculos as $vehiculo){
+			if(is_array($vehiculo)){
+				$vehiculo = array_intersect_key($vehiculo, $this->columTransporteVehiculo);
+				$r2 = $this->pdo->_insert('tr040_rel_transporte_vehiculo_empresa', $vehiculo); 
+				}
+			}
+    	}
+	if($r1==1 && $r2==1)
 			{$this->pdo->commit(); return true;}
 	else		
-			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; }
   
   } // end of member function insertarTransporte
 
@@ -97,13 +106,16 @@ class Transporte extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarTransporte() {
+  public function cargarTransporte($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
-	$query = "SELECT 
-  *
-FROM 
-  public.tr021_transporte;";
-
+	$query = "SELECT *
+	FROM 
+ 	public.tr021_transporte";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			
@@ -114,23 +126,27 @@ FROM
 
 
 
-  public function cargarTransporteVehiculo() {
+  public function cargarTransporteVehiculo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr021_transporte.co_transporte, 
-  tr021_transporte.fe_elaboracion, 
-  tr020_vehiculo_empresa.tx_placa, 
-  tr020_vehiculo_empresa.tx_marca, 
-  tr020_vehiculo_empresa.tx_unidad, 
-  tr020_vehiculo_empresa.tx_modelo
-FROM 
-  public.tr020_vehiculo_empresa, 
-  public.tr021_transporte, 
-  public.tr040_rel_transporte_vehiculo_empresa
-WHERE 
-  tr021_transporte.co_transporte = tr040_rel_transporte_vehiculo_empresa.co_transporte AND
-  tr040_rel_transporte_vehiculo_empresa.co_vehiculo = tr020_vehiculo_empresa.co_vehiculo;";
-
+	  tr021_transporte.co_transporte, 
+	  tr021_transporte.fe_elaboracion, 
+	  tr020_vehiculo_empresa.tx_placa, 
+	  tr020_vehiculo_empresa.tx_marca, 
+	  tr020_vehiculo_empresa.tx_unidad, 
+	  tr020_vehiculo_empresa.tx_modelo
+	FROM 
+	  public.tr020_vehiculo_empresa, 
+	  public.tr021_transporte, 
+	  public.tr040_rel_transporte_vehiculo_empresa
+	WHERE 
+	  tr021_transporte.co_transporte = tr040_rel_transporte_vehiculo_empresa.co_transporte AND
+	  tr040_rel_transporte_vehiculo_empresa.co_vehiculo = tr020_vehiculo_empresa.co_vehiculo";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			
@@ -142,7 +158,7 @@ WHERE
   	
 	$this->pdo->beginTransaction();	
 
-	$transporte = array_intersect_key($transporte, $this->columTransporte);
+	$transporte = array_intersect_key($transporte, $this->columTransporteVehiculo);
 	
 	$r1 = $this->pdo->_insert('tr040_rel_transporte_vehiculo_empresa', $transporte);
 	
@@ -152,6 +168,20 @@ WHERE
 			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
   
   } // end of member function insertarTransporte
+  
+  
+   public function actualizarTransporteVehiculo($transporte, $condiciones) {
+  	$this->pdo->beginTransaction();	
+
+	$transporte = array_intersect_key($transporte, $this->columTransporteVehiculo);
+	
+	$r1 = $this->pdo->_update('tr040_rel_transporte_vehiculo_empresa', $transporte, $condiciones);
+	
+	if($r1)
+			{$this->pdo->commit(); return true;}
+	else		
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
+  } // end of member function actualizarTransporte
   
 }
 ?>

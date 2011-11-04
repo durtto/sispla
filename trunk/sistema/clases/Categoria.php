@@ -99,12 +99,15 @@ class Categoria extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarCategoria( ) {
+  public function cargarCategoria($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT *
-                FROM tr011_categoria;
-";
-
+                FROM tr011_categoria";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
 	$r = $this->pdo->_query($query);
 	
 			
