@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Alojamiento</title>
+<title>Alojamiento YA NO SE USA</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">

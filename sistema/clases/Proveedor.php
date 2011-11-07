@@ -54,7 +54,7 @@ class Proveedor extends MyPDO
    * 
    * @access public
    */
-  public $columProveedor= array('co_proveedor'=>'co_proveedor', 'nb_proveedor'=>'nb_proveedor', 'di_oficina'=>'di_oficina', 'tx_telefono'=>'tx_telefono', 'tx_url_pagina'=>'tx_url_pagina');
+  public $columProveedor= array('co_proveedor'=>'co_proveedor', 'nb_proveedor'=>'nb_proveedor', 'di_oficina'=>'di_oficina', 'tx_servicio_prestado'=>'tx_servicio_prestado');
 
   /**
    * 
@@ -126,15 +126,11 @@ class Proveedor extends MyPDO
   tr025_proveedor.co_proveedor, 
   tr025_proveedor.nb_proveedor, 
   tr025_proveedor.di_oficina, 
-  tr025_proveedor.tx_telefono, 
-  tr025_proveedor.tx_url_pagina, 
+  tr025_proveedor.tx_servicio_prestado, 
   tr026_contacto_proveedor.nb_contacto, 
   tr026_contacto_proveedor.tx_apellido, 
-  tr026_contacto_proveedor.di_oficina_contacto, 
-  tr026_contacto_proveedor.tx_telefono_oficina, 
-  tr026_contacto_proveedor.tx_correo_electronico, 
-  tr026_contacto_proveedor.di_habitacion, 
-  tr026_contacto_proveedor.tx_telefono_habitacion
+  tr026_contacto_proveedor.tx_telefono, 
+  tr026_contacto_proveedor.tx_correo_electronico
 FROM 
   public.tr025_proveedor, 
   public.tr026_contacto_proveedor

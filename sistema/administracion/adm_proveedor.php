@@ -78,16 +78,13 @@ Ext.onReady(function(){
         fields: [{name: 'co_proveedor'},
         		{name: 'nb_proveedor'},
         		{name: 'di_oficina'},
-        		{name: 'tx_telefono'},
-        		{name: 'tx_url_pagina'},
+        		{name: 'tx_servicio_prestado'},
         		{name: 'co_contacto'},
         		{name: 'nb_contacto'},
 		        {name: 'tx_apellido'},
-		        {name: 'di_oficina_contacto'},
-		        {name: 'tx_telefono_oficina'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono'},
 		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
         		{name: 'resp'}]
         });
     storeProveedor.setDefaultSort('co_proveedor', 'ASC');
@@ -98,10 +95,9 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
             '<p><b>Nombre:</b> {nb_contacto}</p>',
             '<p><b>Apellido:</b> {tx_apellido}</p>',
-            '<p><b>Direccion:</b> {di_habitacion}</p>',
-            '<p><b>Telefono:</b> {tx_telefono_oficina}</p>',
-            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>',
-            '<p><b>Telefono Habitacion:</b> {tx_telefono_habitacion}</p>'
+            '<p><b>Direccion:</b> {di_oficina}</p>',
+            '<p><b>Telefono:</b> {tx_telefono}</p>',
+            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>'
         )
     });
 
@@ -111,9 +107,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
     	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 150, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Telefono", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Pagina Web", width: 150, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},	
+        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado'},
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		//{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
@@ -138,11 +133,9 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         fields: [{name: 'co_contacto'},
 		        {name: 'nb_contacto'},
 		        {name: 'tx_apellido'},
-		        {name: 'di_oficina_contacto'},
-		        {name: 'tx_telefono_oficina'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono'},
 		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
 		        {name: 'co_proveedor'},
 		        {name: 'nb_proveedor'},
 		        {name: 'resp'}]
@@ -159,11 +152,9 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina_contacto'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
         {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
         {header: "Proveedor", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       ]);
@@ -202,8 +193,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 						id: 'co_proveedor',
                         name: 'co_proveedor',
                         allowBlank:false,
-                        //hidden: true,
-						//hideLabel: true,
+                        hidden: true,
+						hideLabel: true,
                         width:160
                     }, {
                         fieldLabel: 'Nombre',
@@ -219,7 +210,13 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }, {
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Direccion',
 						xtype:'textfield',
 						vtype:'validos',
@@ -234,26 +231,19 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
                         	}
                         }
                     }]
-				},{
+			},{
 					layout: 'form',
 					border:false,
-					columnWidth:.45,
+					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'tx_telefono',
-                        name: 'tx_telefono',
-						width:160
-                    }, {
-                        fieldLabel: 'Pagina Web',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'tx_url_pagina',
-                        name: 'tx_url_pagina',
-                        allowBlank:false,
+                        fieldLabel: 'Servicio Prestado',
+						xtype:'htmleditor',
+						id: 'tx_servicio_prestado',
+                        name: 'tx_servicio_prestado',
+                        height: 140,
+            			anchor: '110%',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
                     }]
 			}]
 			},{
@@ -308,6 +298,20 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    }]
+				},{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Telefono Oficina',
+						xtype:'textfield',
+						id: 'tx_telefono',
+                        name: 'tx_telefono',
+                        allowBlank:false,
+                        width:160,
+                      
                     },{
                         fieldLabel: 'Correo Electronico',
 						xtype:'textfield',
@@ -322,52 +326,6 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
                         	}
                         }
                     	}]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Oficina',
-						xtype:'textfield',
-						id: 'di_oficina_contacto',
-                        name: 'di_oficina_contacto',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Telefono Oficina',
-						xtype:'numberfield',
-						id: 'tx_telefono_oficina',
-                        name: 'tx_telefono_oficina',
-                        allowBlank:false,
-                        width:160,
-                      
-                    },{
-                        fieldLabel: 'Habitacion',
-						xtype:'textfield',
-						id: 'di_habitacion',
-                        name: 'di_habitacion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    },{
-                        fieldLabel: 'Telefono Habitacion',
-						xtype:'numberfield',
-						id: 'tx_telefono_habitacion',
-                        name: 'tx_telefono_habitacion',
-                        width:160,
-                       
-                    }]
 			}]
 			},{
 				width: 800,  
@@ -415,8 +373,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 							var columnas   = '{"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
 							columnas += '"nb_proveedor" : "'+Ext.getCmp("nb_proveedor").getValue()+'", ';
 							columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'", ';
-							columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
-							columnas += '"tx_url_pagina" : "'+Ext.getCmp("tx_url_pagina").getValue()+'"}';
+							columnas += '"tx_servicio_prestado" : "'+Ext.getCmp("tx_servicio_prestado").getValue()+'"}';
 							storeProveedor.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proveedor.php"},
@@ -446,11 +403,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 							var columnas   = '{"co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'", ';
 								columnas += '"nb_contacto" : "'+Ext.getCmp("nb_contacto").getValue()+'", ';
 								columnas += '"tx_apellido" : "'+Ext.getCmp("tx_apellido").getValue()+'", ';
-								columnas += '"di_oficina_contacto" : "'+Ext.getCmp("di_oficina_contacto").getValue()+'", ';
-								columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
+								columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
 								columnas += '"tx_correo_electronico" : "'+Ext.getCmp("tx_correo_electronico").getValue()+'", ';
-								columnas += '"di_habitacion" : "'+Ext.getCmp("di_habitacion").getValue()+'", ';
-								columnas += '"tx_telefono_habitacion" : "'+Ext.getCmp("tx_telefono_habitacion").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}';
 							storeContacto.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'"}', 
