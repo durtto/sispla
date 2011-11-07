@@ -119,20 +119,23 @@ class Ubicacion extends MyPDO
   public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-	  tr006_ubicacion.co_ubicacion, 
-	  tr006_ubicacion.nb_ubicacion, 
-	  tr006_ubicacion.co_ubicacion_padre, 
-	  tr005_tipo_ubicacion.nb_tipo_ubicacion,
-  	CASE
-    WHEN tr006_ubicacion.bo_obsoleto = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_obsoleto
-	FROM 
-	  public.tr005_tipo_ubicacion, 
-	  public.tr006_ubicacion
-	WHERE 
-  	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
+  tr006_ubicacion.co_ubicacion, 
+  tr006_ubicacion.nb_ubicacion, 
+  tr006_ubicacion.bo_obsoleto, 
+  tr006_ubicacion.co_ubicacion_padre, 
+  tr005_tipo_ubicacion.nb_tipo_ubicacion,
+  (SELECT tr006_ubicacion.nb_ubicacion FROM public.tr006_ubicacion
+ WHERE tr006_ubicacion.co_ubicacion_padre=tr006_ubicacion.co_ubicacion) AS nb_ubicacion_padre,
+CASE
+WHEN tr006_ubicacion.bo_obsoleto = true
+THEN 'SI'
+ELSE 'NO'
+END AS bo_obsoleto
+FROM 
+public.tr005_tipo_ubicacion, 
+public.tr006_ubicacion
+WHERE 
+tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
