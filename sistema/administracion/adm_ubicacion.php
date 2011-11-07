@@ -109,6 +109,7 @@ Ext.onReady(function(){
         		{name: 'nb_ubicacion'},
         		{name: 'bo_obsoleto'},
         		{name: 'co_ubicacion_padre'},
+        		{name: 'nb_ubicacion_padre'},
         		{name: 'nb_tipo_ubicacion'},
         		{name: 'resp'}]
         });
@@ -124,7 +125,8 @@ Ext.onReady(function(){
         {id:'co_ubicacion',header: "Ubicacion", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
-        {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
+        //{header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
+        {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion_padre'},
         {header: "Tipo Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
         ]);
         
