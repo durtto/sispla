@@ -59,7 +59,7 @@ class ContactoProveedor extends MyPDO
    * 
    * @access public
    */
-  public $columContacto= array('co_contacto'=>'co_contacto', 'nb_contacto'=>'nb_contacto', 'tx_apellido'=>'tx_apellido', 'di_oficina_contacto'=>'di_oficina_contacto', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'co_proveedor'=>'co_proveedor');
+  public $columContacto= array('co_contacto'=>'co_contacto', 'nb_contacto'=>'nb_contacto', 'tx_apellido'=>'tx_apellido', 'tx_telefono'=>'tx_telefono', 'tx_correo_electronico'=>'tx_correo_electronico', 'co_proveedor'=>'co_proveedor');
   
   /**
    * 
@@ -136,11 +136,8 @@ class ContactoProveedor extends MyPDO
   tr026_contacto_proveedor.co_contacto, 
   tr026_contacto_proveedor.nb_contacto, 
   tr026_contacto_proveedor.tx_apellido, 
-  tr026_contacto_proveedor.di_oficina_contacto, 
-  tr026_contacto_proveedor.tx_telefono_oficina, 
+  tr026_contacto_proveedor.tx_telefono, 
   tr026_contacto_proveedor.tx_correo_electronico, 
-  tr026_contacto_proveedor.di_habitacion, 
-  tr026_contacto_proveedor.tx_telefono_habitacion,
   tr025_proveedor.co_proveedor,
   tr025_proveedor.nb_proveedor
   
