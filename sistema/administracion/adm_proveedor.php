@@ -82,7 +82,6 @@ Ext.onReady(function(){
         		{name: 'co_contacto'},
         		{name: 'nb_contacto'},
 		        {name: 'tx_apellido'},
-		        {name: 'di_oficina'},
 		        {name: 'tx_telefono'},
 		        {name: 'tx_correo_electronico'},
         		{name: 'resp'}]
@@ -95,7 +94,6 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
             '<p><b>Nombre:</b> {nb_contacto}</p>',
             '<p><b>Apellido:</b> {tx_apellido}</p>',
-            '<p><b>Direccion:</b> {di_oficina}</p>',
             '<p><b>Telefono:</b> {tx_telefono}</p>',
             '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>'
         )
@@ -403,7 +401,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 							var columnas   = '{"co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'", ';
 								columnas += '"nb_contacto" : "'+Ext.getCmp("nb_contacto").getValue()+'", ';
 								columnas += '"tx_apellido" : "'+Ext.getCmp("tx_apellido").getValue()+'", ';
-								columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
+								columnas += '"tx_telefono" : "'+Ext.getCmp("tx_telefono").getValue()+'", ';
 								columnas += '"tx_correo_electronico" : "'+Ext.getCmp("tx_correo_electronico").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}';
 							storeContacto.load({params:{"columnas" : columnas,

@@ -75,10 +75,6 @@ Ext.onReady(function(){
 		idProperty: 'co_fabricante',
         fields: [{name: 'co_fabricante'},
         		{name: 'nb_fabricante'},
-        		{name: 'di_ubicacion'},
-        		{name: 'nu_telefono'},
-        		{name: 'tx_correo_electronico'},
-        		{name: 'tx_pagina_web'},
         		{name: 'resp'}]
         });
     storeFabricante.setDefaultSort('co_fabricante', 'ASC');
@@ -92,10 +88,6 @@ Ext.onReady(function(){
     var colModelFabricante = new Ext.grid.ColumnModel([
         {id:'co_fabricante',header: "Fabricante", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_fabricante'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'nu_telefono'},
-        {header: "Correo Electronico", width: 200, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Pagina Web", width: 190, sortable: true, locked:false, dataIndex: 'tx_pagina_web'},
       ]);
 	
 /******************************************FIN****colModelFabricante******************************************/     
@@ -147,49 +139,8 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }, {
-                        fieldLabel: 'Direccion',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'di_ubicacion',
-                        name: 'di_ubicacion',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
                     }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'nu_telefono',
-                        name: 'nu_telefono',
-						width:160
-                    }, {
-                        fieldLabel: 'Correo Electronico',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'tx_correo_electronico',
-                        name: 'tx_correo_electronico',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }, {
-                        fieldLabel: 'Pagina Web',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'tx_pagina_web',
-                        name: 'tx_pagina_web',
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160
-                    }]
-			}]
+				}]
 			},{
 				width: 800,  
 				buttonAlign:'center',

@@ -91,10 +91,10 @@ Ext.onReady(function(){
 
     var colModelServicio = new Ext.grid.ColumnModel([
         {id:'co_servicio',header: "Servicio", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_servicio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
-		{header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+		{header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         {header: "Capacidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},      
+        {header: "Capacidad", width: 180, sortable: true, locked:false, dataIndex: 'nb_capacidad'},      
       ]);
 	
 /******************************************FIN****colModelServicio******************************************/     
