@@ -33,6 +33,7 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/StringFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
 
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
@@ -169,7 +170,7 @@ Ext.onReady(function(){
         		{name: 'bo_hart'},
         		{name: 'resp'}]
         });
-    storeEquipo.setDefaultSort('co_equipo_requerido_requerido', 'ASC');
+    storeEquipo.setDefaultSort('co_equipo_requerido', 'ASC');
 	
 /*****************************************FIN****StoreEquipo*****************************************/
 

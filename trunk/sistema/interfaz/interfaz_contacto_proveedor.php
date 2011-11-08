@@ -1,5 +1,6 @@
 <?php
 	require_once '../clases/ContactoProveedor.php';
+	require_once '../clases/Proveedor.php';
 	
 	$contacto = new ContactoProveedor();
 	
@@ -26,7 +27,6 @@
 			$contactos = json_decode($cond, true);
 			$contactos = array_filter($contactos, "vacio");
 
-		
 			$respuesta = $contacto->insertarContactoProveedor($contactos);		
 			$resultado = $contacto->cargarContactoProveedor($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);

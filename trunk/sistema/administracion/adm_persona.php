@@ -67,6 +67,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
+		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
         totalProperty: 'total',
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
