@@ -130,18 +130,52 @@ Ext.onReady(function(){
       ]);
       
 /******************************************FIN****colModelPersona******************************************/     
-
-
 /******************************************INICIO**StoreEquipo******************************************/     
  
     var storeEquipo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo.php',
+		remoteSort : true,
+		root: 'equipos',
+        totalProperty: 'total',
+		idProperty: 'co_equipo',
+        fields: [{name: 'co_equipo'},
+				{name: 'nb_equipo'},
+				{name: 'tx_descripcion'},
+				{name: 'bo_obsoleto'},
+        		{name: 'resp'}]
+        });
+    storeEquipo.setDefaultSort('co_equipo', 'ASC');
+	
+/*****************************************FIN****StoreEquipo*****************************************/
+    var expanderEquipo = new Ext.ux.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p><b>Descripcion:</b> {tx_descripcion}</p>'
+        )
+    });
+/******************************************INICIO**colModelEquipo******************************************/     
+	var sm1 = new Ext.grid.CheckboxSelectionModel();
+    var colModelEquipo = new Ext.grid.ColumnModel([
+    	expanderEquipo,
+        {id:'co_equipo',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo'},
+        {header: "Equipo", width: 340, sortable: true, locked:false, dataIndex: 'nb_equipo'},
+		//{header: "Obsoleto", width: 60, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
+        //{header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+		sm1,
+      ]);
+		
+/******************************************FIN****colModelEquipo******************************************/     
+
+
+/******************************************INICIO**StoreEquipoR******************************************/     
+ 
+    var storeEquipoR = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_equipo_requerido.php',
 		remoteSort : true,
 		root: 'equiposrequeridos',
         totalProperty: 'total',
 		idProperty: 'co_equipo_requerido',
         fields: [{name: 'co_equipo_requerido'},
-				{name: 'nb_activo'},
+				{name: 'nb_tipo_activo'},
 				{name: 'co_indicador'},
          		{name: 'nu_cedula'},
 		        {name: 'nb_persona'},
@@ -162,37 +196,32 @@ Ext.onReady(function(){
         		{name: 'nb_grupo'},
         		{name: 'co_guardia'},			
         		{name: 'nb_guardia'},
-        		{name: 'bo_vehiculo'},
-        		{name: 'bo_laptop'},
-        		{name: 'bo_maletin_herramientas'},
-        		{name: 'bo_radio'},
-        		{name: 'bo_multimetro_digital'},
-        		{name: 'bo_hart'},
         		{name: 'resp'}]
         });
-    storeEquipo.setDefaultSort('co_equipo_requerido', 'ASC');
+    storeEquipoR.setDefaultSort('co_equipo_requerido', 'ASC');
 	
-/*****************************************FIN****StoreEquipo*****************************************/
+/*****************************************FIN****StoreEquipoR*****************************************/
 
-  var expanderLinea = new Ext.ux.grid.RowExpander({
+  var expanderPersona = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Telefono:</b> {tx_telefono}</p>',
+            '<p><b>Telefono:</b> {tx_telefono_oficina}</p>',
             '<p><b>Direccion:</b> {di_oficina}</p>'
         )
     });
     
-/******************************************INICIO**colModelEquipo******************************************/     
+/******************************************INICIO**colModelEquipoR******************************************/     
 	
-    var colModelEquipo = new Ext.grid.ColumnModel([
-    	expanderLinea,
+    var colModelEquipoR = new Ext.grid.ColumnModel([
+    	expanderPersona,
         {id:'co_equipo_requerido',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_requerido'},
-        {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
 		{header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
 		{header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
         {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
 		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
@@ -209,26 +238,61 @@ Ext.onReady(function(){
         {header: "Apellido", width: 80, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Telefono Oficina", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         {header: "Telefono Habitacion", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
-        {header: "Vehiculo", width: 60, sortable: true, locked:false, dataIndex: 'bo_vehiculo', renderer: vehiculo},
-        {header: "Laptop", width: 60, sortable: true, locked:false, dataIndex: 'bo_laptop', renderer: laptop},
-        {header: "Maletin", width: 60, sortable: true, locked:false, dataIndex: 'bo_maletin_herramientas', renderer: maletin},
-        {header: "Radio", width: 60, sortable: true, locked:false, dataIndex: 'bo_radio', renderer: radio},
-		{header: "Multimetro", width: 70, sortable: true, locked:false, dataIndex: 'bo_multimetro_digital', renderer: multimetro},
-		{header: "HART", width: 60, sortable: true, locked:false, dataIndex: 'bo_hart', renderer: hart},
-
-      ]);
+        ]);
 		
 /******************************************FIN****colModelEquipo******************************************/     
+
+/******************************************INICIO**StoreTipoActivo******************************************/     
+      
+  var storeTipoActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_activo.php',
+		remoteSort : true,
+		root: 'tpactivos',
+        totalProperty: 'total',
+		idProperty: 'co_tipo_activo',
+		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
+        fields: [{name: 'co_tipo_activo'},
+		        {name: 'nb_tipo_activo'},
+		        {name: 'co_categoria'},
+		        {name: 'nb_categoria'},
+		        {name: 'co_servicio'},
+		        {name: 'nb_servicio'},
+		        {name: 'resp'}]
+        });
+    storeTipoActivo.setDefaultSort('co_tipo_activo', 'ASC');
+    
+/*****************************************FIN****StoreTipoActivo*****************************************/
+  var expanderTpActivo = new Ext.ux.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p><b>Categoria:</b> {nb_categoria}</p>',
+            '<p><b>Servicio:</b> {nb_servicio}</p>'
+        )
+    });
+
+/******************************************INICIO**colModelTipoActivo******************************************/     
+   var sm2 = new Ext.grid.CheckboxSelectionModel(); 
+    var colModelTipoActivo = new Ext.grid.ColumnModel([
+    	expanderTpActivo,
+        {id:'co_tipo_activo',header: "Tipo Activo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Nombre", width: 325, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        //{header: "co_Categoria", width: 100, sortable: true, locked:false,hidden:true, dataIndex: 'co_categoria'},      
+		//{header: "Categoria", width: 100, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+		//{header: "co_Servicio", width: 100, sortable: true,hidden:true, locked:false, dataIndex: 'co_servicio'},
+		//{header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+      sm2,
+      ]);
+	
+/******************************************FIN****colModelTipoActivo******************************************/     
 
 
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_equipo',
+        id: 'frm_equipo_requerido',
         frame: true,
 		labelAlign: 'center',
-        title: 'Equipo',
+        title: 'Equipo Requerido',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -255,74 +319,113 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:158
-                    },GetCombo('co_activo', 'Activo'),{
+                    },{
                         fieldLabel: 'Persona',
 						xtype:'textfield',
 						id: 'co_indicador',
                         name: 'co_indicador',
-                        width:148
+                        //allowBlank:false,
+                        //hidden: true,
+						//hideLabel: true,
+                        width:120
+                    },{
+                        fieldLabel: 'Numero Equipo',
+						xtype:'numberfield',
+						id: 'co_equipo',
+                        name: 'co_equipo',
+                        hidden:true,
+                        hideLabel:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
+                    },{
+                        fieldLabel: 'Numero Equipo',
+						xtype:'numberfield',
+						id: 'co_tipo_activo',
+                        name: 'co_tipo_activo',
+                        hidden:true,
+                        hideLabel:true,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140
                     }]
+                 },{
+					layout: 'form',
+					width:398,
+					columnWidth:.50,
+					border:true,
+					items: [{
+		                xtype: 'grid',
+		                width:400,
+						id: 'gd_tpactivo',
+		                store: storeTipoActivo,
+		                cm: colModelTipoActivo,
+		                sm: sm2,
+		                stripeRows: true,
+		                iconCls: 'icon-grid',
+		                plugins: expanderTpActivo,
+		                height: 250,
+						title:'Lista de Tipo Activo',
+		                border: true,
+                		sm: new Ext.grid.RowSelectionModel({
+                    	singleSelect: true,
+                    	listeners: {
+                        rowselect: function() 	{	
+                        
+                        if(Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected()){
+						var record = Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected();
+						Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
+										}
+                    	}
+                    	}
+                		}),
+						bbar: new Ext.PagingToolbar({
+						store: storeTipoActivo,
+						width:400,
+						pageSize: 10,
+						displayInfo: true,
+						displayMsg: 'Mostrando registros {0} - {1} de {2}',
+						emptyMsg: "No hay registros que mostrar",
+						})
+           				 }]
 				},{
 					layout: 'form',
 					labelWidth:130,
-					columnWidth:.45,
-					border:false,
+					columnWidth:.50,
+					border:true,
 					items: [{
-	            		xtype: 'checkbox',
-	            		fieldLabel: 'Vehiculo',
-	            		id: 'bo_vehiculo',
-		                name: 'bo_vehiculo',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'vehiculo', inputValue: 1},
-			           			]
-        		},{
-	            		xtype: 'checkbox',
-	            		fieldLabel: 'Laptop',
-	            		id: 'bo_laptop',
-		                name: 'bo_laptop',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'laptop', inputValue: 1},
-			           			]
-        		},{
-	            		xtype: 'checkbox',
-	            		fieldLabel: 'Maletin de Herramientas',
-	            		id: 'bo_maletin_herramientas',
-		                name: 'bo_maletin_herramientas',
-			            columns: 2,
-			            items: [
-			                {boxLabel: '1', name: 'herramientas', inputValue: 1},
-			           			]
-        		},{
-	            		xtype: 'checkbox',
-	            		fieldLabel: 'Radio',
-	            		id: 'bo_radio',
-		                name: 'bo_radio',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'radio', inputValue: 1},
-			           			]
-        		},{
-	           			xtype: 'checkbox',
-	            		fieldLabel: 'Multimetro Digital',
-	            		id: 'bo_multimetro_digital',
-		                name: 'bo_multimetro_digital',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'multimetro', inputValue: 1},
-			           			]
-        		},{
-	            		xtype: 'checkbox',
-	            		fieldLabel: 'HART',
-	            		id: 'bo_hart',
-		                name: 'bo_hart',
-			            columns: 2,
-			            items: [
-			                {boxLabel: 'Si', name: 'hart', inputValue: 1},
-			         			]
-        		}]
-			}]
+		                xtype: 'grid',
+		                width:400,
+						id: 'gd_equipo',
+		                store: storeEquipo,
+		                sm: sm1,
+		                cm: colModelEquipo,
+		                plugins: expanderEquipo,
+		                stripeRows: true,
+		                iconCls: 'icon-grid',
+		                height: 250,
+						title:'Lista de Equipo',
+		                border: true,
+                		sm: new Ext.grid.RowSelectionModel({
+                    	singleSelect: true,
+                    	listeners: {
+                        rowselect: function() 	{	
+                        
+                        if(Ext.getCmp("gd_equipo").getSelectionModel().getSelected()){
+						var record = Ext.getCmp("gd_equipo").getSelectionModel().getSelected();
+						Ext.getCmp("co_equipo").setValue(record.data.co_equipo);
+										}
+                    	}
+                    	}
+                		}),
+						bbar: new Ext.PagingToolbar({
+							width:400,
+						store: storeEquipo,
+						pageSize: 50,
+						displayInfo: true,
+						displayMsg: 'Mostrando registros {0} - {1} de {2}',
+						emptyMsg: "No hay registros que mostrar",
+						})
+            			}]
+				}]
 			},{
 				width: 800,  
 				buttonAlign:'center',
@@ -349,7 +452,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_equipo").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_equipo_requerido").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -362,27 +465,22 @@ Ext.onReady(function(){
 						else
 						{
 							if(nuevo)						
-								storeEquipo.baseParams = {'accion': 'insertar'};
+								storeEquipoR.baseParams = {'accion': 'insertar'};
 							else
-								storeEquipo.baseParams = {'accion': 'actualizar'};
+								storeEquipoR.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'", ';
-							columnas += '"bo_vehiculo" : "'+Ext.getCmp("bo_vehiculo").getValue()+'", ';
-							columnas += '"bo_laptop" : "'+Ext.getCmp("bo_laptop").getValue()+'", ';
-							columnas += '"bo_maletin_herramientas" : "'+Ext.getCmp("bo_maletin_herramientas").getValue()+'", ';							
-							columnas += '"bo_radio" : "'+Ext.getCmp("bo_radio").getValue()+'", ';							
-							columnas += '"bo_multimetro_digital" : "'+Ext.getCmp("bo_multimetro_digital").getValue()+'", ';
-							columnas += '"bo_hart" : "'+Ext.getCmp("bo_hart").getValue()+'", ';
-							columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'", ';
+							columnas += '"co_equipo" : "'+Ext.getCmp("co_equipo").getValue()+'", ';
+							columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
 							columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
 
-							storeEquipo.load({params:{"columnas" : columnas,
+							storeEquipoR.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
-										if(storeEquipo.getAt(0).data.resp!=true){		
+										if(storeEquipoR.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeEquipo.getAt(0).data.resp, 
+												msg: storeEquipoR.getAt(0).data.resp, 
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -397,7 +495,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeEquipo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_requerido.php'};
+							storeEquipoR.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_requerido.php'};
 						}
 				}
 			},{
@@ -407,15 +505,15 @@ Ext.onReady(function(){
 			tooltip:'Eliminar Equipo',
 			disabled: true,
 			handler: function(){
-										storeEquipo.baseParams = {'accion': 'eliminar'};
-										storeEquipo.load({params:{
+										storeEquipoR.baseParams = {'accion': 'eliminar'};
+										storeEquipoR.load({params:{
 												"condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
-										if(storeEquipo.getAt(0).data.resp!=true){		
+										if(storeEquipoR.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
-												msg: storeEquipo.getAt(0).data.resp,
+												msg: storeEquipoR.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.ERROR
 											});						
@@ -435,16 +533,17 @@ Ext.onReady(function(){
 			width:800,
 			items:[{
                 xtype: 'grid',
-				id: 'gd_equipo',
-                store: storeEquipo,
-                cm: colModelEquipo,
+				id: 'gd_equipo_requerido',
+                store: storeEquipoR,
+                cm: colModelEquipoR,
                 stripeRows: true,
                 iconCls: 'icon-grid',
+                plugins: expanderPersona,
                 sm: new Ext.grid.RowSelectionModel({
                     singleSelect: true,
                     listeners: {
                         rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_equipo").getForm().loadRecord(rec);
+                            Ext.getCmp("frm_equipo_requerido").getForm().loadRecord(rec);
                         }
                         
                     }
@@ -457,7 +556,7 @@ Ext.onReady(function(){
                                           }
                 },
 				bbar: new Ext.PagingToolbar({
-				store: storeEquipo,
+				store: storeEquipoR,
 				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -500,7 +599,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								listeners: {
 												/*render: function(g) {
 													g.getSelectionModel().selectRow(0);
-												},*/
+									r			},*/
 												delay: 10 // Allow rows to be rendered.
 								}
 						}],
@@ -528,14 +627,15 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 }
 
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
-	
-storeEquipo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_requerido.php"}});
+storeTipoActivo.load({params: { start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
+storeEquipo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo.php"}});	
+storeEquipoR.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_requerido.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 /****************************************************************************************************/
-	Ext.getCmp("gd_equipo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_equipo_requerido").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();

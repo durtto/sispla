@@ -833,7 +833,6 @@ grid.render('form');
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardarAlojamiento").enable();
-					Ext.getCmp("btnEliminarAlojamiento").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
