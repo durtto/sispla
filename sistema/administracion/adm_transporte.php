@@ -160,7 +160,18 @@ Ext.onReady(function(){
       
 /******************************************FIN****colModelVehiculo******************************************/     
 
-
+function vehiculos_seleccionados(){
+      					var VehiculosSeleccionados = Ext.getCmp("gd_vehiculo").getSelectionModel().getSelections();
+   						var seleccionados = '[';
+						for(var i=0; i<VehiculosSeleccionados.length; i++){
+						seleccionados += '{ "co_vehiculo" : "'+VehiculosSeleccionados[i].data.co_vehiculo+'"}';
+						if(i < VehiculosSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
 /******************************************INICIO**StoreTransporte******************************************/     
 
   var storeTransporte = new Ext.data.JsonStore({
@@ -246,7 +257,7 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Numero de Transporte',
 						xtype:'numberfield',
-						id: 'co_vehiculo',
+						id: 'co_vehiculo1',
                         name: 'co_vehiculo',
                         //hidden: true,
 						//hideLabel: true,
@@ -294,14 +305,12 @@ Ext.onReady(function(){
 						{
 							if(nuevo)						
 								storeTransporte.baseParams = {'accion': 'insertar'};
+
 							else
 								storeTransporte.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							var vehiculos   = '{"co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'", ';
-							vehiculos += '"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}';
-							storeTransporte.load({params:{"columnas" : columnas, "vehiculos": vehiculos,
-												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+							storeTransporte.load({params:{"columnas" : columnas, "condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
@@ -381,14 +390,6 @@ Ext.onReady(function(){
 			            iconCls:'add'
 			        }],
 	                border: true,
-	                listeners: {
-						handler : function(){
-										if(Ext.getCmp("gd_vehiculo").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_vehiculo").getSelectionModel().getSelected();
-											Ext.getCmp("co_vehiculo").setValue(record.data.co_vehiculo);
-										}
-								  }
-	                },
 					bbar: new Ext.PagingToolbar({
 					store: storeVehiculo,
 					pageSize: 50,

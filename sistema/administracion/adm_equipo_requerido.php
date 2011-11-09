@@ -307,13 +307,18 @@ Ext.onReady(function(){
    var sm2 = new Ext.grid.CheckboxSelectionModel({
                     	singleSelect: false,
                     	listeners: {
-                        rowselect: function() 	{	
-                        
-                        if(Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected()){
-						var record = Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected();
-						Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
-										}
-                    	}
+                        rowselect:  function tipo_activos_seleccionadas(){
+      					var TpActivosSeleccionados = Ext.getCmp("gd_tpactivo").getSelectionModel().getSelections();
+   						var seleccionados = '[';
+						for(var i=0; i<TpActivosSeleccionados.length; i++){
+						seleccionados += '{ "co_tipo_activo" : "'+TpActivosSeleccionados[i].data.co_tipo_activo+'"}';
+						if(i < TpActivosSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
                     	}
                 		}); 
     var colModelTipoActivo = new Ext.grid.ColumnModel([
