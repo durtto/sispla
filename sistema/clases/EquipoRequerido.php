@@ -1,8 +1,8 @@
 <?php
 require_once 'MyPDO.php';
-require_once 'Activo.php';
+require_once 'TipoDeActivo.php';
 require_once 'Persona.php';
-
+require_once 'Equipo.php';
 /**
  * Definici�n del equipo requerido por el personal para realizar el mantenimiento de un activo.
  * @access public
@@ -15,46 +15,14 @@ class EquipoRequerido extends MyPDO
 	 * Clave primaria de los datos del equipo requerido.
 	 */
 	private $_co_equipo_requerido;
-	/**
-	 * @AttributeType boolean
-	 * Se define si necesita o no que la empresa le suministre un veh�culo.
-	 */
-	private $_bo_vehiculo;
-	/**
-	 * @AttributeType boolean
-	 * Define si necesita del uso de una laptop para realizar el mantenimiento.
-	 */
-	private $_bo_laptop;
-	/**
-	 * @AttributeType boolean
-	 * Se define si necesita de un malet�n de herramientas para las actividades que realizaran.
-	 */
-	private $_bo_maletin_herramientas;
-	/**
-	 * @AttributeType boolean
-	 * Se define si necesita de un radio.
-	 */
-	private $_bo_radio;
-	/**
-	 * @AttributeType boolean
-	 * Se define si necesita o no de un multimetro digital.
-	 */
-	private $_bo_mutimetro_digital;
-	/**
-	 * Se define si la persona necesita o no de un Hart.
-	 */
-	private $_bo_hart;
-	/**
-	 * @AssociationType Planes.Persona
-	 * @AssociationMultiplicity 0..1
-	 */
+
 	public $_unnamed_Persona_;
 
 /**
    * 
    * @access public
    */
-  public $columEquipoRequerido= array('co_equipo_requerido'=>'co_equipo_requerido', 'bo_vehiculo'=>'bo_vehiculo', 'bo_laptop'=>'bo_laptop', 'bo_maletin_herramientas'=>'bo_maletin_herramientas', 'bo_radio'=>'bo_radio', 'bo_multimetro_digital'=>'bo_multimetro_digital', 'bo_hart'=>'bo_hart', 'co_activo'=>'co_activo', 'co_indicador'=>'co_indicador');
+  public $columEquipoRequerido= array('co_equipo_requerido'=>'co_equipo_requerido', 'co_tipo_activo'=>'co_tipo_activo', 'co_equipo'=>'co_equipo','co_indicador'=>'co_indicador');
   
   /**
    * 
@@ -129,8 +97,8 @@ class EquipoRequerido extends MyPDO
 
 	$query = "SELECT 
   tr033_equipo_requerido.co_equipo_requerido, 
-  tr027_activo.nb_activo, 
-tr010_persona.co_indicador, 
+  tr014_tipo_activo.nb_tipo_activo, 
+  tr010_persona.co_indicador, 
   tr010_persona.nu_cedula, 
   tr010_persona.nb_persona, 
   tr010_persona.tx_apellido, 
@@ -144,40 +112,10 @@ tr010_persona.co_indicador,
   tr008_rol_persona.nb_rol, 
   tr002_rol_responsabilidad.nb_rol_resp, 
   tr001_grupo.nb_grupo, 
-  tr009_guardia.nb_guardia,
-CASE
-    WHEN tr033_equipo_requerido.bo_vehiculo = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_vehiculo,
-CASE
-    WHEN   tr033_equipo_requerido.bo_laptop = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_laptop,
-CASE
-    WHEN   tr033_equipo_requerido.bo_maletin_herramientas = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_maletin_herramientas,
-CASE
-    WHEN   tr033_equipo_requerido.bo_radio = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_radio,
-CASE
-    WHEN   tr033_equipo_requerido.bo_multimetro_digital = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_multimetro_digital,
-CASE
-    WHEN   tr033_equipo_requerido.bo_hart = true
-    THEN 'SI'
-    ELSE 'NO'
-    END AS bo_hart          
+  tr009_guardia.nb_guardia
 FROM 
   public.tr033_equipo_requerido, 
-  public.tr027_activo, 
+  public.tr014_tipo_activo, 
   public.tr010_persona, 
   public.tr002_rol_responsabilidad, 
   public.tr001_grupo, 
@@ -185,7 +123,7 @@ FROM
   public.tr009_guardia, 
   public.tr007_departamento
 WHERE 
-  tr027_activo.co_activo = tr033_equipo_requerido.co_activo AND
+  tr014_tipo_activo.co_tipo_activo = tr033_equipo_requerido.co_tipo_activo AND
   tr010_persona.co_indicador = tr033_equipo_requerido.co_indicador AND
   tr010_persona.co_departamento = tr007_departamento.co_departamento AND
   tr010_persona.co_rol = tr008_rol_persona.co_rol AND
