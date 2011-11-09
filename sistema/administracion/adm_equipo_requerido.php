@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Equipo</title>
+<title>Equipo Requerido</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -34,6 +34,7 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/CheckColumn.js"></script>
 
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
@@ -130,6 +131,7 @@ Ext.onReady(function(){
       ]);
       
 /******************************************FIN****colModelPersona******************************************/     
+
 /******************************************INICIO**StoreEquipo******************************************/     
  
     var storeEquipo = new Ext.data.JsonStore({
@@ -153,7 +155,18 @@ Ext.onReady(function(){
         )
     });
 /******************************************INICIO**colModelEquipo******************************************/     
-	var sm1 = new Ext.grid.CheckboxSelectionModel();
+	var sm1 = new Ext.grid.CheckboxSelectionModel({
+                    	singleSelect: false,
+                    	listeners: {
+                        rowselect: function() 	{	
+                        
+                        if(Ext.getCmp("gd_equipo").getSelectionModel().getSelected()){
+						var record = Ext.getCmp("gd_equipo").getSelectionModel().getSelected();
+						Ext.getCmp("co_equipo").setValue(record.data.co_equipo);
+										}
+                    	}
+                    	}
+                		});
     var colModelEquipo = new Ext.grid.ColumnModel([
     	expanderEquipo,
         {id:'co_equipo',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo'},
@@ -268,9 +281,41 @@ Ext.onReady(function(){
             '<p><b>Servicio:</b> {nb_servicio}</p>'
         )
     });
-
+    
+    
+	/*function mostrar(rec) {
+		// RETORNA LOS NUMERO DE INDEX DE CADA FILA
+		//var selectedKeys = grid.selModel.selections.keys;
+		
+		// RETORNA EL NOMBRE DE LA COMPANIA
+		var selectedKeys = [];
+		sm2.each(function(rec){
+			selectedKeys.push(rec.get('co_tipo_activo'));
+			Ext.getCmp("co_tipo_activo").getValue(rec.data.co_tipo_activo);
+			var win = new Ext.Window({
+			title: 'Seleccionados'
+			, closable: true
+			, resizable: false
+			, html: 'Los seleccionados son:<br>'+selectedKeys
+			, width: 400
+			, height: 200
+		});
+		win.show();
+		});
+	};*/
 /******************************************INICIO**colModelTipoActivo******************************************/     
-   var sm2 = new Ext.grid.CheckboxSelectionModel(); 
+   var sm2 = new Ext.grid.CheckboxSelectionModel({
+                    	singleSelect: false,
+                    	listeners: {
+                        rowselect: function() 	{	
+                        
+                        if(Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected()){
+						var record = Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected();
+						Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
+										}
+                    	}
+                    	}
+                		}); 
     var colModelTipoActivo = new Ext.grid.ColumnModel([
     	expanderTpActivo,
         {id:'co_tipo_activo',header: "Tipo Activo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
@@ -359,25 +404,19 @@ Ext.onReady(function(){
 		                store: storeTipoActivo,
 		                cm: colModelTipoActivo,
 		                sm: sm2,
+		               /* tbar:[{
+							text: 'Mostrar',
+							id: 'mostrar',
+							handler: mostrar,
+						}],*/
+
 		                stripeRows: true,
 		                iconCls: 'icon-grid',
 		                plugins: expanderTpActivo,
 		                height: 250,
 						title:'Lista de Tipo Activo',
 		                border: true,
-                		sm: new Ext.grid.RowSelectionModel({
-                    	singleSelect: true,
-                    	listeners: {
-                        rowselect: function() 	{	
-                        
-                        if(Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected()){
-						var record = Ext.getCmp("gd_tpactivo").getSelectionModel().getSelected();
-						Ext.getCmp("co_tipo_activo").setValue(record.data.co_tipo_activo);
-										}
-                    	}
-                    	}
-                		}),
-						bbar: new Ext.PagingToolbar({
+                		bbar: new Ext.PagingToolbar({
 						store: storeTipoActivo,
 						width:400,
 						pageSize: 10,
@@ -404,18 +443,7 @@ Ext.onReady(function(){
 		                height: 250,
 						title:'Lista de Equipo',
 		                border: true,
-                		sm: new Ext.grid.RowSelectionModel({
-                    	singleSelect: true,
-                    	listeners: {
-                        rowselect: function() 	{	
-                        
-                        if(Ext.getCmp("gd_equipo").getSelectionModel().getSelected()){
-						var record = Ext.getCmp("gd_equipo").getSelectionModel().getSelected();
-						Ext.getCmp("co_equipo").setValue(record.data.co_equipo);
-										}
-                    	}
-                    	}
-                		}),
+
 						bbar: new Ext.PagingToolbar({
 							width:400,
 						store: storeEquipo,
@@ -464,7 +492,8 @@ Ext.onReady(function(){
 						}
 						else
 						{
-							if(nuevo)						
+							if(nuevo)
+													
 								storeEquipoR.baseParams = {'accion': 'insertar'};
 							else
 								storeEquipoR.baseParams = {'accion': 'actualizar'};

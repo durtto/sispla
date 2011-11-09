@@ -92,12 +92,15 @@ Ext.onReady(function(){
         {id:'co_equipo',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo'},
         {header: "Equipo", width: 100, sortable: true, locked:false, dataIndex: 'nb_equipo'},
 		{header: "Obsoleto", width: 60, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
-        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Descripcion", width: 600, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: showDescription},
 
       ]);
 		
 /******************************************FIN****colModelEquipo******************************************/     
-
+   function showDescription(tx_descripcion,descripcion){  
+   descripcion = 'style="white-space:normal"';  
+   return tx_descripcion;  
+   }  
 
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
