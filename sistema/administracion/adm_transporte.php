@@ -254,14 +254,6 @@ function vehiculos_seleccionados(){
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:120
-                    },{
-                        fieldLabel: 'Numero de Transporte',
-						xtype:'numberfield',
-						id: 'co_vehiculo1',
-                        name: 'co_vehiculo',
-                        //hidden: true,
-						//hideLabel: true,
-                        width:120
                     }]
 			}]
 			},{
@@ -310,7 +302,7 @@ function vehiculos_seleccionados(){
 								storeTransporte.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							storeTransporte.load({params:{"columnas" : columnas, "condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+							storeTransporte.load({params:{"columnas" : columnas,"vehiculos" : vehiculos_seleccionados(), "condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		

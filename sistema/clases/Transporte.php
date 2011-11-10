@@ -51,6 +51,7 @@ class Transporte extends MyPDO
 	if(isset($vehiculos) && count($vehiculos)>0){
 	foreach($vehiculos as $vehiculo){
 			if(is_array($vehiculo)){
+				$vehiculo = array_intersect_key($vehiculo, $this->columTransporteVehiculo);
 				$r2 = $this->pdo->_insert('tr040_rel_transporte_vehiculo_empresa', $vehiculo); 
 				}
 			}
