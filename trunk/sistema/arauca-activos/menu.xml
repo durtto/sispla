@@ -1,7 +1,8 @@
 <authors>
 
-		<book title="Gestionar Planes" titulo="Planes" url="../administracion/adm_datos_plan.php"></book>
-	
+	<author first="Continuidad Operativa" gender="" titulo="Continuidad Operativa">
+		<author first="Planes" gender="" titulo="Informacion General" url="../administracion/adm_datos_plan.php">
+		</author>
 		<author first="Plan Maestro" gender="" titulo="Plan Maestro">
 			<book title="Procesos Criticos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
 			<book title="Activos Criticos" titulo="Activos"></book>
@@ -35,5 +36,6 @@
 		<author first="Plan Operativo" gender="" titulo="Plan Operativo">
 			<book title="Procedimientos Operativos" titulo="Proc. Operativos"></book>
 		</author>
-		
+	</author>	
+	
 </authors>		

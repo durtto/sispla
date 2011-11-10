@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 <head>
-<title>Orinoco</title>
+<title>Arauca</title>
 <link rel="shortcut icon" href="../imagenes/iconARAUCA.png"> 
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
@@ -79,7 +79,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
         resizeTabs:true, // turn on tab resizing
 		activeTab: 'Inicio',
         minTabWidth: 115,
-        tabWidth:115,
+        tabWidth:125,
 		height:'auto',
 		//autoHeight:true,
 		//enableTabScroll:true,
@@ -130,7 +130,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                     animate:true
                 },
                 items: [{
-                    title: 'Capacidad',
+                    title: 'Continuidad Operativa',
                     xtype: 'treepanel',
            			id: 'tree-panel1',
             		region: 'center',
@@ -184,7 +184,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	            }
 	        }
 	        },{
-            		title:'Documentos',
+            		title:'Base Documental',
             		xtype: 'treepanel',
            			id: 'tree-panel3',
             		region: 'center',
@@ -309,8 +309,9 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-  	<td align="left"><img src="../imagenes/leftORINOCO.png" width="200" height="79"> </td>
-	<td align="center"><img src="../imagenes/rightORINOCO.png" width="1070" height="79"> </td>
+    <td align="left" ><img src="../imagenes/ARAUCA1.png" width="200" height="79"></td>
+    <td align="center"><img src="../imagenes/ARAUCA2.png" width="1080"  height="79"></td>
+	
   </tr>
 </table>
 <div id="session" >

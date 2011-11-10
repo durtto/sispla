@@ -1,7 +1,6 @@
 <authors>
 
-		<author first="Documentos" gender="" titulo="Documentos">
+		
 			<book title="Documento Componente" titulo="Informacion" url="../administracion/adm_doc_componente.php"></book>
-		</author>
-	
+		
 </authors>

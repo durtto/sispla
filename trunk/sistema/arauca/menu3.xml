@@ -1,9 +1,7 @@
 <authors>
 
-	<author first="Administracion" gender="" titulo="Administracion">
 		<book title="Privilegio" titulo="Privilegio" url="../administracion/adm_privilegio_usuario.php"></book>
 		<book title="Rol Persona" titulo="Rol" url="../administracion/adm_rol_persona.php"></book>
 		<book title="Usuario" titulo="Usuario" url="../administracion/adm_usuario.php"></book>
-	</author>
-	
+		
 </authors>		
