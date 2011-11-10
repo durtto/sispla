@@ -1,6 +1,5 @@
 <authors>
 
-		<author first="Administracion" gender="" titulo="Administracion">
 			<book title="Capacidad" titulo="Capacidad" url="../administracion/adm_capacidad.php"></book>
 			<book title="Nivel de obsolescencia" titulo="Nivel" url="../administracion/adm_nivel_obsolescencia.php"></book>
 			<book title="Unidad demanda" titulo="Unidad" url="../administracion/adm_unidad_demanda.php"></book>	
@@ -12,6 +11,6 @@
 				<book title="Privilegio" titulo="Privilegio" url="../administracion/adm_privilegio_usuario.php"></book>
 				<book title="Rol Persona" titulo="Rol" url="../administracion/adm_rol_persona.php"></book>
 			</author>
-		</author>
+		
 		
 </authors>

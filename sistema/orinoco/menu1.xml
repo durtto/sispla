@@ -1,6 +1,6 @@
 <authors>
 
-		<author first="Reportes" gender="" titulo="Reportes">
+		
 				<author first="Base Instalada" gender="" titulo="Base">
 					<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
 					<book title="Activos1" titulo="Activos1" url="../reporte/reporte_activo.php"></book>
@@ -11,6 +11,6 @@
 			<book title="Crecimiento" titulo="Crecimiento" url=""></book>
 			<book title="Uso" titulo="Uso" url=""></book>
 			<book title="Desempeño" titulo="Desempeño" url=""></book>
-		</author>
+		
 			
 </authors>

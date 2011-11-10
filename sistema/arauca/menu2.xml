@@ -1,6 +1,5 @@
 <authors>
 
-	<author first="Base Documental" gender="" titulo="Base Documental">
 		<book title="Procedimientos de Seguridad Logica" titulo="Procedimientos de Seguridad Logica"></book>
 		<book title="Marco Legal" titulo="Marco Legal"></book>
 		<author first="Formatos de Activacion de Sala" gender="" titulo="Formatos de Activacion de Sala">	
@@ -14,6 +13,5 @@
 			<book title="Plan de Contingencia" titulo="Plan de Contingencia"></book>
 			<book title="Plan Operativo" titulo="Plan Operativo"></book>
 		</author>
-	</author>
-
+	
 </authors>		

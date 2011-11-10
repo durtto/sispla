@@ -335,7 +335,7 @@ Ext.onReady(function(){
                         ]
                     },{
 	            		xtype: 'checkbox',
-	            		fieldLabel: 'Esuema Externo',
+	            		fieldLabel: 'Esquema Externo',
 	            		id: 'bo_esquema_alterno_externo',
 		                name: 'bo_esquema_alterno_externo',
 			            columns: 2,

@@ -1,9 +1,9 @@
 <authors>
 
-		<author first="Capacidad" gender="" titulo="Capacidad">
-			<book title="Datos Plan" titulo="Datos Plan" url="../administracion/adm_datos_plan.php"></book>
+		
+			<book title="Gestionar Planes" titulo="Planes" url="../administracion/adm_datos_plan.php"></book>
 			<book title="Crecimiento" titulo="Crecimiento" url="../administracion/adm_crecimiento.php"></book>
 			<book title="Necesidad" titulo="Necesidad" url="../administracion/adm_necesidad.php"></book>
-		</author>
+	
 		
 </authors>
