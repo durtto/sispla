@@ -164,7 +164,7 @@ function vehiculos_seleccionados(){
       					var VehiculosSeleccionados = Ext.getCmp("gd_vehiculo").getSelectionModel().getSelections();
    						var seleccionados = '[';
 						for(var i=0; i<VehiculosSeleccionados.length; i++){
-						seleccionados += '{ "co_vehiculo" : "'+VehiculosSeleccionados[i].data.co_vehiculo+'"}';
+						seleccionados += '{ "co_vehiculo" : "'+VehiculosSeleccionados[i].data.co_vehiculo+'", "co_transporte": "'+Ext.getCmp('co_transporte').getValue()+'"}';
 						if(i < VehiculosSeleccionados.length-1)
 						  seleccionados += ', ';
 						  }
