@@ -120,9 +120,17 @@ class Transporte extends MyPDO
    */
   public function cargarTransporte($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
-	$query = "SELECT *
-	FROM 
- 	public.tr021_transporte";
+	$query = "SELECT 
+  tr021_transporte.co_transporte, 
+  tr021_transporte.fe_elaboracion, 
+  tr020_vehiculo_empresa.co_vehiculo
+FROM 
+  public.tr040_rel_transporte_vehiculo_empresa, 
+  public.tr020_vehiculo_empresa, 
+  public.tr021_transporte
+WHERE 
+  tr040_rel_transporte_vehiculo_empresa.co_vehiculo = tr020_vehiculo_empresa.co_vehiculo AND
+  tr021_transporte.co_transporte = tr040_rel_transporte_vehiculo_empresa.co_transporte";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

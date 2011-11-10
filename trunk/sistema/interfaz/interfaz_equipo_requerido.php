@@ -24,7 +24,27 @@
 			$equiposrequeridos = array_filter($equiposrequeridos, "vacio");
 
 			
-			$respuesta = $equiporequerido->insertarEquipoRequerido($equiposrequeridos);	
+			$con1 = $_REQUEST['personas']; 	
+			$con1	= str_replace('\"','"',$con1);
+			$personas = json_decode($con1, true);
+			$personas = array_filter($personas, "vacio");
+			
+			$con2 = $_REQUEST['tpactivos']; 	
+			$con2	= str_replace('\"','"',$con2);
+			$tpactivos = json_decode($con2, true);
+			$tpactivos = array_filter($tpactivos, "vacio");
+			
+			$con3 = $_REQUEST['equipos']; 	
+			$con3	= str_replace('\"','"',$con3);
+			$equipos = json_decode($con3, true);
+			$equipos = array_filter($equipos, "vacio");
+		
+			$con4 = $_REQUEST['necesarios']; 	
+			$con4	= str_replace('\"','"',$con4);
+			$necesarios = json_decode($con4, true);
+			$necesarios = array_filter($necesarios, "vacio");
+			
+			$respuesta = $equiporequerido->insertarEquipoRequerido($equiposrequeridos, $personas, $tpactivos, $equipos, $necesarios);	
 			$resultado = $equiporequerido->cargarEquipoRequerido($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 

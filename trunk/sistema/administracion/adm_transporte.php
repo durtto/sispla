@@ -193,15 +193,7 @@ function vehiculos_seleccionados(){
 		idProperty: 'co_transporte',
         fields: [{name: 'co_transporte'},
        			{name: 'fe_elaboracion'},
-       			{name: 'co_linea'},
-       			{name: 'nb_linea'},
-        		{name: 'tx_telefono'},
-        		{name: 'di_oficina'},
 				{name: 'co_vehiculo'},
-				{name: 'tx_placa'},
-		        {name: 'tx_marca'},
-		        {name: 'tx_modelo'},
-		        {name: 'tx_unidad'},
         		{name: 'resp'}]
         });
     storeTransporte.setDefaultSort('co_transporte', 'ASC');
@@ -214,10 +206,10 @@ function vehiculos_seleccionados(){
     var colModelTransporte = new Ext.grid.ColumnModel([
         {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
         {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
-        //{header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
+        {header: "Vehiculo", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
 		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
 		//{header: "Unidad", width: 160, sortable: true, locked:false, dataIndex: 'tx_unidad'},
-      sm3,
+
       ]);
 	
 /******************************************FIN****colModelTransporte******************************************/     
@@ -339,13 +331,13 @@ function vehiculos_seleccionados(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			tooltip:'Eliminar Grupo',
+			tooltip:'Eliminar Transporte',
 			disabled: true,
 			iconCls: 'delete',
 			handler: function(){
 										storeTransporte.baseParams = {'accion': 'eliminar'};
 										storeTransporte.load({params:{
-												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_planlocalizacion").getValue()+'"}', 
+												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		

@@ -786,6 +786,15 @@
         }
         return bo_posada;
     	}
+    	
+    function principal(bo_principal) {
+        if (bo_principal == 'SI') {
+            return '<span style="color:green;">' + 'Principal' + '</span>';
+        } else if (bo_principal == 'NO') {
+            return '<span style="color:blue;">' + 'Suplente' + '</span>';
+        }
+        return bo_principal;
+    	}
 	/*******************************************************************************************/
 	//
 	// example of custom renderer function
