@@ -115,7 +115,18 @@ Ext.onReady(function(){
       ]);
 
 /******************************************FIN****colModelLinea******************************************/     
-
+function lineas_seleccionadas(){
+      					var LineasSeleccionadas = Ext.getCmp("gd_linea").getSelectionModel().getSelections();
+   						var seleccionadas = '[';
+						for(var i=0; i<LineasSeleccionadas.length; i++){
+						seleccionadas += '{ "co_linea" : "'+LineasSeleccionadas[i].data.co_linea+'", "co_transporte": "'+Ext.getCmp('co_transporte').getValue()+'"}';
+						if(i < LineasSeleccionadas.length-1)
+						  seleccionadas += ', ';
+						  }
+						  seleccionadas += ']';
+						  return seleccionadas;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
 
 /******************************************INICIO**StoreVehiculo******************************************/     
     
@@ -248,7 +259,6 @@ function vehiculos_seleccionados(){
                     }, {
                         fieldLabel: 'Fecha de Elaboracion',
 						xtype:'datefield',
-						vtype:'validos',
 						id: 'fe_elaboracion',
                         name: 'fe_elaboracion',
                         allowBlank:false,
@@ -302,7 +312,7 @@ function vehiculos_seleccionados(){
 								storeTransporte.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							storeTransporte.load({params:{"columnas" : columnas,"vehiculos" : vehiculos_seleccionados(), "condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
+							storeTransporte.load({params:{"columnas" : columnas,"vehiculos" : vehiculos_seleccionados(), "lineas" : lineas_seleccionadas(),"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
 										if(storeTransporte.getAt(0).data.resp!=true){		
@@ -409,10 +419,6 @@ function vehiculos_seleccionados(){
 			            iconCls:'add'
 			        }],
 	                border: true,
-	                listeners: {
-	                    viewready: function(g) {
-	                    }
-	                },
 					bbar: new Ext.PagingToolbar({
 					store: storeLinea,
 					pageSize: 50,
