@@ -47,11 +47,12 @@ class Transporte extends MyPDO
 	$transporte = array_intersect_key($transporte, $this->columTransporte);
 	
 	$r1 = $this->pdo->_insert('tr021_transporte', $transporte);
-			
+		//echo '<br>'.$r1;
 	if(isset($vehiculos) && count($vehiculos)>0){
-	foreach($vehiculos as $vehiculo){
+	foreach($vehiculos as $vehiculo){		
 			if(is_array($vehiculo)){
 				$vehiculo = array_intersect_key($vehiculo, $this->columTransporteVehiculo);
+				//print_r($vehiculo);
 				$r2 = $this->pdo->_insert('tr040_rel_transporte_vehiculo_empresa', $vehiculo); 
 				}
 			}
