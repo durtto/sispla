@@ -4,7 +4,7 @@ require_once 'TipoDeActivo.php';
 require_once 'Persona.php';
 require_once 'Equipo.php';
 /**
- * Definici�n del equipo requerido por el personal para realizar el mantenimiento de un activo.
+ * Definicion del equipo requerido por el personal para realizar el mantenimiento de un activo.
  * @access public
  * @package Planes
  */
