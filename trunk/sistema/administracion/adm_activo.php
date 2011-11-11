@@ -101,7 +101,7 @@ Ext.onReady(function(){
 
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Cédula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
@@ -172,15 +172,15 @@ Ext.onReady(function(){
 
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
+        {header: "Nombre del Activo", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+      	{header: "C&oacute;digo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
+      	{header: "N&uacute;mero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Cr&iacute;tico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+      	{header: "Fecha de Incorporaci&oacute;n", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Vida &Uacute;til", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
       	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
@@ -189,7 +189,7 @@ Ext.onReady(function(){
       	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
       	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
       	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
+      	{header: "Ubicaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
       	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
       	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
       	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
@@ -199,7 +199,7 @@ Ext.onReady(function(){
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
         {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Tipo de Activo", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
 
       ]);
 
@@ -212,7 +212,7 @@ Ext.onReady(function(){
         id: 'frm_activo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Activo',
+        title: 'Actualizar Activos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -223,7 +223,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Activos',
+			title: 'Activo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -231,7 +231,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo del Activo',
+                        fieldLabel: 'Código del Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
                         name: 'co_activo',
@@ -240,7 +240,7 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
                     },{
-                        fieldLabel: 'Serial',
+                        fieldLabel: 'Serial N&ordm;&nbsp;',
 						xtype:'numberfield',
 						id: 'nu_serial',
 						allowBlank:false,
@@ -249,7 +249,7 @@ Ext.onReady(function(){
                         width:152
                     },{
                         xtype: 'radiogroup',
-	            		fieldLabel: 'Critico',
+	            		fieldLabel: 'Cr&iacute;tico',
 	            		allowBlank:false,
 	            		id: 'bo_critico',
 		                name: 'bo_critico',
@@ -259,14 +259,14 @@ Ext.onReady(function(){
 			                {boxLabel: 'No', name: 'critico', inputValue: 0},
 			           			]
                     },{
-                        fieldLabel: 'Fecha de Incorporacion',
+                        fieldLabel: 'Fecha de Incorporaci&oacute;n',
 						xtype:'datefield',
 						vtype:'validos',
 						id: 'fe_incorporacion',
                         name: 'fe_incorporacion',
                         width:152
                     },{
-                        fieldLabel: 'Vida Util',
+                        fieldLabel: 'Vida &Uacute;til',
 						xtype:'numberfield',
 						id: 'nu_vida_util',
 						allowBlank:false,
@@ -280,7 +280,7 @@ Ext.onReady(function(){
                         name: 'co_indicador',
                         width:139
                     },{
-                        fieldLabel: 'Nombre',
+                        fieldLabel: 'Responsable',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'nb_persona',
@@ -299,8 +299,8 @@ Ext.onReady(function(){
                     },
                     GetCombo('co_estado','Estado'),
                     GetCombo('co_proceso','Proceso'),
-                    GetCombo('co_unidad','Unidad'),
-                    GetCombo('co_tipo_activo','Tipo Activo')]
+                    GetCombo('co_unidad','Unidad de Demanda'),
+                    GetCombo('co_tipo_activo','Tipo de Activo')]
 				},{
 					layout: 'form',
 					border:false,
@@ -320,7 +320,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Etiqueta',
+                        fieldLabel: 'N&ordm; Etiqueta',
 						xtype:'numberfield',
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
@@ -338,7 +338,7 @@ Ext.onReady(function(){
 			                {boxLabel: 'NO', name: 'vulnerable', inputValue: 0},
 			           			]
                     },{
-                        fieldLabel: 'Codigo SAP',
+                        fieldLabel: 'C&oacute;digo SAP',
 						xtype:'numberfield',
 						id: 'co_sap',
 						allowBlank:false,
@@ -355,16 +355,16 @@ Ext.onReady(function(){
                         width:122
                     },
                     GetCombo('co_fabricante','Fabricante'),
-                    GetCombo('co_ubicacion','Ubicacion'),
+                    GetCombo('co_ubicacion','Ubicaci&oacute;n'),
                     GetCombo('co_proveedor','Proveedor'),
-                    GetCombo('co_nivel','Nivel')]
+                    GetCombo('co_nivel','Nivel de Obsolescencia')]
 			},{
 					layout: 'form',
 					border:false,
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -510,7 +510,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
