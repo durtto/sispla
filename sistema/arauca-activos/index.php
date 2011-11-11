@@ -1,8 +1,8 @@
 <html>
 <head>
-<title>:: AVAWEB ::</title>
+<title>--ARAUCA--</title>
 
-<link rel="shortcut icon" href="images/icono.png"> 
+<link rel="shortcut icon" href="imagenes/iconARAUCA.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/estilos_avaweb.css" rel="stylesheet" type="text/css">			
 <link href="css/main.css" rel="stylesheet" type="text/css">	

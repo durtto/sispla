@@ -116,7 +116,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
             items:[{
                 region:'west',
                 id:'west-panel',
-                title:'Menu de Usuario',
+                title:'Men&uacute; de Usuario',
                 split:true,
 				width: 200,
 				height: 600,
@@ -156,119 +156,11 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
                     })
 	            }
 	        }
-                },{
-            		title:'Reportes',
-            		xtype: 'treepanel',
-           			id: 'tree-panel2',
-            		region: 'center',
-					height: 600,
-            		margins: '80 0 0 0',
-					cmargins:'80 0 0 0',
-            		autoScroll: true,
-	        		rootVisible: false,
-	        		root: new Ext.tree.AsyncTreeNode(),
-
-            // Our custom TreeLoader:
-	        loader: new Ext.app.BookLoader({
-	            dataUrl:'menu1.xml'
-	        }),
-
-	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
-                        //var el = Ext.getCmp('details-panel').body;
-	                   
-                    })
-	            }
-	        }
-	        },{
-            		title:'Base Documental',
-            		xtype: 'treepanel',
-           			id: 'tree-panel3',
-            		region: 'center',
-					height: 600,
-            		margins: '80 0 0 0',
-					cmargins:'80 0 0 0',
-            		autoScroll: true,
-	        		rootVisible: false,
-	        		root: new Ext.tree.AsyncTreeNode(),
-
-            // Our custom TreeLoader:
-	        loader: new Ext.app.BookLoader({
-	            dataUrl:'menu2.xml'
-	        }),
-
-	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
-                        //var el = Ext.getCmp('details-panel').body;
-	                   
-                    })
-	            }
-	        }
-	     },{
-            		title:'Administracion',
-            		xtype: 'treepanel',
-           			id: 'tree-panel4',
-            		region: 'center',
-					height: 600,
-            		margins: '80 0 0 0',
-					cmargins:'80 0 0 0',
-            		autoScroll: true,
-	        		rootVisible: false,
-	        		root: new Ext.tree.AsyncTreeNode(),
-
-            // Our custom TreeLoader:
-	        loader: new Ext.app.BookLoader({
-	            dataUrl:'menu3.xml'
-	        }),
-
-	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
-                        //var el = Ext.getCmp('details-panel').body;
-	                   
-                    })
-	            }
-	        }
-	      },{
-            	title:'Ayuda en Linea',
-            	xtype: 'treepanel',
-           		id: 'tree-panel5',
-            	region: 'center',
-				height: 600,
-            	margins: '80 0 0 0',
-				cmargins:'80 0 0 0',
-            	autoScroll: true,
-	        	rootVisible: false,
-	        	root: new Ext.tree.AsyncTreeNode(),
-
-            // Our custom TreeLoader:
-	        loader: new Ext.app.BookLoader({
-	            dataUrl:'menu4.xml'
-	        }),
-
-	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
-                        //var el = Ext.getCmp('details-panel').body;
-	                   
-                    })
-	            }
-	        }
-	       }]
+                }]
             },{
                 region:'east',
                 id:'east-panel',
-                title:'Datos de Sesion',
+                title:'Datos de Sesi&oacute;n',
                 split:true,
                 width: 200,
 				height: 740,

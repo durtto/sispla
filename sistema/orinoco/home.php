@@ -116,7 +116,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
             items:[{
                 region:'west',
                 id:'west-panel',
-                title:'Menu de Usuario',
+                title:'Men&uacute; de Usuario',
                 split:true,
 				width: 200,
 				height: 600,
@@ -211,7 +211,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	            }
 	        }
 	     },{
-            		title:'Administracion',
+            		title:'Administraci&oacute;n',
             		xtype: 'treepanel',
            			id: 'tree-panel4',
             		region: 'center',
@@ -238,7 +238,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	            }
 	        }
 	      },{
-            	title:'Ayuda en Linea',
+            	title:'Ayuda en L&iacute;nea',
             	xtype: 'treepanel',
            		id: 'tree-panel5',
             	region: 'center',
@@ -268,7 +268,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
             },{
                 region:'east',
                 id:'east-panel',
-                title:'Datos de Sesion',
+                title:'Datos de Sesi&oacute;n',
                 split:true,
                 width: 200,
 				height: 740,
