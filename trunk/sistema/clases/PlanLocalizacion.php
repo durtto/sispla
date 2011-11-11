@@ -21,21 +21,7 @@ class PlanLocalizacion extends MyPDO {
 	 * @AssociationType Planes.Alojamiento
 	 * @AssociationMultiplicity 0..*
 	 */
-	public $_unnamed_Alojamiento_ = array();
-	/**
-	 * @AssociationType Planes.Alimentacion
-	 * @AssociationMultiplicity 0..*
-	 */
-	public $_unnamed_Alimentacion_ = array();
-	/**
-	 * @AssociationType Planes.Transporte
-	 * @AssociationMultiplicity 0..*
-	 */
-	public $_unnamed_Transporte_ = array();
-	/**
-	 * @AssociationType Planes.Proveedor
-	 * @AssociationMultiplicity *
-	 */
+
 	public $_unnamed_Proveedor_ = array();
 	/**
 	 * @AssociationType Planes.Persona
@@ -48,14 +34,17 @@ class PlanLocalizacion extends MyPDO {
    * @access public
    */
   public $columPlanLocalizacion= array('co_plan_localizacion'=>'co_plan_localizacion','fe_elaboracion'=>'fe_elaboracion');
-
+  public $columPlanLocalizacionProveedor= array('co_plan_localizacion'=>'co_plan_localizacion','co_proveedor'=>'co_proveedor');
+  public $columPlanLocalizacionDirectorio= array('co_plan_localizacion'=>'co_plan_localizacion','co_directorio'=>'co_directorio');
+  public $columEquipoContinuidad= array('co_equipo_continuidad'=>'co_equipo_continuidad','co_indicador'=>'co_indicador', 'co_rol_resp'=>'co_rol_resp');
+  public $columPlanLocalizacionEquipoContinuidad= array('co_plan_localizacion'=>'co_plan_localizacion','co_equipo_continuidad'=>'co_equipo_continuidad');
   /**
    * 
    *
    * @return string
    * @access public
    */
-  public function insertarPlanLocalizacion($planlocalizacion) {
+  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios) {
   	
 	$this->pdo->beginTransaction();	
 
@@ -63,10 +52,28 @@ class PlanLocalizacion extends MyPDO {
 	
 	$r1 = $this->pdo->_insert('tr036_plan_localizacion', $planlocalizacion);
 	
-	if($r1)
+	if(isset($proveedores) && count($proveedores)>0){
+	foreach($proveedores as $proveedor){		
+			if(is_array($proveedor)){
+				$proveedor = array_intersect_key($proveedor, $this->columPlanLocalizacionProveedor);
+				//print_r($vehiculo);
+				$r2 = $this->pdo->_insert('tr046_rel_plan_localizacion_proveedor', $proveedor); 
+				}
+			}
+    	}
+	if(isset($directorios) && count($directorios)>0){
+	foreach($directorios as $directorio){		
+			if(is_array($directorio)){
+				$directorio = array_intersect_key($directorio, $this->columPlanLocalizacionDirectorio);
+				//print_r($vehiculo);
+				$r3 = $this->pdo->_insert('tr060_rel_plan_localizacion_directorio', $directorio); 
+				}
+			}
+    	}
+	if($r1==1 && $r2==1 && $r3==1)
 			{$this->pdo->commit(); return true;}
 	else		
-			{$this->pdo->rollback();  return "Error : 1= ".$r1;	 }
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3;}
   
   } // end of member function insertarPlanLocalizacion
 

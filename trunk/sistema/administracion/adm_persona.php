@@ -250,7 +250,7 @@ Ext.onReady(function(){
                         }
                     },{
                         fieldLabel: 'Telefono Habitacion',
-						xtype:'numberfield',
+						xtype:'textfield',
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
                         allowBlank:false,

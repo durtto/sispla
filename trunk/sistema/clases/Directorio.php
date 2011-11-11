@@ -110,6 +110,7 @@ class Directorio extends MyPDO
 	$query = "SELECT 
   tr051_directorio.co_directorio, 
   tr051_directorio.nb_directorio, 
+  tr050_tipo_directorio.co_tipo_directorio,
   tr050_tipo_directorio.nb_tipo_directorio,
   tr051_directorio.nu_telefono
   

@@ -1,7 +1,7 @@
 var nuevo;
 var winAlimentacion;
 var winAlojamiento;
-var winProveedor;
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -20,6 +20,33 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StorePlanLogistica******************************************/     
+  
+  var storePlanLogistica = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_plan_logistica.php',
+		remoteSort : true,
+		root: 'planeslogistica',
+        totalProperty: 'total',
+		idProperty: 'co_plan_logistica',
+        fields: [{name: 'co_plan_logistica'},
+       			{name: 'fe_elaboracion'},
+        		{name: 'resp'}]
+        });
+    storePlanLogistica.setDefaultSort('co_plan_logistica', 'ASC');
+    
+/*****************************************FIN****StorePlanLogistica*****************************************/
+
+/******************************************INICIO**colModelPlanLogistica******************************************/     
+
+   var colModelPlanLogistica = new Ext.grid.ColumnModel([
+   	
+        {id:'co_plan_logistica',header: "Plan Logistica",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_logistica'},
+        {header: "Elaboracion", width: 680, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
+      ]);
+
+/******************************************FIN****colModelPlanLocalizacion******************************************/     
+
     
 /******************************************INICIO**StorePlanLocalizacion******************************************/     
   
@@ -174,108 +201,6 @@ Ext.onReady(function(){
       ]);
 	
 /******************************************FIN****colModelTransporte******************************************/     
-/******************************************INICIO**StoreProveedor******************************************/     
-	
-  var storeProveedor = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_proveedor.php',
-		remoteSort : true,
-		root: 'proveedores',
-        totalProperty: 'total',
-		idProperty: 'co_proveedor',
-        fields: [{name: 'co_proveedor'},
-        		{name: 'nb_proveedor'},
-        		{name: 'di_oficina'},
-        		{name: 'tx_telefono_oficina'},
-        		{name: 'tx_url_pagina'},
-        		{name: 'co_contacto'},
-        		{name: 'nb_contacto'},
-		        {name: 'tx_apellido'},
-		        //{name: 'di_oficina'},
-		        {name: 'tx_telefono_oficina'},
-		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
-        		{name: 'resp'}]
-        });
-    storeProveedor.setDefaultSort('co_proveedor', 'ASC');
-    
-/*****************************************FIN****StoreProveedor*****************************************/
-
-var expanderContacto = new Ext.ux.grid.RowExpander({
-        tpl : new Ext.Template(
-            '<p><b>Nombre:</b> {nb_contacto}</p>',
-            '<p><b>Apellido:</b> {tx_apellido}</p>',
-            '<p><b>Direccion:</b> {di_habitacion}</p>',
-            '<p><b>Telefono:</b> {tx_telefono_oficina}</p>',
-            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>',
-            '<p><b>Telefono Habitacion:</b> {tx_telefono_habitacion}</p>'
-        )
-    });
-
-/******************************************INICIO**colModelProveedor******************************************/     
-   
-    var colModelProveedor = new Ext.grid.ColumnModel([
-    	expanderContacto,
-        {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 150, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Telefono", width: 150, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Pagina Web", width: 150, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},	
-      	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
-      	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
-		//{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        //{header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-       	// {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		//{header: "Telefono Habitacion", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
-      
-      ]);
-	
-/******************************************FIN****colModelProveedor******************************************/     
-
-/******************************************INICIO**StoreContacto******************************************/     
-      
-  var storeContacto = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_contacto_proveedor.php',
-		remoteSort : true,
-		root: 'contactos',
-        totalProperty: 'total',
-		idProperty: 'co_contacto',
-        fields: [{name: 'co_contacto'},
-		        {name: 'nb_contacto'},
-		        {name: 'tx_apellido'},
-		        {name: 'di_oficina'},
-		        {name: 'tx_telefono_oficina'},
-		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
-		        {name: 'co_proveedor'},
-		        {name: 'nb_proveedor'},
-		        {name: 'resp'}]
-        });
-    storeContacto.setDefaultSort('co_contacto', 'ASC');
-    
-/*****************************************FIN****StoreContacto*****************************************/
-
-
-
-/******************************************INICIO**colModelContacto******************************************/     
-    
-    var colModelContacto = new Ext.grid.ColumnModel([
-        {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
-		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
-        {header: "Proveedor", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-      ]);
-	
-/******************************************FIN****colModelContacto******************************************/     
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
@@ -285,24 +210,37 @@ var gridForm = new Ext.FormPanel({
 		labelAlign: 'center',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:760,
+		items: []
+    });
+
+storePlanLocalizacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_plan_localizacion.php"}});
+gridForm.render('form');
+
+
+var gridForm = new Ext.FormPanel({
+        id: 'grid_planlogistica',
+        frame: true,
+		labelAlign: 'center',
+        bodyStyle:'padding:5px 5px 5px 5px',
+		width:760,
 		items: [{
 					border:false,
 	                xtype: 'grid',
-					id: 'gd_planlocalizacion',
-	                store: storePlanLocalizacion,
+					id: 'gd_planlogistica',
+	                store: storePlanLogistica,
 	                stripeRows: true,
                 	iconCls: 'icon-grid',
-	                cm: colModelPlanLocalizacion,
+	                cm: colModelPlanLogistica,
 	                height: 250,
 	                iconCls: 'icon-grid',
-					title:'Lista de Plan Localizacion',
+					title:'Lista de Plan Logistica',
 	                border: true,
 	                listeners: {
 	                    viewready: function(g) {
 	                    }
 	                },
 					bbar: new Ext.PagingToolbar({
-					store: storePlanLocalizacion,
+					store: storePlanLogistica,
 					pageSize: 50,
 					displayInfo: true,
 					displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -311,11 +249,8 @@ var gridForm = new Ext.FormPanel({
 		}]
     });
 
-storePlanLocalizacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_plan_localizacion.php"}});
+storePlanLogistica.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_plan_logistica.php"}});
 gridForm.render('form');
-
-
-
 /********************************************************************************************************/
 		
     var gridForm = new Ext.FormPanel({
@@ -482,47 +417,7 @@ gridForm.render('form');
 		labelAlign: 'center',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:760,
-		items: [{
-                xtype: 'grid',
-				id: 'gd_proveedor',
-                store: storeProveedor,
-                cm: colModelProveedor,
-                plugins: expanderContacto,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("grid_proveedor").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				title:'Lista de Proveedor',
-                border: true,
-                tbar:[{
-			    text:'Agregar Proveedor',
-			    tooltip:'Agregar Nuevo Proveedor',
-			    handler: AgregarProveedor,
-			    iconCls:'add'
-			    }],
-	            listeners: {
-				handler : function(){
-					if(Ext.getCmp("gd_proveedor").getSelectionModel().getSelected()){
-					var record = Ext.getCmp("gd_proveedor").getSelectionModel().getSelected();
-					Ext.getCmp("co_proveedor").setValue(record.data.co_proveedor);
-					}
-								  }
-	                },
-				bbar: new Ext.PagingToolbar({
-				store: storeProveedor,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
+		items: [],
         
     });
     	
@@ -914,186 +809,5 @@ grid.render('form');
 		}
 		winAlojamiento.show();	
 }
-function AgregarProveedor(){
-	if(!winProveedor){
-				winProveedor = new Ext.Window({
-						applyTo : 'winProveedor',
-						layout : 'fit',
-						width : 620,
-						height : 300,
-						closeAction :'hide',
-						plain : true,
-						items : [new Ext.FormPanel({
-        id: 'frm_proveedor',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Proveedores',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:600,
-		items: [{
-	   		xtype:'fieldset',
-			id: 'frm1',
-			disabled: true,
-			labelAlign: 'center',
-			width:580,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Proveedores',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Codigo Proveedor',
-						xtype:'numberfield',
-						id: 'co_proveedor',
-                        name: 'co_proveedor',
-                        allowBlank:false,
-                        hidden: true,
-						hideLabel: true,
-                        width:120
-                    }, {
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_proveedor',
-                        name: 'nb_proveedor',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }, {
-                        fieldLabel: 'Direccion',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'di_oficina',
-                        name: 'di_oficina',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-				},{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Telefono',
-						xtype:'numberfield',
-						id: 'tx_telefono_oficina',
-                        name: 'tx_telefono_oficina',
-						width:120
-                    }, {
-                        fieldLabel: 'Pagina Web',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'tx_url_pagina',
-                        name: 'tx_url_pagina',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120
-                    }]
-			}]
-			},{
-				width: 600,  
-				buttonAlign:'center',
-				layout: 'fit', 	
-				buttons: [{
-			text: 'Nuevo', 
-			tooltip:'',
-			handler: function(){
-					nuevo = true;
-					Ext.getCmp("btnGuardarProveedor").enable();
-					Ext.getCmp("btnEliminarProveedor").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
-					}
-					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_proveedor").focus();
-				}
-			},{
-			text: 'Guardar', 
-			id: 'btnGuardarProveedor',
-			tooltip:'Guardar Proveedor',
-			iconCls: 'save',
-			disabled: true,
-			waitMsg: 'Saving...',
-			handler: function(){
-						var campos='';
-						var camposForm = Ext.getCmp("frm_proveedor").getForm().getValues(false);	
-						campos = verifObligatorios(camposForm, camposReq);
-						if(campos != ''){		
-							Ext.MessageBox.show({
-								title: 'ATENCION',
-								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
-								buttons: Ext.MessageBox.OK,
-								icon: Ext.MessageBox.WARNING
-							});
-						}
-						else
-						{
-							if(nuevo)						
-								storeProveedor.baseParams = {'accion': 'insertar'};
-							else
-								storeProveedor.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
-							columnas += '"nb_proveedor" : "'+Ext.getCmp("nb_proveedor").getValue()+'", ';
-							columnas += '"di_oficina" : "'+Ext.getCmp("di_oficina").getValue()+'", ';
-							columnas += '"tx_telefono_oficina" : "'+Ext.getCmp("tx_telefono_oficina").getValue()+'", ';
-							columnas += '"tx_url_pagina" : "'+Ext.getCmp("tx_url_pagina").getValue()+'"}';
-							storeProveedor.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proveedor.php"},
-										callback: function () {
-										if(storeProveedor.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storeProveedor.getAt(0).data.resp, 
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
-							}});
-							storeProveedor.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proveedor.php'};
-						}
-				}
-			}]
-			}],
-        
-    })],
-						buttons:[{
-								  text : 'Aceptar',
-								  handler : function(){
-											winProveedor.hide();
-								  }
-							   },{
-								  text : 'Cancelar',
-								  handler : function(){
-											winProveedor.hide();
-								  }
-						}]
-				});
-		}
-		winProveedor.show();	
-}
+
 });
