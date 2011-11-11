@@ -383,7 +383,7 @@ Ext.onReady(function(){
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnEliminar").enable();
+					//Ext.getCmp("btnEliminar").enable();
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
@@ -464,6 +464,7 @@ Ext.onReady(function(){
 			id: 'btnEliminar',
 			text: 'Eliminar', 
 			iconCls: 'delete',
+			hidden:true,
 			tooltip:'Eliminar Activo',
 			disabled: true,
 			handler: function(){
@@ -644,8 +645,9 @@ gridForm.render('form');
 	Ext.getCmp("gd_activo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
-		Ext.getCmp("btnEliminar").enable();
+		//Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
+			Ext.getCmp("frm1").enable();
 		}
 		Ext.getCmp("co_activo").focus();
 		nroReg=rowIdx;
