@@ -261,7 +261,6 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Fecha de Incorporaci&oacute;n',
 						xtype:'datefield',
-						vtype:'validos',
 						id: 'fe_incorporacion',
                         name: 'fe_incorporacion',
                         width:152
@@ -282,7 +281,6 @@ Ext.onReady(function(){
                     },{
                         fieldLabel: 'Responsable',
 						xtype:'textfield',
-						vtype:'validos',
 						id: 'nb_persona',
 						disabled:true,
 						allowBlank:false,
