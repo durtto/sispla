@@ -24,8 +24,17 @@
 			$planeslocalizacion = json_decode($cond, true);
 			$planeslocalizacion = array_filter($planeslocalizacion, "vacio");
 
-		
-			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion);		
+			$cond1 = $_REQUEST['proveedores'];
+			$cond1 = str_replace('\"','"',$cond1);
+			$proveedores = json_decode($cond1, true);
+			$proveedores = array_filter($proveedores, "vacio");
+
+			$cond2 = $_REQUEST['directorios'];
+			$cond2 = str_replace('\"','"',$cond2);
+			$directorios = json_decode($cond2, true);
+			$directorios = array_filter($directorios, "vacio");
+								
+			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios);		
 			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 

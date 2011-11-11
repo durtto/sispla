@@ -108,6 +108,7 @@ Ext.onReady(function(){
         fields: [{name: 'co_directorio'},
 		        {name: 'nb_directorio'},
 		        {name: 'nb_tipo_directorio'},
+		        //{name: 'co_tipo_directorio'},
 		        {name: 'nu_telefono'},
 		        {name: 'resp'}]
         });
@@ -122,6 +123,7 @@ Ext.onReady(function(){
     var colModelDirectorio = new Ext.grid.ColumnModel([
         {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
+        {header: "Tipo Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
         {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
         {header: "Numero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
       ]);
@@ -188,7 +190,6 @@ Ext.onReady(function(){
 						id: 'nu_telefono',
                         name: 'nu_telefono',
                         allowBlank: false,
-                        vtype:'numero',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     }]
@@ -381,7 +382,6 @@ Ext.onReady(function(){
                     }, {
                         fieldLabel: 'Nombre',
 						xtype:'textfield',
-						vtype:'validos',
 						id: 'nb_tipo_directorio',
                         name: 'nb_tipo_directorio',
                         allowBlank:false,
@@ -548,7 +548,7 @@ Ext.onReady(function(){
 				});
 		}
 		winTpDirectorio.show();	
-		storeDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_directorio.php"}});
+		storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
 		Ext.getCmp("gd_tpdirectorio").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
@@ -565,7 +565,7 @@ Ext.onReady(function(){
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 
 
-storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
+//storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
 storeDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_directorio.php"}});
 gridForm.render('form');
 
