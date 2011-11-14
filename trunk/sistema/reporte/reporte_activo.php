@@ -643,49 +643,49 @@ Ext.onReady(function(){
         
     }]
 									},{
-								title: 'Alimentacion',
+								title: 'Transporte',
 								id: 'tabalimentacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Alojamiento',
+								title: 'Procesamiento',
 								id: 'tabalojamiento',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Transporte',
+								title: 'Impresion',
 								id: 'tabtransporte',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Proveedor',
+								title: 'Visualizacion',
 								id: 'tabproveedor',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Proveedor',
+								title: 'Autonomia Energetica',
 								id: 'tabproveedor1',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Proveedor',
+								title: 'Monitoreo',
 								id: 'tabproveedor2',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Proveedor',
+								title: 'Adquisicion de Datos',
 								id: 'tabproveedor3',
 								hideMode: 'offsets', 
 								autoHeight:true,		
