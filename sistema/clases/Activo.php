@@ -7,7 +7,6 @@ require_once 'Ubicacion.php';
 require_once 'Proceso.php';
 require_once 'Proveedor.php';
 require_once 'TipoDeActivo.php';
-require_once 'UnidadDeDemanda.php';
 require_once 'NivelObsolescencia.php';
 
 /**
@@ -137,7 +136,7 @@ class Activo extends MyPDO
    * 
    * @access public
    */
-  public $columActivo= array('co_activo'=>'co_activo', 'nb_activo'=>'nb_activo', 'tx_descripcion'=>'tx_descripcion', 'co_sap'=>'co_sap', 'nu_serial'=>'nu_serial', 'nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable', 'fe_incorporacion'=>'fe_incorporacion', 'nu_vida_util'=>'nu_vida_util', 'co_activo_padre'=>'co_activo_padre', 'co_estado'=>'co_estado', 'co_fabricante'=>'co_fabricante', 'co_indicador'=>'co_indicador', 'co_ubicacion'=>'co_ubicacion', 'co_proceso'=>'co_proceso', 'co_proveedor'=>'co_proveedor',  'co_tipo_activo'=>'co_tipo_activo', 'co_unidad'=>'co_unidad', 'co_nivel'=>'co_nivel');
+  public $columActivo= array('co_activo'=>'co_activo', 'nb_activo'=>'nb_activo', 'tx_descripcion'=>'tx_descripcion', 'co_sap'=>'co_sap', 'nu_serial'=>'nu_serial', 'nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable', 'fe_incorporacion'=>'fe_incorporacion', 'nu_vida_util'=>'nu_vida_util', 'co_activo_padre'=>'co_activo_padre', 'co_estado'=>'co_estado', 'co_fabricante'=>'co_fabricante', 'co_indicador'=>'co_indicador', 'co_ubicacion'=>'co_ubicacion', 'co_proceso'=>'co_proceso', 'co_proveedor'=>'co_proveedor',  'co_tipo_activo'=>'co_tipo_activo', 'co_nivel'=>'co_nivel');
   
   /**
    * 
@@ -189,7 +188,7 @@ class Activo extends MyPDO
    * @return string
    * @access public
    */
-  public function eliminarActivo($condiciones ) {
+  public function eliminarActivo($condiciones) {
   
   	$this->pdo->beginTransaction();	
 
@@ -211,10 +210,60 @@ class Activo extends MyPDO
   public function cargarActivo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  *
+  tr027_activo.co_activo, 
+  tr027_activo.nb_activo, 
+  tr027_activo.nu_serial, 
+  tr027_activo.tx_descripcion, 
+  tr027_activo.nu_etiqueta, 
+  tr027_activo.fe_incorporacion, 
+  tr027_activo.nu_vida_util, 
+  tr004_estado.nb_estado, 
+  tr027_activo.co_estado, 
+  tr027_activo.co_fabricante, 
+  tr003_fabricante.nb_fabricante, 
+  tr027_activo.co_indicador, 
+  tr010_persona.co_indicador, 
+  tr027_activo.co_ubicacion, 
+  tr006_ubicacion.nb_ubicacion, 
+  tr027_activo.co_proceso, 
+  tr016_proceso.nb_proceso, 
+  tr027_activo.co_proveedor, 
+  tr025_proveedor.nb_proveedor, 
+  tr027_activo.co_nivel, 
+  tr023_nivel_obsolescencia.nb_nivel, 
+  tr027_activo.co_tipo_activo, 
+  tr014_tipo_activo.nb_tipo_activo, 
+  tr027_activo.co_sap, 
+  tr027_activo.co_activo_padre,
+  CASE
+  WHEN tr027_activo.bo_critico = true
+  THEN 'SI'
+  ELSE 'NO'
+  END AS bo_critico,
+  CASE
+  WHEN tr027_activo.bo_vulnerable = true
+  THEN 'SI'
+  ELSE 'NO'
+  END AS bo_vulnerable
 FROM 
-  public.tr027_activo
-    ";
+  public.tr027_activo, 
+  public.tr004_estado, 
+  public.tr003_fabricante, 
+  public.tr010_persona, 
+  public.tr006_ubicacion, 
+  public.tr016_proceso, 
+  public.tr025_proveedor, 
+  public.tr023_nivel_obsolescencia, 
+  public.tr014_tipo_activo
+WHERE 
+  tr027_activo.co_estado = tr004_estado.co_estado AND
+  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
+  tr027_activo.co_indicador = tr010_persona.co_indicador AND
+  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
+  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
+  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
+  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
+  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
 if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

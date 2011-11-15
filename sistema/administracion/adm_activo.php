@@ -96,7 +96,6 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StorePersona*****************************************/
 
-
 /******************************************INICIO**colModelPersona******************************************/     
 
     var colModelPersona = new Ext.grid.ColumnModel([
@@ -132,6 +131,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -155,8 +155,6 @@ Ext.onReady(function(){
 				{name: 'nb_proceso'},
 				{name: 'co_proveedor'},
 				{name: 'nb_proveedor'},
-				{name: 'co_unidad'},
-				{name: 'nb_unidad'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
 				{name: 'co_tipo_activo'},
@@ -171,9 +169,9 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelActivo******************************************/     
 
     var colModelActivo = new Ext.grid.ColumnModel([
-        {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre del Activo", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {id:'co_activo',header: "Activo", width: 80,  sortable: true, locked:false, dataIndex: 'co_activo'},
+        {header: "Nombre del Activo", width: 120, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
       	{header: "C&oacute;digo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "N&uacute;mero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
@@ -194,8 +192,6 @@ Ext.onReady(function(){
       	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
       	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
       	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
         {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
@@ -297,7 +293,6 @@ Ext.onReady(function(){
                     },
                     GetCombo('co_estado','Estado'),
                     GetCombo('co_proceso','Proceso'),
-                    GetCombo('co_unidad','Unidad de Demanda'),
                     GetCombo('co_tipo_activo','Tipo de Activo')]
 				},{
 					layout: 'form',
@@ -430,12 +425,11 @@ Ext.onReady(function(){
 								columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
 								columnas += '"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
-								columnas += '"co_unidad" : "'+Ext.getCmp("co_unidad").getValue()+'", ';
 								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
 								columnas += '"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}';
 							storeActivo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -455,7 +449,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeActivo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
+							storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
 						}
 				}
 			},{
@@ -469,7 +463,7 @@ Ext.onReady(function(){
 										storeActivo.baseParams = {'accion': 'eliminar'};
 										storeActivo.load({params:{
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -633,7 +627,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 }
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
+storeActivo.load({params: { start: 0, limit: 'ALL', accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

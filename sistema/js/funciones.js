@@ -639,7 +639,10 @@
     function bsBonoEsp(tMinEsp, bsMinEsp, porcBono){
 		return (tMinEsp * bsMinEsp) * porcBono;
     }
- 
+    function descripcion(tx_descripcion,descripcion){  
+   descripcion = 'style="white-space:normal"';  
+   return tx_descripcion;  
+   }  
 	/*******************************************************************************************/
 	//
 	// example of custom renderer function
