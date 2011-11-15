@@ -92,16 +92,13 @@ Ext.onReady(function(){
     var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
         {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: showDescription},
+        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
         {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
 	
 /******************************************FIN****colModelRolResp******************************************/     
 
-   function showDescription(tx_descripcion,descripcion){  
-   descripcion = 'style="white-space:normal"';  
-   return tx_descripcion;  
-   }  
+
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
