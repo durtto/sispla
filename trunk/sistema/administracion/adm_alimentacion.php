@@ -78,6 +78,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'alimentos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'},
 		idProperty: 'co_alimentacion',
         fields: [{name: 'co_alimentacion'},
         		{name: 'ca_desayuno'},		
@@ -258,7 +259,7 @@ Ext.onReady(function(){
 							columnas += '"ca_persona" : "'+Ext.getCmp("ca_persona").getValue()+'"}';
 							storeAlimentacion.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_alimentacion" : "'+Ext.getCmp("co_alimentacion").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_alimentacion.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_alimentacion.php"},
 										callback: function () {
 										if(storeAlimentacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -278,7 +279,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeAlimentacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'};
+							storeAlimentacion.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'};
 						}
 				}
 			},{
@@ -291,7 +292,7 @@ Ext.onReady(function(){
 										storeAlimentacion.baseParams = {'accion': 'eliminar'};
 										storeAlimentacion.load({params:{
 												"condiciones": '{ "co_alimentacion" : "'+Ext.getCmp("co_alimentacion").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_alimentacion.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_alimentacion.php"},
 										callback: function () {
 										if(storeAlimentacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({

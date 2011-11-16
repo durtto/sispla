@@ -15,8 +15,9 @@
 		case 'refrescar':
 			
 			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			$total = count($resultado);
-			
+			//$total = count($resultado);
+			$resultado2= $activo->contarActivo();
+			$total= $resultado2 [0]['count'];
 			break;
 			
 		case 'critico':
@@ -76,8 +77,8 @@
 			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
-			for($i=0; $i<count($resultado); $i++)
-     		$resultado[$i]['resp'] = $respuesta;
+			//for($i=0; $i<count($resultado); $i++)
+     		//$resultado[$i]['resp'] = $respuesta;
 			
 		break;
 		

@@ -14,8 +14,9 @@
 		case 'refrescar':
 			
 			$resultado = $alimentacion->cargarAlimentacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			$total = count($resultado);
-			
+			//$total = count($resultado);
+			$resultado3= $alimentacion->contarAlimentacion();
+			$total= $resultado3 [0]['count'];
 
 			break;
 		case 'insertar':	 			
@@ -68,8 +69,8 @@
 			$resultado = $alimentacion->cargarAlimentacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
-			for($i=0; $i<count($resultado); $i++)
-     		$resultado[$i]['resp'] = $respuesta;
+			//for($i=0; $i<count($resultado); $i++)
+     		//$resultado[$i]['resp'] = $respuesta;
 			
 		break;
 		

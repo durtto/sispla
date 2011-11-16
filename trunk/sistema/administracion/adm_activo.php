@@ -627,7 +627,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 }
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 
-storeActivo.load({params: { start: 0, limit: 'ALL', accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
+storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
