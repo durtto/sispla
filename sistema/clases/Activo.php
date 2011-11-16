@@ -148,6 +148,42 @@ class Activo extends MyPDO
    * @return string
    * @access public
    */
+  
+  
+   public function contarActivo() {
+	$contar = "SELECT 
+  count(tr027_activo.co_activo) 
+FROM 
+  public.tr027_activo, 
+  public.tr004_estado, 
+  public.tr003_fabricante, 
+  public.tr010_persona, 
+  public.tr006_ubicacion, 
+  public.tr016_proceso, 
+  public.tr025_proveedor, 
+  public.tr023_nivel_obsolescencia, 
+  public.tr014_tipo_activo
+WHERE 
+  tr027_activo.co_estado = tr004_estado.co_estado AND
+  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
+  tr027_activo.co_indicador = tr010_persona.co_indicador AND
+  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
+  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
+  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
+  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
+  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;
+";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  } 
+  
+  
+  
   public function insertarActivo($activo) {
   	
 	$this->pdo->beginTransaction();	
