@@ -60,6 +60,17 @@ class Necesidad extends MyPDO
    * @return string
    * @access public
    */
+   public function contarNecesidad() {
+	$contar = "SELECT count(tr038_necesidad.co_necesidad)
+	FROM tr038_necesidad";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarNecesidad($necesidad) {
   	
 	$this->pdo->beginTransaction();	

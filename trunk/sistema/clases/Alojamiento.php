@@ -59,6 +59,17 @@ class Alojamiento extends MyPDO
    * @return string
    * @access public
    */
+  public function contarAlojamiento() {
+	$contar = "SELECT count(tr017_alojamiento.co_alojamiento)
+	FROM tr017_alojamiento";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  } 
   public function insertarAlojamiento($alojamiento) {
   	
 	$this->pdo->beginTransaction();	

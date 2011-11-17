@@ -46,6 +46,17 @@ class Proceso extends MyPDO
    * @return string
    * @access public
    */
+  public function contarProceso() {
+	$contar = "SELECT count(tr016_proceso.co_proceso)
+	FROM tr016_proceso";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarProceso($proceso) {
   	
 	$this->pdo->beginTransaction();	

@@ -34,6 +34,17 @@ class Equipo extends MyPDO
    * @return string
    * @access public
    */
+  public function contarEquipo() {
+	$contar = "SELECT count(tr055_equipo.co_equipo)
+	FROM tr055_equipo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarEquipo($equipo) {
   	
 	$this->pdo->beginTransaction();	

@@ -54,6 +54,18 @@ class TpActivo extends MyPDO
    * @return string
    * @access public
    */
+    public function contarTpActivo() {
+	$contar = "SELECT count(tr014_tipo_activo.co_tipo_activo)
+	FROM tr014_tipo_activo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+  
   public function insertarTpActivo($tpactivo) {
   	
 	$this->pdo->beginTransaction();	

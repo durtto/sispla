@@ -57,6 +57,17 @@ class Ubicacion extends MyPDO
    * @return string
    * @access public
    */
+  public function contarUbicacion() {
+	$contar = "SELECT count(tr006_ubicacion.co_ubicacion)
+	FROM tr006_ubicacion";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUbicacion($ubicacion) {
   	
 	$this->pdo->beginTransaction();	
@@ -123,10 +134,9 @@ class Ubicacion extends MyPDO
   tr006_ubicacion.nb_ubicacion, 
   tr006_ubicacion.bo_obsoleto, 
   tr006_ubicacion.co_ubicacion_padre, 
+  tr006_ubicacion.co_tipo_ubicacion, 
   tr005_tipo_ubicacion.nb_tipo_ubicacion,
-  (SELECT tr006_ubicacion.nb_ubicacion FROM public.tr006_ubicacion
- WHERE tr006_ubicacion.co_ubicacion_padre=tr006_ubicacion.co_ubicacion) AS nb_ubicacion_padre,
-CASE
+  CASE
 WHEN tr006_ubicacion.bo_obsoleto = true
 THEN 'SI'
 ELSE 'NO'

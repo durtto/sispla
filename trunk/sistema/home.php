@@ -16,7 +16,32 @@
 	<script type="text/javascript" src="js/funciones.js"></script>
 	<script type="text/javascript" src="lib/ext-3.2.1/examples/ux/XmlTreeLoader.js"></script>
 
-
+<link rel="stylesheet" type="text/css" href="../css/loading.css">
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
+<!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
+	<!-- GC -->
+ 	<!-- LIBS -->
+ 	<!-- ENDLIBS -->
+    <script type="text/javascript" src="../lib/ext-3.2.1/ext-all.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/shared/extjs/App.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowEditor.js"></script>
+    <!-- overrides to base library -->
+    <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/GridFilters.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/RangeMenu.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/shared/icons/silk.css" />
+	<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/RowEditor.css" />
+    <!-- extensions para los filtros -->
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
+	<script type="text/javascript" src="../js/ext-lang-es.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/Filter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
+	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
 
 <script type="text/javascript">
 
@@ -217,6 +242,12 @@ Ext.BLANK_IMAGE_URL = 'lib/ext-3.2.1/resources/images/default/s.gif';
 <tr><td> Nivel de Acceso: <?php echo $_SESSION[rol];?></td></tr>
 
 </table>
+	<div id="winActivo" class="x-hidden">
+    <div class="x-window-header">Ejegir Activo</div>
+	</div>
+	<div id="winPersona" class="x-hidden">
+    <div class="x-window-header">Ejegir Persona</div>
+	</div>
 <br>
 </div>
 </body>

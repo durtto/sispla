@@ -50,6 +50,17 @@ class Modelo extends MyPDO
    * @return string
    * @access public
    */
+  public function contarModelo() {
+	$contar = "SELECT count(tr029_modelo.co_modelo)
+	FROM tr029_modelo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarModelo($modelo) {
   	
 	$this->pdo->beginTransaction();	

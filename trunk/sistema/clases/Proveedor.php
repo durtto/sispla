@@ -62,6 +62,17 @@ class Proveedor extends MyPDO
    * @return string
    * @access public
    */
+    public function contarProveedor() {
+	$contar = "SELECT count(tr025_proveedor.co_proveedor)
+	FROM tr025_proveedor";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarProveedor($proveedor) {
   	
 	$this->pdo->beginTransaction();	

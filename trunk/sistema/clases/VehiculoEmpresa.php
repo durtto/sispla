@@ -50,6 +50,17 @@ class VehiculoEmpresa extends MyPDO
    * @return string
    * @access public
    */
+  public function contarVehiculo() {
+	$contar = "SELECT count(tr020_vehiculo_empresa.co_vehiculo)
+	FROM tr020_vehiculo_empresa";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarVehiculo($vehiculo) {
   	
 	$this->pdo->beginTransaction();	

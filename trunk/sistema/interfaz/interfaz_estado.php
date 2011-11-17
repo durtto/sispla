@@ -13,7 +13,9 @@
 	switch($accion){
 		case 'refrescar':
 			$resultado = $estado->cargarEstado($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			$total = count($resultado);
+			//$total = count($resultado);
+			$resultado3= $estado->contarEstado();
+			$total= $resultado3 [0]['count'];
 			
 			break;
 		case 'insertar':	 			

@@ -41,6 +41,18 @@ class Capacidad extends MyPDO
    * @return string
    * @access public
    */
+  
+   public function contarCapacidad() {
+	$contar = "SELECT count(tr012_capacidad.co_capacidad)
+	FROM tr012_capacidad";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarCapacidad($capacidad) {
   	
 	$this->pdo->beginTransaction();	

@@ -63,8 +63,8 @@
 			$cond = $_REQUEST['condiciones'];
 			$cond = str_replace('\"','"',$cond);
 			$condiciones = json_decode($cond, true);
-			$condiciones = array_filter($condiciones, "vacio");
-			
+			$condiciones = array_filter($condiciones, "vacio");		
+				
 			$respuesta = $alimentacion->eliminarAlimentacion($condiciones); 		
 			$resultado = $alimentacion->cargarAlimentacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);

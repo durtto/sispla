@@ -31,6 +31,17 @@ class TpRespaldo extends MyPDO
    * @return string
    * @access public
    */
+  public function contarTpRespaldo() {
+	$contar = "SELECT count(tr034_tipo_respaldo.co_tipo_respaldo)
+	FROM tr034_tipo_respaldo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTpRespaldo($tprespaldo) {
   	
 	$this->pdo->beginTransaction();	

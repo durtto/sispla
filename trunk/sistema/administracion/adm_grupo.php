@@ -221,8 +221,9 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_grupo.php"},
 										callback: function () {
-										if(storeGrupo.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
+										if(storeGrupo.getAt(0).data.resp!=true){
+											storeGrupo.baseParams = {'accion': 'refrescar'};
+												Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeGrupo.getAt(0).data.resp,
 												buttons: Ext.MessageBox.OK,
@@ -238,6 +239,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+				storeGrupo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_grupo.php'};
+
 							}})}
 			}]
 			},{

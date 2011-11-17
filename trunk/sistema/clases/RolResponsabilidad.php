@@ -36,6 +36,17 @@ class RolResponsabilidad extends MyPDO
    * @return string
    * @access public
    */
+  public function contarRolResponsabilidad() {
+	$contar = "SELECT count(tr002_rol_responsabilidad.co_rol_resp)
+	FROM tr002_rol_responsabilidad";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarRolResponsabilidad($rolresponsabilidad) {
   	
 	$this->pdo->beginTransaction();	

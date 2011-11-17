@@ -45,6 +45,17 @@ class Estado extends MyPDO
    * @return string
    * @access public
    */
+  public function contarEstado() {
+	$contar = "SELECT count(tr004_estado.co_estado)
+	FROM tr004_estado";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarEstado($estado) {
   	
 	$this->pdo->beginTransaction();	

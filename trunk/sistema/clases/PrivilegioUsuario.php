@@ -41,6 +41,17 @@ class PrivilegioUsuario extends MyPDO
    * @return string
    * @access public
    */
+  public function contarPrivilegioUsuario() {
+	$contar = "SELECT count(tr022_privilegio_usuario.co_privilegio)
+	FROM tr022_privilegio_usuario";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarPrivilegioUsuario($privilegio) {
   	
 	$this->pdo->beginTransaction();	
