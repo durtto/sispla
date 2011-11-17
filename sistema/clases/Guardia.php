@@ -50,6 +50,17 @@ class Guardia extends MyPDO
    * @return string
    * @access public
    */
+  public function contarGuardia() {
+	$contar = "SELECT count(tr009_guardia.co_guardia)
+	FROM tr009_guardia";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarGuardia($guardia) {
   	
 	$this->pdo->beginTransaction();	

@@ -47,6 +47,17 @@ class NivelObsolescencia extends MyPDO
    * @return string
    * @access public
    */
+  public function contarNivelObsolescencia() {
+	$contar = "SELECT count(tr023_nivel_obsolescencia.co_nivel)
+	FROM tr023_nivel_obsolescencia";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarNivelObsolescencia($nivelobsolescencia) {
   	
 	$this->pdo->beginTransaction();	

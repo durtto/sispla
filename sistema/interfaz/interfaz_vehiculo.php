@@ -15,7 +15,9 @@
 		case 'refrescar':
 			
 			$resultado = $vehiculo->cargarVehiculo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			$total = count($resultado);
+			//$total = count($resultado);
+			$resultado3= $vehiculo->contarVehiculo();
+			$total= $resultado3 [0]['count'];
 			
 
 			break;

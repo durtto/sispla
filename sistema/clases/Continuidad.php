@@ -61,6 +61,17 @@ class Continuidad extends MyPDO
    * @return string
    * @access public
    */
+    public function contarContinuidad() {
+	$contar = "SELECT count(tr035_continuidad.co_continuidad)
+	FROM tr035_continuidad";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarContinuidad($continuidad) {
   	
 	$this->pdo->beginTransaction();	

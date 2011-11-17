@@ -70,7 +70,7 @@ Ext.onReady(function(){
 		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
-        baseParams: {start:0, limit:10, accion: "refrescar"},
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'},
         fields: [{name: 'co_capacidad'},
         		{name: 'nb_capacidad'},		
         		{name: 'resp'}]
@@ -223,6 +223,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_apacidad.php"},
 										callback: function () {
+										storeCapacidad.baseParams = {'accion': 'refrescar'};
 										if(storeCapacidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -240,6 +241,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeCapacidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
+
 							}})}
 			}]
 			},{
@@ -268,7 +271,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeCapacidad,
-				pageSize: 10,
+				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -282,7 +285,7 @@ Ext.onReady(function(){
 
 	
 	
-storeCapacidad.load({params:{start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
+storeCapacidad.load({params:{start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

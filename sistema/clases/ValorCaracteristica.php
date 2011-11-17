@@ -38,6 +38,17 @@ class Valor extends MyPDO
    * @return string
    * @access public
    */
+  public function contarValor() {
+	$contar = "SELECT count(tr031_valor_caracteristica.co_activo)
+	FROM tr031_valor_caracteristica";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarValor($valor) {
   	
 	$this->pdo->beginTransaction();	

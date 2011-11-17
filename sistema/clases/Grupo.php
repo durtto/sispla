@@ -40,6 +40,17 @@ class Grupo extends MyPDO
    * @return string
    * @access public
    */
+  public function contarGrupo() {
+	$contar = "SELECT count(tr001_grupo.co_grupo)
+	FROM tr001_grupo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarGrupo($grupo) {
   	
 	$this->pdo->beginTransaction();	

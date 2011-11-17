@@ -60,6 +60,17 @@ class Fabricante extends MyPDO
    * @return string
    * @access public
    */
+  public function contarFabricante() {
+	$contar = "SELECT count(tr003_fabricante.co_fabricante)
+	FROM tr003_fabricante";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarFabricante($fabricante) {
   	
 	$this->pdo->beginTransaction();	

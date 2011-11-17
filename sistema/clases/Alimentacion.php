@@ -57,7 +57,7 @@ class Alimentacion extends MyPDO
   
   public function contarAlimentacion() {
 	$contar = "SELECT count(tr018_alimentacion.co_alimentacion)
-FROM tr018_alimentacion";
+	FROM tr018_alimentacion";
 	
 	$c = $this->pdo->_query($contar);
 	

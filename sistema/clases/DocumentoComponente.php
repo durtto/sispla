@@ -34,6 +34,17 @@ class DocComponente extends MyPDO
    * @return string
    * @access public
    */
+  public function contarDocumento() {
+	$contar = "SELECT count(tr053_documento_componente.co_doc_componente)
+	FROM tr053_documento_componente";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDocComponente($docComponente) {
   	
 	$this->pdo->beginTransaction();	

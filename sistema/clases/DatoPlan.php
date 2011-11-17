@@ -60,6 +60,17 @@ class Dato extends MyPDO
    * @return string
    * @access public
    */
+  public function contarDato() {
+	$contar = "SELECT count(tr015_datos_plan.co_componente)
+	FROM tr015_datos_plan";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDato($dato) {
   	
 	$this->pdo->beginTransaction();	

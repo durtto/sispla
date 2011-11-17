@@ -51,6 +51,17 @@ class Servicio extends MyPDO
    * @return string
    * @access public
    */
+  public function contarServicio() {
+	$contar = "SELECT count(tr013_servicio.co_servicio)
+	FROM tr013_servicio";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarServicio($servicio) {
   	
 	$this->pdo->beginTransaction();	

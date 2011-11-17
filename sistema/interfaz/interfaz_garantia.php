@@ -14,7 +14,9 @@
 		case 'refrescar':
 			
 			$resultado = $garantia->cargarGarantia($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			$total = count($resultado);
+			//$total = count($resultado);
+			$resultado3= $garantia->contarGarantia();
+			$total= $resultado3 [0]['count'];
 		
 
 			break;

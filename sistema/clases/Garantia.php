@@ -51,6 +51,17 @@ class Garantia extends MyPDO
    * @return string
    * @access public
    */
+   public function contarGarantia() {
+	$contar = "SELECT count(tr032_garantia.co_garantia)
+	FROM tr032_garantia";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarGarantia($garantia) {
   	
 	$this->pdo->beginTransaction();	

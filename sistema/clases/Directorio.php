@@ -46,6 +46,17 @@ class Directorio extends MyPDO
    * @return string
    * @access public
    */
+   public function contarDirectorio() {
+	$contar = "SELECT count(tr051_directorio.co_directorio)
+	FROM tr051_directorio";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDirectorio($directorio) {
   	
 	$this->pdo->beginTransaction();	

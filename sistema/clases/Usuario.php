@@ -43,6 +43,17 @@ class Usuario extends MyPDO
    * @return string
    * @access public
    */
+  public function contarUsuario() {
+	$contar = "SELECT count(tr047_usuario.co_usuario)
+	FROM tr047_usuario";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUsuario($usuario) {
   	
 	$this->pdo->beginTransaction();	

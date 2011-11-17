@@ -44,6 +44,17 @@ class PlanLocalizacion extends MyPDO {
    * @return string
    * @access public
    */
+  public function contarPlanLocalizacion() {
+	$contar = "SELECT count(tr036_plan_localizacion.co_plan_localizacion)
+	FROM tr036_plan_localizacion";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios) {
   	
 	$this->pdo->beginTransaction();	

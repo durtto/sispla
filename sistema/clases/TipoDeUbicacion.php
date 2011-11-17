@@ -36,6 +36,17 @@ class TpUbicacion extends MyPDO
    * @return string
    * @access public
    */
+  public function contarTpUbicacion() {
+	$contar = "SELECT count(tr005_tipo_ubicacion.co_tipo_ubicacion)
+	FROM tr005_tipo_ubicacion";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTpUbicacion($tpubicacion) {
   	
 	$this->pdo->beginTransaction();	

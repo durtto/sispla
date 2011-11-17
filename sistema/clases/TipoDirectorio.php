@@ -40,6 +40,17 @@ class TpDirectorio extends MyPDO
    * @return string
    * @access public
    */
+    public function contarTpDirectorio() {
+	$contar = "SELECT count(tr050_tipo_directorio.co_tipo_directorio)
+	FROM tr050_tipo_directorio";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTpDirectorio($tpDirectorio) {
   	
 	$this->pdo->beginTransaction();	

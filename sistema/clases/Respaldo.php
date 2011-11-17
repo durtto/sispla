@@ -62,6 +62,17 @@ class Respaldo extends MyPDO
    * @return string
    * @access public
    */
+   public function contarRespaldo() {
+	$contar = "SELECT count(tr039_respaldo.co_respaldo)
+	FROM tr039_respaldo";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarRespaldo($respaldo) {
   	
 	$this->pdo->beginTransaction();	

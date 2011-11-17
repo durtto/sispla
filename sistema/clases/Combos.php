@@ -22,6 +22,15 @@ public function cargarTpUbicacion() {
    echo '{"Resultados":'.json_encode($r).'}';
 
   }
+public function cargarUbicacionPadre() {
+	
+  $query = "SELECT  tr006_ubicacion.co_ubicacion AS co_ubicacion_padre,
+tr006_ubicacion.nb_ubicacion AS nb_ubicacion_padre
+                FROM tr006_ubicacion;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  }
 public function cargarTpRespaldo() {
 	
   $query = "SELECT *

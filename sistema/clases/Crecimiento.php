@@ -51,6 +51,17 @@ class Crecimiento extends MyPDO
    * @return string
    * @access public
    */
+  public function contarCrecimiento() {
+	$contar = "SELECT count(tr037_crecimiento.co_crecimiento)
+	FROM tr037_crecimiento";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarCrecimiento($crecimiento) {
   	
 	$this->pdo->beginTransaction();	

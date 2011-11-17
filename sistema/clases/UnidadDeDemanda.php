@@ -41,6 +41,17 @@ class Unidad extends MyPDO
    * @return string
    * @access public
    */
+  public function contarUnidad() {
+	$contar = "SELECT count(tr024_unidad_demanda.co_unidad)
+	FROM tr024_unidad_demanda";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUnidad($unidad) {
   	
 	$this->pdo->beginTransaction();	

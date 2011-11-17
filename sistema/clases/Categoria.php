@@ -41,6 +41,18 @@ class Categoria extends MyPDO
    * @return string
    * @access public
    */
+  
+  public function contarCategoria() {
+	$contar = "SELECT count(tr011_categoria.co_categoria)
+	FROM tr011_categoria";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarCategoria($categoria) {
   	
 	$this->pdo->beginTransaction();	

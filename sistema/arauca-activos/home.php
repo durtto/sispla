@@ -17,6 +17,7 @@
 	<script type="text/javascript" src="../js/funciones.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/XmlTreeLoader.js"></script>
 
+	<script type="text/javascript" src="login.js"></script>
 
 
 <script type="text/javascript">

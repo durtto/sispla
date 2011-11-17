@@ -48,6 +48,17 @@ class PlanLogistica extends MyPDO {
    * @return string
    * @access public
    */
+  public function contarPlanLogistica() {
+	$contar = "SELECT count(tr042_plan_logistica.co_plan_logistica)
+	FROM tr042_plan_logistica";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarPlanLogistica($planlogistica) {
   	
 	$this->pdo->beginTransaction();	

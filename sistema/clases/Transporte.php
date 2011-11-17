@@ -41,6 +41,17 @@ class Transporte extends MyPDO
    * @return string
    * @access public
    */
+  public function contarTransporte() {
+	$contar = "SELECT count(tr021_transporte.co_transporte)
+	FROM tr021_transporte";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTransporte($transporte, $vehiculos, $lineas) {
   	
 	$this->pdo->beginTransaction();	

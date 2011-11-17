@@ -24,6 +24,10 @@
 	$resultado = $combo->cargarTpUbicacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
 	break;
+	case 'ubicacion_padre':
+	$resultado = $combo->cargarUbicacionPadre($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
 	case 'tipo_activo':
 	$resultado = $combo->cargarTpActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);

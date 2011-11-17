@@ -41,6 +41,17 @@ class Departamento extends MyPDO
    * @return string
    * @access public
    */
+  public function contarDepartamento() {
+	$contar = "SELECT count(tr007_departamento.co_departamento)
+	FROM tr007_departamento";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDepartamento($departamento) {
   	
 	$this->pdo->beginTransaction();	

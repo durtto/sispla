@@ -51,6 +51,17 @@ class Falla extends MyPDO
    * @return string
    * @access public
    */
+    public function contarFalla() {
+	$contar = "SELECT count(tr028_falla.co_falla)
+	FROM tr028_falla";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarFalla($falla) {
   	
 	$this->pdo->beginTransaction();	

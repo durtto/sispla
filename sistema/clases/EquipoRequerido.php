@@ -38,6 +38,17 @@ class EquipoRequerido extends MyPDO
    * @return string
    * @access public
    */
+  public function contarEquipoRequerido() {
+	$contar = "SELECT count(tr033_equipo_requerido.co_equipo_requerido)
+	FROM tr033_equipo_requerido";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarEquipoRequerido($equiporequerido, $personas, $tpactivos, $equipos, $necesarios) {
   	
 	$this->pdo->beginTransaction();	

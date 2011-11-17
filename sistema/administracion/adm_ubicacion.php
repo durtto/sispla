@@ -44,9 +44,8 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
-  var winUbicacion;
-  var winTpUbicacion;
+ 	var nuevo;
+	var winTpUbicacion;
    
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -110,6 +109,7 @@ Ext.onReady(function(){
         		{name: 'bo_obsoleto'},
         		{name: 'co_ubicacion_padre'},
         		{name: 'nb_ubicacion_padre'},
+        		{name: 'co_tipo_ubicacion'},
         		{name: 'nb_tipo_ubicacion'},
         		{name: 'resp'}]
         });
@@ -125,8 +125,9 @@ Ext.onReady(function(){
         {id:'co_ubicacion',header: "Ubicacion", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Obsoleto", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
-        //{header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
+        {header: "Ubicacion Padre", hidden:true,width: 150, sortable: true, locked:false, dataIndex: 'co_ubicacion_padre'},
         {header: "Ubicacion Padre", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion_padre'},
+        {header: "Ubicacion Padre", hidden:true,width: 150, sortable: true, locked:false, dataIndex: 'co_tipo_ubicacion'},
         {header: "Tipo Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_ubicacion'},
         ]);
         
@@ -164,8 +165,8 @@ Ext.onReady(function(){
 						id: 'co_ubicacion',
                         name: 'co_ubicacion',
                         allowBlank:false,
-                        hidden: true,
-						hideLabel: true,
+                        //hidden: true,
+						//hideLabel: true,
 						width:140
                     
 				},{
@@ -187,14 +188,7 @@ Ext.onReady(function(){
 					border:false,
 					columnWidth:.45,
 					labelWidth:100,
-					items: [{
-                        fieldLabel: 'Ubicacion Padre',
-						xtype:'numberfield',
-						id: 'co_ubicacion_padre',
-                        name: 'co_ubicacion_padre',
-						width:121
-                    
-				},{
+					items: [GetCombo('co_ubicacion_padre','Ubicacion Padre'),{
                         xtype: 'radiogroup',
 	            		fieldLabel: 'Obsoleto',
 	            		id: 'bo_obsoleto',
@@ -258,7 +252,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_ubicacion.php"},
 										callback: function () {
-										if(storeUbicacion.getAt(0).data.resp!=true){		
+										if(storeUbicacion.getAt(0).data.resp!=true){
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeUbicacion.getAt(0).data.resp,
@@ -291,7 +285,8 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_ubicacion.php"},
 										callback: function () {
-										if(storeUbicacion.getAt(0).data.resp!=true){		
+										if(storeUbicacion.getAt(0).data.resp!=true){
+											storeUbicacion.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeUbicacion.getAt(0).data.resp, 
@@ -308,7 +303,10 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+					storeUbicacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_ubicacion.php'};
+
 							}})}
+							
 			}]
 			},{
 			width:800,
@@ -618,7 +616,7 @@ storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz
 				});
 		}
 		winTpUbicacion.show();	
-storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
+	storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_ubicacion.php"}});
 	Ext.getCmp("gd_tpubicacion").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
@@ -657,13 +655,6 @@ gridForm.render('form');
 
 /********************************************************************************************************/
 
-/******************************************TRIGGERS*******************************************/
-
-var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-trigger'});
-		triggerUbicacion.onTriggerClick = selUbicacion;
-		triggerUbicacion.applyToMarkup('co_ubicacion_padre');	
-	
-/******************************************FIN**TRIGGERS*******************************************/
 
 });
 </script>
@@ -680,9 +671,7 @@ var triggerUbicacion = new Ext.form.TriggerField({triggerClass : 'x-form-search-
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-<div id="winUbicacion" class="x-hidden">
-    <div class="x-window-header">Ejegir Rol Padre</div>
-</div>
+
         <div id="winTpUbicacion" class="x-hidden">
     <div class="x-window-header">Registrar Tipo Ubicacion</div>
 </div>

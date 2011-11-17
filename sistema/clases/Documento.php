@@ -50,6 +50,17 @@ class Documento extends MyPDO
    * @return string
    * @access public
    */
+  public function contarDocumento() {
+	$contar = "SELECT count(tr048_documento.co_documento)
+	FROM tr048_documento";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDocumento($documento) {
   	
 	$this->pdo->beginTransaction();	
