@@ -127,7 +127,7 @@ class Ubicacion extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarUbicacion1($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr006_ubicacion.co_ubicacion, 
@@ -156,5 +156,45 @@ tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
 			
 	return $r;
   } // end of member function cargarUbicacion
+  
+  
+  
+  
+  public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC", $ubicacion) {
+
+	while (tr006_ubicacion.co_ubicacion_padre!=Null){
+	$query[0] = "SELECT 
+  	tr006_ubicacion.co_ubicacion, 
+	tr006_ubicacion.nb_ubicacion, 
+  	tr006_ubicacion.bo_obsoleto, 
+  	tr006_ubicacion.co_ubicacion_padre, 
+  	tr006_ubicacion.co_tipo_ubicacion, 
+  	tr005_tipo_ubicacion.nb_tipo_ubicacion,
+  	CASE
+	WHEN tr006_ubicacion.bo_obsoleto = true
+	THEN 'SI'
+	ELSE 'NO'
+	END AS bo_obsoleto
+	FROM 
+	public.tr005_tipo_ubicacion, 
+	public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
+	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
+	tr006_ubicacion.co_ubicacion_padre '".$ubicaciona."'";
+	}
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  } // end of member function cargarUbicacion
+  
+  
+  
+  
+  
+  
+  
+  
 }
 ?>

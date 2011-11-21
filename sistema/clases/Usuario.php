@@ -35,7 +35,7 @@ class Usuario extends MyPDO
    * 
    * @access public
    */
-  public $columUsuario= array('co_usuario'=>'co_usuario', 'co_indicador'=>'co_indicador', 'co_privilegio'=>'co_privilegio');
+  public $columUsuario= array('co_usuario'=>'co_usuario', 'co_indicador'=>'co_indicador', 'co_privilegio'=>'co_privilegio', 'co_ubicacion'=>'co_ubicacion');
 
   /**
    * 
@@ -120,14 +120,17 @@ class Usuario extends MyPDO
 	  tr047_usuario.co_indicador, 
 	  tr022_privilegio_usuario.nb_privilegio, 
 	  tr010_persona.nb_persona, 
-	  tr010_persona.tx_apellido
+	  tr010_persona.tx_apellido,
+	  tr006_ubicacion.nb_ubicacion
 	FROM 
 	  public.tr047_usuario, 
 	  public.tr010_persona, 
-	  public.tr022_privilegio_usuario
-	WHERE 
+	  public.tr022_privilegio_usuario,
+	  public.tr006_ubicacion
+	  wHERE 
 	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
-	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio";
+	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND
+	  tr047_usuario.co_ubicacion = tr006_ubicacion.co_ubicacion";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
@@ -146,20 +149,20 @@ class Usuario extends MyPDO
 	  tr047_usuario.co_indicador, 
 	  tr022_privilegio_usuario.nb_privilegio, 
 	  tr010_persona.nb_persona, 
-	  tr010_persona.tx_apellido
+	  tr010_persona.tx_apellido,
+	  tr006_ubicacion.nb_ubicacion
 	FROM 
 	  public.tr047_usuario, 
 	  public.tr010_persona, 
-	  public.tr022_privilegio_usuario
-	WHERE 
+	  public.tr022_privilegio_usuario,
+	  public.tr006_ubicacion
+	  wHERE 
 	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
-	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND 
-	  tr010_persona.co_indicador= '".$login."'";
-	if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
+	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND
+	  tr047_usuario.co_ubicacion = tr006_ubicacion.co_ubicacion AND
+	  tr010_persona.co_indicador='".$login."'";
+	
+	echo $login;
 	$r = $this->pdo->_query($query);
 	
 			

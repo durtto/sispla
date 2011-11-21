@@ -14,32 +14,12 @@
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivoAA($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
 			$resultado2= $activo->contarActivo();
 			$total= $resultado2 [0]['count'];
 			break;
-		case 'furrial':
-			
-			$resultado = $activo->cargarActivoFurrial($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			//$total = count($resultado);
-			$resultado2= $activo->contarActivo();
-			$total= $resultado2 [0]['count'];
-			break;	
-		case 'PDM':
-			
-			$resultado = $activo->cargarActivoPDM($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			//$total = count($resultado);
-			$resultado2= $activo->contarActivo();
-			$total= $resultado2 [0]['count'];
-			break;	
-		case 'maturin':
-			
-			$resultado = $activo->cargarActivoMaturin($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
-			//$total = count($resultado);
-			$resultado2= $activo->contarActivo();
-			$total= $resultado2 [0]['count'];
-			break;		
+		
 		case 'critico':
 			
 			$resultado = $activo->cargarActivoCritico($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
