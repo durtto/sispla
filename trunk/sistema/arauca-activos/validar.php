@@ -15,7 +15,7 @@
 			$_SESSION['fecha_p']	 = date("d/m/Y");
 			/*********/
 			$usuario = new Usuario();
-			$res = consultarUsuario(strtolower($_REQUEST['login']));	        
+			$res = cargarUsuarioLogin(strtolower($_REQUEST['login']));	        
 			$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
 			/**********/
 			
