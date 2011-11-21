@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+//print_r($_SESSION); ?>
 <html>
 <head>
 <title>Arauca</title>
@@ -215,10 +216,10 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 <img src="../imagenes/salir.gif" width="15" height="15" align="absmiddle" > Salir </span><br><br>
 </td></tr>
 <tr>
-<td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION[indicador];?></b></td></tr>
-<tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?></b></td></tr>
-<tr><td> Nivel de Acceso: <?php echo $_SESSION[rol];?></td></tr>
-
+<td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION['indicador'];?></b></td></tr>
+<tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?> <?php echo $_SESSION[apellido];?></b></td></tr>
+<tr><td> Nivel de Acceso: <?php echo $_SESSION['privilegio'];?></td></tr>
+<tr><td> Ubicacion: <?php echo $_SESSION['ubicacion'];?></td></tr>
 </table>
 <br>
 </div>

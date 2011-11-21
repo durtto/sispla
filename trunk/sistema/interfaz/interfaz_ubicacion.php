@@ -17,7 +17,6 @@
 			//$total = count($resultado);
 			$resultado3= $ubicacion->contarUbicacion();
 			$total= $resultado3 [0]['count'];
-		
 			break;
 		case 'insertar':	 			
 			

@@ -5,6 +5,8 @@
 	require('../scripts/activedirectory.php');
 	require('../scripts/activedirectory_valores.php');
 	require_once ('../clases/Usuario.php');
+	require_once ('../clases/Ubicacion.php');
+	
 	$ActiveD    = ActiveDirectory(strtolower($_REQUEST['login']),$_REQUEST['password']);
 	$ActiveDVal = ActiveDirectory_valores(strtolower($_REQUEST['login']));
 
@@ -15,8 +17,11 @@
 			$_SESSION['fecha_p']	 = date("d/m/Y");
 			/*********/
 			$usuario = new Usuario();
-			$res = cargarUsuarioLogin(strtolower($_REQUEST['login']));	        
+			$res = $usuario->cargarUsuarioLogin(strtoupper($_REQUEST['login']));	        
 			$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
+			$_SESSION['nombre']  = $res[0]['nb_persona'];
+			$_SESSION['ubicacion']  = $res[0]['nb_ubicacion'];
+			//print_r($res);
 			/**********/
 			
 			header("location:home.php");	

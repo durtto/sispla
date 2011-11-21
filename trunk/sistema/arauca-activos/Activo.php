@@ -304,7 +304,7 @@ if ($sort != "") {
 	return $r;
   } // end of member function cargarActivo
   
-  public function cargarActivoAA($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarActivoAA($start='0', $limit='ALL', $sort = "", $dir = "ASC", $ubicacion) {
 
 	$query = "SELECT 
   tr027_activo.co_activo, 
@@ -360,12 +360,9 @@ WHERE
   tr027_activo.co_proceso = tr016_proceso.co_proceso AND
   tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
   tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
+  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
+  tr027_activo.co_ubicacion ='".$ubicacion."'";
+
 	$r = $this->pdo->_query($query);
 	
 			

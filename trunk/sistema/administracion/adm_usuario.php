@@ -142,6 +142,8 @@ Ext.onReady(function(){
         fields: [{name: 'co_usuario'},
 		        {name: 'co_privilegio'},
         		{name: 'nb_privilegio'},
+        		{name: 'co_ubicacion'},
+        		{name: 'nb_ubicacion'},
 		        {name: 'co_indicador'},
         		{name: 'nb_persona'},
         		{name: 'tx_apellido'},
@@ -158,6 +160,8 @@ Ext.onReady(function(){
         {id:'co_usuario',header: "Usuario", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_usuario'},
         {header: "Privilegio", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
         {header: "Privilegio", width: 150, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Ubicacion", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {header: "Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
         {header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
@@ -202,7 +206,8 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },GetCombo('co_privilegio','Privilegio')
+                    },GetCombo('co_privilegio','Privilegio'), 
+                    GetCombo('co_ubicacion','Ubicacion')
 				]
                     },{
 					layout: 'form',
@@ -282,6 +287,7 @@ Ext.onReady(function(){
 								storeUsuario.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'", ';
 								columnas += '"co_privilegio" : "'+Ext.getCmp("co_privilegio").getValue()+'", ';
+								columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
 								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
 							storeUsuario.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'"}', 
