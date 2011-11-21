@@ -4,7 +4,7 @@
 	//echo $_REQUEST['password'];
 	require('../scripts/activedirectory.php');
 	require('../scripts/activedirectory_valores.php');
-	require_once '../clases/Usuario.php';
+	require_once ('../clases/Usuario.php');
 	$ActiveD    = ActiveDirectory(strtolower($_REQUEST['login']),$_REQUEST['password']);
 	$ActiveDVal = ActiveDirectory_valores(strtolower($_REQUEST['login']));
 
