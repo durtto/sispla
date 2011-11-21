@@ -139,7 +139,7 @@ class Usuario extends MyPDO
 	return $r;
   } // end of member function cargarUsuario
   
-    public function cargarUsuarioLogin($_REQUEST='login') {
+    public function cargarUsuarioLogin($login) {
 
 	$query = "SELECT 
 	  tr047_usuario.co_usuario, 
@@ -154,7 +154,7 @@ class Usuario extends MyPDO
 	WHERE 
 	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
 	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND 
-	  tr010_persona.co_indicador= '".$_REQUEST['login']."'";
+	  tr010_persona.co_indicador= '".$login."'";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
