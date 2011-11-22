@@ -143,7 +143,7 @@ class Activo extends MyPDO
    */
   
   
-   public function contarActivo() {
+   public function contarActivo($ubic) {
 	$contar = "SELECT 
   count(tr027_activo.co_activo) 
 FROM 
@@ -164,8 +164,16 @@ WHERE
   tr027_activo.co_proceso = tr016_proceso.co_proceso AND
   tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
   tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo;
-";
+  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
+  tr027_activo.co_ubicacion IN (SELECT 
+  	tr006_ubicacion.co_ubicacion
+	FROM 
+	public.tr005_tipo_ubicacion, 
+	public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
+	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
+	tr006_ubicacion.co_ubicacion_padre= '".$ubic."')";
 	
 	$c = $this->pdo->_query($contar);
 	
