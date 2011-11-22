@@ -218,8 +218,8 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 <tr>
 <td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION['indicador'];?></b></td></tr>
 <tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?> <?php echo $_SESSION[apellido];?></b></td></tr>
-<tr><td> Nivel de Acceso: <?php echo $_SESSION['privilegio'];?></td></tr>
-<tr><td> Ubicacion: <?php echo $_SESSION['ubicacion'];?></td></tr>
+<tr><td> Nivel de Acceso: <b><?php echo $_SESSION['privilegio'];?></b></td></tr>
+<tr><td> Ubicacion: <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
 </table>
 <br>
 </div>
