@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Activo</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -40,7 +41,7 @@
  var nuevo;
  var winActivo;
  var winPersona;
-
+ var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -131,7 +132,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
-		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php'},
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -627,7 +628,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 }
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_activo.php"}});
+storeActivo.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_activo.php", ubicacion: ubicacion}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

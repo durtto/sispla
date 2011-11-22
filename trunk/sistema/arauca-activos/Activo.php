@@ -304,34 +304,25 @@ if ($sort != "") {
 	return $r;
   } // end of member function cargarActivo
   
-  public function cargarActivoAA($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarActivoAA($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr027_activo.co_activo, 
-  tr027_activo.nb_activo, 
-  tr027_activo.nu_serial, 
-  tr027_activo.tx_descripcion, 
-  tr027_activo.nu_etiqueta, 
-  tr027_activo.fe_incorporacion, 
-  tr027_activo.nu_vida_util, 
-  tr004_estado.nb_estado, 
-  tr027_activo.co_estado, 
-  tr027_activo.co_fabricante, 
-  tr003_fabricante.nb_fabricante, 
-  tr027_activo.co_indicador, 
-  tr010_persona.co_indicador, 
-  tr027_activo.co_ubicacion, 
-  tr006_ubicacion.nb_ubicacion, 
-  tr027_activo.co_proceso, 
-  tr016_proceso.nb_proceso, 
-  tr027_activo.co_proveedor, 
-  tr025_proveedor.nb_proveedor, 
-  tr027_activo.co_nivel, 
-  tr023_nivel_obsolescencia.nb_nivel, 
-  tr027_activo.co_tipo_activo, 
-  tr014_tipo_activo.nb_tipo_activo, 
-  tr027_activo.co_sap, 
-  tr027_activo.co_activo_padre,
+		  tr027_activo.co_activo, tr027_activo.nb_activo,  tr027_activo.nu_serial, 
+		  tr027_activo.tx_descripcion, tr027_activo.nu_etiqueta, tr027_activo.fe_incorporacion, 
+		  tr027_activo.nu_vida_util, tr004_estado.nb_estado, tr027_activo.co_estado, 
+		  tr027_activo.co_fabricante, tr003_fabricante.nb_fabricante, tr027_activo.co_indicador, 
+		  tr010_persona.co_indicador, tr027_activo.co_ubicacion, 
+		  tr006_ubicacion.nb_ubicacion, 
+		  tr027_activo.co_proceso, 
+		  tr016_proceso.nb_proceso, 
+		  tr027_activo.co_proveedor, 
+		  tr025_proveedor.nb_proveedor, 
+		  tr027_activo.co_nivel, 
+		  tr023_nivel_obsolescencia.nb_nivel, 
+		  tr027_activo.co_tipo_activo, 
+		  tr014_tipo_activo.nb_tipo_activo, 
+		  tr027_activo.co_sap, 
+		  tr027_activo.co_activo_padre,
   CASE
   WHEN tr027_activo.bo_critico = true
   THEN 'SI'
@@ -369,8 +360,13 @@ WHERE
 	WHERE 
 	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
 	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
-	tr006_ubicacion.co_ubicacion_padre=5";
-
+	tr006_ubicacion.co_ubicacion_padre= '".$ubic."')";
+	if ($sort != "") {
+		$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	//echo $query;
 	$r = $this->pdo->_query($query);
 	
 			
