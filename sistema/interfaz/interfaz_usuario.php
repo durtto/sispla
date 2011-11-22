@@ -1,9 +1,11 @@
 <?php
 	require_once '../clases/Usuario.php';
+	require_once '../arauca-activos/validar.php';
 	
 	$usuario = new Usuario();
 	
-	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
+	//$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
+		$accion = login;
 	
 	function vacio($var) {
     return ($var != '');
@@ -18,6 +20,15 @@
 			$total= $resultado3 [0]['count'];
 		
 			break;
+			
+		case 'login':
+			$resultado = $usuario->cargarUsuarioLogin($_REQUEST['login'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			//$total = count($resultado);
+			$resultado3= $usuario->contarUsuario();
+			$total= $resultado3 [0]['count'];
+		echo $resultado;
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];
@@ -32,9 +43,8 @@
 
 			for($i=0; $i<count($resultado); $i++)
      		$resultado[$i]['resp'] = $respuesta;
-				
-
 			break;
+			
 		case 'actualizar':
 			
 			
