@@ -9,12 +9,12 @@
     return ($var != '');
 }
 	$activos = array_filter($_REQUEST, "vacio");
-		
+
 	
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivoAA($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"], $_REQUEST["co_ubicacion"]);
+			$resultado = $activo->cargarActivoAA($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
 			$resultado2= $activo->contarActivo();
 			$total= $resultado2 [0]['count'];
