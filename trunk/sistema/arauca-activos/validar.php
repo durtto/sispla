@@ -21,6 +21,7 @@
 			$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
 			$_SESSION['nombre']  = $res[0]['nb_persona'];
 			$_SESSION['ubicacion']  = $res[0]['nb_ubicacion'];
+			$_SESSION['co_ubicacion']  = $res[0]['co_ubicacion'];
 			//print_r($res);
 			/**********/
 			
