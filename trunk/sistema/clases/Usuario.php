@@ -122,6 +122,7 @@ class Usuario extends MyPDO
 	  tr010_persona.nb_persona, 
 	  tr010_persona.tx_apellido,
 	  tr006_ubicacion.nb_ubicacion
+	  tr047_usuario.co_ubicacion,
 	FROM 
 	  public.tr047_usuario, 
 	  public.tr010_persona, 
