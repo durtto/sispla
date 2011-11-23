@@ -162,8 +162,7 @@ tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
   
   public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC", $ubicacion) {
 
-	while (tr006_ubicacion.co_ubicacion_padre!=Null){
-	$query[0] = "SELECT 
+	$query = "SELECT 
   	tr006_ubicacion.co_ubicacion, 
 	tr006_ubicacion.nb_ubicacion, 
   	tr006_ubicacion.bo_obsoleto, 
@@ -181,8 +180,8 @@ tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
 	WHERE 
 	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
 	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
-	tr006_ubicacion.co_ubicacion_padre '".$ubicaciona."'";
-	}
+	tr006_ubicacion.co_ubicacion_padre = 5";
+
 	$r = $this->pdo->_query($query);
 	
 			
