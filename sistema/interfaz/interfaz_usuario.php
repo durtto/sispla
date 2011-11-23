@@ -4,8 +4,9 @@
 	
 	$usuario = new Usuario();
 	
-	//$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
-		$accion = login;
+	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
+	
+	//$accion = login;
 	
 	function vacio($var) {
     return ($var != '');
