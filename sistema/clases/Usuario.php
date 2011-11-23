@@ -2,7 +2,7 @@
 require_once 'MyPDO.php';
 require_once 'PrivilegioUsuario.php';
 require_once 'Persona.php';
-
+require_once 'Ubicacion.php';
 /**
  * Se definen los distintos tipos de usuarios.
  * @access public
@@ -121,8 +121,8 @@ class Usuario extends MyPDO
 	  tr022_privilegio_usuario.nb_privilegio, 
 	  tr010_persona.nb_persona, 
 	  tr010_persona.tx_apellido,
-	  tr006_ubicacion.nb_ubicacion
-	  tr047_usuario.co_ubicacion,
+	  tr006_ubicacion.nb_ubicacion,
+	  tr047_usuario.co_ubicacion
 	FROM 
 	  public.tr047_usuario, 
 	  public.tr010_persona, 
