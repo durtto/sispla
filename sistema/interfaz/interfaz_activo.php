@@ -14,7 +14,7 @@
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivoAA($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"], $_SESSION["ubicacion"]);
+			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"], $_SESSION["ubicacion"]);
 			//$total = count($resultado);
 			$resultado2= $activo->contarActivo();
 			$total= $resultado2 [0]['count'];
