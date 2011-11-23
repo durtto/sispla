@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/xml-tree-loader.css" />
+<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/XmlTreeLoader.js" />
 
 	<!-- GC -->
  	<!-- LIBS -->

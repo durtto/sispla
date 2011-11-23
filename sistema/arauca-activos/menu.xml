@@ -1,5 +1,6 @@
 <authors>
 
 			<book title="Activos" titulo="Activos" url="adm_activo.php"></book>
-		
+			<book title="Activos" titulo="Activos" url="../administracion/adm_activo.php"></book>
+
 </authors>		
