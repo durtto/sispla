@@ -104,9 +104,9 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
     var colModelProveedor = new Ext.grid.ColumnModel([
     	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
+        {header: "Direccion", width: 300, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado', renderer: servicio},
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		//{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
@@ -119,7 +119,10 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
       ]);
 	
 /******************************************FIN****colModelProveedor******************************************/     
-
+    function servicio(tx_servicio_prestado,servicio){  
+   servicio = 'style="white-space:normal"';  
+   return tx_servicio_prestado;  
+   }  
 /******************************************INICIO**StoreContacto******************************************/     
       
   var storeContacto = new Ext.data.JsonStore({
