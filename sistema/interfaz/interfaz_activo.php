@@ -9,17 +9,17 @@
     return ($var != '');
 }
 	$activos = array_filter($_REQUEST, "vacio");
-		
+
 	
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"], $_SESSION["ubicacion"]);
+			$resultado = $activo->cargarActivoAA($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
-			$resultado2= $activo->contarActivo();
+			$resultado2= $activo->contarActivo($_REQUEST['ubicacion']);
 			$total= $resultado2 [0]['count'];
 			break;
-			
+		
 		case 'critico':
 			
 			$resultado = $activo->cargarActivoCritico($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
