@@ -1,12 +1,12 @@
 <?php
 	require_once '../clases/Usuario.php';
-	require_once '../arauca-activos/validar.php';
+	//require_once '../arauca-activos/validar.php';
 	
 	$usuario = new Usuario();
 	
 	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
-	
-	//$accion = login;
+		
+		//$accion = login;
 	
 	function vacio($var) {
     return ($var != '');
