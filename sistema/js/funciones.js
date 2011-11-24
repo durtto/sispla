@@ -764,7 +764,7 @@
     	
     	function nivel(nb_nivel) {
         if (nb_nivel == 'ADECUADO') {
-            return '<img src="../imagenes/amarillo.png">'+'<span style="color:yellow;">' + 'ADECUADO' +'</span>';
+            return '<img src="../imagenes/amarillo.png">'+'<span style="color:orange;">'+'<span style="background-color:yellow;">' + 'ADECUADO' +'</span>';
         } else if (nb_nivel == 'FUNCIONAL') {
             return '<img src="../imagenes/verde.png">'+'<span style="color:green;">' + 'FUNCIONAL' +'</span>';
         }else if (nb_nivel == 'CRITICO') {

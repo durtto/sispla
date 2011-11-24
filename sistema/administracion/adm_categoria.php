@@ -225,6 +225,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
+										storeCategoria.baseParams = {'accion': 'refrescar'};
 										if(storeCategoria.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',

@@ -346,6 +346,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_cliente" : "'+Ext.getCmp("co_cliente").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_cliente.php"},
 										callback: function () {
+										storeCliente.baseParams = {'accion': 'refrescar'};											
 										if(storeCliente.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',

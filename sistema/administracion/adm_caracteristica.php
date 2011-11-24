@@ -239,6 +239,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_caracteristica" : "'+Ext.getCmp("co_caracteristica").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_caracteristica.php"},
 										callback: function () {
+										storeCaracteristica.baseParams = {'accion': 'refrescar'};
 										if(storeCaracteristica.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
