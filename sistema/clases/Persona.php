@@ -196,47 +196,39 @@ class Persona extends MyPDO
   public function cargarPersona($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr010_persona.co_indicador, 
-  tr010_persona.nu_cedula, 
-  tr010_persona.nb_persona, 
-  tr010_persona.tx_apellido, 
-  tr010_persona.di_oficina, 
-  tr010_persona.tx_telefono_oficina, 
-  tr010_persona.tx_correo_electronico, 
-  tr010_persona.di_habitacion, 
-  tr010_persona.tx_telefono_habitacion, 
-  tr010_persona.tx_telefono_personal,
-  tr007_departamento.co_departamento,
-  tr007_departamento.nb_departamento,
-  tr008_rol_persona.co_rol, 
-  tr008_rol_persona.nb_rol, 
-  tr002_rol_responsabilidad.co_rol_resp,
-  tr002_rol_responsabilidad.nb_rol_resp,
-  tr001_grupo.co_grupo, 
-  tr001_grupo.nb_grupo, 
-  tr009_guardia.co_guardia,
-  tr009_guardia.nb_guardia
-FROM 
-  public.tr010_persona, 
-  public.tr002_rol_responsabilidad, 
-  public.tr001_grupo, 
-  public.tr008_rol_persona, 
-  public.tr009_guardia, 
-  public.tr007_departamento
-WHERE 
-  tr010_persona.co_departamento = tr007_departamento.co_departamento AND
-  tr010_persona.co_rol = tr008_rol_persona.co_rol AND
-  tr010_persona.co_rol_resp = tr002_rol_responsabilidad.co_rol_resp AND
-  tr010_persona.co_grupo = tr001_grupo.co_grupo AND
-  tr010_persona.co_guardia = tr009_guardia.co_guardia";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
-	$r = $this->pdo->_query($query);
-	
-			
+			  p.co_indicador, 
+			  p.nu_cedula, 
+			  p.nb_persona, 
+			  p.tx_apellido, 
+			  p.di_oficina, 
+			  p.tx_telefono_oficina, 
+			  p.tx_correo_electronico, 
+			  p.di_habitacion, 
+			  p.tx_telefono_habitacion, 
+			  p.tx_telefono_personal,
+			  d.co_departamento,
+			  d.nb_departamento,
+			  rp.co_rol, 
+			  rp.nb_rol, 
+			  r.co_rol_resp,
+			  r.nb_rol_resp,
+			  g.co_grupo, 
+			  g.nb_grupo, 
+			  gu.co_guardia,
+			  gu.nb_guardia
+			  FROM 
+			  tr010_persona p 
+			  INNER JOIN tr002_rol_responsabilidad r ON (p.co_rol_resp = r.co_rol_resp) 
+			  INNER JOIN tr001_grupo g ON (p.co_grupo = g.co_grupo) 
+			  INNER JOIN tr008_rol_persona rp ON (p.co_rol = rp.co_rol) 
+			  INNER JOIN tr009_guardia gu ON (p.co_guardia = gu.co_guardia) 
+			  INNER JOIN tr007_departamento d ON (p.co_departamento = d.co_departamento)";
+	if ($sort != "") {
+		$query .= " ORDER BY ".$sort." ".$dir;
+		}
+		$query .= "	LIMIT ".$limit."
+					OFFSET ".$start;
+		$r = $this->pdo->_query($query);
 	return $r;
   } // end of member function cargarPersona
 }
