@@ -1,10 +1,9 @@
 <html>
 <head>
-<title>:: o ::</title>
+<title>:: ORINOCO ::</title>
 
-<link rel="shortcut icon" href="../images/icono.png"> 
+<link rel="shortcut icon" href="images/icono.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../css/estilos_avaweb.css" rel="stylesheet" type="text/css">			
 <link href="../css/main.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript" src="../js/md5.js"></script>
 <script type="text/javascript" language="javascript">
@@ -102,14 +101,14 @@ function encriptaclave()
         <tr>
 
           <td colspan="11"><img name="aviso_error_r2_c1" src="../imagenes/aviso_error_r2_c1.jpg" width="368" height="3" border="0" title=""></td>
-          <td><img src="../imagenes/spacer.gif" width="1" height="3" border="0" title=""></td>
+          <td><img src="imagenes/spacer.gif" width="1" height="3" border="0" title=""></td>
         </tr>
         <tr>
           <td rowspan="2"><img name="aviso_error_r3_c1" src="../imagenes/aviso_error_r3_c1.jpg" width="3" height="125" border="0" title=""></td>
           <td rowspan="2"><img name="aviso_error_r3_c2" src="../imagenes/aviso_error_r3_c2_b.jpg" width="7" height="125" border="0" title=""></td>
           <td colspan="7" rowspan="2" align="center" valign="middle" bgcolor="#ffffff"><table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="37%" rowspan="7"><img src="../imagenes/nombre.png" width="130" height="125"></td>
+              <td width="37%" rowspan="7"><img src="../imagenes/logo_ini.gif" width="130" height="125"></td>
 
               <td height="18" colspan="4" align="center" valign="bottom" class="titulo1">Inicio de Sesi&oacute;n  </td>
               </tr>
