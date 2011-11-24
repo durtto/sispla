@@ -134,25 +134,23 @@ class Proveedor extends MyPDO
   public function cargarProveedor($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr025_proveedor.co_proveedor, 
-  tr025_proveedor.nb_proveedor, 
-  tr025_proveedor.di_oficina, 
-  tr025_proveedor.tx_servicio_prestado, 
-  tr026_contacto_proveedor.nb_contacto, 
-  tr026_contacto_proveedor.tx_apellido, 
-  tr026_contacto_proveedor.tx_telefono, 
-  tr026_contacto_proveedor.tx_correo_electronico
-FROM 
-  public.tr025_proveedor, 
-  public.tr026_contacto_proveedor
-WHERE 
-  tr026_contacto_proveedor.co_proveedor = tr025_proveedor.co_proveedor";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
-	$r = $this->pdo->_query($query);
+	  p.co_proveedor, 
+	  p.nb_proveedor, 
+	  p.di_oficina, 
+	  p.tx_servicio_prestado, 
+	  c.nb_contacto, 
+	  c.tx_apellido, 
+	  c.tx_telefono, 
+	  c.tx_correo_electronico
+	FROM 
+	  tr025_proveedor p
+	  INNER JOIN tr026_contacto_proveedor c ON (p.co_proveedor = c.co_proveedor)";
+	if ($sort != "") {
+		$query .= " ORDER BY ".$sort." ".$dir;
+		}
+		$query .= "	LIMIT ".$limit."
+					OFFSET ".$start;
+		$r = $this->pdo->_query($query);
 	
 			
 	return $r;

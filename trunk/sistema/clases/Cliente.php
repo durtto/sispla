@@ -43,7 +43,10 @@ class Cliente extends MyPDO
    */
   public function contarCliente() {
 	$contar = "SELECT count(tr052_cliente.co_cliente)
-	FROM tr052_cliente";
+	FROM 
+		 tr052_cliente c 
+		 INNER JOIN tr016_proceso pr ON (c.co_proceso = pr.co_proceso)
+		 LEFT JOIN tr010_persona p ON (c.co_indicador = p.co_indicador)";
 	
 	$c = $this->pdo->_query($contar);
 	
@@ -107,44 +110,22 @@ class Cliente extends MyPDO
 			
   } // end of member function eliminarCliente
 
-  /**
-   * 
-   *
-   * @return string
-   * @access public
-   */
-  public function cargarCliente( ) {
+  
+    public function cargarCliente($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  *
-FROM 
-  public.tr052_cliente;
-";
-
-	$r = $this->pdo->_query($query);
-	
-			
-	return $r;
-  } // end of member function cargarCliente
-  
-  
-    public function cargarClienteProceso($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
-
-	$query = "SELECT 
-		  tr010_persona.nb_persona, 
-		  tr010_persona.tx_apellido, 
-		  tr010_persona.di_oficina, 
-		  tr010_persona.tx_telefono_oficina, 
-		  tr016_proceso.nb_proceso, 
-		  tr016_proceso.tx_descripcion, 
-		  tr016_proceso.bo_critico
+		  p.nb_persona, 
+		  p.tx_apellido, 
+		  p.di_oficina, 
+		  c.co_proceso,
+		  p.tx_telefono_oficina, 
+		  pr.nb_proceso, 
+		  pr.tx_descripcion, 
+		  pr.bo_critico
 			FROM 
-		  public.tr052_cliente, 
-		  public.tr016_proceso, 
-		  public.tr010_persona
-			WHERE 
-		  tr052_cliente.co_indicador = tr010_persona.co_indicador AND
-		  tr052_cliente.co_proceso = tr016_proceso.co_proceso";
+		 tr052_cliente c 
+		 INNER JOIN tr016_proceso pr ON (c.co_proceso = pr.co_proceso)
+		 LEFT JOIN tr010_persona p ON (c.co_indicador = p.co_indicador)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

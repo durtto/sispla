@@ -124,17 +124,16 @@ class Crecimiento extends MyPDO
   public function cargarCrecimiento($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr037_crecimiento.co_crecimiento, 
-  tr037_crecimiento.ca_demanda_futura, 
-  tr037_crecimiento.fe_actual, 
-  tr037_crecimiento.fe_tope_demanda, 
-  tr037_crecimiento.tx_descripcion, 
-  tr014_tipo_activo.nb_tipo_activo
-FROM 
-  public.tr037_crecimiento, 
-  public.tr014_tipo_activo
-WHERE 
-  tr037_crecimiento.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
+  				c.co_crecimiento, 
+  				c.ca_demanda_futura, 
+				c.fe_actual, 
+				c.fe_tope_demanda, 
+				c.tx_descripcion,
+				t.co_tipo_activo,
+				t.nb_tipo_activo
+				FROM 
+				tr037_crecimiento c
+				LEFT JOIN  tr014_tipo_activo t ON (c.co_tipo_activo = t.co_tipo_activo)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

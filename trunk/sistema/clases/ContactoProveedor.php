@@ -144,19 +144,15 @@ class ContactoProveedor extends MyPDO
   public function cargarContactoProveedor($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr026_contacto_proveedor.co_contacto, 
-  tr026_contacto_proveedor.nb_contacto, 
-  tr026_contacto_proveedor.tx_apellido, 
-  tr026_contacto_proveedor.tx_telefono, 
-  tr026_contacto_proveedor.tx_correo_electronico, 
-  tr025_proveedor.co_proveedor,
-  tr025_proveedor.nb_proveedor
-  
-FROM 
-  public.tr025_proveedor, 
-  public.tr026_contacto_proveedor
-WHERE 
-  tr026_contacto_proveedor.co_proveedor = tr025_proveedor.co_proveedor";
+			  c.co_contacto,
+			  c.nb_contacto,
+			  c.tx_apellido, 
+			  c.tx_telefono, 
+			  c.tx_correo_electronico, 
+			  p.co_proveedor, 
+			  p.nb_proveedor
+			  FROM 	public.tr025_proveedor p
+  			  LEFT JOIN public.tr026_contacto_proveedor c ON (c.co_proveedor = p.co_proveedor)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

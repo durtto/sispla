@@ -134,31 +134,29 @@ class Continuidad extends MyPDO
   public function cargarContinuidad($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-			  	tr035_continuidad.co_continuidad, 
-			  	tr035_continuidad.fe_mtd, 
-			  	tr035_continuidad.fe_rto, 
-			  	tr027_activo.co_activo,
-			  	tr027_activo.nb_activo,
-			  CASE
-			 	WHEN tr035_continuidad.bo_esquema_alterno_interno = true
-			 	THEN 'SI'
-				ELSE 'NO'
-			 	END AS bo_esquema_alterno_interno,
-			  CASE
-			 	WHEN tr035_continuidad.bo_esquema_alterno_externo = true
-			 	THEN 'SI'
-			 	ELSE 'NO'
-			 	END AS bo_esquema_alterno_externo,
-			  CASE
-			 	WHEN tr035_continuidad.bo_prioridad_rec = true
-			 	THEN 'ALTA'
-			 	ELSE 'BAJA'
-			 	END AS bo_prioridad_rec
-			  FROM 
-			  	public.tr035_continuidad, 
-			  	public.tr027_activo
-			  WHERE 
-				tr035_continuidad.co_activo = tr027_activo.co_activo";
+			c.co_continuidad, 
+			c.fe_mtd, 
+			c.fe_rto, 
+			a.co_activo,
+			a.nb_activo,
+			CASE
+			WHEN c.bo_esquema_alterno_interno = true
+			THEN 'SI'
+			ELSE 'NO'
+			END AS bo_esquema_alterno_interno,
+			CASE
+			WHEN c.bo_esquema_alterno_externo = true
+			THEN 'SI'
+			ELSE 'NO'
+			END AS bo_esquema_alterno_externo,
+			CASE
+			WHEN c.bo_prioridad_rec = true
+			THEN 'ALTA'
+			ELSE 'BAJA'
+			END AS bo_prioridad_rec
+			FROM 
+			tr035_continuidad c
+			LEFT JOIN tr027_activo a ON (c.co_activo = a.co_activo)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

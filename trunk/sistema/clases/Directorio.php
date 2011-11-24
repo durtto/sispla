@@ -119,17 +119,13 @@ class Directorio extends MyPDO
   public function cargarDirectorio($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr051_directorio.co_directorio, 
-  tr051_directorio.nb_directorio, 
-  tr050_tipo_directorio.co_tipo_directorio,
-  tr050_tipo_directorio.nb_tipo_directorio,
-  tr051_directorio.nu_telefono
-  
-FROM 
-  public.tr051_directorio, 
-  public.tr050_tipo_directorio
-WHERE 
-  tr051_directorio.co_tipo_directorio = tr050_tipo_directorio.co_tipo_directorio";
+  		  	d.co_directorio, 
+		  	d.nb_directorio, 
+		  	t.co_tipo_directorio,
+		  	t.nb_tipo_directorio,
+		  	d.nu_telefono
+			FROM   tr051_directorio d
+  			LEFT JOIN tr050_tipo_directorio t ON (d.co_tipo_directorio = t.co_tipo_directorio)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

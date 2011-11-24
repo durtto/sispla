@@ -107,16 +107,16 @@ class Equipo extends MyPDO
   public function cargarEquipo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr055_equipo.co_equipo, 
-  tr055_equipo.nb_equipo,
-  tr055_equipo.tx_descripcion,
-CASE
+  	tr055_equipo.co_equipo, 
+  	tr055_equipo.nb_equipo,
+  	tr055_equipo.tx_descripcion,
+	CASE
     WHEN tr055_equipo.bo_obsoleto = true
     THEN 'SI'
     ELSE 'NO'
     END AS bo_obsoleto
-FROM 
-  public.tr055_equipo";
+	FROM 
+  	public.tr055_equipo";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
