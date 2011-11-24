@@ -465,7 +465,8 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
-										if(storeActivo.getAt(0).data.resp!=true){		
+										if(storeActivo.getAt(0).data.resp!=true){
+										storeActivo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeActivo.getAt(0).data.resp,

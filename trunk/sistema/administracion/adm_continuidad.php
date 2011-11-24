@@ -430,6 +430,7 @@ Ext.onReady(function(){
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_continuidad.php"},
 										callback: function () {
 										if(storeContinuidad.getAt(0).data.resp!=true){		
+											storeContacto.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeContinuidad.getAt(0).data.resp,

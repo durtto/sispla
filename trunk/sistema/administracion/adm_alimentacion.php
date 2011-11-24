@@ -78,7 +78,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'alimentos',
         totalProperty: 'total',
-        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'},
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'},
 		idProperty: 'co_alimentacion',
         fields: [{name: 'co_alimentacion'},
         		{name: 'ca_desayuno'},		

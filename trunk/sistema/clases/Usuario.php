@@ -44,13 +44,16 @@ class Usuario extends MyPDO
    * @access public
    */
   public function contarUsuario() {
-	$contar = "SELECT count(tr047_usuario.co_usuario)
-	FROM tr047_usuario";
+	$contar = "SELECT count(u.co_usuario)
+	FROM tr047_usuario u
+    INNER JOIN tr010_persona p ON (u.co_indicador = p.co_indicador) 
+	INNER JOIN tr022_privilegio_usuario pu ON (u.co_privilegio = pu.co_privilegio)
+	LEFT JOIN tr006_ubicacion ub ON (u.co_ubicacion = ub.co_ubicacion)";
 	
 	$c = $this->pdo->_query($contar);
 	
-	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
-		$this->popNotify(); // Libera posicion reg_padre
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
 			
 	return $c;
   }
@@ -115,23 +118,12 @@ class Usuario extends MyPDO
    */
   public function cargarUsuario($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
-	$query = "SELECT 
-	  tr047_usuario.co_usuario, 
-	  tr047_usuario.co_indicador, 
-	  tr022_privilegio_usuario.nb_privilegio, 
-	  tr010_persona.nb_persona, 
-	  tr010_persona.tx_apellido,
-	  tr006_ubicacion.nb_ubicacion,
-	  tr047_usuario.co_ubicacion
-	FROM 
-	  public.tr047_usuario, 
-	  public.tr010_persona, 
-	  public.tr022_privilegio_usuario,
-	  public.tr006_ubicacion
-	  wHERE 
-	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
-	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND
-	  tr047_usuario.co_ubicacion = tr006_ubicacion.co_ubicacion";
+	$query = "SELECT  u.co_usuario,  u.co_indicador,  pu.nb_privilegio, p.nb_persona, 
+	  p.tx_apellido, u.co_ubicacion, ub.co_ubicacion, ub.nb_ubicacion
+	FROM tr047_usuario u
+    INNER JOIN tr010_persona p ON (u.co_indicador = p.co_indicador) 
+	INNER JOIN tr022_privilegio_usuario pu ON (u.co_privilegio = pu.co_privilegio)
+	LEFT JOIN tr006_ubicacion ub ON (u.co_ubicacion = ub.co_ubicacion)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
@@ -145,25 +137,13 @@ class Usuario extends MyPDO
   
     public function cargarUsuarioLogin($login) {
 
-	$query = "SELECT 
-	  tr047_usuario.co_usuario, 
-	  tr047_usuario.co_indicador, 
-	  tr022_privilegio_usuario.nb_privilegio, 
-	  tr010_persona.nb_persona, 
-	  tr010_persona.tx_apellido,
-	  tr047_usuario.co_ubicacion,
-	  tr006_ubicacion.co_ubicacion,
-	  tr006_ubicacion.nb_ubicacion
-	FROM 
-	  public.tr047_usuario, 
-	  public.tr010_persona, 
-	  public.tr022_privilegio_usuario,
-	  public.tr006_ubicacion
-	  wHERE 
-	  tr047_usuario.co_indicador = tr010_persona.co_indicador AND
-	  tr047_usuario.co_privilegio = tr022_privilegio_usuario.co_privilegio AND
-	  tr047_usuario.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-	  tr010_persona.co_indicador='".$login."'";
+	$query = "SELECT  u.co_usuario,  u.co_indicador,  pu.nb_privilegio, p.nb_persona, 
+	  p.tx_apellido, u.co_ubicacion, ub.co_ubicacion, ub.nb_ubicacion
+	FROM tr047_usuario u
+    INNER JOIN tr010_persona p ON (u.co_indicador = p.co_indicador) 
+	INNER JOIN tr022_privilegio_usuario pu ON (u.co_privilegio = pu.co_privilegio)
+	LEFT JOIN tr006_ubicacion ub ON (u.co_ubicacion = ub.co_ubicacion)
+	WHERE u.co_indicador='".$login."'";
 	
 	echo $login;
 	$r = $this->pdo->_query($query);

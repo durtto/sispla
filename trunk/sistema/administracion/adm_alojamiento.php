@@ -282,7 +282,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_alojamiento" : "'+Ext.getCmp("co_alojamiento").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_alojamiento.php"},
 										callback: function () {
-										storeAlojamiento.baseParams = {'accion': 'actualizar'};
+										storeAlojamiento.baseParams = {'accion': 'refrescar'};
 										if(storeAlojamiento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',

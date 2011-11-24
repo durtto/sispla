@@ -145,35 +145,26 @@ class Activo extends MyPDO
   
    public function contarActivo($ubic) {
 	$contar = "SELECT 
-  count(tr027_activo.co_activo) 
-FROM 
-  public.tr027_activo, 
-  public.tr004_estado, 
-  public.tr003_fabricante, 
-  public.tr010_persona, 
-  public.tr006_ubicacion, 
-  public.tr016_proceso, 
-  public.tr025_proveedor, 
-  public.tr023_nivel_obsolescencia, 
-  public.tr014_tipo_activo
-WHERE 
-  tr027_activo.co_estado = tr004_estado.co_estado AND
-  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
-  tr027_activo.co_indicador = tr010_persona.co_indicador AND
-  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
-  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
-  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
-  tr027_activo.co_ubicacion IN (SELECT 
-  	tr006_ubicacion.co_ubicacion
+  		count(a.co_activo) 
 	FROM 
-	public.tr005_tipo_ubicacion, 
-	public.tr006_ubicacion
+	  tr027_activo a
+	  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+	  INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+	  INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+	  INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+	  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+	  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+	  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+	  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
 	WHERE 
-	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
-	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
-	tr006_ubicacion.co_ubicacion_padre= '".$ubic."')";
+  		a.co_ubicacion IN (SELECT 
+	  	u.co_ubicacion
+		FROM 
+		tr006_ubicacion u 
+		LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
+		WHERE 
+		u.co_ubicacion_padre = u.co_ubicacion_padre AND
+		u.co_ubicacion_padre= '".$ubic."')";
 	
 	$c = $this->pdo->_query($contar);
 	
@@ -247,66 +238,57 @@ WHERE
   public function cargarActivo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr027_activo.co_activo, 
-  tr027_activo.nb_activo, 
-  tr027_activo.nu_serial, 
-  tr027_activo.tx_descripcion, 
-  tr027_activo.nu_etiqueta, 
-  tr027_activo.fe_incorporacion, 
-  tr027_activo.nu_vida_util, 
-  tr004_estado.nb_estado, 
-  tr027_activo.co_estado, 
-  tr027_activo.co_fabricante, 
-  tr003_fabricante.nb_fabricante, 
-  tr027_activo.co_indicador, 
-  tr010_persona.co_indicador, 
-  tr027_activo.co_ubicacion, 
-  tr006_ubicacion.nb_ubicacion, 
-  tr027_activo.co_proceso, 
-  tr016_proceso.nb_proceso, 
-  tr027_activo.co_proveedor, 
-  tr025_proveedor.nb_proveedor, 
-  tr027_activo.co_nivel, 
-  tr023_nivel_obsolescencia.nb_nivel, 
-  tr027_activo.co_tipo_activo, 
-  tr014_tipo_activo.nb_tipo_activo, 
-  tr027_activo.co_sap, 
-  tr027_activo.co_activo_padre,
-  CASE
-  WHEN tr027_activo.bo_critico = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_critico,
-  CASE
-  WHEN tr027_activo.bo_vulnerable = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_vulnerable
-FROM 
-  public.tr027_activo, 
-  public.tr004_estado, 
-  public.tr003_fabricante, 
-  public.tr010_persona, 
-  public.tr006_ubicacion, 
-  public.tr016_proceso, 
-  public.tr025_proveedor, 
-  public.tr023_nivel_obsolescencia, 
-  public.tr014_tipo_activo
-WHERE 
-  tr027_activo.co_estado = tr004_estado.co_estado AND
-  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
-  tr027_activo.co_indicador = tr010_persona.co_indicador AND
-  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
-  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
-  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
-	$r = $this->pdo->_query($query);
+		  a.co_activo, 
+		  a.nb_activo,  
+		  a.nu_serial, 
+		  a.tx_descripcion, 
+		  a.nu_etiqueta, 
+		  a.fe_incorporacion, 
+		  a.nu_vida_util, 
+		  e.nb_estado, 
+		  a.co_estado, 
+		  a.co_fabricante, 
+		  f.nb_fabricante, 
+		  a.co_indicador, 
+		  p.co_indicador, 
+		  a.co_ubicacion, 
+		  u.nb_ubicacion, 
+		  a.co_proceso, 
+		  po.nb_proceso, 
+		  a.co_proveedor, 
+		  pr.nb_proveedor, 
+		  a.co_nivel,  
+		  n.nb_nivel, 
+		  a.co_tipo_activo, 
+		  t.nb_tipo_activo, 
+		  a.co_sap, 
+		  a.co_activo_padre,
+		  CASE
+		  WHEN a.bo_critico = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_critico,
+		  CASE
+		  WHEN a.bo_vulnerable = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_vulnerable
+		FROM 
+  			tr027_activo a
+		  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+		  INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+		  INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+		  INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+		  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+		  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+		  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
+				if ($sort != "") {
+				$query .= " ORDER BY ".$sort." ".$dir;
+				}
+				$query .= "	LIMIT ".$limit."
+							OFFSET ".$start;
+				$r = $this->pdo->_query($query);
 	
 			
 	return $r;
@@ -315,60 +297,60 @@ if ($sort != "") {
   public function cargarActivoAA($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-		  tr027_activo.co_activo, tr027_activo.nb_activo,  tr027_activo.nu_serial, 
-		  tr027_activo.tx_descripcion, tr027_activo.nu_etiqueta, tr027_activo.fe_incorporacion, 
-		  tr027_activo.nu_vida_util, tr004_estado.nb_estado, tr027_activo.co_estado, 
-		  tr027_activo.co_fabricante, tr003_fabricante.nb_fabricante, tr027_activo.co_indicador, 
-		  tr010_persona.co_indicador, tr027_activo.co_ubicacion, 
-		  tr006_ubicacion.nb_ubicacion, 
-		  tr027_activo.co_proceso, 
-		  tr016_proceso.nb_proceso, 
-		  tr027_activo.co_proveedor, 
-		  tr025_proveedor.nb_proveedor, 
-		  tr027_activo.co_nivel, 
-		  tr023_nivel_obsolescencia.nb_nivel, 
-		  tr027_activo.co_tipo_activo, 
-		  tr014_tipo_activo.nb_tipo_activo, 
-		  tr027_activo.co_sap, 
-		  tr027_activo.co_activo_padre,
-  CASE
-  WHEN tr027_activo.bo_critico = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_critico,
-  CASE
-  WHEN tr027_activo.bo_vulnerable = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_vulnerable
-FROM 
-  public.tr027_activo, 
-  public.tr004_estado, 
-  public.tr003_fabricante, 
-  public.tr010_persona, 
-  public.tr006_ubicacion, 
-  public.tr016_proceso, 
-  public.tr025_proveedor, 
-  public.tr023_nivel_obsolescencia, 
-  public.tr014_tipo_activo
-WHERE 
-  tr027_activo.co_estado = tr004_estado.co_estado AND
-  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
-  tr027_activo.co_indicador = tr010_persona.co_indicador AND
-  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
-  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
-  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
-  tr027_activo.co_ubicacion IN (SELECT 
-  	tr006_ubicacion.co_ubicacion
-	FROM 
-	public.tr005_tipo_ubicacion, 
-	public.tr006_ubicacion
+		  a.co_activo, 
+		  a.nb_activo,  
+		  a.nu_serial, 
+		  a.tx_descripcion, 
+		  a.nu_etiqueta, 
+		  a.fe_incorporacion, 
+		  a.nu_vida_util, 
+		  e.nb_estado, 
+		  a.co_estado, 
+		  a.co_fabricante, 
+		  f.nb_fabricante, 
+		  a.co_indicador, 
+		  p.co_indicador, 
+		  a.co_ubicacion, 
+		  u.nb_ubicacion, 
+		  a.co_proceso, 
+		  po.nb_proceso, 
+		  a.co_proveedor, 
+		  pr.nb_proveedor, 
+		  a.co_nivel,  
+		  n.nb_nivel, 
+		  a.co_tipo_activo, 
+		  t.nb_tipo_activo, 
+		  a.co_sap, 
+		  a.co_activo_padre,
+		  CASE
+		  WHEN a.bo_critico = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_critico,
+		  CASE
+		  WHEN a.bo_vulnerable = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_vulnerable
+		FROM 
+  			tr027_activo a
+		  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+		  INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+		  INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+		  INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+		  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+		  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+		  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
 	WHERE 
-	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion AND
-	tr006_ubicacion.co_ubicacion_padre = tr006_ubicacion.co_ubicacion_padre AND
-	tr006_ubicacion.co_ubicacion_padre= '".$ubic."')";
+		  	a.co_ubicacion IN (SELECT 
+		  	u.co_ubicacion
+			FROM 
+			tr006_ubicacion u 
+			LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
+			WHERE 
+			u.co_ubicacion_padre = u.co_ubicacion_padre AND
+			u.co_ubicacion_padre= '".$ubic."')";
 	if ($sort != "") {
 		$query .= " ORDER BY ".$sort." ".$dir;
 	}
@@ -380,152 +362,6 @@ WHERE
 			
 	return $r;
   } // end of member function cargarActivo  
-  
-  
-  public function cargarActivoPorNivel($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
-
-	$query = "SELECT 
-  tr027_activo.co_activo, 
-  tr027_activo.nb_activo, 
-  tr027_activo.nu_serial, 
-  tr027_activo.tx_descripcion, 
-  tr027_activo.nu_etiqueta, 
-  tr027_activo.fe_incorporacion, 
-  tr027_activo.nu_vida_util, 
-  tr004_estado.nb_estado, 
-  tr027_activo.co_estado, 
-  tr027_activo.co_fabricante, 
-  tr003_fabricante.nb_fabricante, 
-  tr027_activo.co_indicador, 
-  tr010_persona.co_indicador, 
-  tr027_activo.co_ubicacion, 
-  tr006_ubicacion.nb_ubicacion, 
-  tr027_activo.co_proceso, 
-  tr016_proceso.nb_proceso, 
-  tr027_activo.co_proveedor, 
-  tr025_proveedor.nb_proveedor, 
-  tr027_activo.co_nivel, 
-  tr023_nivel_obsolescencia.nb_nivel, 
-  tr027_activo.co_tipo_activo, 
-  tr014_tipo_activo.nb_tipo_activo, 
-  tr027_activo.co_sap, 
-  tr027_activo.co_activo_padre,
-  CASE
-  WHEN tr027_activo.bo_critico = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_critico,
-  CASE
-  WHEN tr027_activo.bo_vulnerable = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_vulnerable
-FROM 
-  public.tr027_activo, 
-  public.tr004_estado, 
-  public.tr003_fabricante, 
-  public.tr010_persona, 
-  public.tr006_ubicacion, 
-  public.tr016_proceso, 
-  public.tr025_proveedor, 
-  public.tr023_nivel_obsolescencia, 
-  public.tr014_tipo_activo
-WHERE 
-  tr027_activo.co_estado = tr004_estado.co_estado AND
-  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
-  tr027_activo.co_indicador = tr010_persona.co_indicador AND
-  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
-  tr027_activo.co_proveedor = tr025_proveedor.co_proveedor AND
-  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr027_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
-  tr027_activo.co_nivel=.'$nivel'";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
-	$r = $this->pdo->_query($query);
-	
-			
-	return $r;
-  } // end of member function cargarActivo
-  
-  
-  public function cargarActivoCritico($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
-
-	$query = "SELECT 
-  tr027_activo.co_activo, 
-  tr027_activo.nb_activo, 
-  tr027_activo.tx_descripcion, 
-  tr027_activo.co_sap, 
-  tr027_activo.nu_serial, 
-  tr027_activo.nu_etiqueta, 
-  tr027_activo.bo_critico, 
-  tr027_activo.bo_vulnerable, 
-  tr027_activo.fe_incorporacion, 
-  tr027_activo.nu_vida_util, 
-  tr027_activo.co_activo_padre, 
-  tr004_estado.co_estado, 
-  tr004_estado.nb_estado,
-  tr003_fabricante.co_fabricante, 
-  tr003_fabricante.nb_fabricante, 
-  tr027_activo.co_indicador, 
-  tr010_persona.nb_persona,
-  tr006_ubicacion.co_ubicacion, 
-  tr006_ubicacion.nb_ubicacion,
-  tr016_proceso.co_proceso, 
-  tr016_proceso.nb_proceso, 
-  tr025_proveedor.co_proveedor,
-  tr025_proveedor.nb_proveedor, 
-  tr024_unidad_demanda.co_unidad,
-  tr024_unidad_demanda.nb_unidad, 
-  tr023_nivel_obsolescencia.co_nivel,
-  tr023_nivel_obsolescencia.nb_nivel,
-  tr014_tipo_activo.co_tipo_activo, 
-  tr014_tipo_activo.nb_tipo_activo, 
-  CASE
-  WHEN tr027_activo.bo_critico = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_critico,
-  CASE
-  WHEN tr027_activo.bo_vulnerable = true
-  THEN 'SI'
-  ELSE 'NO'
-  END AS bo_vulnerable
-FROM 
-  public.tr006_ubicacion, 
-  public.tr010_persona, 
-  public.tr023_nivel_obsolescencia, 
-  public.tr027_activo, 
-  public.tr004_estado, 
-  public.tr003_fabricante, 
-  public.tr016_proceso, 
-  public.tr025_proveedor, 
-  public.tr024_unidad_demanda,
-  public.tr014_tipo_activo
-WHERE 
-  tr027_activo.co_estado = tr004_estado.co_estado AND
-  tr027_activo.co_fabricante = tr003_fabricante.co_fabricante AND
-  tr027_activo.co_indicador = tr010_persona.co_indicador AND
-  tr027_activo.co_ubicacion = tr006_ubicacion.co_ubicacion AND
-  tr027_activo.co_proceso = tr016_proceso.co_proceso AND
-  tr027_activo.co_nivel = tr023_nivel_obsolescencia.co_nivel AND
-  tr025_proveedor.co_proveedor = tr027_activo.co_proveedor AND
-  tr024_unidad_demanda.co_unidad = tr027_activo.co_unidad AND 
-  tr014_tipo_activo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo AND
-  tr027_activo.bo_critico = true";
-if ($sort != "") {
-	$query .= " ORDER BY ".$sort." ".$dir;
-	}
-	$query .= "	LIMIT ".$limit."
-				OFFSET ".$start;
-	$r = $this->pdo->_query($query);
-	
-			
-	return $r;
-  } // end of member function cargarActivo
-  
+   
 }
 ?>

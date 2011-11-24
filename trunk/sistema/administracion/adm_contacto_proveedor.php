@@ -279,6 +279,7 @@ Ext.onReady(function(){
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_contacto_proveedor.php"},
 										callback: function () {
 										if(storeContacto.getAt(0).data.resp!=true){		
+										storeContacto.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeContacto.getAt(0).data.resp,
