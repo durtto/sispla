@@ -127,7 +127,7 @@ class Ubicacion extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarUbicacion1($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
   tr006_ubicacion.co_ubicacion, 
@@ -137,15 +137,15 @@ class Ubicacion extends MyPDO
   tr006_ubicacion.co_tipo_ubicacion, 
   tr005_tipo_ubicacion.nb_tipo_ubicacion,
   CASE
-WHEN tr006_ubicacion.bo_obsoleto = true
-THEN 'SI'
-ELSE 'NO'
-END AS bo_obsoleto
-FROM 
-public.tr005_tipo_ubicacion, 
-public.tr006_ubicacion
-WHERE 
-tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
+	WHEN tr006_ubicacion.bo_obsoleto = true
+	THEN 'SI'
+	ELSE 'NO'
+	END AS bo_obsoleto
+	FROM 
+	public.tr005_tipo_ubicacion, 
+	public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
@@ -160,7 +160,7 @@ tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
   
   
   
-  public function cargarUbicacion($start='0', $limit='ALL', $sort = "", $dir = "ASC", $ubicacion) {
+  public function cargarUbicacion1($start='0', $limit='ALL', $sort = "", $dir = "ASC", $ubicacion) {
 
 	$query = "SELECT 
   	tr006_ubicacion.co_ubicacion, 
@@ -190,6 +190,46 @@ tr006_ubicacion.co_tipo_ubicacion = tr005_tipo_ubicacion.co_tipo_ubicacion";
   
   
   
+  
+  public function cargarUbicacionP($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+	$query1 = "SELECT 
+	  tr006_ubicacion.co_ubicacion, 
+	FROM 
+	  public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_ubicacion_padre= '".$ubic."'";
+	$r1 = $this->pdo->_query($query1);
+	return $r1;	
+	while ($row = pg_fetch_array($r1)) {
+		$query2 = "SELECT 
+	  tr006_ubicacion.co_ubicacion, 
+	FROM 
+	  public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_ubicacion_padre= '".$row."'";
+	
+	$r2 = $this->pdo->_query($query2);
+	return $r2;	
+        }
+   	$query = "SELECT 
+	  tr006_ubicacion.co_ubicacion, 
+	  tr006_ubicacion.nb_ubicacion, 
+	  tr006_ubicacion.bo_obsoleto, 
+	  tr006_ubicacion.co_ubicacion_padre
+	FROM 
+	  public.tr006_ubicacion
+	WHERE 
+	tr006_ubicacion.co_ubicacion_padre=";
+if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  } // end of member function cargarRolResponsabilidad
   
   
   
