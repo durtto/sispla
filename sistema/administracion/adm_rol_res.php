@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Responsabilidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -46,6 +47,8 @@
  */
  var nuevo;
   var winRolResp;
+   var ubicacion = "<?php echo $_SESSION['privilegio'] ?>";
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -382,7 +385,7 @@ gridForm.render('form');
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
-		}
+			}
 		Ext.getCmp("co_rol_resp").focus();
 		nroReg=rowIdx;
 		

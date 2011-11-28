@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/xml-tree-loader.css" />
 
 	<!-- GC -->
  	<!-- LIBS -->
@@ -322,9 +321,10 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 <img src="../imagenes/salir.gif" width="15" height="15" align="absmiddle" > Salir </span><br><br>
 </td></tr>
 <tr>
-<td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION[indicador];?></b></td></tr>
-<tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?></b></td></tr>
-<tr><td> Nivel de Acceso: <?php echo $_SESSION[rol];?></td></tr>
+<td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION['indicador'];?></b></td></tr>
+<tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?> <?php echo $_SESSION[apellido];?></b></td></tr>
+<tr><td> Nivel de Acceso: <b><?php echo $_SESSION['privilegio'];?></b></td></tr>
+<tr><td> Ubicacion: <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
 
 </table>
 <br>

@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Documento Componente</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
