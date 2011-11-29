@@ -242,7 +242,7 @@ class Activo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarActivo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarActivob($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
 		  a.co_activo, 
@@ -301,7 +301,7 @@ class Activo extends MyPDO
 	return $r;
   } // end of member function cargarActivo
   
-  public function cargarActivoAA($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+  public function cargarActivo($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
 		  a.co_activo, 
@@ -348,8 +348,10 @@ class Activo extends MyPDO
 		  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
 		  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
 		  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
-		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
-	WHERE 
+		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
+			if ($ubic != "")
+			{
+			$query	.= "AND WHERE 
 		  	a.co_ubicacion IN (SELECT 
 		  	u.co_ubicacion
 			FROM 
@@ -358,6 +360,7 @@ class Activo extends MyPDO
 			WHERE 
 			u.co_ubicacion_padre = u.co_ubicacion_padre AND
 			u.co_ubicacion_padre= '".$ubic."')";
+			}
 	if ($sort != "") {
 		$query .= " ORDER BY ".$sort." ".$dir;
 	}

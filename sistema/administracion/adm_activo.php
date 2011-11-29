@@ -127,7 +127,7 @@ Ext.onReady(function(){
 /******************************************INICIO**StoreActivo******************************************/     
 
   var storeActivo = new Ext.data.JsonStore({
-		url: 'interfaz_activo.php',
+		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
 		root: 'activos',
         totalProperty: 'total',
@@ -429,7 +429,7 @@ Ext.onReady(function(){
 								columnas += '"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}';
 							storeActivo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -449,7 +449,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php'};
+							storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
 						}
 				}
 			},{
@@ -463,7 +463,7 @@ Ext.onReady(function(){
 										storeActivo.baseParams = {'accion': 'eliminar'};
 										storeActivo.load({params:{
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -527,7 +527,7 @@ Ext.onReady(function(){
 /******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
 
 function selActivo(){
-	storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_activo.php"}});
+	storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
 	if(!winActivo){
 				winActivo = new Ext.Window({
 						applyTo : 'winActivo',
@@ -627,7 +627,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 }
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 
-storeActivo.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "interfaz_activo.php", ubicacion: ubicacion}});
+storeActivo.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php", ubicacion: ubicacion}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
