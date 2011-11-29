@@ -1,11 +1,11 @@
 <?php
 	require_once '../clases/Recursiva.php';
-	$ubic = 5;
+	$ubic = 1;
 	$recursiva = new Recursiva();
-	$ubicaciones= array();
+	$ubics= array();
 	//print_r($ubicaciones);
 	//$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
-	$accion= recursiva;
+	$accion= 'recursiva';
 	
 	function vacio($var) {
     return ($var != '');
@@ -14,6 +14,10 @@
 	switch($accion){
 	case 'recursiva':
 	$resultado = $recursiva->crecursiva($ubic);
+	
+	/*echo '<pre>';
+    print_r($ubicaciones);
+	echo '</pre>';*/
 	break;
 	
 	}

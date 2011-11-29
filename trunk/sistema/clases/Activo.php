@@ -244,7 +244,6 @@ class Activo extends MyPDO
    */
 
   public function cargarActivo($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
-
 	$query = "SELECT 
 		  a.co_activo, 
 		  a.nb_activo,  
