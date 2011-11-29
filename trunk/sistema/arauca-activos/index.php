@@ -169,7 +169,7 @@ function encriptaclave()
     </table></td>
   </tr>
   <tr>
-    <td height="100%" align="center" valign="center" class="copyright">Copyright © 2011 PDVSA PETROLEO, S.A.<BR> Todos los derechos reservados RIF.: J-00123072-6</td>
+    <td height="100%" align="center" valign="top" class="copyright">Copyright © 2011 PDVSA PETROLEO, S.A.<BR> Todos los derechos reservados RIF.: J-00123072-6</td>
 
   </tr>
 </table>
