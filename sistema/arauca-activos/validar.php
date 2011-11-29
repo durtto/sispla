@@ -18,7 +18,7 @@
 			/*********/
 			$usuario = new Usuario();
 			$res = $usuario->cargarUsuarioLogin(strtoupper($_REQUEST['login']));
-			if ($_SESSION['privilegio'] != "")	{
+			if ($res[0]['nb_privilegio'] != "")	{
 				$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
 			}        
 			else

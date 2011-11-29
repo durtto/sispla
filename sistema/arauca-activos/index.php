@@ -65,13 +65,13 @@ function encriptaclave()
 }
 </script>
 </head>
-<body bgcolor="#ffffff" onLoad="document.form1.login.focus()">
+<body background="../imagenes/fondo.png" onLoad="document.form1.login.focus()">
 
 <table width="100%" height="100%" border="0" align="center">
 
 
   <tr>
-    <td height="10%" align="center" valign="middle">&nbsp;</td>
+    <td height="30%" align="center" valign="middle">&nbsp;</td>
   </tr>
   <tr>
     <td align="center" valign="middle"><table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="368">
@@ -100,17 +100,17 @@ function encriptaclave()
         </tr>
         <tr>
 
-          <td colspan="11"><img name="aviso_error_r2_c1" src="../imagenes/aviso_error_r2_c1.jpg" width="368" height="3" border="0" title=""></td>
+          <td colspan="11"><img name="superior" src="../imagenes/superior.jpg" width="368" height="3" border="0" title=""></td>
           <td><img src="imagenes/spacer.gif" width="1" height="3" border="0" title=""></td>
         </tr>
         <tr>
-          <td rowspan="2"><img name="aviso_error_r3_c1" src="../imagenes/aviso_error_r3_c1.jpg" width="3" height="125" border="0" title=""></td>
-          <td rowspan="2"><img name="aviso_error_r3_c2" src="../imagenes/aviso_error_r3_c2_b.jpg" width="7" height="125" border="0" title=""></td>
+          <td rowspan="2"><img name="laterald" src="../imagenes/laterald.jpg" width="3" height="125" border="0" title=""></td>
+          <td rowspan="2"><img name="laterali2" src="../imagenes/laterali2.jpg" width="7" height="125" border="0" title=""></td>
           <td colspan="7" rowspan="2" align="center" valign="middle" bgcolor="#ffffff"><table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td width="37%" rowspan="7"><img src="../imagenes/iconARAUCA.png" width="130" height="125"></td>
 
-              <td height="18" colspan="4" align="center" valign="bottom" class="titulo1">Inicio de Sesi&oacute;n  </td>
+              <td height="18" colspan="4" align="center" valign="bottom" class="titulo1">Acceso al ARAUCA  </td>
               </tr>
             <tr>
               <td height="14" width="1%" align="center"> </td>
@@ -145,16 +145,16 @@ function encriptaclave()
             <tr>
               <td colspan="4" align="center" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="65%" align="right" valign="bottom"><a href="javascript:verificar()" ><img name="ingresar" src="../imagenes/ingresar.png" width="65" height="22" border="0" title=""></a></td>
+                  <td width="65%" align="right" valign="bottom"><a href="javascript:verificar()" ><img name="bot" src="../imagenes/bott.png" width="60" height="22" border="0" title=""></a></td>
                   <td width="5%" align="right" valign="bottom">&nbsp;</td>
-                  <td width="30%" align="right" valign="bottom"><a href="javascript:document.form1.reset()" ><img name="acceso_r10_c10" src="../imagenes/acceso_r10_c10.jpg" width="65" height="22" border="0" title=""></a></td>
+                  <td width="30%" align="right" valign="bottom"><a href="javascript:document.form1.reset()" ><img name="cancelar" src="../imagenes/cancelar.png" width="60" height="22" border="0" title=""></a></td>
                 </tr>
               </table></td>
 
               </tr>
           </table></td>
-          <td rowspan="2"><img name="aviso_error_r3_c10" src="../imagenes/aviso_error_r3_c10.jpg" width="7" height="125" border="0" title=""></td>
-          <td rowspan="2"><img name="aviso_error_r3_c11" src="../imagenes/aviso_error_r3_c11.jpg" width="3" height="125" border="0" title=""></td>
+          <td rowspan="2"><img name="laterald2" src="../imagenes/laterald2.jpg" width="7" height="125" border="0" title=""></td>
+          <td rowspan="2"><img name="laterali" src="../imagenes/laterali.jpg" width="3" height="125" border="0" title=""></td>
           <td><img src="../imagenes/spacer.gif" width="1" height="103" border="0" title=""></td>
         </tr>
         <tr>
@@ -162,14 +162,14 @@ function encriptaclave()
         </tr>
 
         <tr>
-          <td colspan="11"><img name="aviso_error_r5_c1" src="../imagenes/aviso_error_r5_c1.jpg" width="368" height="3" border="0" title=""></td>
+          <td colspan="11"><img name="inferior" src="../imagenes/inferior.jpg" width="368" height="3" border="0" title=""></td>
           <td><img src="../imagenes/spacer.gif" width="1" height="3" border="0" title=""></td>
         </tr>
 		</form>
     </table></td>
   </tr>
   <tr>
-    <td height="40%" align="center" valign="top" class="txto_foot">Realizado por PDVSA</td>
+    <td height="100%" align="center" valign="center" class="copyright">Copyright © 2011 PDVSA PETROLEO, S.A.<BR> Todos los derechos reservados RIF.: J-00123072-6</td>
 
   </tr>
 </table>
