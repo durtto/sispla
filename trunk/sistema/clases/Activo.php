@@ -242,65 +242,7 @@ class Activo extends MyPDO
    * @return string
    * @access public
    */
-  public function cargarActivob($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
-	$query = "SELECT 
-		  a.co_activo, 
-		  a.nb_activo,  
-		  a.nu_serial, 
-		  a.tx_descripcion, 
-		  a.nu_etiqueta, 
-		  a.fe_incorporacion, 
-		  a.nu_vida_util, 
-		  e.nb_estado, 
-		  a.co_estado, 
-		  a.co_fabricante, 
-		  f.nb_fabricante, 
-		  a.co_indicador, 
-		  p.co_indicador, 
-		  a.co_ubicacion, 
-		  u.nb_ubicacion, 
-		  a.co_proceso, 
-		  po.nb_proceso, 
-		  a.co_proveedor, 
-		  pr.nb_proveedor, 
-		  a.co_nivel,  
-		  n.nb_nivel, 
-		  a.co_tipo_activo, 
-		  t.nb_tipo_activo, 
-		  a.co_sap, 
-		  a.co_activo_padre,
-		  CASE
-		  WHEN a.bo_critico = true
-		  THEN 'SI'
-		  ELSE 'NO'
-		  END AS bo_critico,
-		  CASE
-		  WHEN a.bo_vulnerable = true
-		  THEN 'SI'
-		  ELSE 'NO'
-		  END AS bo_vulnerable
-		FROM 
-  			tr027_activo a
-		  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
-		  INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
-		  INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
-		  INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
-		  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
-		  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
-		  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
-		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
-				if ($sort != "") {
-				$query .= " ORDER BY ".$sort." ".$dir;
-				}
-				$query .= "	LIMIT ".$limit."
-							OFFSET ".$start;
-				$r = $this->pdo->_query($query);
-	
-			
-	return $r;
-  } // end of member function cargarActivo
-  
   public function cargarActivo($ubic, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
@@ -351,7 +293,7 @@ class Activo extends MyPDO
 		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
 			if ($ubic != "")
 			{
-			$query	.= "AND WHERE 
+			$query	.= "WHERE 
 		  	a.co_ubicacion IN (SELECT 
 		  	u.co_ubicacion
 			FROM 
