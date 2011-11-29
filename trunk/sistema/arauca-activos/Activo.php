@@ -155,16 +155,28 @@ class Activo extends MyPDO
 	  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
 	  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
 	  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
-	  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
-	WHERE 
-  		a.co_ubicacion IN (SELECT 
-	  	u.co_ubicacion
+	  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
+	if ($ubic != "")
+	{
+		$query	.= "WHERE 
+		a.co_ubicacion IN (SELECT 
+		u.co_ubicacion
 		FROM 
 		tr006_ubicacion u 
 		LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
 		WHERE 
 		u.co_ubicacion_padre = u.co_ubicacion_padre AND
 		u.co_ubicacion_padre= '".$ubic."')";
+	}
+		/*
+	WHERE 
+  		a.co_ubicacion IN (SELECT 
+	  	u.co_ubicacion
+		FROM 
+		tr006_ubicacion u 
+		LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)WHERE 
+		u.co_ubicacion_padre = u.co_ubicacion_padre AND
+		u.co_ubicacion_padre= '".$ubic."')";*/
 	
 	$c = $this->pdo->_query($contar);
 	
@@ -341,8 +353,20 @@ class Activo extends MyPDO
 		  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
 		  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
 		  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
-		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
-	WHERE 
+		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";		  
+	if ($ubic != "")
+	{
+		$query	.= "WHERE 
+		a.co_ubicacion IN (SELECT 
+		u.co_ubicacion
+		FROM 
+		tr006_ubicacion u 
+		LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
+		WHERE 
+		u.co_ubicacion_padre = u.co_ubicacion_padre AND
+		u.co_ubicacion_padre= '".$ubic."')";
+	}
+	/*WHERE 
 		  	a.co_ubicacion IN (SELECT 
 		  	u.co_ubicacion
 			FROM 
@@ -350,7 +374,7 @@ class Activo extends MyPDO
 			LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
 			WHERE 
 			u.co_ubicacion_padre = u.co_ubicacion_padre AND
-			u.co_ubicacion_padre= '".$ubic."')";
+			u.co_ubicacion_padre= '".$ubic."')";*/
 	if ($sort != "") {
 		$query .= " ORDER BY ".$sort." ".$dir;
 	}
