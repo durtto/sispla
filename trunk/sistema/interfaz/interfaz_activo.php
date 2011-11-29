@@ -14,10 +14,10 @@
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivoAA($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivo($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
-			$resultado2= $activo->contarActivo($_REQUEST['ubicacion']);
-			$total= $resultado2 [0]['count'];
+			$resultado3= $activo->contarActivo($_REQUEST['ubicacion']);
+			$total= $resultado3[0]['count'];
 			break;
 		
 		case 'critico':

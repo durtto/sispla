@@ -12,7 +12,7 @@ function recursiva($ubic){
 								WHERE tr006_ubicacion.co_ubicacion_padre= '".$ubic."'";
 	$r=$pdo->pdo->_query($query);
 	return $r;
-	/*if ($r!=NULL){
+	if ($r!=NULL){
 	while ($row = pg_fetch_array($r)){
 	array_push($ubicaciones, $row['co_ubicacion']);	
 	recursiva($row['co_ubicacion']);}
@@ -23,7 +23,7 @@ function recursiva($ubic){
 		return $r;    //break;
 	print_r($row);
 	}
- echo '{"Resultados":'.json_encode($r).'}';	*/
+ echo '{"Resultados":'.json_encode($r).'}';
 }
 recursiva($ubic);
 ?>
