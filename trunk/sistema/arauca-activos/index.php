@@ -93,9 +93,9 @@ function encriptaclave()
           <td><img src="../imagenes/spacer.gif" width="1" height="1" border="0" title=""></td>
         </tr>			
         <tr>
-          <td colspan="3"><img name="aviso_error_r1_c1" src="../imagenes/aviso_error_r1_c1.jpg" width="164" height="43" border="0" title=""></td>
-          <td colspan="4" align="right" valign="bottom" background="../imagenes/aviso_error_r1_c4.jpg" class="textgris"></td>
-          <td colspan="4"><img name="aviso_error_r1_c8" src="../imagenes/aviso_error_r1_c8.jpg" width="14" height="43" border="0" title=""></td>
+          <td colspan="3"><img name="borde1" src="../imagenes/borde1.png" width="100%" height="100%" border="0" title=""></td>
+          <td colspan="4"><img name="borde2" src="../imagenes/borde2.png" width="190" height="43" border="0" title=""></td>
+          <td colspan="4"><img name="aviso" src="../imagenes/aviso.png" width="14" height="43" border="0" title=""></td>
           <td><img src="../imagenes/spacer.gif" width="1" height="43" border="0" title=""></td>								
         </tr>
         <tr>
