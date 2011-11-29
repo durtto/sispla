@@ -17,8 +17,14 @@
 			$_SESSION['fecha_p']	 = date("d/m/Y");
 			/*********/
 			$usuario = new Usuario();
-			$res = $usuario->cargarUsuarioLogin(strtoupper($_REQUEST['login']));	        
-			$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
+			$res = $usuario->cargarUsuarioLogin(strtoupper($_REQUEST['login']));
+			if ($_SESSION['privilegio'] != "")	{
+				$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
+			}        
+			else
+			{
+				$_SESSION['privilegio']  = "VISITANTE";
+			}
 			$_SESSION['nombre']  = $res[0]['nb_persona'];
 			$_SESSION['ubicacion']  = $res[0]['nb_ubicacion'];
 			$_SESSION['co_ubicacion']  = $res[0]['co_ubicacion'];
