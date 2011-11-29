@@ -145,7 +145,7 @@ function encriptaclave()
             <tr>
               <td colspan="4" align="center" valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td width="65%" align="right" valign="bottom"><a href="javascript:verificar()" ><img name="acceso_r10_c7" src="../imagenes/acceso_r10_c7.jpg" width="65" height="22" border="0" title=""></a></td>
+                  <td width="65%" align="right" valign="bottom"><a href="javascript:verificar()" ><img name="ingresar" src="../imagenes/ingresar.png" width="65" height="22" border="0" title=""></a></td>
                   <td width="5%" align="right" valign="bottom">&nbsp;</td>
                   <td width="30%" align="right" valign="bottom"><a href="javascript:document.form1.reset()" ><img name="acceso_r10_c10" src="../imagenes/acceso_r10_c10.jpg" width="65" height="22" border="0" title=""></a></td>
                 </tr>
