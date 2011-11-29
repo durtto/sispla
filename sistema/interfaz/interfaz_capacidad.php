@@ -5,6 +5,7 @@
 	
 	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
 	
+	
 	function vacio($var) {
     return ($var != '');
 }
