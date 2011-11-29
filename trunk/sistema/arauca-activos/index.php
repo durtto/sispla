@@ -108,7 +108,7 @@ function encriptaclave()
           <td rowspan="2"><img name="aviso_error_r3_c2" src="../imagenes/aviso_error_r3_c2_b.jpg" width="7" height="125" border="0" title=""></td>
           <td colspan="7" rowspan="2" align="center" valign="middle" bgcolor="#ffffff"><table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="37%" rowspan="7"><img src="../imagenes/logo_ini.gif" width="130" height="125"></td>
+              <td width="37%" rowspan="7"><img src="../imagenes/iconARAUCA.png" width="130" height="125"></td>
 
               <td height="18" colspan="4" align="center" valign="bottom" class="titulo1">Inicio de Sesi&oacute;n  </td>
               </tr>
