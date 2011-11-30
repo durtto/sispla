@@ -331,7 +331,19 @@ function personas_seleccionadas(){
 						  return seleccionadas;
 						   //Ext.MessageBox.alert('Probando', seleccionados);
 						  }
-
+						  
+function equipos_seleccionados(){
+      					var EquipoSeleccionados = Ext.getCmp("gd_persona").getSelectionModel().getSelections();
+   						var seleccionados = '[';
+						for(var i=0; i<EquipoSeleccionados.length; i++){
+						seleccionados += '{ "co_indicador" : "'+EquipoSeleccionados[i].data.co_indicador+  '", "co_rol_resp" : "'+EquipoSeleccionados[i].data.co_rol_resp+  '","co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
+						if(i < EquipoSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
 	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
@@ -422,7 +434,7 @@ function personas_seleccionadas(){
 									}]
 									},{
 								title: 'Equipo',
-								id: 'tabalimentacion',
+								id: 'tabpersona',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
@@ -542,7 +554,7 @@ function personas_seleccionadas(){
 								storePlanLocalizacion.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas, "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
+							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas(), "equipos": equipos_seleccionados(), "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
 												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {

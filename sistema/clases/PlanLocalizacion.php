@@ -57,7 +57,7 @@ class PlanLocalizacion extends MyPDO {
 			
 	return $c;
   }
-  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas) {
+  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas, $equipos) {
   	
 	$this->pdo->beginTransaction();	
 
@@ -89,10 +89,23 @@ class PlanLocalizacion extends MyPDO {
 				}
 			}
     	}
-	if($r1==1 && $r2==1 && $r3==1 && $r4==1)
+	
+	if(isset($equipos) && count($equipos)>0){
+	foreach($equipos as $equipo){		
+			if(is_array($equipo)){
+				$equipo = array_intersect_key($equipo, $this->columEquipoContinuidad);
+				$r5 = $this->pdo->_insert('tr061_equipo_continuidad', $equipo); 
+				}
+			}
+    	}
+	
+	
+	
+	
+	if($r1==1 && $r2==1 && $r3==1 && $r4==1 && $r5)
 			{$this->pdo->commit(); return true;}
 	else		
-			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3; "-4= ".$r4;}
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3; "-4= ".$r4; "-5= ".$r5;}
   
   } // end of member function insertarPlanLocalizacion
 
