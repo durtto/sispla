@@ -28,7 +28,7 @@ public function crecursiva($ubic) {
 	//recursiva($row['co_ubicacion']);
 	//}
 	echo '<pre>';
-print_r($ubicaciones);
+	print_r($ubicaciones);
 	echo '</pre>';
    //echo '{"Resultados":'.json_encode($r).'}';
 	return $ubicaciones;

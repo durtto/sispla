@@ -4,7 +4,7 @@
 	$activo = new Activo();
 	
 	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
-	
+
 	function vacio($var) {
     return ($var != '');
 }
@@ -14,10 +14,10 @@
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $activo->cargarActivoAA($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivo($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
-			$resultado2= $activo->contarActivo($_REQUEST['ubicacion']);
-			$total= $resultado2[0]['count'];
+			$resultado1= $activo->contarActivo($_REQUEST['ubicacion']);
+			$total= $resultado1[0]['count'];
 			break;
 		
 		case 'critico':

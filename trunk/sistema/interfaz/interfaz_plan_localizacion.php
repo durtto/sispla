@@ -35,8 +35,13 @@
 			$cond2 = str_replace('\"','"',$cond2);
 			$directorios = json_decode($cond2, true);
 			$directorios = array_filter($directorios, "vacio");
+			
+			$cond3 = $_REQUEST['personas'];
+			$cond3 = str_replace('\"','"',$cond3);
+			$personas = json_decode($cond3, true);
+			$personas = array_filter($personas, "vacio");
 								
-			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios);		
+			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios, $personas);		
 			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 

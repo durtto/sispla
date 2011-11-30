@@ -38,6 +38,8 @@ class PlanLocalizacion extends MyPDO {
   public $columPlanLocalizacionDirectorio= array('co_plan_localizacion'=>'co_plan_localizacion','co_directorio'=>'co_directorio');
   public $columEquipoContinuidad= array('co_equipo_continuidad'=>'co_equipo_continuidad','co_indicador'=>'co_indicador', 'co_rol_resp'=>'co_rol_resp');
   public $columPlanLocalizacionEquipoContinuidad= array('co_plan_localizacion'=>'co_plan_localizacion','co_equipo_continuidad'=>'co_equipo_continuidad');
+  public $columPlanLocalizacionPersona= array('co_plan_localizacion'=>'co_plan_localizacion','co_indicador'=>'co_indicador');
+ 
   /**
    * 
    *
@@ -55,7 +57,7 @@ class PlanLocalizacion extends MyPDO {
 			
 	return $c;
   }
-  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios) {
+  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas) {
   	
 	$this->pdo->beginTransaction();	
 
@@ -67,7 +69,6 @@ class PlanLocalizacion extends MyPDO {
 	foreach($proveedores as $proveedor){		
 			if(is_array($proveedor)){
 				$proveedor = array_intersect_key($proveedor, $this->columPlanLocalizacionProveedor);
-				//print_r($vehiculo);
 				$r2 = $this->pdo->_insert('tr046_rel_plan_localizacion_proveedor', $proveedor); 
 				}
 			}
@@ -76,15 +77,22 @@ class PlanLocalizacion extends MyPDO {
 	foreach($directorios as $directorio){		
 			if(is_array($directorio)){
 				$directorio = array_intersect_key($directorio, $this->columPlanLocalizacionDirectorio);
-				//print_r($vehiculo);
 				$r3 = $this->pdo->_insert('tr060_rel_plan_localizacion_directorio', $directorio); 
 				}
 			}
     	}
-	if($r1==1 && $r2==1 && $r3==1)
+	if(isset($personas) && count($personas)>0){
+	foreach($personas as $persona){		
+			if(is_array($persona)){
+				$persona = array_intersect_key($persona, $this->columPlanLocalizacionPersona);
+				$r4 = $this->pdo->_insert('tr045_rel_plan_localizacion_persona', $persona); 
+				}
+			}
+    	}
+	if($r1==1 && $r2==1 && $r3==1 && $r4==1)
 			{$this->pdo->commit(); return true;}
 	else		
-			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3;}
+			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3; "-4= ".$r4;}
   
   } // end of member function insertarPlanLocalizacion
 
