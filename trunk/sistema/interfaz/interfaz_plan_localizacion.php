@@ -40,8 +40,13 @@
 			$cond3 = str_replace('\"','"',$cond3);
 			$personas = json_decode($cond3, true);
 			$personas = array_filter($personas, "vacio");
-								
-			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios, $personas);		
+			
+			$cond4 = $_REQUEST['equipos'];
+			$cond4 = str_replace('\"','"',$cond4);
+			$equipos = json_decode($cond4, true);
+			$equipos = array_filter($equipos, "vacio");					
+			
+			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios, $personas, $equipos);		
 			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
