@@ -105,10 +105,10 @@ Ext.onReady(function(){
 /*****************************************FIN****StorePersona*****************************************/
 
 
-var fm = Ext.form;
+
 
 /******************************************INICIO**colModelPersona******************************************/     
-
+	var sm1 = new Ext.grid.CheckboxSelectionModel();
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
@@ -140,8 +140,16 @@ var fm = Ext.form;
 			        forceSelection: true,
 			        triggerAction: 'all',
 			        emptyText:'Selecione',
-			        selectOnFocus:true
-         }},      
+			        selectOnFocus:true,
+			            listeners:{/*Cambiamos el valor de co_comision en store_agenda*/                              
+   		select: function(combo,record,index){
+   		fila = gd_persona.getSelectionModel();
+   		celda = fila.getSelectedCell();
+   		gd_persona.storePersona.getAt(celda[0]).set('co_rol_resp',record.data.co_rol_resp);
+   		}
+  		}
+         }},
+         sm1,      
       	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
@@ -149,25 +157,6 @@ var fm = Ext.form;
       ]);
       
 /******************************************FIN****colModelPersona******************************************/     
-var combo = new Ext.form.ComboBox({});
-var indicador = new Ext.form.TextField({});
-                var comboRol = new Ext.form.ComboBox({
-	        	store: new Ext.data.JsonStore({
-				url: '../interfaz/interfaz_combo.php',
-				   root: 'Resultados',
-				   idProperty: 'co_rol_resp',
-				   baseParams: {accion:'rol_resp'},
-				   fields:['co_rol_resp','nb_rol_resp']
-				  }),
-			        displayField:'nb_rol_resp',
-			        typeAhead: true,
-			        allowBlank: false,
-			        mode: 'local',
-			        forceSelection: true,
-			        triggerAction: 'all',
-			        emptyText:'Selecione',
-			        selectOnFocus:true,
-			 });
 
 
 /******************************************INICIO**StoreEquipoContinuidad******************************************/     
@@ -205,70 +194,38 @@ var indicador = new Ext.form.TextField({});
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
-    var gridForm = new Ext.FormPanel({
+var gridForm = new Ext.FormPanel({
         id: 'frm_equipocont',
         frame: true,
 		labelAlign: 'center',
         title: 'Equipo Continuidad',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
-		items: [{
-	   		xtype:'fieldset',
-			id: 'frm1',
-			disabled: true,
-			labelAlign: 'center',
-			width:800,
-			buttonAlign:'center',
-			layout:'column',
-			title: 'Equipo Continuidads',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:130,
-					columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero Equipo Continuidad',
-						xtype:'numberfield',
-						id: 'co_equipo_continuidad',
-                        name: 'co_equipo_continuidad',
-                        hidden:true,
-                        hideLabel:true,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120
-                    },GetCombo("co_rol", "Rol")]
-				},{
-					layout: 'form',
-					labelWidth:130,
-					columnWidth:.45,
-					border:false,
-					items: [{
-                        fieldLabel: 'Persona',
-						xtype:'textfield',
-						id: 'co_indicador',
-                        name: 'co_indicador',
-                        allowBlank:false,
-                        hidden: true,
-						hideLabel: true,
-                        width:120
-                    },{
-                        fieldLabel: 'Persona',
-						xtype:'textfield',
-						vtype:'validos',
-						id: 'nb_persona',
-						disabled:true,
-                        name: 'nb_persona',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
+		items: [new Ext.grid.EditorGridPanel({
+					id:'gd_persona',
+					store: storePersona,
+					cm: colModelPersona,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					sm: sm1,
+					height: 400,
+								tbar: [{
+						iconCls: 'save',
+						text: 'Guardar Persona',
+					    handler: function(){}
+					}],
+					//width:670,
+					title:'Lista de Persona',
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storePersona,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
+    }),{
 				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
@@ -279,11 +236,11 @@ var indicador = new Ext.form.TextField({});
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
+					if(Ext.getCmp("gd_persona").disabled){
+						Ext.getCmp("gd_persona").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_equipo_continuidad").focus();
+					//Ext.getCmp("co_equipo_continuidad").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -370,39 +327,15 @@ var indicador = new Ext.form.TextField({});
 										}
 							}})}
 			}]
-			},{
-			width:800,
-			items:[{
-						                xtype: 'editorgrid',
-										id: 'gd_persona',
-										//clickstoEdit: 1,
-						                store: storePersona,
-						                cm: colModelPersona,
-						                stripeRows: true,
-						               	//plugins: expanderPersona,
-						               	iconCls: 'icon-grid',
-						                //sm: sm1,
-						                height: 250,
-										//width:670,
-										title:'Lista de Persona',
-						                border: true,
-						                bbar: new Ext.PagingToolbar({
-										store: storePersona,
-										pageSize: 50,
-										displayInfo: true,
-										displayMsg: 'Mostrando registros {0} - {1} de {2}',
-										emptyMsg: "No hay registros que mostrar",
-										})
-						            }]
-			
-		}],
+			}],
         
     });
     
 storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_persona.php"}});
+gridForm.render('form');
 
 //storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
-gridForm.render('form');
+
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
@@ -413,10 +346,9 @@ gridForm.render('form');
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
-		if(Ext.getCmp("frm1").disabled){
-			Ext.getCmp("frm1").enable();
+		if(Ext.getCmp("gd_persona").disabled){
+			Ext.getCmp("gd_persona").enable();
 		}
-		Ext.getCmp("co_equipo_continuidad").focus();
 		nroReg=rowIdx;
 		
 });
