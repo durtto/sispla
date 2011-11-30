@@ -124,8 +124,24 @@ var fm = Ext.form;
      	//{header: "Rol", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         //{header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol'},      
       	{header: "Responsabilidad", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp',
-         editor: comboRol},      
+        {header: "Responsabilidad", width: 200, dataIndex: 'nb_rol_resp',
+         editor: {xtype:'combo',
+         store: new Ext.data.JsonStore({
+				url: '../interfaz/interfaz_combo.php',
+				   root: 'Resultados',
+				   idProperty: 'co_rol_resp',
+				   baseParams: {accion:'rol_resp'},
+				   fields:['co_rol_resp','nb_rol_resp']
+				  }),
+			        displayField:'nb_rol_resp',
+			        typeAhead: true,
+			        allowBlank: false,
+			        mode: 'remote',
+			        forceSelection: true,
+			        triggerAction: 'all',
+			        emptyText:'Selecione',
+			        selectOnFocus:true
+         }},      
       	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
@@ -133,8 +149,8 @@ var fm = Ext.form;
       ]);
       
 /******************************************FIN****colModelPersona******************************************/     
-
-
+var combo = new Ext.form.ComboBox({});
+var indicador = new Ext.form.TextField({});
                 var comboRol = new Ext.form.ComboBox({
 	        	store: new Ext.data.JsonStore({
 				url: '../interfaz/interfaz_combo.php',
@@ -146,7 +162,7 @@ var fm = Ext.form;
 			        displayField:'nb_rol_resp',
 			        typeAhead: true,
 			        allowBlank: false,
-			        mode: 'remote',
+			        mode: 'local',
 			        forceSelection: true,
 			        triggerAction: 'all',
 			        emptyText:'Selecione',
@@ -359,7 +375,7 @@ var fm = Ext.form;
 			items:[{
 						                xtype: 'editorgrid',
 										id: 'gd_persona',
-										clickstoEdit: 1,
+										//clickstoEdit: 1,
 						                store: storePersona,
 						                cm: colModelPersona,
 						                stripeRows: true,
