@@ -19,6 +19,7 @@
 				<book title="Guardia" titulo="Guardia" url="../administracion/adm_guardia.php"></book>
 			</author>
 			<author first="Plan de Logística" gender="" titulo="Plan de Logística">
+				<book title="Plan Logistica" titulo="Plan" url="../administracion/adm_plan_logistica.php"></book>
 				<book title="Alimentación" titulo="Alimentación" url="../administracion/adm_alimentacion.php"></book>
 				<book title="Transporte" titulo="Transporte" url="../administracion/adm_transporte.php"></book>
 				<book title="Alojamiento" titulo="Alojamiento" url="../administracion/adm_alojamiento.php"></book>

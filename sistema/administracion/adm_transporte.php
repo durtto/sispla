@@ -54,8 +54,7 @@
  var nuevo;
  var winVehiculo;
  var winLinea;
-
-
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -75,7 +74,6 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
 
 /******************************************INICIO**StoreLinea******************************************/     
 	
@@ -214,72 +212,190 @@ function vehiculos_seleccionados(){
       ]);
 	
 /******************************************FIN****colModelTransporte******************************************/     
-	
-	
 
 	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
-        id: 'frm_transporte',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Transporte',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
+		id:'frm_transporte',
+		//labelAlign: 'right',
+		labelWidth: 100, // label settings here cascade unless overridden
+		frame:true,
+		title: ':: Plan de Transporte ::. ',
+		bodyStyle:'padding:5px',
+		width: 820,
+		layout: 'fit',
 		items: [{
-	   		xtype:'fieldset',
-			id: 'frm1',
-			disabled: true,
-			labelAlign: 'center',
-			width:800,
-			buttonAlign:'center',
-			layout:'column',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					//columnWidth:.55,
-					border:false,
-					items: [{
-                        fieldLabel: 'Numero de Transporte',
-						xtype:'numberfield',
-						id: 'co_transporte',
-                        name: 'co_transporte',
-                       // hidden: true,
-						//hideLabel: true,
-                        width:120
-                    }, {
-                        fieldLabel: 'Fecha de Elaboracion',
-						xtype:'datefield',
-						id: 'fe_elaboracion',
-                        name: 'fe_elaboracion',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:120
-                    }]
-			}]
-			},{
-				width: 800,  
-				buttonAlign:'center',
-				layout: 'fit', 	
+				xtype:'fieldset',	
+				autoHeight:true,
+				border: false,
+				items: [{
+				   		xtype:'fieldset',
+						id: 'frm1',
+						disabled: true,
+						labelAlign: 'center',
+						width:775,
+						buttonAlign:'center',
+						title: 'Plan de Transporte',
+			            bodyStyle:'padding:5px 5px 0px 5px',
+						items:[{
+								layout: 'form',
+								labelWidth:140,
+								border:false,
+								items: [{
+				                        fieldLabel: 'Numero de Transporte',
+										xtype:'numberfield',
+										id: 'co_transporte',
+				                        name: 'co_transporte',
+				                       // hidden: true,
+										//hideLabel: true,
+				                        width:120
+                    					},{
+				                        fieldLabel: 'Fecha de Elaboracion',
+										xtype:'datefield',
+										vtype:'validos',
+										id: 'fe_elaboracion',
+				                        name: 'fe_elaboracion',
+										style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+				                        width:140
+			                    		}]
+							}]
+						},{			
+						xtype: 'tabpanel',
+						id: 'tabPanel',
+						disabled: true,
+						resizeTabs: true,
+						enableTabScroll: true,
+						deferredRender: false,
+						layoutOnTabChange: true,
+						activeTab: 0,
+						//layout: 'fit',
+						bodyStyle:'padding:5px; background-color: #f1f1f1;',
+						items: [{
+								title: 'Transporte',
+								id: 'tabtransporte',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+										border:false,
+						                xtype: 'grid',
+										id: 'gd_transporte',
+						                store: storeTransporte,
+						                stripeRows: true,
+					                	iconCls: 'icon-grid',
+						                cm: colModelTransporte,
+						                height: 250,
+						                iconCls: 'icon-grid',
+										title:'Lista de Transporte',
+						                border: true,
+	                					listeners: {
+										handler : function(){
+										if(Ext.getCmp("gd_transporte").getSelectionModel().getSelected()){
+											var record = Ext.getCmp("gd_transporte").getSelectionModel().getSelected();
+											Ext.getCmp("co_transporte").setValue(record.data.co_transporte);
+											}
+								  			}
+	                								},
+										bbar: new Ext.PagingToolbar({
+										store: storeTransporte,
+										pageSize: 50,
+										displayInfo: true,
+										displayMsg: 'Mostrando registros {0} - {1} de {2}',
+										emptyMsg: "No hay registros que mostrar",
+										})
+									}]
+									},{
+								title: 'Vehiculos',
+								id: 'tabvehiculos',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+						                xtype: 'grid',
+										id: 'gd_vehiculo',
+						                store: storeVehiculo,
+						                cm: colModelVehiculo,
+						                stripeRows: true,
+						               	plugins: expanderVehiculo,
+						               	clicksToEdit: 1,
+						                iconCls: 'icon-grid',
+						                sm: sm1,
+						                height: 250,
+										//width:670,
+										title:'Lista de Vehiculos',
+						                border: true,
+						                listeners: {
+						                    viewready: function(g) {
+						                                          }
+						                },
+						                tbar:[{
+							            text:'Agregar Vehiculo',
+							            tooltip:'Agregar Nuevo Vehiculo',
+							            handler: AgregarVehiculo,
+							            iconCls:'add'
+							        	}],
+										bbar: new Ext.PagingToolbar({
+										store: storeVehiculo,
+										pageSize: 50,
+										displayInfo: true,
+										displayMsg: 'Mostrando registros {0} - {1} de {2}',
+										emptyMsg: "No hay registros que mostrar",
+										})
+						            }]
+									},{
+								title: 'Linea',
+								id: 'tablinea',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+						                xtype: 'grid',
+										id: 'gd_linea',
+						                store: storeLinea,
+						                cm: colModelLinea,
+						                plugins: expanderLinea,
+						                stripeRows: true,
+						                iconCls: 'icon-grid',
+						                sm:sm2,
+						                height: 250,
+										title:'Lista de Lineas',
+						                border: true,
+						                tbar:[{
+							            text:'Agregar Linea de Taxi',
+							            tooltip:'Agregar Nueva Linea',
+							            handler: AgregarLinea,
+							            iconCls:'add'
+							        	}],
+										bbar: new Ext.PagingToolbar({
+										store: storeLinea,
+										pageSize: 50,
+										displayInfo: true,
+										displayMsg: 'Mostrando registros {0} - {1} de {2}',
+										emptyMsg: "No hay registros que mostrar",
+										})
+						            }]
+									}]
+							}]
+							}],
 				buttons: [{
-			text: 'Nuevo',
-			iconCls: 'add', 
-			tooltip:'',
-			handler: function(){
-					nuevo = true;
-					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
+					text: 'Nuevo',
+					id: 'btnNuevo',
+					//disabled: true,
+					handler: function(){
+							nuevo=true;	
+							Ext.getCmp("btnGuardarTransporte").enable();
+							Ext.getCmp("btnEliminarTransporte").enable();
+							Ext.getCmp("btnGuardarTransporte").enable();
+							if(Ext.getCmp("tabPanel").disabled){
+								Ext.getCmp("frm1").enable();
+								Ext.getCmp("tabPanel").enable();
+								//Ext.getCmp("frm3").enable();
+							}
 					}
-					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_transporte").focus();
-				}
-			},{
+				}, {
 			text: 'Guardar', 
-			id: 'btnGuardar',
+			id: 'btnGuardarTransporte',
 			tooltip:'',
 			disabled: true,
 			iconCls: 'save',
@@ -330,7 +446,7 @@ function vehiculos_seleccionados(){
 						}
 				}
 			},{
-			id: 'btnEliminar',
+			id: 'btnEliminarTransporte',
 			text: 'Eliminar', 
 			tooltip:'Eliminar Transporte',
 			disabled: true,
@@ -359,111 +475,27 @@ function vehiculos_seleccionados(){
 											});
 										}
 							}})}
-			}]
 			},{
-					layout:'column',
-					border: true,
-					width:800,
-					items:[{
-					columnWidth:.50,
-					border:false,
-					width:398,
-					stripeRows: true,
-	                xtype: 'grid',
-					id: 'gd_vehiculo',
-	                store: storeVehiculo,
-	                cm: colModelVehiculo,
-					sm: sm2,
-	                height: 250,
-	                iconCls: 'icon-grid',
-	                plugins: expanderVehiculo,
-					title:'Lista de Vehiculos',
-					tbar:[{
-			            text:'Agregar Vehiculo',
-			            tooltip:'Agregar Nuevo Vehiculo',
-			            handler: AgregarVehiculo,
-			            iconCls:'add'
-			        }],
-	                border: true,
-					bbar: new Ext.PagingToolbar({
-					store: storeVehiculo,
-					pageSize: 50,
-					displayInfo: true,
-					displayMsg: 'Mostrando registros {0} - {1} de {2}',
-					emptyMsg: "No hay registros que mostrar",
-					})
-	            },{
-					columnWidth:.50,
-					border:false,
-	                xtype: 'grid',
-					id: 'gd_linea',
-	                store: storeLinea,
-	                cm: colModelLinea,
-	                stripeRows: true,
-	                height: 250,
-	                iconCls: 'icon-grid',
-					title:'Lineas de Taxi',
-					sm: sm1,
-					plugins: expanderLinea,
-					tbar:[{
-			            text:'Agregar Linea de Taxi',
-			            tooltip:'Agregar Nueva Linea',
-			            handler: AgregarLinea,
-			            iconCls:'add'
-			        }],
-	                border: true,
-					bbar: new Ext.PagingToolbar({
-					store: storeLinea,
-					pageSize: 50,
-					displayInfo: true,
-					displayMsg: 'Mostrando registros {0} - {1} de {2}',
-					emptyMsg: "No hay registros que mostrar",
-					})
-	            }]
-			
-		},{
-					layout:'column',
-					border: true,
-					width:800,
-					items:[{
-					columnWidth:.50,
-					border:false,
-					width:398,
-					stripeRows: true,
-	                xtype: 'grid',
-					id: 'gd_transporte',
-	                store: storeTransporte,
-	                cm: colModelTransporte,
-					sm: sm3,
-	                height: 250,
-	                iconCls: 'icon-grid',
-	                //plugins: expanderVehiculo,
-					title:'Lista de Transporte',
-	                border: true,
-	                listeners: {
-						handler : function(){
-										if(Ext.getCmp("gd_transporte").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_transporte").getSelectionModel().getSelected();
-											Ext.getCmp("co_transporte").setValue(record.data.co_transporte);
-										}
-								  }
-	                },
-					bbar: new Ext.PagingToolbar({
-					store: storeTransporte,
-					pageSize: 50,
-					displayInfo: true,
-					displayMsg: 'Mostrando registros {0} - {1} de {2}',
-					emptyMsg: "No hay registros que mostrar",
-					})
-	            }]
-			
-		}],
-        
-    });
+					text: 'Cerrar',
+					id: 'btnCerrar',
+					handler: function(){
+						cerrarForm("co_reset");
+					}
+				}],
+		listeners: {
+			afterrender: function (){ 
+			}
+		}
+		});
+		
+storeTransporte.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_transporte.php"}});
+storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_vehiculo.php"}});
+storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_linea.php"}});
 
+gridForm.render('form');
 
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 /******************************************INICIO DE LA CREACION DE VENTANAS*******************************************/
-
 	function AgregarVehiculo(){
 	if(!winVehiculo){
 				winVehiculo = new Ext.Window({
@@ -885,38 +917,23 @@ function vehiculos_seleccionados(){
 		winLinea.show();	
 }
 
-
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
+
+/***************************************************************************************************/
 	
-	
-storeTransporte.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_transporte.php"}});
-storeVehiculo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_vehiculo.php"}});
-storeLinea.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_linea.php"}});
-
-gridForm.render('form');
-
-/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
-
-/****************************************************************************************************/
-	
-/*	Ext.getCmp("gd_transporte").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
+	Ext.getCmp("gd_transporte").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		Ext.getCmp("btnGuardar").enable();
-		Ext.getCmp("btnEliminar").enable();
-		Ext.getCmp("btnGuardarTV").enable();
+		Ext.getCmp("btnGuardarTransporte").enable();
+		Ext.getCmp("btnEliminarTransporte").enable();
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
 		Ext.getCmp("co_transporte").focus();
 		nroReg=rowIdx;
 		
-});*/
+});
 
 /********************************************************************************************************/
-
-
-
 });
 
 </script>

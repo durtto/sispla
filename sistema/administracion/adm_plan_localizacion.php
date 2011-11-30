@@ -320,21 +320,17 @@ var storePersona = new Ext.data.JsonStore({
       ]);
 
 function personas_seleccionadas(){
-      					var PersonaSeleccionadas = Ext.getCmp("gd_directorio").getSelectionModel().getSelections();
+      					var PersonaSeleccionadas = Ext.getCmp("gd_persona").getSelectionModel().getSelections();
    						var seleccionadas = '[';
 						for(var i=0; i<PersonaSeleccionadas.length; i++){
-						seleccionadas += '{ "co_indicador" : "'+PersonaSeleccionadas[i].data.co_indicadro+'", "co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
+						seleccionadas += '{ "co_indicador" : "'+PersonaSeleccionadas[i].data.co_indicador+'", "co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
 						if(i < PersonaSeleccionadas.length-1)
-						  seleccionados += ', ';
+						  seleccionadas += ', ';
 						  }
 						  seleccionadas += ']';
 						  return seleccionadas;
 						   //Ext.MessageBox.alert('Probando', seleccionados);
 						  }
-
-
-
-
 
 	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
@@ -357,7 +353,7 @@ function personas_seleccionadas(){
 						id: 'frm1',
 						disabled: true,
 						labelAlign: 'center',
-						width:740,
+						width:775,
 						buttonAlign:'center',
 						title: 'Plan Localizacion',
 			            bodyStyle:'padding:5px 5px 0px 5px',
@@ -383,12 +379,7 @@ function personas_seleccionadas(){
 			                        width:140
 			                    }]
 						}]
-						},{
-				width:740,  
-				buttonAlign:'center',
-				layout: 'fit', 	
-				buttons: []
-							},{			
+						},{			
 						xtype: 'tabpanel',
 						id: 'tabPanel',
 						disabled: true,
@@ -437,23 +428,18 @@ function personas_seleccionadas(){
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[{
 						                xtype: 'grid',
-										id: 'gd_indicador',
+										id: 'gd_persona',
 						                store: storePersona,
 						                cm: colModelPersona,
 						                stripeRows: true,
 						               	plugins: expanderPersona,
-						               	clicksToEdit: 1,
-						                iconCls: 'icon-grid',
+						               	iconCls: 'icon-grid',
 						                sm: sm1,
 						                height: 250,
 										//width:670,
 										title:'Lista de Persona',
 						                border: true,
-						                listeners: {
-						                    viewready: function(g) {
-						                                          }
-						                },
-										bbar: new Ext.PagingToolbar({
+						                bbar: new Ext.PagingToolbar({
 										store: storePersona,
 										pageSize: 50,
 										displayInfo: true,
@@ -556,7 +542,7 @@ function personas_seleccionadas(){
 								storePlanLocalizacion.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
-							storePlanLocalizacion.load({params:{"columnas" : columnas, "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
+							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas, "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
 												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
