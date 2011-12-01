@@ -85,8 +85,6 @@ Ext.onReady(function(){
 		        {name: 'nb_departamento'},
 		        {name: 'co_rol'},
 		        {name: 'nb_rol'},
-		        {name: 'co_rol_resp'},
-        		{name: 'nb_rol_resp'},
         		{name: 'co_grupo'},
         		{name: 'nb_grupo'},
         		{name: 'co_guardia'},			
@@ -110,8 +108,6 @@ Ext.onReady(function(){
         {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
      	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
-      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
       	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
@@ -206,8 +202,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },GetCombo('co_departamento','Departamento'),
-                    GetCombo('co_rol','Rol'),
-                    GetCombo('co_rol_resp','Responsabilidad')]
+                    GetCombo('co_rol','Rol')]
 				},{
 					layout: 'form',
 					border:false,
@@ -326,7 +321,6 @@ Ext.onReady(function(){
 								columnas += '"tx_telefono_personal" : "'+Ext.getCmp("tx_telefono_personal").getValue()+'", ';
 								columnas += '"co_departamento" : "'+Ext.getCmp("co_departamento").getValue()+'", ';
 								columnas += '"co_rol" : "'+Ext.getCmp("co_rol").getValue()+'", ';
-								columnas += '"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
 								columnas += '"co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'", ';
 								columnas += '"co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}';
 							storePersona.load({params:{"columnas" : columnas,

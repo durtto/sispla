@@ -116,7 +116,7 @@ class Persona extends MyPDO
    * 
    * @access public
    */
-  public $columPersona= array('co_indicador'=>'co_indicador', 'nu_cedula'=>'nu_cedula', 'nb_persona'=>'nb_persona', 'tx_apellido'=>'tx_apellido', 'di_oficina'=>'di_oficina', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'tx_telefono_personal'=>'tx_telefono_personal', 'co_departamento'=>'co_departamento', 'co_rol'=>'co_rol', 'co_rol_resp'=>'co_rol_resp', 'co_grupo'=>'co_grupo','co_guardia'=>'co_guardia');
+  public $columPersona= array('co_indicador'=>'co_indicador', 'nu_cedula'=>'nu_cedula', 'nb_persona'=>'nb_persona', 'tx_apellido'=>'tx_apellido', 'di_oficina'=>'di_oficina', 'tx_telefono_oficina'=>'tx_telefono_oficina', 'tx_correo_electronico'=>'tx_correo_electronico', 'di_habitacion'=>'di_habitacion', 'tx_telefono_habitacion'=>'tx_telefono_habitacion', 'tx_telefono_personal'=>'tx_telefono_personal', 'co_departamento'=>'co_departamento', 'co_rol'=>'co_rol', 'co_grupo'=>'co_grupo','co_guardia'=>'co_guardia');
 
   /**
    * 
@@ -210,15 +210,12 @@ class Persona extends MyPDO
 			  d.nb_departamento,
 			  rp.co_rol, 
 			  rp.nb_rol, 
-			  r.co_rol_resp,
-			  r.nb_rol_resp,
 			  g.co_grupo, 
 			  g.nb_grupo, 
 			  gu.co_guardia,
 			  gu.nb_guardia
 			  FROM 
 			  tr010_persona p 
-			  INNER JOIN tr002_rol_responsabilidad r ON (p.co_rol_resp = r.co_rol_resp) 
 			  INNER JOIN tr001_grupo g ON (p.co_grupo = g.co_grupo) 
 			  INNER JOIN tr008_rol_persona rp ON (p.co_rol = rp.co_rol) 
 			  INNER JOIN tr009_guardia gu ON (p.co_guardia = gu.co_guardia) 
