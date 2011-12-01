@@ -267,7 +267,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
             },{
                 region:'east',
                 id:'east-panel',
-                title:'Datos de Sesion',
+                title:'Datos de Sesi&oacute;n',
                 split:true,
                 width: 200,
 				height: 740,
@@ -308,9 +308,9 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="left" ><img src="../imagenes/ARAUCA1.png" width="200" height="79"></td>
-    <td align="center"><img src="../imagenes/ARAUCA2.png" width="1070"  height="79"></td>
-	
+    <td align="left" ><img src="../imagenes/ARAUCA1.png" width="100%" height="79"></td>
+    <td align="center"><img src="../imagenes/ARAUCAd.png" width="100%"  height="79"></td>
+	<td align="right"><img src="../imagenes/ARAUCAdi.png" width="100%"  height="79"></td>
   </tr>
 </table>
 <div id="session" >
@@ -324,7 +324,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 <td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION['indicador'];?></b></td></tr>
 <tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?> <?php echo $_SESSION[apellido];?></b></td></tr>
 <tr><td> Nivel de Acceso: <b><?php echo $_SESSION['privilegio'];?></b></td></tr>
-<tr><td> Ubicacion: <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
+<tr><td> Ubicaci&oacute;n: <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
 
 </table>
 <br>

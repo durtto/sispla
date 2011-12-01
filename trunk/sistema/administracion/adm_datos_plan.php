@@ -98,7 +98,7 @@
         {header: "Alcance", width: 200, sortable: true, locked:false, dataIndex: 'tx_alcance'},
         {header: "Negocio", width: 150, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
         {header: "Localidad", width: 150, sortable: true, locked:false, dataIndex: 'tx_localidad'},
-        {header: "Organizacion", width: 150, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
+        {header: "Organizaci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
       ]);
       
 /******************************************FIN****colModelDato******************************************/     
@@ -180,7 +180,7 @@
                         	}
                         }
                     },{
-                        fieldLabel: 'Organizacion',
+                        fieldLabel: 'Organizaci&oacute;n',
 						xtype:'textfield',
 						id: 'tx_organizacion',
                         name: 'tx_organizacion',
