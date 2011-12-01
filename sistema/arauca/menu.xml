@@ -12,7 +12,7 @@
 				<book title="Equipo de Continuidad" titulo="Equipo de Cont" url="../administracion/adm_equipo_continuidad.php"></book>
 				<book title="Directorio" titulo="Directorio" url="../administracion/adm_directorio.php"></book>
 			</author>
-			<author first="Gestión de Guardias" gender="" titulo="Gestión de Guardias">
+			<author first="Gestión de Guardias" gender="" titulo="Guardias">
 				<book title="Grupo" titulo="Grupo" url="../administracion/adm_grupo.php"></book>
 				<book title="Guardia" titulo="Guardia" url="../administracion/adm_guardia.php"></book>
 			</author>
@@ -28,7 +28,7 @@
 			</author>
 		<author first="Plan de Contingencia" gender="" titulo="Plan de Contingencia">
 			<book title="Esquema de Continuidad" titulo="Esquema Cont" url="../administracion/adm_continuidad.php"></book>
-			<book title="Esquema de Respaldo" titulo="Esquema Respaldo" url="../administracion/adm_respaldo.php"></book>
+			<book title="Esquema de Respaldo" titulo="Esquema Resp" url="../administracion/adm_respaldo.php"></book>
 		</author>
 		
 </authors>		
