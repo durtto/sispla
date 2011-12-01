@@ -1,8 +1,8 @@
 <?php session_start(); ?>
 <html>
 <head>
-<title>Arauca</title>
-<link rel="shortcut icon" href="../imagenes/iconARAUCA.png"> 
+<title>:: Arauca ::</title>
+<link rel="shortcut icon" href="../imagenes/icon.png"> 
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
