@@ -72,35 +72,22 @@ Ext.onReady(function(){
 
 /******************************************INICIO**StorePersona******************************************/     
       
-      var storePersona = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_persona.php',
+      var storeEquipoContinuidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo_continuidad.php',
 		remoteSort : true,
-		root: 'personas',
+		root: 'equipos',
         totalProperty: 'total',
-		idProperty: 'co_indicador',
-        fields: [{name: 'co_indicador'},
+		idProperty: 'co_equipo_continuidad',
+        fields: [{name: 'co_equipo_continuidad'},
+        		{name: 'co_indicador'},
          		{name: 'nu_cedula'},
 		        {name: 'nb_persona'},
 		        {name: 'tx_apellido'},
-		        {name: 'di_oficina'},
-		        {name: 'tx_telefono_oficina'},
-		        {name: 'tx_correo_electronico'},
-		        {name: 'di_habitacion'},
-		        {name: 'tx_telefono_habitacion'},
-		        {name: 'tx_telefono_personal'},
-		        {name: 'co_departamento'},
-		        {name: 'nb_departamento'},
-		        {name: 'co_rol'},
-		        {name: 'nb_rol'},
 		        {name: 'co_rol_resp'},
         		{name: 'nb_rol_resp'},
-        		{name: 'co_grupo'},
-        		{name: 'nb_grupo'},
-        		{name: 'co_guardia'},			
-        		{name: 'nb_guardia'},
-		        {name: 'resp'}]
+        	    {name: 'resp'}]
         });
-    storePersona.setDefaultSort('co_indicador', 'ASC');
+    storeEquipoContinuidad.setDefaultSort('co_equipo_continuidad', 'ASC');
     
 /*****************************************FIN****StorePersona*****************************************/
 
@@ -109,8 +96,9 @@ Ext.onReady(function(){
 
 /******************************************INICIO**colModelPersona******************************************/     
 	//var sm1 = new Ext.grid.CheckboxSelectionModel();
-    var colModelPersona = new Ext.grid.ColumnModel([
-        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+    var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
+        {id:'co_equipo_continuidad', hidden: true, header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
+        {header: "co_indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 150, sortable: true, locked:false, dataIndex: 'tx_apellido'},
@@ -124,7 +112,7 @@ Ext.onReady(function(){
      	//{header: "Rol", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         //{header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol'},      
       	{header: "Responsabilidad", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 200, dataIndex: 'nb_rol_resp',
+        {header: "Responsabilidad", width: 180, dataIndex: 'nb_rol_resp',
          editor: {xtype:'combo',
          store: new Ext.data.JsonStore({
 				url: '../interfaz/interfaz_combo.php',
@@ -160,61 +148,23 @@ Ext.onReady(function(){
 /******************************************FIN****colModelPersona******************************************/     
 
 
-/******************************************INICIO**StoreEquipoContinuidad******************************************/     
-   
-  var storeEquipoContinuidad = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_equipo_continuidad.php',
-		remoteSort : true,
-		root: 'equipos',
-        totalProperty: 'total',
-		idProperty: 'co_equipo_continuidad',
-        fields: [{name: 'co_equipo_continuidad'},
-		        {name: 'co_rol_resp'},
-        		{name: 'nb_rol_resp'},
-		        {name: 'co_indicador'},
-        		{name: 'nb_persona'},
-		        {name: 'resp'}]
-        });
-    storeEquipoContinuidad.setDefaultSort('co_equipo_continuidad', 'ASC');
-    
-/*****************************************FIN****StoreEquipoContinuidad*****************************************/
-
-	
-/******************************************INICIO**colModelEquipoContinuidad******************************************/     
-
-	    var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
-        {id:'co_equipo_continuidad',header: "EquipoContinuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
-        {header: "Rol", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      ]);
-      
-/******************************************FIN****colModelEquipoContinuidad******************************************/     
-
-
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 var gd_persona=new Ext.grid.EditorGridPanel({
 					id:'gd_persona',
 					name:'gd_persona',
-					store: storePersona,
-					cm: colModelPersona,
+					store: storeEquipoContinuidad,
+					cm: colModelEquipoContinuidad,
 					stripeRows: true,
 					//plugins: expanderPersona,
 					iconCls: 'icon-grid',
 					//sm: sm1,
 					height: 400,
-								tbar: [{
-						iconCls: 'save',
-						text: 'Guardar Persona',
-					    handler: function(){}
-					}],
 					//width:670,
 					title:'Lista de Persona',
 					border: true,
 					bbar: new Ext.PagingToolbar({
-					store: storePersona,
+					store: storeEquipoContinuidad,
 					pageSize: 50,
 					displayInfo: true,
 					displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -226,6 +176,10 @@ var gd_persona=new Ext.grid.EditorGridPanel({
    		celda = fila.getSelectedCell();
    		gd_persona.store.getAt(celda[0]).set('co_rol_resp',record.data.co_rol_resp);
 });
+
+
+
+
 var gridForm = new Ext.FormPanel({
         id: 'frm_equipocont',
         frame: true,
@@ -244,8 +198,8 @@ var gridForm = new Ext.FormPanel({
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("gd_persona").disabled){
-						Ext.getCmp("gd_persona").enable();
+					if(Ext.getCmp("frm_equipocont").disabled){
+						Ext.getCmp("frm_equipocont").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					//Ext.getCmp("co_equipo_continuidad").focus();
@@ -258,30 +212,23 @@ var gridForm = new Ext.FormPanel({
 			iconCls: 'save',
 			waitMsg: 'Saving...',
 			handler: function(){
-						var campos='';
-						var camposForm = Ext.getCmp("frm_equipocont").getForm().getValues(false);	
-						campos = verifObligatorios(camposForm, camposReq);
-						if(campos != ''){		
-							Ext.MessageBox.show({
-								title: 'ATENCION',
-								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
-								buttons: Ext.MessageBox.OK,
-								icon: Ext.MessageBox.WARNING
-							});
-						}
-						else
-						{
-							if(nuevo)						
-								storeEquipoContinuidad.baseParams = {'accion': 'insertar'};
-							else
-								storeEquipoContinuidad.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_equipo_continuidad" : "'+Ext.getCmp("co_equipo_continuidad").getValue()+'", ';
-								columnas += '"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
-								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
+				
+				Ext.MessageBox.confirm("[ORINOCO]","Guardar ?", function(btn){
+					if(btn == 'yes'){
+						records_modificados=storeEquipoContinuidad.getModifiedRecords();
+						Ext.each(records_modificados,function(fila,i){
+							if(fila.data.co_indicador==undefined || fila.data.co_rol_resp==undefined  || fila.data.co_equipo_continuidad==undefined){
+								WinError("Debe completar toda la informaci&oacute;n");
+							}
+							else {
+																	storeEquipoContinuidad.baseParams = {'accion': 'actualizar'};
+							var columnas   = '{"co_equipo_continuidad" : "'+fila.data.co_equipo_continuidad+'", ';
+								columnas += '"co_rol_resp" : "'+fila.data.co_rol_resp+'", ';
+								columnas += '"co_indicador" : "'+fila.data.co_indicador+'"}';
 							storeEquipoContinuidad.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_equipo_continuidad" : "'+Ext.getCmp("co_equipo_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_continuidad.php"},
-										callback: function () {
+												"condiciones": '{ "co_equipo_continuidad" : "'+fila.data.co_equipo_continuidad+'"}', 
+												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_continuidad.php", Resultados:Ext.util.JSON.encode(fila.getChanges())},
+							callback: function () {
 										if(storeEquipoContinuidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -302,7 +249,12 @@ var gridForm = new Ext.FormPanel({
 							}});
 							storeEquipoContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_continuidad.php'};
 						}
-				}
+							});
+					}
+				});
+				
+			}
+							
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
@@ -339,7 +291,7 @@ var gridForm = new Ext.FormPanel({
         
     });
     
-storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_persona.php"}});
+storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
 gridForm.render('form');
 
 //storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
@@ -354,8 +306,8 @@ gridForm.render('form');
 		nuevo = false;
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
-		if(Ext.getCmp("gd_persona").disabled){
-			Ext.getCmp("gd_persona").enable();
+		if(Ext.getCmp("frm_equipocont").disabled){
+			Ext.getCmp("frm_equipocont").enable();
 		}
 		nroReg=rowIdx;
 		
