@@ -73,7 +73,7 @@ Ext.onReady(function(){
 		root: 'tpactivos',
         totalProperty: 'total',
 		idProperty: 'co_tipo_activo',
-		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
         fields: [{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'co_categoria'},
@@ -204,7 +204,7 @@ Ext.onReady(function(){
 								columnas += '"co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}';
 							storeTipoActivo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_activo.php"},
 										callback: function () {
 										if(storeTipoActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({ 
@@ -237,8 +237,9 @@ Ext.onReady(function(){
 										storeTipoActivo.baseParams = {'accion': 'eliminar'};
 										storeTipoActivo.load({params:{
 												"condiciones": '{ "co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_activo.php"},
 										callback: function () {
+										storeTipoActivo.baseParams = {'accion': 'eliminar'};
 										if(storeTipoActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -248,7 +249,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeTipoActivo.baseParams = {'accion': 'eliminar'};	
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -256,6 +257,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeTipoActivo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_activo.php'};
+
 							}})}
 			}]
 			},{
@@ -285,7 +288,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeTipoActivo,
-				pageSize: 10,
+				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -297,7 +300,7 @@ Ext.onReady(function(){
     });
 
 
-storeTipoActivo.load({params: { start: 0, limit: 10, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
+storeTipoActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_activo.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

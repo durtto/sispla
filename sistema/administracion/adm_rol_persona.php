@@ -75,6 +75,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'rolpersonas',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_rol_persona.php'},
 		idProperty: 'co_rol',
         fields: [{name: 'co_rol'},
 		        {name: 'nb_rol'},
@@ -208,7 +209,7 @@ Ext.onReady(function(){
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
 							storeRol.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_rol" : "'+Ext.getCmp("co_rol").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_persona.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_persona.php"},
 										callback: function () {
 										if(storeRol.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -235,14 +236,15 @@ Ext.onReady(function(){
 			id: 'btnEliminar',
 			text: 'Eliminar',
 			iconCls: 'delete', 
-			tooltip:'Eliminar Capacidad',
+			tooltip:'Eliminar Rol',
 			disabled: true,
 			handler: function(){
-										storeRolRes.baseParams = {'accion': 'eliminar'};
-										storeRolRes.load({params:{
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
+										storeRol.baseParams = {'accion': 'eliminar'};
+										storeRol.load({params:{
+												"condiciones": '{ "co_rol" : "'+Ext.getCmp("co_rol").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_persona.php"},
 										callback: function () {
+										storeRol.baseParams = {'accion': 'refrescar'};
 										if(storeRol.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -252,7 +254,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeRol.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -260,6 +262,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeRol.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_persona.php'};
+
 							}})}
 			}]
 			},{

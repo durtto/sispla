@@ -75,6 +75,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'tprespaldos',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_respaldo.php'},
 		idProperty: 'co_tipo_respaldo',
         fields: [{name: 'co_tipo_respaldo'},
 		        {name: 'nb_tipo_respaldo'},
@@ -103,6 +104,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'respaldos',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_respaldo.php'},
 		idProperty: 'co_respaldo',
         fields: [{name: 'co_respaldo'},
         		{name: 'nu_veces_al_dia'},
@@ -289,7 +291,7 @@ Ext.onReady(function(){
 								columnas += '"co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}';
 							storeRespaldo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_respaldo" : "'+Ext.getCmp("co_respaldo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_respaldo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_respaldo.php"},
 										callback: function () {
 										if(storeRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -322,8 +324,9 @@ Ext.onReady(function(){
 										storeRespaldo.baseParams = {'accion': 'eliminar'};
 										storeRespaldo.load({params:{
 												"condiciones": '{ "co_respaldo" : "'+Ext.getCmp("co_respaldo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_respaldo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_respaldo.php"},
 										callback: function () {
+										storeRespaldo.baseParams = {'accion': 'refrescar'};
 										if(storeRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -333,7 +336,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeRespaldo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -341,6 +344,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeRespaldo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_respaldo.php'};
+
 							}})}
 			}]
 			},{
@@ -524,6 +529,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
 										callback: function () {
+										storeTpRespaldo.baseParams = {'accion': 'refrescar'};
 										if(storeTpRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -533,7 +539,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeTpRespaldo.baseParams = {'accion': 'refrescar'};	
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -541,6 +547,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeTpRespaldo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_respaldo.php'};
 							}})}
 			}]
 			},{
@@ -595,6 +602,10 @@ storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz:
 				});
 		}
 		winTpRespaldo.show();	
+		
+		
+		
+		
 storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_respaldo.php"}});
 	Ext.getCmp("gd_tprespaldo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;

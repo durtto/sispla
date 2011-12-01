@@ -75,6 +75,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'proveedores',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_proveedor.php'},
 		idProperty: 'co_proveedor',
         fields: [{name: 'co_proveedor'},
         		{name: 'nb_proveedor'},
@@ -131,6 +132,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 		remoteSort : true,
 		root: 'contactos',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_contacto_proveedor.php'},
 		idProperty: 'co_contacto',
         fields: [{name: 'co_contacto'},
 		        {name: 'nb_contacto'},
@@ -447,6 +449,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 												"condiciones": '{ "co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proveedor.php"},
 										callback: function () {
+										storeProveedor.baseParams = {'accion': 'refrescar'};
 										if(storeProveedor.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -456,7 +459,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 											});						
 										}
 										else{
-											
+											storeProveedor.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -464,6 +467,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeProveedor.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proveedor.php'};
+
 							}})}
 			}]
 			},{
