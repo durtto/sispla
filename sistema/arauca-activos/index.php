@@ -2,7 +2,7 @@
 <head>
 <title>:: ARAUCA ::</title>
 
-<link rel="shortcut icon" href="../imagenes/iconARAUCA.png"> 
+<link rel="shortcut icon" href="../imagenes/icon.png"> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="../css/main.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript" src="../js/md5.js"></script>
