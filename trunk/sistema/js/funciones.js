@@ -162,7 +162,9 @@
 			  })
 			 });
 			 return combo;
-			} 
+			}
+			
+			
 	/*******************************************************************************************/
 	//		function verifObligatorios() : Con esta funcion validamos que los campos que consideramos como requeridos u obligatorios
 	// en un formulario hayan sido introducidos, recibe como parametro de entrada un array asociativo de los campos a verificar y

@@ -6,6 +6,14 @@ require_once 'MyPDO.php';
 class Combos extends MyPDO  //WARNING: PHP5 does not support multiple inheritance but there is more than 1 superclass defined in your UML model!
 {
 
+public function cargarComponente() {
+	
+  $query = "SELECT *
+                FROM tr015_datos_plan;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  } 
 public function cargarTpDirectorio() {
 	
   $query = "SELECT *

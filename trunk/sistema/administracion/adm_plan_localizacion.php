@@ -225,8 +225,67 @@ function proveedores_seleccionados(){
     
 /*****************************************FIN****StoreDirectorio*****************************************/
 
+/******************************************INICIO**StorePersona******************************************/     
+      
+      var storeEquipoContinuidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo_continuidad.php',
+		remoteSort : true,
+		root: 'equipos',
+        totalProperty: 'total',
+		idProperty: 'co_equipo_continuidad',
+        fields: [{name: 'co_equipo_continuidad'},
+        		{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        	    {name: 'resp'}]
+        });
+    storeEquipoContinuidad.setDefaultSort('co_equipo_continuidad', 'ASC');
+    
+/*****************************************FIN****StorePersona*****************************************/
 
 
+
+
+/******************************************INICIO**colModelPersona******************************************/     
+	var sm4 = new Ext.grid.CheckboxSelectionModel();
+    var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
+        {id:'co_equipo_continuidad', hidden: true, header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
+        {header: "co_indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        //{header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 150, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        //{header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        //{header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		//{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        //{header: "Departamento", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        //{header: "Departamento", width: 200, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	//{header: "Rol", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        //{header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 180, dataIndex: 'nb_rol_resp'},
+        sm4,
+      	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        //{header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
+      ]);
+function equipos_seleccionados(){
+      					var EquipoSeleccionados = Ext.getCmp("gd_equipo").getSelectionModel().getSelections();
+   						var seleccionados = '[';
+						for(var i=0; i<EquipoSeleccionados.length; i++){
+						seleccionados += '{ "co_equipo_continuidad" : "'+EquipoSeleccionados[i].data.co_equipo_continuidad+ '","co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
+						if(i < EquipoSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
 /******************************************INICIO**colModelDirectorio******************************************/     
    var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelDirectorio = new Ext.grid.ColumnModel([
@@ -310,8 +369,6 @@ var storePersona = new Ext.data.JsonStore({
         //{header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
      	//{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         //{header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
-      	{header: "Responsabilidad", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 278, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},      
       	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
@@ -332,18 +389,7 @@ function personas_seleccionadas(){
 						   //Ext.MessageBox.alert('Probando', seleccionados);
 						  }
 						  
-function equipos_seleccionados(){
-      					var EquipoSeleccionados = Ext.getCmp("gd_persona").getSelectionModel().getSelections();
-   						var seleccionados = '[';
-						for(var i=0; i<EquipoSeleccionados.length; i++){
-						seleccionados += '{ "co_indicador" : "'+EquipoSeleccionados[i].data.co_indicador+  '", "co_rol_resp" : "'+EquipoSeleccionados[i].data.co_rol_resp+  '","co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
-						if(i < EquipoSeleccionados.length-1)
-						  seleccionados += ', ';
-						  }
-						  seleccionados += ']';
-						  return seleccionados;
-						   //Ext.MessageBox.alert('Probando', seleccionados);
-						  }
+
 	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
@@ -389,7 +435,26 @@ function equipos_seleccionados(){
 			                        name: 'fe_elaboracion',
 									style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
 			                        width:140
-			                    }]
+			                    }, {
+						xtype:'combo',
+						fieldLabel: 'Componente',
+		         		store: new Ext.data.JsonStore({
+						url: '../interfaz/interfaz_combo.php',
+						   root: 'Resultados',
+						   idProperty: 'co_componente',
+						   baseParams: {accion:'componente'},
+						   fields:['co_componente','fe_vigencia']
+						  }),
+						id:'co_componente',
+				        displayField:'fe_vigencia',
+				        typeAhead: true,
+				        allowBlank: false,
+				        mode: 'remote',
+				        forceSelection: true,
+				        triggerAction: 'all',
+				        emptyText:'Selecione',
+				        selectOnFocus:true
+         				}]
 						}]
 						},{			
 						xtype: 'tabpanel',
@@ -433,7 +498,7 @@ function equipos_seleccionados(){
 										})
 									}]
 									},{
-								title: 'Equipo',
+								title: 'Personal',
 								id: 'tabpersona',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -509,6 +574,37 @@ function equipos_seleccionados(){
 										emptyMsg: "No hay registros que mostrar",
 										})
 						            }]
+									},{
+								title: 'Equipo',
+								id: 'tabequipo',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+										border:false,
+						                xtype: 'grid',
+										id: 'gd_equipo',
+						                store: storeEquipoContinuidad,
+						                stripeRows: true,
+						                sm:sm4,
+					                	iconCls: 'icon-grid',
+						                cm: colModelEquipoContinuidad,
+						                height: 250,
+						                iconCls: 'icon-grid',
+										title:'Equipos de Continuidad',
+						                border: true,
+						                listeners: {
+						                    viewready: function(g) {
+						                    }
+						                },
+										bbar: new Ext.PagingToolbar({
+										store: storeEquipoContinuidad,
+										pageSize: 50,
+										displayInfo: true,
+										displayMsg: 'Mostrando registros {0} - {1} de {2}',
+										emptyMsg: "No hay registros que mostrar",
+										})
+									}]
 									}]
 							}]
 							}],
@@ -622,6 +718,7 @@ function equipos_seleccionados(){
 		}
 		});
 		
+storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});		
 storeDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_directorio.php"}});
 storeContacto.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_contacto_proveedor.php"}});
 storeProveedor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_proveedor.php"}});

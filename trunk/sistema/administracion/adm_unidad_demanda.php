@@ -240,6 +240,8 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_unidad" : "'+Ext.getCmp("co_unidad").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_unidad_demanda.php"},
 										callback: function () {
+										storeUnidad.baseParams = {'accion': 'refrescar'};
+
 										if(storeUnidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -249,7 +251,8 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeUnidad.baseParams = {'accion': 'refrescar'};
+
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -257,6 +260,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeUnidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_unidad_demanda.php'};
+
 							}})}
 			}]
 			},{

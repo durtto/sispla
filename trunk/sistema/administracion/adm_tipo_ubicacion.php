@@ -224,6 +224,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
 										callback: function () {
+										storeTpUbicacion.baseParams = {'accion': 'refrescar'};
 										if(storeTpUbicacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -233,7 +234,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeTpUbicacion.baseParams = {'accion': 'refrescar'};											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -241,6 +242,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeTpUbicacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_ubicacion.php'};
 							}})}
 			}]
 			},{

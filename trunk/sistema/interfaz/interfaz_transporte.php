@@ -39,8 +39,7 @@
 			$lineas = json_decode($con2, true);
 			$lineas = array_filter($lineas, "vacio");
 			
-			$respuesta = $transporte->insertarTransporte($transportes, $vehiculos,$lineas);	
-			
+			$respuesta = $transporte->insertarTransporte($transportes, $vehiculos, $lineas);	
 			$resultado = $transporte->cargarTransporte($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
