@@ -1,8 +1,8 @@
 <?php session_start(); ?>
 <html>
 <head>
-<title>Orinoco</title>
-<link rel="shortcut icon" href="../imagenes/iconARAUCA.png"> 
+<title>:: Orinoco ::</title>
+<link rel="shortcut icon" href="../imagenes/icon.png"> 
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link href="../css/main.css" rel="stylesheet" type="text/css">
@@ -308,8 +308,9 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-  	<td align="left"><img src="../imagenes/leftORINOCO.png" width="200" height="79"> </td>
-	<td align="center"><img src="../imagenes/rightORINOCO.png" width="1070" height="79"> </td>
+  	<td align="left"><img src="../imagenes/leftORINOCO.png" width="100%" height="79"> </td>
+	<td align="center"><img src="../imagenes/ORINOCOd.png" width="100%" height="79"> </td>
+	<td align="right"><img src="../imagenes/ORINOCOdi.png" width="100%" height="79"> </td>
   </tr>
 </table>
 <div id="session" >
@@ -323,7 +324,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 <td ><img src="../imagenes/user_red_suit.png" width="16" height="16" align="absmiddle"> Usuario:<b> <?php echo $_SESSION['indicador'];?></b></td></tr>
 <tr><td> Nombre:<b> <?php echo $_SESSION[nombre];?> <?php echo $_SESSION[apellido];?></b></td></tr>
 <tr><td> Nivel de Acceso: <b><?php echo $_SESSION['privilegio'];?></b></td></tr>
-<tr><td> Ubicacion: <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
+<tr><td> Ubicaci&oacute;n <b><?php echo $_SESSION['ubicacion'];?></b></td></tr>
 
 </table>
 <br>

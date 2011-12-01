@@ -5,6 +5,7 @@
 			<book title="Unidad demanda" titulo="Unidad" url="../administracion/adm_unidad_demanda.php"></book>	
 			<book title="Servicio" titulo="Servicio" url="../administracion/adm_servicio.php"></book>
 			<book title="Criterios" titulo="Criterios" url=""></book>
+			<book title="Proveedor" titulo="Proveedor" url="../administracion/adm_proveedor.php"></book>
 
 			<author first="Usuario" gender="" titulo="Usuarios">
 				<book title="Usuario" titulo="Usuario" url="../administracion/adm_usuario.php"></book>
