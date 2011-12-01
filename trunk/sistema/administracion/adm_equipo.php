@@ -231,7 +231,7 @@ Ext.onReady(function(){
 
 							storeEquipo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_equipo" : "'+Ext.getCmp("co_equipo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo.php"},
 										callback: function () {
 										if(storeEquipo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -264,8 +264,9 @@ Ext.onReady(function(){
 										storeEquipo.baseParams = {'accion': 'eliminar'};
 										storeEquipo.load({params:{
 												"condiciones": '{ "co_equipo" : "'+Ext.getCmp("co_equipo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo.php"},
 										callback: function () {
+										storeEquipo.baseParams = {'accion': 'refrescar'};
 										if(storeEquipo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -275,7 +276,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeEquipo.baseParams = {'accion': 'refrescar'};	
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -283,6 +284,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeEquipo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo.php'};
+
 							}})}
 			}]
 			},{

@@ -73,6 +73,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'tprespaldos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_respaldo.php'},
 		idProperty: 'co_tipo_respaldo',
         fields: [{name: 'co_tipo_respaldo'},
 		        {name: 'nb_tipo_respaldo'},
@@ -225,7 +226,8 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
 										callback: function () {
-										if(storeTpRespaldo.getAt(0).data.resp!=true){		
+										storeTpRespaldo.baseParams = {'accion': 'refrescar'};
+					if(storeTpRespaldo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeTpRespaldo.getAt(0).data.resp,
@@ -234,7 +236,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeTpRespaldo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -242,6 +244,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeTpRespaldo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_respaldo.php'};
+
 							}})}
 			}]
 			},{

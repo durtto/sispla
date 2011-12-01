@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'rolresponsabilidades',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_rol_responsabilidad.php'},
 		idProperty: 'co_rol_resp',
         fields: [{name: 'co_rol_resp'},
         		{name: 'nb_rol_resp'},
@@ -223,12 +224,12 @@ Ext.onReady(function(){
 							else
 								storeRolResp.baseParams = {'accion': 'modificar'};
 							var columnas   = '{"co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'", ';
-								columnas += '"nb_rol" : "'+Ext.getCmp("nb_rol_resp").getValue()+'", ';
+								columnas += '"nb_rol_resp" : "'+Ext.getCmp("nb_rol_resp").getValue()+'", ';
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
 								columnas += '"co_rol_padre" : "'+Ext.getCmp("co_rol_padre").getValue()+'"}';
 							storeRolResp.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
 										callback: function () {
 										if(storeRolResp.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -258,11 +259,12 @@ Ext.onReady(function(){
 			tooltip:'Eliminar Rol responsabilidad',
 			disabled: true,
 			handler: function(){
-										storeRolRespRes.baseParams = {'accion': 'eliminar'};
-										storeRolRespRes.load({params:{
-												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_rol_res.php"},
+										storeRolResp.baseParams = {'accion': 'eliminar'};
+										storeRolResp.load({params:{
+												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_res.php"},
 										callback: function () {
+										storeRolResp.baseParams = {'accion': 'refrescar'};
 										if(storeRolResp.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -272,7 +274,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeRolResp.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -280,6 +282,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};										
 							}})}
 			}]
 			},{

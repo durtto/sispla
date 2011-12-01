@@ -73,7 +73,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'tpdirectorios',
         totalProperty: 'total',
-        baseParams: {start:0, limit:5, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_directorio.php'},
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_directorio.php'},
 		idProperty: 'co_tipo_directorio',
         fields: [{name: 'co_tipo_directorio'},
 		        {name: 'nb_tipo_directorio'},
@@ -224,6 +224,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
 										callback: function () {
+										storeTpDirectorio.baseParams = {'accion': 'refrescar'};
 										if(storeTpDirectorio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -233,7 +234,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+										storeTpDirectorio.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -241,6 +242,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+								storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
+
 							}})}
 			}]
 			},{
@@ -269,7 +272,7 @@ Ext.onReady(function(){
                 },
 				bbar: new Ext.PagingToolbar({
 				store: storeTpDirectorio,
-				pageSize: 5,
+				pageSize: 50,
 				displayInfo: true,
 				displayMsg: 'Mostrando registros {0} - {1} de {2}',
 				emptyMsg: "No hay registros que mostrar",
@@ -283,7 +286,7 @@ Ext.onReady(function(){
 
 	
 	
-storeTpDirectorio.load({params: { start: 0, limit: 5, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
+storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

@@ -74,6 +74,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'servicios',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_servicio.php'},
 		idProperty: 'co_servicio',
         fields: [{name: 'co_servicio'},
 		        {name: 'nb_servicio'},
@@ -218,7 +219,7 @@ Ext.onReady(function(){
 								columnas += '"co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}';
 							storeServicio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_servicio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_servicio.php"},
 										callback: function () {
 										if(storeServicio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -251,8 +252,9 @@ Ext.onReady(function(){
 										storeServicio.baseParams = {'accion': 'eliminar'};
 										storeServicio.load({params:{
 												"condiciones": '{ "co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_servicio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_servicio.php"},
 										callback: function () {
+										storeServicio.baseParams = {'accion': 'refrescar'};
 										if(storeServicio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -262,7 +264,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeServicio.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -270,6 +272,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeServicio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_servicio.php'};
+
 							}})}
 			}]
 			},{
