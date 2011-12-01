@@ -108,7 +108,7 @@ Ext.onReady(function(){
 
 
 /******************************************INICIO**colModelPersona******************************************/     
-	var sm1 = new Ext.grid.CheckboxSelectionModel();
+	//var sm1 = new Ext.grid.CheckboxSelectionModel();
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
@@ -133,6 +133,7 @@ Ext.onReady(function(){
 				   baseParams: {accion:'rol_resp'},
 				   fields:['co_rol_resp','nb_rol_resp']
 				  }),
+					id:'co_rol_resp',
 			        displayField:'nb_rol_resp',
 			        typeAhead: true,
 			        allowBlank: false,
@@ -140,16 +141,16 @@ Ext.onReady(function(){
 			        forceSelection: true,
 			        triggerAction: 'all',
 			        emptyText:'Selecione',
-			        selectOnFocus:true,
-			            listeners:{/*Cambiamos el valor de co_comision en store_agenda*/                              
+			        selectOnFocus:true/*Cambiamos el valor de co_comision en store_agenda,
+			            listeners:{                              
    		select: function(combo,record,index){
    		fila = gd_persona.getSelectionModel();
    		celda = fila.getSelectedCell();
    		gd_persona.storePersona.getAt(celda[0]).set('co_rol_resp',record.data.co_rol_resp);
    		}
-  		}
+  		}*/
          }},
-         sm1,      
+         //sm1,
       	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
@@ -194,21 +195,15 @@ Ext.onReady(function(){
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
-var gridForm = new Ext.FormPanel({
-        id: 'frm_equipocont',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Equipo Continuidad',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [new Ext.grid.EditorGridPanel({
+var gd_persona=new Ext.grid.EditorGridPanel({
 					id:'gd_persona',
+					name:'gd_persona',
 					store: storePersona,
 					cm: colModelPersona,
 					stripeRows: true,
 					//plugins: expanderPersona,
 					iconCls: 'icon-grid',
-					sm: sm1,
+					//sm: sm1,
 					height: 400,
 								tbar: [{
 						iconCls: 'save',
@@ -225,7 +220,20 @@ var gridForm = new Ext.FormPanel({
 					displayMsg: 'Mostrando registros {0} - {1} de {2}',
 					emptyMsg: "No hay registros que mostrar",
 					})
-    }),{
+    });
+    Ext.getCmp('co_rol_resp').on('select',function(combo,record,index){
+	fila = gd_persona.getSelectionModel();
+   		celda = fila.getSelectedCell();
+   		gd_persona.store.getAt(celda[0]).set('co_rol_resp',record.data.co_rol_resp);
+});
+var gridForm = new Ext.FormPanel({
+        id: 'frm_equipocont',
+        frame: true,
+		labelAlign: 'center',
+        title: 'Equipo Continuidad',
+        bodyStyle:'padding:5px 5px 5px 5px',
+		width:820,
+		items: [gd_persona,{
 				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
