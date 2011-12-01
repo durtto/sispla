@@ -278,6 +278,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_vehiculo.php"},
 										callback: function () {
+											storeVehiculo.baseParams = {'accion': 'refrescar'};
 										if(storeVehiculo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -287,7 +288,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeVehiculo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -295,6 +296,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+					storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_vehiculo.php'};
+
 							}})}
 			}]
 			},{

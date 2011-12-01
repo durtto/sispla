@@ -327,6 +327,8 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_usuario" : "'+Ext.getCmp("co_usuario").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_usuario.php"},
 										callback: function () {
+										storeUsuario.baseParams = {'accion': 'refrescar'};
+
 										if(storeUsuario.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -336,7 +338,7 @@ Ext.onReady(function(){
 											});						
 										}
 										else{
-											
+											storeUsuario.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -344,6 +346,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeUsuario.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_usuario.php'};
+
 							}})}
 			}]
 			},{

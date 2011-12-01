@@ -11,7 +11,10 @@
 	$combos = array_filter($_REQUEST, "vacio");
 
 	switch($accion){
-		
+	case 'componente':
+	$resultado = $combo->cargarComponente($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;		
 	case 'tipo_directorio':
 	$resultado = $combo->cargarTpDirectorio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);

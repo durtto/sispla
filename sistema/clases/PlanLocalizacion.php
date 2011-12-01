@@ -36,7 +36,6 @@ class PlanLocalizacion extends MyPDO {
   public $columPlanLocalizacion= array('co_plan_localizacion'=>'co_plan_localizacion','fe_elaboracion'=>'fe_elaboracion');
   public $columPlanLocalizacionProveedor= array('co_plan_localizacion'=>'co_plan_localizacion','co_proveedor'=>'co_proveedor');
   public $columPlanLocalizacionDirectorio= array('co_plan_localizacion'=>'co_plan_localizacion','co_directorio'=>'co_directorio');
-  public $columEquipoContinuidad= array('co_equipo_continuidad'=>'co_equipo_continuidad','co_indicador'=>'co_indicador', 'co_rol_resp'=>'co_rol_resp');
   public $columPlanLocalizacionEquipoContinuidad= array('co_plan_localizacion'=>'co_plan_localizacion','co_equipo_continuidad'=>'co_equipo_continuidad');
   public $columPlanLocalizacionPersona= array('co_plan_localizacion'=>'co_plan_localizacion','co_indicador'=>'co_indicador');
  
@@ -93,8 +92,8 @@ class PlanLocalizacion extends MyPDO {
 	if(isset($equipos) && count($equipos)>0){
 	foreach($equipos as $equipo){		
 			if(is_array($equipo)){
-				$equipo = array_intersect_key($equipo, $this->columEquipoContinuidad);
-				$r5 = $this->pdo->_insert('tr061_equipo_continuidad', $equipo); 
+				$equipo = array_intersect_key($equipo, $this->columPlanLocalizacionEquipoContinuidad);
+				$r5 = $this->pdo->_insert('tr062_rel_plan_localizacion_equipo', $equipo); 
 				}
 			}
     	}

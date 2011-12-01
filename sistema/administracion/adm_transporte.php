@@ -247,7 +247,7 @@ function vehiculos_seleccionados(){
 										xtype:'numberfield',
 										id: 'co_transporte',
 				                        name: 'co_transporte',
-				                       // hidden: true,
+				                        // hidden: true,
 										//hideLabel: true,
 				                        width:120
                     					},{
@@ -457,6 +457,7 @@ function vehiculos_seleccionados(){
 												"condiciones": '{ "co_transporte" : "'+Ext.getCmp("co_transporte").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_transporte.php"},
 										callback: function () {
+										storeTransporte.baseParams = {'accion': 'refrescar'};
 										if(storeTransporte.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -466,7 +467,7 @@ function vehiculos_seleccionados(){
 											});						
 										}
 										else{
-											
+											storeTransporte.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -474,6 +475,7 @@ function vehiculos_seleccionados(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeTransporte.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_transporte.php'};
 							}})}
 			},{
 					text: 'Cerrar',
@@ -678,6 +680,8 @@ gridForm.render('form');
 												"condiciones": '{ "co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_vehiculo.php"},
 										callback: function () {
+										storeVehiculo.baseParams = {'accion': 'refrescar'};
+
 										if(storeVehiculo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -687,7 +691,7 @@ gridForm.render('form');
 											});						
 										}
 										else{
-											
+											storeVehiculo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
 												msg: "Datos Guardados con exito",
@@ -695,6 +699,8 @@ gridForm.render('form');
 												icon: Ext.MessageBox.INFO
 											});
 										}
+									storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_vehiculo.php'};
+
 							}})}
 			}]
 			}],

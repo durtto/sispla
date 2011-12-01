@@ -10,7 +10,7 @@
 		</author>	
 			<author first="Plan de Localización" gender="" titulo="Plan de Localización">
 				<book title="Plan localización" titulo="Plan loc" url="../administracion/adm_plan_localizacion.php"></book>
-				<book title="Equipo de Continuidad" titulo="Equipo de Cont"></book>
+				<book title="Equipo de Continuidad" titulo="Equipo de Cont" url="../administracion/adm_equipo_continuidad.php"></book>
 				<book title="Proveedor" titulo="Proveedor" url="../administracion/adm_proveedor.php"></book>
 				<book title="Directorio" titulo="Directorio" url="../administracion/adm_directorio.php"></book>
 			</author>

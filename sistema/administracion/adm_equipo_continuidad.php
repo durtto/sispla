@@ -294,8 +294,6 @@ var gridForm = new Ext.FormPanel({
 storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
 gridForm.render('form');
 
-//storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
-
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
