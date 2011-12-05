@@ -46,6 +46,8 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -74,6 +76,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -150,6 +153,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_falla.php',
 		remoteSort : true,
 		root: 'fallas',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_falla.php'},
         totalProperty: 'total',
 		idProperty: 'co_falla',
         fields: [{name: 'co_falla'},
@@ -300,7 +304,7 @@ Ext.onReady(function(){
 								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}';
 							storeFalla.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_falla" : "'+Ext.getCmp("co_falla").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_falla.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_falla.php"},
 										callback: function () {
 										if(storeFalla.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -333,7 +337,7 @@ Ext.onReady(function(){
 										storeFalla.baseParams = {'accion': 'eliminar'};
 										storeFalla.load({params:{
 												"condiciones": '{ "co_falla" : "'+Ext.getCmp("co_falla").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_falla.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_falla.php"},
 										callback: function () {
 										if(storeFalla.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({

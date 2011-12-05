@@ -68,7 +68,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
-		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
         totalProperty: 'total',
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
@@ -325,7 +325,7 @@ Ext.onReady(function(){
 								columnas += '"co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}';
 							storePersona.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_persona.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_persona.php"},
 										callback: function () {
 										if(storePersona.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -358,8 +358,9 @@ Ext.onReady(function(){
 										storePersona.baseParams = {'accion': 'eliminar'};
 										storePersona.load({params:{
 												"condiciones": '{ "co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_persona.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_persona.php"},
 										callback: function () {
+										storePersona.baseParams = {'accion': 'refrescar'};
 										if(storePersona.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -377,6 +378,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+								storePersona.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_persona.php'};
 							}})}
 			}]
 			},{

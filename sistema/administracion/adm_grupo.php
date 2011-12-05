@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_grupo.php',
 		remoteSort : true,
 		root: 'grupos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_grupo.php"},	
         totalProperty: 'total',
 		idProperty: 'co_grupo',
         fields: [{name: 'co_grupo'},
@@ -187,7 +188,7 @@ Ext.onReady(function(){
 							columnas += '"nb_grupo" : "'+Ext.getCmp("nb_grupo").getValue()+'"}';
 							storeGrupo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_grupo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_grupo.php"},
 										callback: function () {
 										if(storeGrupo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -220,10 +221,10 @@ Ext.onReady(function(){
 										storeGrupo.baseParams = {'accion': 'eliminar'};
 										storeGrupo.load({params:{
 												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_grupo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_grupo.php"},
 										callback: function () {
+										storeGrupo.baseParams = {'accion': 'refrescar'};
 										if(storeGrupo.getAt(0).data.resp!=true){
-											storeGrupo.baseParams = {'accion': 'refrescar'};
 												Ext.MessageBox.show({
 												title: 'ERROR',
 												msg: storeGrupo.getAt(0).data.resp,

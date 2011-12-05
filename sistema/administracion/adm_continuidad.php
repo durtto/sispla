@@ -51,6 +51,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -78,6 +79,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_activo.php',
 		remoteSort : true,
 		root: 'activos',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         totalProperty: 'total',
 		idProperty: 'co_activo',
         fields: [{name: 'co_activo'},

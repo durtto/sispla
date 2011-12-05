@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_equipo_continuidad.php',
 		remoteSort : true,
 		root: 'equipos',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_equipo_continuidad.php'},
         totalProperty: 'total',
 		idProperty: 'co_equipo_continuidad',
         fields: [{name: 'co_equipo_continuidad'},
@@ -221,13 +222,13 @@ var gridForm = new Ext.FormPanel({
 								WinError("Debe completar toda la informaci&oacute;n");
 							}
 							else {
-																	storeEquipoContinuidad.baseParams = {'accion': 'actualizar'};
+							storeEquipoContinuidad.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_equipo_continuidad" : "'+fila.data.co_equipo_continuidad+'", ';
 								columnas += '"co_rol_resp" : "'+fila.data.co_rol_resp+'", ';
 								columnas += '"co_indicador" : "'+fila.data.co_indicador+'"}';
 							storeEquipoContinuidad.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_equipo_continuidad" : "'+fila.data.co_equipo_continuidad+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_continuidad.php", Resultados:Ext.util.JSON.encode(fila.getChanges())},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo_continuidad.php", Resultados:Ext.util.JSON.encode(fila.getChanges())},
 							callback: function () {
 										if(storeEquipoContinuidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -265,7 +266,7 @@ var gridForm = new Ext.FormPanel({
 										storeEquipoContinuidad.baseParams = {'accion': 'eliminar'};
 										storeEquipoContinuidad.load({params:{
 												"condiciones": '{ "co_equipo_continuidad" : "'+Ext.getCmp("co_equipo_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_continuidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo_continuidad.php"},
 										callback: function () {
 										storeEquipoContinuidad.baseParams = {'accion': 'refrescar'};											
 										if(storeEquipoContinuidad.getAt(0).data.resp!=true){		
@@ -285,6 +286,8 @@ var gridForm = new Ext.FormPanel({
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeEquipoContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_continuidad.php'};
+
 							}})}
 			}]
 			}],

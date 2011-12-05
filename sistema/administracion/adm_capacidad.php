@@ -189,7 +189,7 @@ Ext.onReady(function(){
 							columnas += '"nb_capacidad" : "'+Ext.getCmp("nb_capacidad").getValue()+'"}';
 							storeCapacidad.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_capacidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_capacidad.php"},
 										callback: function () {
 										if(storeCapacidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -222,7 +222,7 @@ Ext.onReady(function(){
 										storeCapacidad.baseParams = {'accion': 'eliminar'};
 										storeCapacidad.load({params:{
 												"condiciones": '{ "co_capacidad" : "'+Ext.getCmp("co_capacidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_apacidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_apacidad.php"},
 										callback: function () {
 										storeCapacidad.baseParams = {'accion': 'refrescar'};
 										if(storeCapacidad.getAt(0).data.resp!=true){		

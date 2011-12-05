@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_necesidad.php',
 		remoteSort : true,
 		root: 'necesidades',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_necesidad.php"},
         totalProperty: 'total',
 		idProperty: 'co_necesidad',
         fields: [{name: 'co_necesidad'},
@@ -267,7 +268,7 @@ Ext.onReady(function(){
 								columnas += '"co_servicio" : "'+Ext.getCmp("co_servicio").getValue()+'"}';
 							storeNecesidad.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_necesidad" : "'+Ext.getCmp("co_necesidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_necesidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_necesidad.php"},
 										callback: function () {
 										if(storeNecesidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -300,8 +301,9 @@ Ext.onReady(function(){
 										storeNecesidad.baseParams = {'accion': 'eliminar'};
 										storeNecesidad.load({params:{
 												"condiciones": '{ "co_necesidad" : "'+Ext.getCmp("co_necesidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_necesidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_necesidad.php"},
 										callback: function () {
+										storeNecesidad.baseParams = {'accion': 'refrescar'};
 										if(storeNecesidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -319,6 +321,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeNecesidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_necesidad.php'};
 							}})}
 			}]
 			},{

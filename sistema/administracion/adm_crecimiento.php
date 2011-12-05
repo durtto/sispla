@@ -77,6 +77,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'crecimientos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_crecimiento.php'},
 		idProperty: 'co_crecimiento',
         fields: [{name: 'co_crecimiento'},
 		        {name: 'ca_demanda_futura'},
@@ -251,7 +252,7 @@ Ext.onReady(function(){
 								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}';
 							storeCrecimiento.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_crecimiento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_crecimiento.php"},
 										callback: function () {
 										if(storeCrecimiento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -284,8 +285,9 @@ Ext.onReady(function(){
 										storeCrecimiento.baseParams = {'accion': 'eliminar'};
 										storeCrecimiento.load({params:{
 												"condiciones": '{ "co_crecimiento" : "'+Ext.getCmp("co_crecimiento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_crecimiento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_crecimiento.php"},
 										callback: function () {
+										storeCrecimiento.baseParams = {'accion': 'refrescar'};
 										if(storeCrecimiento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -303,6 +305,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+								storeCrecimiento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
 							}})}
 			}]
 			},{
