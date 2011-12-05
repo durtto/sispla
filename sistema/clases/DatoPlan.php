@@ -92,7 +92,7 @@ class Dato extends MyPDO
    * @return string
    * @access public
    */
-  public function actualizarDato($Dato, $condiciones) {
+  public function actualizarDato($dato, $condiciones) {
   	$this->pdo->beginTransaction();	
 
 	$dato = array_intersect_key($dato, $this->columDato);
