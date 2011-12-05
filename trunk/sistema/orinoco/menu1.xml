@@ -1,16 +1,12 @@
 <authors>
 
 		
-				<author first="Base Instalada" gender="" titulo="Base">
+				<author first="Base Instalada" gender="" titulo="Base I">
 					<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
-					<book title="Activos1" titulo="Activos1" url="../reporte/reporte_activo.php"></book>
-					<book title="Activos2" titulo="Activos2" url="../reporte/reporte_activo.php"></book>
-					<book title="Activos3" titulo="Activos3" url="../reporte/reporte_activo.php"></book>
 				</author>
 			
-			<book title="Crecimiento" titulo="Crecimiento" url=""></book>
-			<book title="Uso" titulo="Uso" url=""></book>
-			<book title="Desempeño" titulo="Desempeño" url=""></book>
-		
+			<book title="Crecimiento Natural" titulo="Crecimiento" url=""></book>
+			<book title="Uso del activo" titulo="Uso" url=""></book>
+
 			
 </authors>
