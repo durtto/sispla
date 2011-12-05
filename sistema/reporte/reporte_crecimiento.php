@@ -74,12 +74,12 @@ Ext.onReady(function(){
 	
 	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelCrecimiento = new Ext.grid.ColumnModel([
-        {id:'co_crecimiento',header: "Crecimiento", width: 150, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
-        {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
-        {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
-        {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
-        {header: "Tipo Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {id:'co_crecimiento',header: "Crecimiento", width: 100, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
+        {header: "Demanda Futura", width: 125, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
+        {header: "Fecha actual", width: 125, sortable: true, locked:false, dataIndex: 'fe_actual'},      
+        {header: "Fecha Tope", width: 125, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
+        {header: "Tipo de Activo", width: 125, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Descripci&oacute;n", width: 198, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
 
       ]);
 	
@@ -94,11 +94,11 @@ Ext.onReady(function(){
         id: 'reporte_crecimiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Crecimiento',
+        title: 'Crecimientos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
+		width:820,
 		items: [{
-			width:640,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_crecimiento',
@@ -116,7 +116,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Crecimiento',
+				title:'Lista de Crecimientos',
                 border: true,
                 listeners: {
                     viewready: function(g) {

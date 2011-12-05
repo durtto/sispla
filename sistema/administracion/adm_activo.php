@@ -211,7 +211,7 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Actualizar Activos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:900,
+		width:800,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',

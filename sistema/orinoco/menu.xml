@@ -2,8 +2,8 @@
 
 		
 			<book title="Gestionar Planes" titulo="Planes" url="../administracion/adm_datos_plan.php"></book>
-			<book title="Crecimiento Natural" titulo="Crecimiento" url="../administracion/adm_crecimiento.php"></book>
-			<book title="Necesidad detectada" titulo="Necesidad" url="../administracion/adm_necesidad.php"></book>
+			<book title="Crecimiento Natural" titulo="Crecimientos" url="../administracion/adm_crecimiento.php"></book>
+			<book title="Necesidad detectada" titulo="Necesidades" url="../administracion/adm_necesidad.php"></book>
 	
 		
 </authors>

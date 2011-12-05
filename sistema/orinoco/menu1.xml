@@ -5,8 +5,7 @@
 					<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
 				</author>
 			
-			<book title="Crecimiento Natural" titulo="Crecimiento" url=""></book>
-			<book title="Uso del activo" titulo="Uso" url=""></book>
+			<book title="Crecimiento Natural" titulo="Crecimientos" url="../reporte/reporte_crecimiento.php"></book>
 
 			
 </authors>
