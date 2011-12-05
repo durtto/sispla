@@ -1,3 +1,5 @@
+<?php session_start(); 
+//print_r($_SESSION); ?>
 <html>
 <head>
 <title>Activo</title>
@@ -60,7 +62,8 @@ Ext.onReady(function(){
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	
+    var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
+
 /******************************************CAMPOS REQUERIDOS******************************************/     	
 
 	var camposReq = new Array(10);
@@ -83,6 +86,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -106,15 +110,14 @@ Ext.onReady(function(){
 				{name: 'nb_proceso'},
 				{name: 'co_proveedor'},
 				{name: 'nb_proveedor'},
-				{name: 'co_unidad'},
-				{name: 'nb_unidad'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'resp'}]
         });
-    storeActivo.setDefaultSort('co_activo', 'ASC');
+    storeActivo.setDefaultSort('co_ubicacion', 'ASC');
+
 
 /*****************************************FIN****StoreActivo*****************************************/
 
@@ -123,15 +126,15 @@ Ext.onReady(function(){
 
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 80, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-      	{header: "Codigo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
-      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+        {header: "Nombre", width: 120, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripci&oacute;n", width: 190, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+      	{header: "C&oacute;digo SAP", width: 120, sortable: true, locked:false, dataIndex: 'co_sap'},
+      	{header: "Serial", width: 120, sortable: true, locked:false, dataIndex: 'nu_serial'},
+      	{header: "N&uacute;mero de Etiqueta", width: 150, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
+      	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
+      	{header: "Fecha de Incorporaci&oacute;n", width: 160, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Vida &Uacute;til", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
       	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
@@ -139,18 +142,18 @@ Ext.onReady(function(){
       	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
       	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
       	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicacion", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
+      	{header: "Ubicaci&oacute;n", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
+      	{header: "Ubicaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
       	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
       	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
       	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
       	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
         {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 125, sortable: true, locked:false, dataIndex: 'nb_unidad'},
+      	{header: "Unidad de Demanda", width: 140, sortable: true, locked:false, dataIndex: 'nb_unidad'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
-        {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "C&oacute;digo Tipo de Activo", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Tipo de Activo", width: 110, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
 
       ]);
 
@@ -159,7 +162,7 @@ Ext.onReady(function(){
 //--------------------------------------------------------
 	var panelGrafica = new Ext.Panel({
 		id: 'panelGrafica',
-		width: 760,
+		width: 900,
 		height: 400,
 		layout: 'fit',
 		renderTo:'container'
@@ -449,9 +452,9 @@ Ext.onReady(function(){
 		id:'srv_ticket',
 		labelWidth: 100,
 		frame:true,
-		title: ':: Reporte de Activos ::. ',
+		title: '.: Reporte de Activos :.',
 		bodyStyle:'padding:5px',
-		width: 820,
+		width: 960,
 		layout: 'fit',
 		items: [{
 				xtype:'fieldset',	
@@ -608,7 +611,7 @@ Ext.onReady(function(){
 				}
             }]
 		},panelGrafica,{
-			width:760,
+			width:900,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_activo',
@@ -626,7 +629,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 400,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -657,21 +660,21 @@ Ext.onReady(function(){
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Impresion',
+								title: 'Impresi&oacute;n',
 								id: 'tabtransporte',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Visualizacion',
+								title: 'Visualizaci&oacute;n',
 								id: 'tabproveedor',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Autonomia Energetica',
+								title: 'Autonom&iacute;a Energ.',
 								id: 'tabproveedor1',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -685,7 +688,7 @@ Ext.onReady(function(){
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
-								title: 'Adquisicion de Datos',
+								title: 'Adq. de Datos',
 								id: 'tabproveedor3',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -697,7 +700,7 @@ Ext.onReady(function(){
 		});
 
 
-storeActivo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php"}});
+storeActivo.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_activo.php", ubicacion: ubicacion}});
 gridForm.render('form');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
