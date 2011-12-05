@@ -15,6 +15,10 @@
 	$resultado = $combo->cargarComponente($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
 	break;		
+	case 'plan_localizacion':
+	$resultado = $combo->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;	
 	case 'tipo_directorio':
 	$resultado = $combo->cargarTpDirectorio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);

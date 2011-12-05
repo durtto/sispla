@@ -22,7 +22,9 @@
 		
 		case 'critico':
 			
-			$resultado = $activo->cargarActivoCritico($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivoCritico($_REQUEST['ubicacion'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado4= $activo->contarActivoCritico($_REQUEST['ubicacion']);
+			$total= $resultado4[0]['count'];
 			$total = count($resultado);
 			
 			break;

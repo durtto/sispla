@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Respaldo</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -44,14 +47,14 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
-	var nuevo;
-
+ var nuevo;
+ var winPersona;
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	
 /******************************************CAMPOS REQUERIDOS******************************************/     	
 
 	var camposReq = new Array(10);
@@ -66,34 +69,6 @@ Ext.onReady(function(){
     };
     var local = true;
 
-/******************************************INICIO**StoreTpRespaldo******************************************/     
-  
-  var storeTpRespaldo = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_tipo_respaldo.php',
-		remoteSort : true,
-		root: 'tprespaldos',
-        totalProperty: 'total',
-		idProperty: 'co_tipo_respaldo',
-        fields: [{name: 'co_tipo_respaldo'},
-		        {name: 'nb_tipo_respaldo'},
-		        {name: 'resp'}]
-        });
-    storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
-    
-/*****************************************FIN****StoreTpRespaldo*****************************************/
-
-
-
-/******************************************INICIO**colModelTpRespaldo******************************************/     
-   
-    var colModeltpRespaldo = new Ext.grid.ColumnModel([
-        {id:'co_tipo_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
-        {header: "Nombre", width: 375, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
-      ]);
-	
-/******************************************FIN****colModelTpRespaldo******************************************/     
-
-
 /******************************************INICIO**StoreRespaldo******************************************/     
 
   var storeRespaldo = new Ext.data.JsonStore({
@@ -101,6 +76,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'respaldos',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_respaldo.php'},
 		idProperty: 'co_respaldo',
         fields: [{name: 'co_respaldo'},
         		{name: 'nu_veces_al_dia'},
@@ -140,45 +116,32 @@ Ext.onReady(function(){
 
 
 
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'frm_respaldo',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Respaldo',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [{
-			width:800,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_respaldo',
-                store: storeRespaldo,
-                cm: colModelRespaldo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                height: 250,
-				title:'Lista de Respaldo',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeRespaldo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-			
-		}],
-        
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.EditorGridPanel({
+					id: 'gd_respaldo',
+					name:'gd_respaldo',
+					store: storeRespaldo,
+					cm: colModelRespaldo,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					//width:670,
+					title:'Lista de Usuario',
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeRespaldo,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
+
+
 storeRespaldo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_respaldo.php"}});
-gridForm.render('form');
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
@@ -195,7 +158,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>

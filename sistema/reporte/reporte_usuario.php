@@ -1,10 +1,11 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Usuario</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -48,6 +51,16 @@
  var winPersona;
  
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -55,6 +68,8 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreUsuario******************************************/     
    
   var storeUsuario = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_usuario.php',
@@ -65,85 +80,65 @@ Ext.onReady(function(){
         fields: [{name: 'co_usuario'},
 		        {name: 'co_privilegio'},
         		{name: 'nb_privilegio'},
+        		{name: 'co_ubicacion'},
+        		{name: 'nb_ubicacion'},
 		        {name: 'co_indicador'},
         		{name: 'nb_persona'},
         		{name: 'tx_apellido'},
 		        {name: 'resp'}]
         });
     storeUsuario.setDefaultSort('co_usuario', 'ASC');
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+    
+/*****************************************FIN****StoreUsuario*****************************************/
+
+
+/******************************************INICIO**colModelUsuario******************************************/     
+    
     var colModelUsuario = new Ext.grid.ColumnModel([
-        {id:'co_usuario',header: "Usuario", width: 100, sortable: true, locked:false, dataIndex: 'co_usuario'},
+        {id:'co_usuario',header: "Usuario", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_usuario'},
         {header: "Privilegio", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
         {header: "Privilegio", width: 150, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Ubicacion", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {header: "Ubicacion", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
         {header: "Indicador", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
         {header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
       ]);
-	    
+	
+	     
 
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelUsuario******************************************/     
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'reporte_usuario',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Usuario',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
-		items: [{
-			width:640,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_usuario',
-                store: storeUsuario,
-                cm: colModelUsuario,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_usuario").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Lista de Usuario',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeUsuario,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
-				})
-            }]
-			
-		}],
-        
+
+
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.EditorGridPanel({
+					id: 'gd_usuario',
+					name:'gd_usuario',
+					store: storeUsuario,
+					cm: colModelUsuario,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					//width:670,
+					title:'Lista de Usuario',
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeUsuario,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
-	
+
 storeUsuario.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_usuario.php"}});
-gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_usuario").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		nroReg=rowIdx;
-		
-});
-/********************************************************************************************************/
+grid.render('grid');
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 
@@ -158,7 +153,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>
