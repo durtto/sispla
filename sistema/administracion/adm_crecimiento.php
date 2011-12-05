@@ -1,7 +1,7 @@
 <?php session_start(); 
 //print_r($_SESSION); ?><html>
 <head>
-<title>Crecimiento</title>
+<title>Crecimiento Natural</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -97,11 +97,11 @@ Ext.onReady(function(){
 
     var colModelCrecimiento = new Ext.grid.ColumnModel([
         {id:'co_crecimiento',header: "Crecimiento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
-        {header: "Demanda Futura", width: 200, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
+        {header: "Demanda Futura", width: 150, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
         {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
         {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
-        {header: "Tipo Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
-        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Tipo de Activo", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Descripci&oacute;n", width: 198, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
 
       ]);
 	
@@ -115,7 +115,7 @@ Ext.onReady(function(){
         id: 'frm_crecimiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Crecimiento',
+        title: 'Crecimiento Natural de Activos',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -126,17 +126,17 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Crecimientos',
+			title: 'Crecimiento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [GetCombo('co_tipo_activo','Tipo Activo'),
+					items: [GetCombo('co_tipo_activo','Tipo de Activo'),
 					
 					{
-                        fieldLabel: 'Numero Crecimiento',
+                        fieldLabel: 'C&oacute;digo de Crecimiento',
 						xtype:'numberfield',
 						allowBlank:false,
 						id: 'co_crecimiento',
@@ -193,7 +193,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -327,7 +327,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Crecimiento',
+				title:'Lista de Crecimientos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -385,7 +385,7 @@ gridForm.render('form');
     </tr>
   </table>
 <div id="winTipoActivo" class="x-hidden">
-    <div class="x-window-header">Ejegir Tipo Activo</div>
+    <div class="x-window-header">Elegir Tipo de Activo</div>
 </div>
 </body>
 </html>
