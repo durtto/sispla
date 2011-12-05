@@ -1,7 +1,7 @@
 <?php session_start(); 
 //print_r($_SESSION); ?><html>
 <head>
-<title>Plan de Localizacion</title>
+<title>Plan de Localizaci&oacute;n</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -95,7 +95,7 @@ Ext.onReady(function(){
    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
    	
         {id:'co_plan_localizacion',header: "Plan Localizacion",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
-        {header: "Elaboracion", width: 360, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
+        {header: "Fecha de Elaboraci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
 /******************************************FIN****colModelPlanLocalizacion******************************************/     
@@ -127,8 +127,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
             '<p><b>Nombre:</b> {nb_contacto}</p>',
             '<p><b>Apellido:</b> {tx_apellido}</p>',
-            '<p><b>Telefono:</b> {tx_telefono}</p>',
-            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>'
+            '<p><b>Tel&eacute;fono:</b> {tx_telefono}</p>',
+            '<p><b>Correo Electr&oacute;nico:</b> {tx_correo_electronico}</p>'
             
         )
     });
@@ -139,7 +139,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
     	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 380, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 330, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Direcci&oacute;n", width: 330, sortable: true, locked:false, dataIndex: 'di_oficina'},
         //{header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado'},
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
@@ -196,9 +196,9 @@ function proveedores_seleccionados(){
         {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
-        {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Direcci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Tel&oacute;fono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
+        {header: "Correo Electr&oacute;nico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
         {header: "Proveedor", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       ]);
@@ -292,7 +292,7 @@ function equipos_seleccionados(){
         {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
         {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
-        {header: "Numero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
+        {header: "N&uacute;mero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
       sm3,
       ]);
       
@@ -342,10 +342,10 @@ var storePersona = new Ext.data.JsonStore({
     storePersona.setDefaultSort('co_indicador', 'ASC');
    var expanderPersona = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Cedula:</b> {nu_cedula}</p>',
+            '<p><b>C&eacute;dula:</b> {nu_cedula}</p>',
             '<p><b>Apellido:</b> {di_oficina}</p>',
-            '<p><b>Telefono:</b> {tx_telefono_oficina}</p>',
-            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>',
+            '<p><b>Tel&eacute;fono:</b> {tx_telefono_oficina}</p>',
+            '<p><b>Correo Electr&oacute;nico:</b> {tx_correo_electronico}</p>',
             '<p><b>Rol:</b> {nb_rol}</p>',
             '<p><b>Grupo:</b> {nb_grupo}</p>',
             '<p><b>Guardia:</b> {nb_guardia}</p>'
@@ -357,7 +357,7 @@ var storePersona = new Ext.data.JsonStore({
     var colModelPersona = new Ext.grid.ColumnModel([
     	expanderPersona,
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "C&eacute;dula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 110, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 120, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
@@ -398,7 +398,7 @@ function personas_seleccionadas(){
 		//labelAlign: 'right',
 		labelWidth: 100, // label settings here cascade unless overridden
 		frame:true,
-		title: ':: Plan de localizacion ::. ',
+		title: ':: Plan de localizaci&oacute;n ::',
 		bodyStyle:'padding:5px',
 		width: 820,
 		layout: 'fit',
@@ -413,14 +413,14 @@ function personas_seleccionadas(){
 						labelAlign: 'center',
 						width:775,
 						buttonAlign:'center',
-						title: 'Plan Localizacion',
+						title: 'Plan de Localizaci&oacute;n',
 			            bodyStyle:'padding:5px 5px 0px 5px',
 						items:[{
 								layout: 'form',
 								labelWidth:140,
 								border:false,
 								items: [{
-			                        fieldLabel: 'Numero de Plan Localizacion',
+			                        fieldLabel: 'N&uacute;mero de Plan Localizaci&oacute;n',
 									xtype:'numberfield',
 									id: 'co_plan_localizacion',
 			                        name: 'co_plan_localizacion',
@@ -428,7 +428,7 @@ function personas_seleccionadas(){
 									//hideLabel: true,
 			                        width:160
 			                    }, {
-			                        fieldLabel: 'Fecha de Elaboracion',
+			                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
 									xtype:'datefield',
 									vtype:'validos',
 									id: 'fe_elaboracion',
@@ -468,7 +468,7 @@ function personas_seleccionadas(){
 						//layout: 'fit',
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
-								title: 'Localizacion',
+								title: 'Planes',
 								id: 'tablocalizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -483,7 +483,7 @@ function personas_seleccionadas(){
 						                cm: colModelPlanLocalizacion,
 						                height: 250,
 						                iconCls: 'icon-grid',
-										title:'Lista de Plan Localizacion',
+										title:'Lista de Planes de Localizaci&oacute;n',
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {
@@ -514,7 +514,7 @@ function personas_seleccionadas(){
 						                sm: sm1,
 						                height: 250,
 										//width:670,
-										title:'Lista de Persona',
+										title:'Lista de Personas',
 						                border: true,
 						                bbar: new Ext.PagingToolbar({
 										store: storePersona,
@@ -540,7 +540,7 @@ function personas_seleccionadas(){
 						                iconCls: 'icon-grid',
 						                sm:sm2,
 						                height: 250,
-										title:'Lista de Proveedor',
+										title:'Lista de Proveedores',
 						                border: true,
 										bbar: new Ext.PagingToolbar({
 										store: storeProveedor,
@@ -564,7 +564,7 @@ function personas_seleccionadas(){
 						                iconCls: 'icon-grid',
 						                sm:sm3,
 						                height: 250,
-										title:'Lista de Directorios telefonicos',
+										title:'Lista de Directorios telef&oacute;nicos',
 						                border: true,
 										bbar: new Ext.PagingToolbar({
 										store: storeDirectorio,
