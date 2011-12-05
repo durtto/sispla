@@ -34,7 +34,7 @@ class DocComponente extends MyPDO
    * @return string
    * @access public
    */
-  public function contarDocumento() {
+  public function contarDocComponente() {
 	$contar = "SELECT count(tr053_documento_componente.co_doc_componente)
 	FROM tr053_documento_componente";
 	

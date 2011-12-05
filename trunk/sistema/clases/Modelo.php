@@ -128,10 +128,8 @@ class Modelo extends MyPDO
   tr014_tipo_activo.nb_tipo_activo, 
   tr029_modelo.co_tipo_activo
 FROM 
-  public.tr029_modelo, 
-  public.tr014_tipo_activo
-WHERE 
-  tr029_modelo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo";
+  tr029_modelo
+  LEFT JOIN  tr014_tipo_activo ON (tr029_modelo.co_tipo_activo = tr014_tipo_activo.co_tipo_activo)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
