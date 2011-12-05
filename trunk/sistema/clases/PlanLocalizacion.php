@@ -165,5 +165,45 @@ class PlanLocalizacion extends MyPDO {
 			
 	return $r;
   } // end of member function cargarPlanLocalizacion
+  
+  
+    public function cargarPlanLocalizacionPersona($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+	$query = "SELECT 
+  pl.fe_elaboracion, 
+  pp.co_plan_localizacion, 
+  pp.co_indicador, 
+  p.co_indicador, 
+  p.nu_cedula, 
+  p.nb_persona, 
+  p.tx_apellido, 
+  p.di_oficina
+FROM 
+  tr045_rel_plan_localizacion_persona pp
+  INNER JOIN tr010_persona p ON (pp.co_indicador = p.co_indicador) 
+  LEFT JOIN tr036_plan_localizacion pl ON ( pp.co_plan_localizacion = pl.co_plan_localizacion)
+  ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  } // end of member function cargarPlanLocalizacion
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
 ?>

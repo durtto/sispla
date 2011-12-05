@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Proveedor</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -45,6 +48,8 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ var winPersona;
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -71,109 +76,128 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'proveedores',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_proveedor.php'},
 		idProperty: 'co_proveedor',
         fields: [{name: 'co_proveedor'},
         		{name: 'nb_proveedor'},
         		{name: 'di_oficina'},
-        		{name: 'tx_telefono_oficina'},
-        		{name: 'tx_url_pagina'},
+        		{name: 'tx_servicio_prestado'},
+        		{name: 'co_contacto'},
+        		{name: 'nb_contacto'},
+		        {name: 'tx_apellido'},
+		        {name: 'tx_telefono'},
+		        {name: 'tx_correo_electronico'},
         		{name: 'resp'}]
         });
     storeProveedor.setDefaultSort('co_proveedor', 'ASC');
     
 /*****************************************FIN****StoreProveedor*****************************************/
 
-
+var expanderContacto = new Ext.ux.grid.RowExpander({
+        tpl : new Ext.Template(
+            '<p><b>Nombre:</b> {nb_contacto}</p>',
+            '<p><b>Apellido:</b> {tx_apellido}</p>',
+            '<p><b>Telefono:</b> {tx_telefono}</p>',
+            '<p><b>Correo Electronico:</b> {tx_correo_electronico}</p>'
+        )
+    });
 
 /******************************************INICIO**colModelProveedor******************************************/     
    
     var colModelProveedor = new Ext.grid.ColumnModel([
+    	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Pagina Web", width: 100, sortable: true, locked:false, dataIndex: 'tx_url_pagina'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
+        {header: "Direccion", width: 300, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado', renderer: servicio},
+      	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
+      	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
+		//{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        //{header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+       	// {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		//{header: "Telefono Habitacion", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+      
       ]);
 	
 /******************************************FIN****colModelProveedor******************************************/     
+    function servicio(tx_servicio_prestado,servicio){  
+   servicio = 'style="white-space:normal"';  
+   return tx_servicio_prestado;  
+   }  
+/******************************************INICIO**StoreContacto******************************************/     
+      
+  var storeContacto = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_contacto_proveedor.php',
+		remoteSort : true,
+		root: 'contactos',
+        totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_contacto_proveedor.php'},
+		idProperty: 'co_contacto',
+        fields: [{name: 'co_contacto'},
+		        {name: 'nb_contacto'},
+		        {name: 'tx_apellido'},
+		        {name: 'di_oficina'},
+		        {name: 'tx_telefono'},
+		        {name: 'tx_correo_electronico'},
+		        {name: 'co_proveedor'},
+		        {name: 'nb_proveedor'},
+		        {name: 'resp'}]
+        });
+    storeContacto.setDefaultSort('co_contacto', 'ASC');
+    
+/*****************************************FIN****StoreContacto*****************************************/
 
 
 
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+/******************************************INICIO**colModelContacto******************************************/     
+    
+    var colModelContacto = new Ext.grid.ColumnModel([
+        {id:'co_contacto',header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
+		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
+        {header: "Correo Electronico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Proveedor", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
+        {header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
+      ]);
+	
+/******************************************FIN****colModelContacto******************************************/     
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'frm_proveedor',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Proveedores',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [{
-			width:800,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_proveedor',
-                store: storeProveedor,
-                cm: colModelProveedor,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_proveedor").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				title:'Lista de Proveedors',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                    }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeProveedor,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-			
-		}],
-        
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.EditorGridPanel({
+					id: 'gd_proveedor',
+					name:'gd_proveedor',
+					store: storeProveedor,
+					cm: colModelProveedor,
+					stripeRows: true,
+					plugins: expanderContacto,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					//width:670,
+					title:'Lista de Proveedor',
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeProveedor,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
 
-	
-	
 storeProveedor.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_proveedor.php"}});
-gridForm.render('form');
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
-
-/****************************************************************************************************/
-	Ext.getCmp("gd_proveedor").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
-		Ext.getCmp("btnGuardar").enable();
-		Ext.getCmp("btnEliminar").enable();
-		if(Ext.getCmp("frm1").disabled){
-			Ext.getCmp("frm1").enable();
-		}
-		Ext.getCmp("co_proveedor").focus();
-		nroReg=rowIdx;
-		
-});
-/********************************************************************************************************/
 
 });
 
 </script>
-
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
 <div id="loading-mask" style=""></div>
@@ -184,7 +208,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>

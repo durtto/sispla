@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Responsabilidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -45,13 +48,12 @@
  * http://www.extjs.com/license
  */
  var nuevo;
-  var winRolResp;
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-
 /******************************************CAMPOS REQUERIDOS******************************************/     	
 
 	var camposReq = new Array(10);
@@ -68,11 +70,12 @@ Ext.onReady(function(){
 
 /******************************************INICIO**StoreRolResp******************************************/     
 
-  var storeRolResp = new Ext.data.JsonStore({
+  var storeResponsabilidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_rol_responsabilidad.php',
 		remoteSort : true,
 		root: 'rolresponsabilidades',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_rol_responsabilidad.php'},
 		idProperty: 'co_rol_resp',
         fields: [{name: 'co_rol_resp'},
         		{name: 'nb_rol_resp'},
@@ -80,7 +83,7 @@ Ext.onReady(function(){
         		{name: 'co_rol_padre'},
         		{name: 'resp'}]
         });
-    storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
+    storeResponsabilidad.setDefaultSort('co_rol_resp', 'ASC');
     
 /*****************************************FIN****StoreRolResp*****************************************/
 
@@ -89,71 +92,45 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelRolResp******************************************/     
 	
 	
-    var colModelRolResp = new Ext.grid.ColumnModel([
+    var colModelResponsabilidad = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
         {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: showDescription},
+        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
         {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         ]);
 	
 /******************************************FIN****colModelRolResp******************************************/     
 
-   function showDescription(tx_descripcion,descripcion){  
-   descripcion = 'style="white-space:normal"';  
-   return tx_descripcion;  
-   }  
 
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
-    var gridForm = new Ext.FormPanel({
-        id: 'frm_rol',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Roles',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [{
-			width:800,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_rol',
-                store: storeRolResp,
-                cm: colModelRolResp,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_rol").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Roles',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                    }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeRolResp,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-			
-		}],
-        
+
+   var grid =new Ext.grid.EditorGridPanel({
+					id: 'gd_responsabilidad',
+					name:'gd_responsabilidad',
+					store: storeResponsabilidad,
+					cm: colModelResponsabilidad,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					//width:670,
+					title:'Lista de Responsabilidades',
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeResponsabilidad,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
-storeRolResp.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"}});
-gridForm.render('form');
+
+
+storeResponsabilidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_responsabilidad.php"}});
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
 
 });
 
@@ -168,7 +145,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>
