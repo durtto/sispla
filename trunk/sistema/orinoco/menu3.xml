@@ -1,11 +1,21 @@
 <authors>
-
+			
+			<author first="Activos" gender="" titulo="Activos">
+			<book title="Activos" titulo="Activos" url="../administracion/adm_activo.php"></book>
+			<book title="Falla" titulo="Falla" url="../administracion/adm_falla.php"></book>
+			<book title="Fabricante" titulo="Fabricante" url="../administracion/adm_fabricante.php"></book>
+			<book title="Garantia" titulo="Garantia" url="../administracion/adm_garantia.php"></book>
+			<book title="Proveedor" titulo="Proveedor" url="../administracion/adm_proveedor.php"></book>
+			</author>
+			
 			<book title="Capacidad" titulo="Capacidad" url="../administracion/adm_capacidad.php"></book>
+			<book title="Categoria" titulo="Categoria" url="../administracion/adm_categoria.php"></book>
+			<book title="Criterios" titulo="Criterios" url=""></book>
+			<book title="Estado" titulo="Estado" url="../administracion/adm_estado.php"></book>
 			<book title="Nivel de obsolescencia" titulo="Nivel" url="../administracion/adm_nivel_obsolescencia.php"></book>
 			<book title="Unidad demanda" titulo="Unidad" url="../administracion/adm_unidad_demanda.php"></book>	
 			<book title="Servicio" titulo="Servicio" url="../administracion/adm_servicio.php"></book>
 			<book title="Criterios" titulo="Criterios" url=""></book>
-			<book title="Proveedor" titulo="Proveedor" url="../administracion/adm_proveedor.php"></book>
 
 			<author first="Usuario" gender="" titulo="Usuarios">
 				<book title="Usuario" titulo="Usuario" url="../administracion/adm_usuario.php"></book>
