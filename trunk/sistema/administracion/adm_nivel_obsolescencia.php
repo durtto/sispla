@@ -91,8 +91,8 @@ Ext.onReady(function(){
     var colModelNivel = new Ext.grid.ColumnModel([
         {id:'co_nivel',header: "Nivel", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_nivel'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
+        {header: "Descripci&oacute;n", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
       ]);
 	
 /******************************************FIN****colModelNivel******************************************/     
@@ -105,7 +105,7 @@ Ext.onReady(function(){
         id: 'frm_nivel',
         frame: true,
 		labelAlign: 'center',
-        title: 'Nivel',
+        title: 'Nivel de Obsolescencia',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -124,7 +124,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Nivel',
+                        fieldLabel: 'C&oacute;digo de Nivel',
 						xtype:'numberfield',
 						id: 'co_nivel',
                         name: 'co_nivel',
@@ -167,7 +167,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -299,7 +299,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Nivels',
+				title:'Lista de Niveles de Obsolescencia',
                 border: true,
                 listeners: {
                     viewready: function(g) {

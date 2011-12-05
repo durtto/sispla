@@ -94,12 +94,12 @@
 
     var colModelDato = new Ext.grid.ColumnModel([
         {id:'co_componente',header: "Componente", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_componente'},
-        {header: "Fecha de Vigencia", width: 150, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
-        {header: "Objetivos", width: 200, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
-        {header: "Alcance", width: 200, sortable: true, locked:false, dataIndex: 'tx_alcance'},
-        {header: "Negocio", width: 150, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
-        {header: "Localidad", width: 150, sortable: true, locked:false, dataIndex: 'tx_localidad'},
-        {header: "Organizaci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
+        {header: "Fecha de Vigencia", width: 120, sortable: true, locked:false, dataIndex: 'fe_vigencia'},
+        {header: "Objetivo", width: 159, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
+        {header: "Alcance", width: 159, sortable: true, locked:false, dataIndex: 'tx_alcance'},
+        {header: "Negocio", width: 120, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
+        {header: "Localidad", width: 120, sortable: true, locked:false, dataIndex: 'tx_localidad'},
+        {header: "Organizaci&oacute;n", width: 120, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
       ]);
       
 /******************************************FIN****colModelDato******************************************/     

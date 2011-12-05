@@ -97,12 +97,12 @@ Ext.onReady(function(){
 
     var colModelNecesidad = new Ext.grid.ColumnModel([
         {id:'co_necesidad',header: "Necesidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_necesidad'},
-        {header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
-        {header: "Necesidad Detectada", width: 200, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
-        {header: "Cantidad Requerida", width: 200, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
-        {header: "Justificacion", width: 400, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
-        {header: "Beneficio", width: 400, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
-        {header: "Annio Actual", width: 100, sortable: true, locked:false, dataIndex: 'fe_annio'},
+        {header: "Servicio", width: 120, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+        {header: "Necesidad Detectada", width: 150, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
+        {header: "Cantidad Requerida", width: 140, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
+        {header: "Justificaci&oacute;n", width: 145, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
+        {header: "Beneficios", width: 145, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
+        {header: "A&ntilde;o Actual", width: 98, sortable: true, locked:false, dataIndex: 'fe_annio'},
       ]);
       
 /******************************************FIN****colModelNecesidad******************************************/     
@@ -115,7 +115,7 @@ Ext.onReady(function(){
         id: 'frm_necesidad',
         frame: true,
 		labelAlign: 'center',
-        title: 'Necesidad',
+        title: 'Necesidades detectadas',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -126,7 +126,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Necesidads',
+			title: 'Necesidad',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -134,7 +134,7 @@ Ext.onReady(function(){
 					columnWidth:.40,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Necesidad',
+                        fieldLabel: 'C&oacute;digo de Necesidad',
 						xtype:'numberfield',
 						id: 'co_necesidad',
                         name: 'co_necesidad',
@@ -194,7 +194,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Justificacion',
+                        fieldLabel: 'Justificaci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_justificacion',
                         name: 'tx_descripcion',
@@ -208,7 +208,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Beneficio',
+                        fieldLabel: 'Beneficios',
 						xtype:'htmleditor',
 						id: 'tx_beneficio',
                         name: 'tx_beneficio',
