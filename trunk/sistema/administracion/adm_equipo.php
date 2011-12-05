@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'equipos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_equipo.php'},
 		idProperty: 'co_equipo',
         fields: [{name: 'co_equipo'},
 				{name: 'nb_equipo'},

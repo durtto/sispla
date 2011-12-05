@@ -72,6 +72,7 @@
 		url: '../interfaz/interfaz_dato_plan.php',
 		remoteSort : true,
 		root: 'datos',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_dato_plan.php'},
         totalProperty: 'total',
 		idProperty: 'co_componente',
         fields: [{name: 'co_componente'},
@@ -267,7 +268,7 @@
 								columnas += '"tx_organizacion" : "'+Ext.getCmp("tx_organizacion").getValue()+'"}';
 							storeDato.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_dato_plan.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_dato_plan.php"},
 										callback: function () {
 										if(storeDato.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -300,8 +301,9 @@
 										storeDato.baseParams = {'accion': 'eliminar'};
 										storeDato.load({params:{
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_dato_plan.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_dato_plan.php"},
 										callback: function () {
+										storeDato.baseParams = {'accion': 'refrescar'};
 										if(storeDato.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -319,6 +321,7 @@
 												icon: Ext.MessageBox.INFO
 											});
 										}
+								storeDato.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_dato_plan.php'};
 							}})}
 			}]
 			},{

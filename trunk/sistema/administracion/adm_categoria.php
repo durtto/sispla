@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_categoria.php',
 		remoteSort : true,
 		root: 'categorias',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_categoria.php"},
         totalProperty: 'total',
 		idProperty: 'co_categoria',
         fields: [{name: 'co_categoria'},
@@ -191,7 +192,7 @@ Ext.onReady(function(){
 							columnas += '"nb_categoria" : "'+Ext.getCmp("nb_categoria").getValue()+'"}';
 							storeCategoria.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
 										if(storeCategoria.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -224,7 +225,7 @@ Ext.onReady(function(){
 										storeCategoria.baseParams = {'accion': 'eliminar'};
 										storeCategoria.load({params:{
 												"condiciones": '{ "co_categoria" : "'+Ext.getCmp("co_categoria").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_categoria.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_categoria.php"},
 										callback: function () {
 										storeCategoria.baseParams = {'accion': 'refrescar'};
 										if(storeCategoria.getAt(0).data.resp!=true){		
@@ -244,6 +245,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
 							}})}
 				}]
 				},{

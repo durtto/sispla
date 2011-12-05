@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_nivel_obsolescencia.php',
 		remoteSort : true,
 		root: 'nivelesobsolescencia',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
         totalProperty: 'total',
 		idProperty: 'co_nivel',
         fields: [{name: 'co_nivel'},
@@ -223,7 +224,7 @@ Ext.onReady(function(){
 								columnas += '"bo_obsoleto" : "'+Ext.getCmp("bo_obsoleto").getValue()+'"}';
 							storeNivel.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
 										callback: function () {
 										if(storeNivel.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -256,8 +257,9 @@ Ext.onReady(function(){
 										storeNivel.baseParams = {'accion': 'eliminar'};
 										storeNivel.load({params:{
 												"condiciones": '{ "co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
 										callback: function () {
+										storeNivel.baseParams = {'accion': 'refrescar'};
 										if(storeNivel.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -275,6 +277,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeNivel.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_nivel_obsolescencia.php'};
 							}})}
 			}]
 			},{

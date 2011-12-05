@@ -73,6 +73,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'departamentos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_departamento.php'},
 		idProperty: 'co_departamento',
         fields: [{name: 'co_departamento'},
         		{name: 'nb_departamento'},	
@@ -188,7 +189,7 @@ Ext.onReady(function(){
 							columnas += '"nb_departamento" : "'+Ext.getCmp("nb_departamento").getValue()+'"}';
 							storeDepartamento.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_departamento" : "'+Ext.getCmp("co_departamento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_departamento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_departamento.php"},
 										callback: function () {
 										if(storeDepartamento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -221,8 +222,9 @@ Ext.onReady(function(){
 										storeDepartamento.baseParams = {'accion': 'eliminar'};
 										storeDepartamento.load({params:{
 												"condiciones": '{ "co_departamento" : "'+Ext.getCmp("co_departamento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_departamento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_departamento.php"},
 										callback: function () {
+										storeDepartamento.baseParams = {'accion': 'refrescar'};
 										if(storeDepartamento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -240,6 +242,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeDepartamento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_departamento.php'};
 							}})}
 			}]
 			},{

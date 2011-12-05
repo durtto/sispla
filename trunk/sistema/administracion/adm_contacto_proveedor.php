@@ -73,6 +73,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_contacto_proveedor.php',
 		remoteSort : true,
 		root: 'contactos',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_contacto_proveedor.php'},
         totalProperty: 'total',
 		idProperty: 'co_contacto',
         fields: [{name: 'co_contacto'},
@@ -279,6 +280,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_contacto" : "'+Ext.getCmp("co_contacto").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_contacto_proveedor.php"},
 										callback: function () {
+										storeContacto.baseParams = {'accion': 'refrescar'};
 										if(storeContacto.getAt(0).data.resp!=true){		
 										storeContacto.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
@@ -297,6 +299,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeContacto.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_contacto_proveedor.php'};
 							}})}
 			}]
 			},{

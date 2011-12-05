@@ -77,6 +77,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_tipo_directorio.php',
 		remoteSort : true,
 		root: 'tpdirectorios',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_tipo_directorio.php'},
         totalProperty: 'total',
 		idProperty: 'co_tipo_directorio',
         fields: [{name: 'co_tipo_directorio'},
@@ -105,6 +106,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'directorios',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_directorio.php'},
 		idProperty: 'co_directorio',
         fields: [{name: 'co_directorio'},
 		        {name: 'nb_directorio'},
@@ -243,7 +245,7 @@ Ext.onReady(function(){
 								columnas += '"nu_telefono" : "'+Ext.getCmp("nu_telefono").getValue()+'"}';
 							storeDirectorio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_directorio" : "'+Ext.getCmp("co_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_directorio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_directorio.php"},
 										callback: function () {
 										if(storeDirectorio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -276,8 +278,9 @@ Ext.onReady(function(){
 										storeDirectorio.baseParams = {'accion': 'eliminar'};
 										storeDirectorio.load({params:{
 												"condiciones": '{ "co_directorio" : "'+Ext.getCmp("co_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_directorio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_directorio.php"},
 										callback: function () {
+										storeDirectorio.baseParams = {'accion': 'refrescar'};
 										if(storeDirectorio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -295,6 +298,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_directorio.php'};
 							}})}
 			}]
 			},{
@@ -476,6 +480,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
 										callback: function () {
+										storeTpDirectorio.baseParams = {'accion': 'eliminar'};
 										if(storeTpDirectorio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -493,6 +498,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+						storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
 							}})}
 			}]
 			},{

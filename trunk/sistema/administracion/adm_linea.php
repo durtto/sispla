@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_linea_taxi.php',
 		remoteSort : true,
 		root: 'lineas',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_linea_taxi.php"},
         totalProperty: 'total',
 		idProperty: 'co_linea',
         fields: [{name: 'co_linea'},
@@ -194,7 +195,7 @@ Ext.onReady(function(){
 			text: 'Guardar', 
 			id: 'btnGuardar',
 			tooltip:'Guardar Linea de Taxi',
-			iconCls: 'delete',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -256,6 +257,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
 										callback: function () {
+										storeLinea.baseParams = {'accion': 'refrescar'};
 										if(storeLinea.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -273,6 +275,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeLinea.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_linea.php'};										
 							}})}
 			}]
 			},{

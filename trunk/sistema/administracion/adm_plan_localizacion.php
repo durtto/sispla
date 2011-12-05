@@ -81,6 +81,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_plan_localizacion.php',
 		remoteSort : true,
 		root: 'planeslocalizacion',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_plan_localizacion.php"},
         totalProperty: 'total',
 		idProperty: 'co_plan_localizacion',
         fields: [{name: 'co_plan_localizacion'},
@@ -106,6 +107,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_proveedor.php',
 		remoteSort : true,
 		root: 'proveedores',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_proveedor.php"},
         totalProperty: 'total',
 		idProperty: 'co_proveedor',
         fields: [{name: 'co_proveedor'},
@@ -171,6 +173,7 @@ function proveedores_seleccionados(){
   var storeContacto = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_contacto_proveedor.php',
 		remoteSort : true,
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_contacto_proveedor.php"},
 		root: 'contactos',
         totalProperty: 'total',
 		idProperty: 'co_contacto',
@@ -213,6 +216,7 @@ function proveedores_seleccionados(){
 		url: '../interfaz/interfaz_directorio.php',
 		remoteSort : true,
 		root: 'directorios',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_directorio.php"},
         totalProperty: 'total',
 		idProperty: 'co_directorio',
         fields: [{name: 'co_directorio'},
@@ -232,6 +236,7 @@ function proveedores_seleccionados(){
 		remoteSort : true,
 		root: 'equipos',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"},
 		idProperty: 'co_equipo_continuidad',
         fields: [{name: 'co_equipo_continuidad'},
         		{name: 'co_indicador'},
@@ -314,7 +319,7 @@ var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
-		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
         totalProperty: 'total',
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
@@ -652,7 +657,7 @@ function personas_seleccionadas(){
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
 							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas(), "equipos": equipos_seleccionados(), "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
 												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
 										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -685,8 +690,9 @@ function personas_seleccionadas(){
 										storePlanLocalizacion.baseParams = {'accion': 'eliminar'};
 										storePlanLocalizacion.load({params:{
 												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
+										storePlanLocalizacion.baseParams = {'accion': 'refrescar'};
 										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -704,6 +710,8 @@ function personas_seleccionadas(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storePlanLocalizacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_localizacion.php'};
+
 							}})}
 			},{
 					text: 'Cerrar',

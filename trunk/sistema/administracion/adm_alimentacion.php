@@ -295,6 +295,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_alimentacion" : "'+Ext.getCmp("co_alimentacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_alimentacion.php"},
 										callback: function () {
+										storeAlimentacion.baseParams = {'accion': 'refrescar'};
 										if(storeAlimentacion.getAt(0).data.resp!=true){	
 											storeAlimentacion.baseParams = {'accion': 'refrescar'};	
 											Ext.MessageBox.show({
@@ -313,7 +314,6 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										storeAlimentacion.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_alimentacion.php'};
-
 										}
 							}})}
 			}]

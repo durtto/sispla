@@ -47,6 +47,8 @@
  */
  var nuevo;
  var winActivo;
+ var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -75,6 +77,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -151,6 +154,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_garantia.php',
 		remoteSort : true,
 		root: 'garantias',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_garantia.php"},	
         totalProperty: 'total',
 		idProperty: 'co_garantia',
         fields: [{name: 'co_garantia'},
@@ -301,7 +305,7 @@ Ext.onReady(function(){
 								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}';
 							storeGarantia.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_garantia" : "'+Ext.getCmp("co_garantia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_garantia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_garantia.php"},
 										callback: function () {
 										if(storeGarantia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -334,8 +338,9 @@ Ext.onReady(function(){
 										storeGarantia.baseParams = {'accion': 'eliminar'};
 										storeGarantia.load({params:{
 												"condiciones": '{ "co_garantia" : "'+Ext.getCmp("co_garantia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_garantia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_garantia.php"},
 										callback: function () {
+										storeGarantia.baseParams = {'accion': 'refrescar'};
 										if(storeGarantia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -353,6 +358,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+				storeGarantia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_garantia.php'};
 							}})}
 			}]
 			},{

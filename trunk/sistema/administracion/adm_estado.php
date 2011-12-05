@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_estado.php',
 		remoteSort : true,
 		root: 'estados',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_estado.php'},
         totalProperty: 'total',
 		idProperty: 'co_estado',
         fields: [{name: 'co_estado'},
@@ -204,7 +205,7 @@ Ext.onReady(function(){
 								columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
 							storeEstado.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_estado" : "'+Ext.getCmp("co_estado").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_estado.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_estado.php"},
 										callback: function () {
 										if(storeEstado.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -237,8 +238,9 @@ Ext.onReady(function(){
 										storeEstado.baseParams = {'accion': 'eliminar'};
 										storeEstado.load({params:{
 												"condiciones": '{ "co_estado" : "'+Ext.getCmp("co_estado").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_estado.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_estado.php"},
 										callback: function () {
+										storeEstado.baseParams = {'accion': 'refrescar'};
 										if(storeEstado.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -256,6 +258,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeEstado.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_estado.php'};
 							}})}
 			}]
 			},{

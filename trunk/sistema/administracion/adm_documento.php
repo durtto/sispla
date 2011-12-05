@@ -73,6 +73,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'documentos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_documento.php'},
 		idProperty: 'co_documento',
         fields: [{name: 'co_documento'},
         		{name: 'nb_documento'},
@@ -227,7 +228,7 @@ Ext.onReady(function(){
 							columnas += '"tx_url_direccion" : "'+Ext.getCmp("tx_url_direccion").getValue()+'"}';
 							storeDocumento.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_documento" : "'+Ext.getCmp("co_documento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_documento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_documento.php"},
 										callback: function () {
 										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -260,8 +261,9 @@ Ext.onReady(function(){
 										storeDocumento.baseParams = {'accion': 'eliminar'};
 										storeDocumento.load({params:{
 												"condiciones": '{ "co_documento" : "'+Ext.getCmp("co_documento").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_documento.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_documento.php"},
 										callback: function () {
+										storeDocumento.baseParams = {'accion': 'refrescar'};
 										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -279,6 +281,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+									storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
+
 							}})}
 			}]
 			},{

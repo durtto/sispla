@@ -77,6 +77,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_guardia.php',
 		remoteSort : true,
 		root: 'guardias',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_guardia.php"},	
         totalProperty: 'total',
 		idProperty: 'co_guardia',
         fields: [{name: 'co_guardia'},			
@@ -266,6 +267,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_guardia.php"},
 										callback: function () {
+										storeGuardia.baseParams = {'accion': 'refrescar'};
 										if(storeGuardia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -282,6 +284,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeGuardia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
 							}})}
 			}]
 			},{

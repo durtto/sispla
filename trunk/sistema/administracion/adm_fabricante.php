@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_fabricante.php',
 		remoteSort : true,
 		root: 'fabricantes',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_fabricante.php'},
         totalProperty: 'total',
 		idProperty: 'co_fabricante',
         fields: [{name: 'co_fabricante'},
@@ -185,14 +186,10 @@ Ext.onReady(function(){
 							else
 								storeFabricante.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_fabricante" : "'+Ext.getCmp("co_fabricante").getValue()+'", ';
-							columnas += '"nb_fabricante" : "'+Ext.getCmp("nb_fabricante").getValue()+'", ';
-							columnas += '"di_ubicacion" : "'+Ext.getCmp("di_ubicacion").getValue()+'", ';
-							columnas += '"nu_telefono" : "'+Ext.getCmp("nu_telefono").getValue()+'", ';
-							columnas += '"tx_correo_electronico" : "'+Ext.getCmp("tx_correo_electronico").getValue()+'", ';
-							columnas += '"tx_pagina_web" : "'+Ext.getCmp("tx_pagina_web").getValue()+'"}';
+							columnas += '"nb_fabricante" : "'+Ext.getCmp("nb_fabricante").getValue()+'"}';
 							storeFabricante.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_fabricante" : "'+Ext.getCmp("co_fabricante").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_fabricante.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_fabricante.php"},
 										callback: function () {
 										if(storeFabricante.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -225,8 +222,9 @@ Ext.onReady(function(){
 										storeFabricante.baseParams = {'accion': 'eliminar'};
 										storeFabricante.load({params:{
 												"condiciones": '{ "co_fabricante" : "'+Ext.getCmp("co_fabricante").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_fabricante.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_fabricante.php"},
 										callback: function () {
+										storeFabricante.baseParams = {'accion': 'refrescar'};
 										if(storeFabricante.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -244,6 +242,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+									storeFabricante.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_fabricante.php'};
 							}})}
 			}]
 			},{

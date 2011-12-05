@@ -69,6 +69,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
         totalProperty: 'total',
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
@@ -465,6 +466,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
 										callback: function () {
+										storeActivo.baseParams = {'accion': 'refrescar'};
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -482,6 +484,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+									storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
 							}})}
 			}]
 			},{

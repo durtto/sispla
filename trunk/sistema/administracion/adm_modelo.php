@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_modelo.php',
 		remoteSort : true,
 		root: 'modelos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_modelo.php"},
         totalProperty: 'total',
 		idProperty: 'co_modelo',
         fields: [{name: 'co_modelo'},
@@ -194,10 +195,11 @@ Ext.onReady(function(){
 							else
 								storeModelo.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'", ';
-							columnas += '"nb_modelo" : "'+Ext.getCmp("nb_modelo").getValue()+'"}';
+							columnas += '"nb_modelo" : "'+Ext.getCmp("nb_modelo").getValue()+'", ';
+							columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'"}';
 							storeModelo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_modelo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_modelo.php"},
 										callback: function () {
 										if(storeModelo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -230,8 +232,9 @@ Ext.onReady(function(){
 										storeModelo.baseParams = {'accion': 'eliminar'};
 										storeModelo.load({params:{
 												"condiciones": '{ "co_modelo" : "'+Ext.getCmp("co_modelo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_modelo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_modelo.php"},
 										callback: function () {
+										storeModelo.baseParams = {'accion': 'refrescar'};
 										if(storeModelo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -249,6 +252,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeModelo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_modelo.php'};
 							}})}
 			}]
 			},{

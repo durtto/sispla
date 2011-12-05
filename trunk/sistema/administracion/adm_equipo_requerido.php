@@ -70,6 +70,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_persona.php',
 		remoteSort : true,
 		root: 'personas',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_persona.php'},
         totalProperty: 'total',
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
@@ -131,6 +132,7 @@ Ext.onReady(function(){
     var storeEquipo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_equipo.php',
 		remoteSort : true,
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_equipo.php'},
 		root: 'equipos',
         totalProperty: 'total',
 		idProperty: 'co_equipo',
@@ -178,6 +180,7 @@ function equipos_seleccionados(){
     var storeEquipoR = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_equipo_requerido.php',
 		remoteSort : true,
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_equipo_requerido.php'},
 		root: 'equiposrequeridos',
         totalProperty: 'total',
 		idProperty: 'co_equipo_requerido',
@@ -207,7 +210,7 @@ function equipos_seleccionados(){
 		root: 'tpactivos',
         totalProperty: 'total',
 		idProperty: 'co_tipo_activo',
-		baseParams: {start:0, limit:10, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_tipo_activo.php'},
         fields: [{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'co_categoria'},
@@ -373,7 +376,7 @@ function equipo_persona_seleccionados(){
 							var personas   = '{"co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'", ';
 							personas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
 							storeEquipoR.load({params:{"necesarios":equipo_persona_seleccionados(),"tpactivos": tpactivos_seleccionados(),"equipos": equipos_seleccionados(), "columnas" : columnas, "personas" : personas, "condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
 										if(storeEquipoR.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -405,8 +408,9 @@ function equipo_persona_seleccionados(){
 			handler: function(){
 										storeEquipoR.baseParams = {'accion': 'eliminar'};
 										storeEquipoR.load({params:{"condiciones": '{ "co_equipo_requerido" : "'+Ext.getCmp("co_equipo_requerido").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_equipo_requerido.php"},
 										callback: function () {
+										storeEquipoR.baseParams = {'accion': 'refrescar'};
 										if(storeEquipoR.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -424,6 +428,7 @@ function equipo_persona_seleccionados(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+							storeEquipoR.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_requerido.php'};
 							}})}
 			}]
 			},{
@@ -504,7 +509,7 @@ function equipo_persona_seleccionados(){
 	                height: 250,
 	                iconCls: 'icon-grid',
 	                //plugins: expanderVehiculo,
-					title:'Lista de Transporte',
+					title:'Equipos Requerido',
 	                border: true,
 	                listeners: {
 						handler : function(){

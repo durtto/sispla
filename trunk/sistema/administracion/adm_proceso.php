@@ -72,6 +72,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_proceso.php',
 		remoteSort : true,
 		root: 'procesos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_proceso.php"},
         totalProperty: 'total',
 		idProperty: 'co_proceso',
         fields: [{name: 'co_proceso'},
@@ -261,6 +262,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},
 										callback: function () {
+										storeProceso.baseParams = {'accion': 'refrescar'};
 										if(storeProceso.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -278,6 +280,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeProceso.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proceso.php'};
+
 							}})}
 			}]
 			},{

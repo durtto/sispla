@@ -77,6 +77,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'personas',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
          		{name: 'nu_cedula'},
@@ -139,6 +140,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_proceso.php',
 		remoteSort : true,
 		root: 'procesos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_proceso.php"},
         totalProperty: 'total',
 		idProperty: 'co_proceso',
         fields: [{name: 'co_proceso'},
@@ -172,6 +174,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_cliente.php',
 		remoteSort : true,
 		root: 'clientes',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_cliente.php"},
         totalProperty: 'total',
 		idProperty: 'co_cliente',
         fields: [{name: 'co_cliente'},
@@ -312,7 +315,7 @@ Ext.onReady(function(){
 								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'"}';
 							storeCliente.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_cliente" : "'+Ext.getCmp("co_cliente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_cliente.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_cliente.php"},
 										callback: function () {
 										if(storeCliente.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -345,7 +348,7 @@ Ext.onReady(function(){
 										storeCliente.baseParams = {'accion': 'eliminar'};
 										storeCliente.load({params:{
 												"condiciones": '{ "co_cliente" : "'+Ext.getCmp("co_cliente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_cliente.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_cliente.php"},
 										callback: function () {
 										storeCliente.baseParams = {'accion': 'refrescar'};											
 										if(storeCliente.getAt(0).data.resp!=true){		
@@ -365,6 +368,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+								storeCliente.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_cliente.php'};
 							}})}
 			}]
 			},{

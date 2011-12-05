@@ -75,13 +75,14 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_doc_componente.php',
 		remoteSort : true,
 		root: 'doccomponentes',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_doc_componente.php'},
         totalProperty: 'total',
-		idProperty: 'co_documento_componente',
-        fields: [{name: 'co_documento_componente'},
+		idProperty: 'co_doc_componente',
+        fields: [{name: 'co_doc_componente'},
         		{name: 'tx_url_direccion'},
         		{name: 'resp'}]
         });
-    storeDocumento.setDefaultSort('co_documento_componente', 'ASC');
+    storeDocumento.setDefaultSort('co_doc_componente', 'ASC');
     
 /*****************************************FIN****StoreDocumento*****************************************/
 
@@ -90,7 +91,7 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelDocumento******************************************/     
     
     var colModelDocumento = new Ext.grid.ColumnModel([
-        {id:'co_documento_componente',header: "Documento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_documento_componente'},
+        {id:'co_doc_componente',header: "Documento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_doc_componente'},
         {header: "Direccion", width: 165, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
       ]);
       
@@ -125,8 +126,8 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'Numero Documento',
 						xtype:'numberfield',
-						id: 'co_documento_componente',
-                        name: 'co_documento_componente',
+						id: 'co_doc_componente',
+                        name: 'co_doc_componente',
                         hidden:true,
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
@@ -161,7 +162,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_documento_componente").focus();
+					Ext.getCmp("co_doc_componente").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -188,11 +189,11 @@ Ext.onReady(function(){
 								storeDocumento.baseParams = {'accion': 'insertar'};
 							else
 								storeDocumento.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'", ';
+							var columnas   = '{"co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'", ';
 							columnas += '"tx_url_direccion" : "'+Ext.getCmp("tx_url_direccion").getValue()+'"}';
 							storeDocumento.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_doc_componente.php"},
+												"condiciones": '{ "co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_doc_componente.php"},
 										callback: function () {
 										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -224,9 +225,10 @@ Ext.onReady(function(){
 			handler: function(){
 										storeDocumento.baseParams = {'accion': 'eliminar'};
 										storeDocumento.load({params:{
-												"condiciones": '{ "co_documento_componente" : "'+Ext.getCmp("co_documento_componente").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_doc_componente.php"},
+												"condiciones": '{ "co_doc_componente" : "'+Ext.getCmp("co_doc_componente").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_doc_componente.php"},
 										callback: function () {
+										storeDocumento.baseParams = {'accion': 'refrescar'};
 										if(storeDocumento.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -244,6 +246,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_doc_componente.php'};
+
 							}})}
 			}]
 			},{
@@ -302,7 +306,7 @@ gridForm.render('form');
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_documento_componente").focus();
+		Ext.getCmp("co_doc_componente").focus();
 		nroReg=rowIdx;
 		
 });
