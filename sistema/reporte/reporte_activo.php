@@ -472,7 +472,7 @@ Ext.onReady(function(){
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
 								title: 'Almacenamiento',
-								id: 'tablocalizacion',
+								id: 'tabalmacenamiento',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
@@ -647,49 +647,49 @@ Ext.onReady(function(){
     }]
 									},{
 								title: 'Transporte',
-								id: 'tabalimentacion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
-									},{
-								title: 'Procesamiento',
-								id: 'tabalojamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
-									},{
-								title: 'Impresi&oacute;n',
 								id: 'tabtransporte',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
+								title: 'Procesamiento',
+								id: 'tabprocesamiento',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[]
+									},{
+								title: 'Impresi&oacute;n',
+								id: 'tabimpresion',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[]
+									},{
 								title: 'Visualizaci&oacute;n',
-								id: 'tabproveedor',
+								id: 'tabvisualizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
 								title: 'Autonom&iacute;a Energ.',
-								id: 'tabproveedor1',
+								id: 'tabautonomia',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
 								title: 'Monitoreo',
-								id: 'tabproveedor2',
+								id: 'tabmonitoreo',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
 									},{
 								title: 'Adq. de Datos',
-								id: 'tabproveedor3',
+								id: 'tabadquisicion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
