@@ -189,6 +189,7 @@ var storePersona = new Ext.data.JsonStore({
 						   fields:['co_plan_localizacion','fe_elaboracion']
 						  }),
 						id:'co_plan_localizacion',
+						valueField:'co_plan_localizacion',
 				        displayField:'fe_elaboracion',
 				        typeAhead: true,
 				        allowBlank: false,
@@ -207,29 +208,11 @@ var storePersona = new Ext.data.JsonStore({
 			tooltip:'Consultar Plan',
 			waitMsg: 'Consultando...',
 			handler: function(){
-										storePlanLocalizacion.load({params:{
-												"plan": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
-										callback: function () {
-										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storePlanLocalizacion.getAt(0).data.resp,
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
+										storePlanLocalizacion.load({params:{'accion': 'refrescar', "plan": Ext.getCmp("co_plan_localizacion").getValue(),
+										"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 
-							}})}
+							
+							})}
 			}]},{
 				xtype:'fieldset',	
 				autoHeight:true,
