@@ -56,6 +56,65 @@ class PlanLocalizacion extends MyPDO {
 			
 	return $c;
   }
+  
+  
+    public function contarPlanLocalizacionPersona($plan) {
+	$contar = "SELECT count(tr045_rel_plan_localizacion_persona.co_plan_localizacion)
+	FROM tr045_rel_plan_localizacion_persona
+	WHERE tr045_rel_plan_localizacion_persona.co_plan_localizacion ='".$plan."' ";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+  public function contarPlanLocalizacionProveedor($plan) {
+	$contar = "SELECT count(tr046_rel_plan_localizacion_proveedor.co_plan_localizacion)
+	FROM tr046_rel_plan_localizacion_proveedor
+	WHERE tr046_rel_plan_localizacion_proveedor.co_plan_localizacion ='".$plan."' ";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+  
+  
+    public function contarPlanLocalizacionDirectorio($plan) {
+	$contar = "SELECT count(tr060_rel_plan_localizacion_directorio.co_plan_localizacion)
+	FROM tr060_rel_plan_localizacion_directorio
+	WHERE tr060_rel_plan_localizacion_directorio.co_plan_localizacion =  '".$plan."' ";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+	
+	public function contarPlanLocalizacionEquipo($plan) {
+	$contar = "SELECT count(tr062_rel_plan_localizacion_equipo.co_plan_localizacion)
+	FROM tr062_rel_plan_localizacion_equipo
+	WHERE tr062_rel_plan_localizacion_equipo.co_plan_localizacion = '".$plan."' ";
+	
+	$c = $this->pdo->_query($contar);
+	
+	if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+	
+	
+	
+	
+	
+	
   public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas, $equipos) {
   	
 	$this->pdo->beginTransaction();	
@@ -164,7 +223,7 @@ class PlanLocalizacion extends MyPDO {
 	
 			
 	return $r;
-  } // end of member function cargarPlanLocalizacion
+  }
   
   
     public function cargarPlanLocalizacionPersona($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
@@ -193,14 +252,100 @@ FROM
 	
 			
 	return $r;
-  } // end of member function cargarPlanLocalizacion
+  }
   
   
+  public function cargarPlanLocalizacionProveedor($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+  $query = "SELECT 
+  p.nb_proveedor, 
+  p.di_oficina, 
+  p.tx_servicio_prestado, 
+  plp.co_proveedor, 
+  plp.co_plan_localizacion, 
+  pl.fe_elaboracion, 
+  cp.co_proveedor, 
+  cp.nb_contacto, 
+  cp.tx_apellido, 
+  cp.tx_telefono, 
+  cp.tx_correo_electronico, 
+  cp.co_contacto
+	FROM 
+  public.tr046_rel_plan_localizacion_proveedor plp 
+  INNER JOIN public.tr025_proveedor p ON (plp.co_proveedor = p.co_proveedor)
+  INNER JOIN public.tr026_contacto_proveedor cp ON (cp.co_proveedor = p.co_proveedor)
+  LEFT JOIN public.tr036_plan_localizacion pl ON (plp.co_plan_localizacion = pl.co_plan_localizacion)
+	WHERE 
+  plp.co_plan_localizacion = '".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
   
+    public function cargarPlanLocalizacionDirectorio($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+  $query = "SELECT 
+  pld.co_plan_localizacion, 
+  pl.fe_elaboracion, 
+  pld.co_directorio, 
+  d.nb_directorio, 
+  tpd.nb_tipo_directorio, 
+  d.nu_telefono
+	FROM 
+  tr060_rel_plan_localizacion_directorio pld
+  INNER JOIN tr051_directorio d ON (pld.co_directorio = d.co_directorio) 
+  INNER JOIN tr050_tipo_directorio tpd ON (d.co_tipo_directorio = tpd.co_tipo_directorio)
+  LEFT JOIN tr036_plan_localizacion pl ON (pld.co_plan_localizacion = pl.co_plan_localizacion)
+  WHERE 
+  pld.co_plan_localizacion = '".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
   
-  
-  
-  
+  public function cargarPlanLocalizacionEquipo($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+  $query = "SELECT 
+	ple.co_plan_localizacion, 
+	ple.co_equipo_continuidad, 
+	e.co_indicador, 
+	pl.fe_elaboracion,
+	p.co_indicador,
+	p.nu_cedula,
+	p.nb_persona, 
+	p.tx_apellido, 
+	r.co_rol_resp,
+	r.nb_rol_resp 
+	FROM
+	tr062_rel_plan_localizacion_equipo ple 
+	INNER JOIN tr061_equipo_continuidad e ON (ple.co_equipo_continuidad = e.co_equipo_continuidad)
+	INNER JOIN tr010_persona p ON (e.co_indicador = p.co_indicador)
+	INNER JOIN tr002_rol_responsabilidad r ON (e.co_rol_resp = r.co_rol_resp)
+	LEFT JOIN tr036_plan_localizacion pl ON ( ple.co_plan_localizacion = pl.co_plan_localizacion)
+  WHERE 
+  ple.co_plan_localizacion = '".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
   
   
   
