@@ -2,12 +2,11 @@
 require_once 'MyPDO.php';
 	$obj = new MyPDO();
 	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
-    global $ubicaciones;
-	$ubicaciones=array();
 	
 class Recursiva extends MyPDO  //WARNING: PHP5 does not support multiple inheritance but there is more than 1 superclass defined in your UML model!
 {
 public function crecursiva($ubic) {
+    global $ubicaciones;
 	
  $query = "SELECT tr006_ubicacion.co_ubicacion, tr006_ubicacion.nb_ubicacion 
 								FROM public.tr006_ubicacion
@@ -27,9 +26,9 @@ public function crecursiva($ubic) {
 	//array_push($ubicaciones, $ubics);	
 	//recursiva($row['co_ubicacion']);
 	//}
-	echo '<pre>';
+	/*echo '<pre>';
 	print_r($ubicaciones);
-	echo '</pre>';
+	echo '</pre>';*/
    //echo '{"Resultados":'.json_encode($r).'}';
 	return $ubicaciones;
   }
