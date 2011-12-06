@@ -1,24 +1,18 @@
 <authors>
 
-		<book title="Organigrama del Personal" titulo="Organigrama del Personal"></book>
-		<book title="Esquema de Guardia" titulo="Esquema de Guardia"></book>
-		<book title="Plan de Localización" titulo="Plan de Localización"></book>
-		<book title="Equipo de Continuidad AIT" titulo="Equipo de Continuidad AIT"></book>
-		<author first="Premisas del Plan Maestro" gender="" titulo="Premisas del Plan Maestro">	
-			<book title="Estados de Alertas" titulo="Estados de Alertas"></book>
-			<book title="Roles y Responsabilidades" titulo="Roles y Responsabilidades"></book>
-			<book title="Acciones del Equipo" titulo="Acciones del Equipo"></book>
-			<book title="Flujograma de Reportes" titulo="Flujograma de Reportes"></book>
-		</author>
-		<book title="Procedimientos Operativos" titulo="Procedimientos Operativos"></book>
-		<book title="Listado de Clientes del Proceso" titulo="Listado de Clientes del Proceso"></book>
-		<book title="Listado de Activos Críticos" titulo="Activos Críticos"></book>
-		<book title="Esquema de Continuidad" titulo="Esquema de Continuidad"></book>
-		<book title="Esquema de Respaldo" titulo="Esquema de Respaldo"></book>
-		<book title="Listado de Proveedores" titulo="Listado de Proveedores"></book>
-		<book title="Listado de Recursos Requeridos" titulo="Listado de Recursos Requeridos"></book>
-		<book title="Procedimientos Emergencia y desastres" titulo="Procedimientos"></book>	
-		<book title="Directorio Telefónico" titulo="Directorio Telefónico"></book>
+		<book title="Organigrama del Personal" titulo="Organigrama" url="../reporte/organigrama.php"></book>
+		<book title="Esquema de Guardia" titulo="Guardias" url="../reporte/organigrama.php"></book>
+		<book title="Plan de Localización" titulo="Localización" url="../reporte/reporte_plan_localizacion.php"></book>
+		<book title="Equipo de Continuidad AIT" titulo="Equipo Cont." url="../reporte/reporte_persona.php"></book>
+		<book title="Premisas del Plan Maestro" titulo="Premisas"></book>
+		<book title="Listado de Clientes del Proceso" titulo="Clientes" url="../reporte/reporte_cliente_proceso.php"></book>
+		<book title="Listado de Activos Críticos" titulo="Activo Crítico" url="../reporte/reporte_activo_criticos.php"></book>
+		<book title="Esquema de Continuidad" titulo="Esq. Continuidad"></book>
+		<book title="Esquema de Respaldo" titulo="Esq. Respaldo"></book>
+		<book title="Listado de Proveedores" titulo="Proveedores" url="../reporte/reporte_proveedor.php"></book>
+		<book title="Listado de Recursos Requeridos" titulo="Recursos Req." url="../reporte/reporte_equipo_requerido.php"></book>
+		<book title="Procedimientos Emergencia y desastres" titulo="Procedimientos" url="../reporte/reporte_procedimiento.php"></book>	
+		<book title="Directorio Telefónico" titulo="Directorio" url="../reporte/reporte_directorio.php"></book>
 	
 		
 </authors>		

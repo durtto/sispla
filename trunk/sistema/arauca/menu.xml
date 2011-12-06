@@ -4,7 +4,6 @@
 	
 		<author first="Plan Maestro" gender="" titulo="Plan Maestro">
 			<book title="Procesos Críticos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
-			<book title="Ubicacion Geografica" titulo="Ubicacion"></book>
 			<book title="Roles y Responsabilidad" titulo="Rol y Resp" url="../administracion/adm_rol_res.php"></book>
 		</author>	
 			<author first="Plan de Localización" gender="" titulo="Plan de Localización">

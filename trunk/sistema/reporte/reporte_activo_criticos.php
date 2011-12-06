@@ -145,7 +145,7 @@ Ext.onReady(function(){
 		frame:true,
 		title: ':: Reporte de Activos ::. ',
 		bodyStyle:'padding:5px',
-		width: 820,
+		width: 960,
 		layout: 'fit',
 		items: [{
 				xtype:'fieldset',	
@@ -163,7 +163,7 @@ Ext.onReady(function(){
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
 								title: 'Almacenamiento',
-								id: 'tablocalizacion',
+								id: 'tabalmacenamiento',
 								hideMode: 'offsets', 
 								autoHeight:true,
 								border: false,		
@@ -185,83 +185,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Alimentacion',
-								id: 'tabalimentacion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo1',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activo',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Alojamiento',
-								id: 'tabalojamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo2',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
@@ -284,7 +208,7 @@ Ext.onReady(function(){
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[{
                 xtype: 'grid',
-				id: 'gd_activo3',
+				id: 'gd_activo1',
                 store: storeActivo,
                 cm: colModelActivo,
                 stripeRows: true,
@@ -299,7 +223,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
@@ -315,8 +239,84 @@ Ext.onReady(function(){
 				})
             }]
 									},{
-								title: 'Proveedor',
-								id: 'tabproveedor',
+								title: 'Procesamiento',
+								id: 'tabprocesamiento',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+                xtype: 'grid',
+				id: 'gd_activo2',
+                store: storeActivo,
+                cm: colModelActivo,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 250,
+				title:'Lista de Activos',
+                border: true,
+                //tools: [{id:'save'},{id:'print'}],
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeActivo,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }]
+									},{
+								title: 'Impresi&oacute;n',
+								id: 'tabimpresion',
+								hideMode: 'offsets', 
+								autoHeight:true,		
+								bodyStyle:'padding: 0px 0px 1px 0px'	,						
+								items:[{
+                xtype: 'grid',
+				id: 'gd_activo3',
+                store: storeActivo,
+                cm: colModelActivo,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 250,
+				title:'Lista de Activos',
+                border: true,
+                //tools: [{id:'save'},{id:'print'}],
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeActivo,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }]
+									},{
+								title: 'Visualizaci&oacute;n',
+								id: 'tabvisualizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
@@ -337,7 +337,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
@@ -353,8 +353,8 @@ Ext.onReady(function(){
 				})
             }]
 									},{
-								title: 'Proveedor',
-								id: 'tabproveedor1',
+								title: 'Autonom&iacute;a Energ.',
+								id: 'tabautonomia',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
@@ -391,19 +391,81 @@ Ext.onReady(function(){
 				})
             }]
 									},{
-								title: 'Proveedor',
-								id: 'tabproveedor2',
+								title: 'Monitoreo',
+								id: 'tabmonitoreo',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+                xtype: 'grid',
+				id: 'gd_activo6',
+                store: storeActivo,
+                cm: colModelActivo,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 250,
+				title:'Lista de Activo',
+                border: true,
+                //tools: [{id:'save'},{id:'print'}],
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeActivo,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }]
 									},{
-								title: 'Proveedor',
-								id: 'tabproveedor3',
+								title: 'Adq. de Datos',
+								id: 'tabadquisicion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+                xtype: 'grid',
+				id: 'gd_activo7',
+                store: storeActivo,
+                cm: colModelActivo,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 250,
+				title:'Lista de Activo',
+                border: true,
+                //tools: [{id:'save'},{id:'print'}],
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeActivo,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }]
 									}]
 							}]
 			}],
