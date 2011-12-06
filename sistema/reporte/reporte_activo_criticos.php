@@ -375,7 +375,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
@@ -413,7 +413,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {
@@ -451,7 +451,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Activo',
+				title:'Lista de Activos',
                 border: true,
                 //tools: [{id:'save'},{id:'print'}],
                 listeners: {

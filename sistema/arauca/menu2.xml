@@ -1,12 +1,16 @@
 <authors>
 
+		<book title="Premisas del Plan(DESCARGAR)" titulo="Premisas" url="../documento/PREMISAS.doc"></book>
 		<book title="Procedimientos de Seguridad Lógica" titulo="Procedimientos de Seguridad Lógica"></book>
 		<book title="Marco Legal" titulo="Marco Legal"></book>
-		<author first="Formatos de Activación de Sala" gender="" titulo="Formatos de Activación de Sala">	
-			<book title="Lista de Chequeo" titulo="Lista de Chequeo"></book>
-			<book title="Informe de Evaluación" titulo="Informe de Evaluacion"></book>
-			<book title="Prioridades de Recuperación" titulo="Prioridades de Recuperación"></book>
-			<book title="Gestión de Guardias" titulo="Gestión de Guardias"></book>
+		<author first="Carpeta de Documentación" gender="" titulo="Documentación">
+			<book title="Rol de Guardias" titulo="Rol Guardia" url="../documento/ROLGUARDIA.doc"></book>
+			<book title="Lista de Chequeo" titulo="Chequeos" url="../documento/LISTACHEQUEO.doc"></book>
+			<book title="Informe de Evaluación" titulo="Informes" url="../documento/INFOREVALUACION.doc"></book>
+			<book title="Prioridades de Recuperación" titulo="Prioridades" url="../documento/PRIORECUPERACION.doc"></book>
+			<book title="Gestión de Guardias" titulo="Guardias" url="../documento/GESTIONGUARDIA.doc"></book>
+			<book title="Reporte de Sucesos" titulo="Sucesos" url="../documento/REPORTESUCESO.doc"></book>
+
 		</author>
 		<author first="Componente de Continuidad" gender="" titulo="Componente de Continuidad">	
 			<book title="Plan Maestro" titulo="Plan Maestro"></book>
