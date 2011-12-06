@@ -15,11 +15,43 @@
 			
 			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
-			$resultado2 = $planlocalizacion->cargarPlanLocalizacionPersona($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$resultado3= $planlocalizacion->contarPlanLocalizacion();
 			$total= $resultado3 [0]['count'];
 		
 			break;
+			
+			case 'persona':
+			
+			$resultado = $planlocalizacion->cargarPlanLocalizacionPersona($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlocalizacion->contarPlanLocalizacionPersona($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+			break;	
+			
+			case 'proveedor':
+			
+			$resultado = $planlocalizacion->cargarPlanLocalizacionProveedor($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlocalizacion->contarPlanLocalizacionProveedor($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+			break;
+			
+			case 'directorio':
+			
+			$resultado = $planlocalizacion->cargarPlanLocalizacionDirectorio($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlocalizacion->contarPlanLocalizacionDirectorio($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+			break;
+						
+			case 'equipo':
+			
+			$resultado = $planlocalizacion->cargarPlanLocalizacionEquipo($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlocalizacion->contarPlanLocalizacionEquipo($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

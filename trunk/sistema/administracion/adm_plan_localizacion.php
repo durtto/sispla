@@ -228,7 +228,31 @@ function proveedores_seleccionados(){
     storeDirectorio.setDefaultSort('co_directorio', 'ASC');
     
 /*****************************************FIN****StoreDirectorio*****************************************/
-
+/******************************************INICIO**colModelDirectorio******************************************/     
+   var sm3 = new Ext.grid.CheckboxSelectionModel();
+    var colModelDirectorio = new Ext.grid.ColumnModel([
+        {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
+        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
+        {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {header: "N&uacute;mero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
+      sm3,
+      ]);
+      
+/******************************************FIN****colModelDirectorio******************************************/     
+function directorios_seleccionados(){
+      					var DirectorioSeleccionados = Ext.getCmp("gd_directorio").getSelectionModel().getSelections();
+   						var seleccionados = '[';
+						for(var i=0; i<DirectorioSeleccionados.length; i++){
+						seleccionados += '{ "co_directorio" : "'+DirectorioSeleccionados[i].data.co_directorio+'", "co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
+						if(i < DirectorioSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
+						  
+						  
 /******************************************INICIO**StorePersona******************************************/     
       
       var storeEquipoContinuidad = new Ext.data.JsonStore({
@@ -291,29 +315,7 @@ function equipos_seleccionados(){
 						  return seleccionados;
 						   //Ext.MessageBox.alert('Probando', seleccionados);
 						  }
-/******************************************INICIO**colModelDirectorio******************************************/     
-   var sm3 = new Ext.grid.CheckboxSelectionModel();
-    var colModelDirectorio = new Ext.grid.ColumnModel([
-        {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
-        {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
-        {header: "N&uacute;mero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
-      sm3,
-      ]);
-      
-/******************************************FIN****colModelDirectorio******************************************/     
-function directorios_seleccionados(){
-      					var DirectorioSeleccionados = Ext.getCmp("gd_directorio").getSelectionModel().getSelections();
-   						var seleccionados = '[';
-						for(var i=0; i<DirectorioSeleccionados.length; i++){
-						seleccionados += '{ "co_directorio" : "'+DirectorioSeleccionados[i].data.co_directorio+'", "co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
-						if(i < DirectorioSeleccionados.length-1)
-						  seleccionados += ', ';
-						  }
-						  seleccionados += ']';
-						  return seleccionados;
-						   //Ext.MessageBox.alert('Probando', seleccionados);
-						  }
+
 
 var storePersona = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_persona.php',
