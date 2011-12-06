@@ -49,7 +49,7 @@
  */
  var nuevo;
  var winPersona;
- 
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -197,8 +197,40 @@ var storePersona = new Ext.data.JsonStore({
 				        triggerAction: 'all',
 				        emptyText:'Selecione',
 				        selectOnFocus:true
-         				}]
-				},{
+         				}],
+         		width: 200,  
+				buttonAlign:'center',
+				//layout: 'fit',
+				buttons: [{
+			text: 'Consultar', 
+			id: 'btnConsultar',
+			tooltip:'Consultar Plan',
+			waitMsg: 'Consultando...',
+			handler: function(){
+										storePlanLocalizacion.load({params:{
+												"plan": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
+										callback: function () {
+										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
+											Ext.MessageBox.show({
+												title: 'ERROR',
+												msg: storePlanLocalizacion.getAt(0).data.resp,
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.ERROR
+											});						
+										}
+										else{
+											
+											Ext.MessageBox.show({
+												title: 'INFORMACION',
+												msg: "Datos Guardados con exito",
+												buttons: Ext.MessageBox.OK,
+												icon: Ext.MessageBox.INFO
+											});
+										}
+
+							}})}
+			}]},{
 				xtype:'fieldset',	
 				autoHeight:true,
 				border: false,
@@ -252,7 +284,6 @@ var storePersona = new Ext.data.JsonStore({
 
  
 
-storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_persona.php"}});
 grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

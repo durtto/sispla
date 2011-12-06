@@ -13,8 +13,9 @@
 	switch($accion){
 		case 'refrescar':
 			
-			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			//$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);
+			$resultado2 = $planlocalizacion->cargarPlanLocalizacionPersona($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$resultado3= $planlocalizacion->contarPlanLocalizacion();
 			$total= $resultado3 [0]['count'];
 		
