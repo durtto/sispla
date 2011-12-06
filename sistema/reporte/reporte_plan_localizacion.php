@@ -162,20 +162,9 @@ var storePersona = new Ext.data.JsonStore({
 		        {name: 'resp'}]
         });
     storePersona.setDefaultSort('co_plan_localizacion', 'ASC');
-   var expanderPersona = new Ext.ux.grid.RowExpander({
-        tpl : new Ext.Template(
-            '<p><b>C&eacute;dula:</b> {nu_cedula}</p>',
-            '<p><b>Apellido:</b> {di_oficina}</p>',
-            '<p><b>Tel&eacute;fono:</b> {tx_telefono_oficina}</p>',
-            '<p><b>Correo Electr&oacute;nico:</b> {tx_correo_electronico}</p>',
-            '<p><b>Rol:</b> {nb_rol}</p>',
-            '<p><b>Grupo:</b> {nb_grupo}</p>',
-            '<p><b>Guardia:</b> {nb_guardia}</p>'
-        )
-    });
+
 
    var colModelPersona = new Ext.grid.ColumnModel([
-    	expanderPersona,
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "C&eacute;dula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 110, sortable: true, locked:false, dataIndex: 'nb_persona'},
@@ -397,7 +386,6 @@ var storePersona = new Ext.data.JsonStore({
 						                stripeRows: true,
 					                	iconCls: 'icon-grid',
 						                cm: colModelPersona,
-						                plugins: expanderPersona,
 						                height: 250,
 						                iconCls: 'icon-grid',
 										title:'Lista de Personas',

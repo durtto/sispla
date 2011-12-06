@@ -13,6 +13,14 @@ public function cargarPlanLocalizacion() {
    echo '{"Resultados":'.json_encode($r).'}';
 
   } 
+public function cargarPlanLogistica() {
+	
+  $query = "SELECT *
+				FROM tr042_plan_logistica";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+
+  } 
 public function cargarComponente() {
 	
   $query = "SELECT *
