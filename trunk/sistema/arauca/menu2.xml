@@ -1,7 +1,7 @@
 <authors>
 
 		<book title="Premisas del Plan(DESCARGAR)" titulo="Premisas" url="../documento/PREMISAS.doc"></book>
-		<book title="Procedimientos de Seguridad Lógica" titulo="Procedimientos de Seguridad Lógica"></book>
+		<book title="Procedimientos de Seguridad Lógica" titulo="Procedimientos SL"></book>
 		<book title="Marco Legal" titulo="Marco Legal"></book>
 		<author first="Carpeta de Documentación" gender="" titulo="Documentación">
 			<book title="Rol de Guardias" titulo="Rol Guardia" url="../documento/ROLGUARDIA.doc"></book>
@@ -13,9 +13,9 @@
 
 		</author>
 		<author first="Componente de Continuidad" gender="" titulo="Componente de Continuidad">	
-			<book title="Plan Maestro" titulo="Plan Maestro"></book>
-			<book title="Plan de Contingencia" titulo="Plan de Contingencia"></book>
-			<book title="Plan Operativo" titulo="Plan Operativo"></book>
+			<book title="Plan Maestro" titulo="Maestro"></book>
+			<book title="Plan de Contingencia" titulo="Contingencia"></book>
+			<book title="Plan Operativo" titulo="Operativo"></book>
 		</author>
 	
 </authors>		

@@ -596,49 +596,1225 @@ Ext.onReady(function(){
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica1',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica1',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica1',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento1',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Procesamiento',
 								id: 'tabprocesamiento',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica2',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica2',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica2',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento2',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Impresi&oacute;n',
 								id: 'tabimpresion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica3',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica3',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica3',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento3',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Visualizaci&oacute;n',
 								id: 'tabvisualizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica4',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica4',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica4',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento4',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Autonom&iacute;a Energ.',
 								id: 'tabautonomia',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica5',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica5',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica5',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento5',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Monitoreo',
 								id: 'tabmonitoreo',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica6',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica6',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica6',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento6',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									},{
 								title: 'Adq. de Datos',
 								id: 'tabadquisicion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[{
+			xtype: 'fieldset',
+			title: 'Datos de Entrada',
+			collapsible:false,
+			border: true,
+			autoHeight:true, 
+			bodyStyle:'padding:0px',
+			items:[{
+				xtype: 'combo',
+				id: 'tipo_grafica7',
+				anchor: '40%',
+				name: 'nb_distrito',
+				fieldLabel: 'Tipo de Gr&aacute;fica',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store: new Ext.data.ArrayStore({
+					id: 0,
+					fields: ['id','valor'],
+					data: 	[[1, 'LINEAL'],
+							[2, 'BARRAS'],
+							[3, 'CIRCULAR']]
+				}),
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').disable();
+								Ext.getCmp('estado_grafica').disable();
+								store.removeAll();
+								store.loadData(DataLineal);
+							}
+							else{
+								Ext.getCmp('base_grafica').clearValue();
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('base_grafica').enable();
+								Ext.getCmp('estado_grafica').enable();
+								store.removeAll();
+								store.loadData(DataBC);
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'base_grafica7',
+				anchor: '40%',
+				name: 'base_grafica',
+				fieldLabel: 'Dato Base',
+				//hiddenName: 'nb_distrito',
+				valueField: 'id',
+				store:store,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'valor',
+				width: 120,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false,
+				listeners: {
+					select: {
+						fn: function(combo,record,index){
+							if(index==0){
+								Ext.getCmp('estado_grafica').clearValue();
+								Ext.getCmp('estado_grafica').disable();
+							}
+							else{
+								Ext.getCmp('estado_grafica').enable();
+							}
+							if(index==5){
+								storeEstado.load({params:{tipo_estado:2}});
+							}
+							else{
+								storeEstado.load({params:{tipo_estado:1}});
+							}
+						}
+					}
+				}
+			},{
+				xtype: 'combo',
+				id: 'estado_grafica7',
+				anchor: '30%',
+				name: 'estado_grafica',
+				fieldLabel: 'Estado',
+				//hiddenName: 'nb_distrito',
+				valueField: 'co_estado',
+				store: storeEstado,
+				mode: 'local',
+				triggerAction: 'all',
+				typeAhead: true,
+				displayField: 'nb_estado_graf',
+				width: 120,
+				listWidth: 250,
+				tabIndex: 10,
+				selectOnFocus: true,
+				emptyText: 'Seleccione...',
+				forceSelection: true,
+				editable: false,
+				allowBlank: false
+			},{
+                xtype: 'button',
+                text: 'Graficar',
+                handler: function(){
+					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+					cad='';
+					if(Ext.getCmp('base_grafica').getValue()!=1){
+						cad=Ext.getCmp('estado_grafica').getRawValue();
+						if(cad=='""')
+							cad='Recibidos'
+					}				
+					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+					if(tipoGrafica==1){
+						titulo='Documentos por Mes';
+					}
+					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+					crearGrafica(tipoGrafica, titulo, subtitulo);
+				}
+            }]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_crecimiento7',
+                store: storeCrecimiento,
+                cm: colModelCrecimiento,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Crecimientos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeCrecimiento,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 									}]
 							}]
 			}],
@@ -669,6 +1845,9 @@ gridForm.render('form');
   <table  align="center">
     <tr>
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+    </tr>
+    <tr>
+  		<td><div id="container"></div></td>
     </tr>
   </table>
 </body>
