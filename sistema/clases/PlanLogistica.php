@@ -198,6 +198,89 @@ class PlanLogistica extends MyPDO {
 	
 			
 	return $r;
-  } // end of member function cargarPlanLogistica
+  }
+  
+    public function cargarPlanLogisticaAlimentacion($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+	$query = "SELECT 
+	  a.co_alimentacion, 
+	  a.ca_desayuno, 
+	  a.ca_almuerzo, 
+	  a.ca_cena, 
+	  a.ca_persona, 
+	  pl.fe_elaboracion, 
+	  pl.co_plan_logistica
+	FROM 
+	  tr065_rel_plan_logistica_alimentacion pla
+	  INNER JOIN tr018_alimentacion a ON (pla.co_alimentacion = a.co_alimentacion)
+	  LEFT JOIN tr042_plan_logistica pl ON (pla.co_plan_logistica = pl.co_plan_logistica)
+	WHERE 
+	pl.co_plan_logistica ='".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
+  
+  public function cargarPlanLogisticaAlojamiento($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+	$query = "SELECT 
+	  a.co_alojamiento, 
+	  a.nb_establecimiento, 
+	  a.di_ubicacion, 
+	  a.tx_telefono, 
+	  a.bo_hotel, 
+	  a.bo_posada, 
+	  pl.fe_elaboracion, 
+	  pl.co_plan_logistica
+	FROM 
+	  tr043_rel_plan_logistica_alojamiento pla 
+	  INNER JOIN tr017_alojamiento a ON (pla.co_alojamiento = a.co_alojamiento)
+	  LEFT JOIN tr042_plan_logistica pl ON (pla.co_plan_logistica = pl.co_plan_logistica) 
+	WHERE 
+	pl.co_plan_logistica='".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
+  
+  
+  
+  public function cargarPlanLogisticaTransporte($plan, $start='0', $limit='ALL', $sort = "", $dir = "ASC") {
+
+	$query = "SELECT 
+  t.fe_elaboracion, 
+  pl.fe_elaboracion, 
+  t.co_transporte, 
+  pl.co_plan_logistica
+FROM 
+  tr044_rel_plan_logistica_transporte plt
+  INNER JOIN tr021_transporte t ON (plt.co_transporte = t.co_transporte) 
+  LEFT JOIN tr042_plan_logistica pl ON (plt.co_plan_logistica = pl.co_plan_logistica) 
+WHERE
+
+ pl.co_plan_logistica='".$plan."' ";
+	if ($sort != "") {
+	$query .= " ORDER BY ".$sort." ".$dir;
+	}
+	$query .= "	LIMIT ".$limit."
+				OFFSET ".$start;
+	$r = $this->pdo->_query($query);
+	
+			
+	return $r;
+  }
+  
 }
 ?>

@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'planeslogistica',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: '../interfaz/interfaz_plan_logistica.php'},
 		idProperty: 'co_plan_logistica',
         fields: [{name: 'co_plan_logistica'},
        			{name: 'fe_elaboracion'},
@@ -99,40 +100,33 @@ Ext.onReady(function(){
 /******************************************INICIO**StoreAlimentacion******************************************/     
 
   var storeAlimentacion = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_alimentacion.php',
+		url: '../interfaz/interfaz_plan_logistica.php',
 		remoteSort : true,
-		root: 'alimentos',
+		root: 'planeslogistica',
+		baseParams: {start:0, limit:50, accion: "alimentacion", interfaz: '../interfaz/interfaz_plan_logistica.php'},
         totalProperty: 'total',
 		idProperty: 'co_alimentacion',
-        fields: [{name: 'co_alimentacion'},
+        fields: [{name: 'co_plan_logistica'},
+        		{name: 'co_alimentacion'},
         		{name: 'ca_desayuno'},		
         		{name: 'ca_almuerzo'},		
         		{name: 'ca_cena'},	
         		{name: 'ca_persona'},
         		{name: 'resp'}]
         });
-    storeAlimentacion.setDefaultSort('co_alimentacion', 'ASC');
+    storeAlimentacion.setDefaultSort('co_plan_logistica', 'ASC');
 
 /*****************************************FIN****StoreAlimentacion*****************************************/
 
-  var expanderAlimentacion = new Ext.ux.grid.RowExpander({
-        tpl : new Ext.Template(
-            '<p><b>Desayunos:</b> {ca_desayuno}</p>',
-            '<p><b>Almuerzos:</b> {ca_almuerzo}</p>',
-            '<p><b>Cenas:</b> {ca_cena}</p>',
-            '<p><b>Personas:</b> {ca_persona}</p>'
-        )
-    });
 
 /******************************************INICIO**colModelAlimentacion******************************************/     
 	
     var colModelAlimentacion = new Ext.grid.ColumnModel([
-    	expanderAlimentacion,
-        {id:'co_alimentacion',header: "Codigo de Gestion", width: 680, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
-        //{header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
-        //{header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
-        //{header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
-        //{header: "Cantidad de Personas", width: 144, sortable: true, locked:false, dataIndex: 'ca_persona'},
+    	{id:'co_alimentacion',header: "Codigo de Gestion", width: 680, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+        {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
+        {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
+        {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
+        {header: "Cantidad de Personas", width: 144, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 
 /******************************************FIN****colModelAlimentacion******************************************/     
@@ -141,12 +135,14 @@ Ext.onReady(function(){
 /******************************************INICIO**StoreAlojamiento******************************************/     
 	
   var storeAlojamiento = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_alojamiento.php',
+		url: '../interfaz/interfaz_plan_logistica.php',
 		remoteSort : true,
-		root: 'alojamientos',
+		root: 'planeslogistica',
+		baseParams: {start:0, limit:50, accion: "alojamiento", interfaz: '../interfaz/interfaz_plan_logistica.php'},
         totalProperty: 'total',
 		idProperty: 'co_alojamiento',
-        fields: [{name: 'co_alojamiento'},
+        fields: [{name: 'co_plan_logistica'},
+        		{name: 'co_alojamiento'},
         		{name: 'nb_establecimiento'},
         		{name: 'di_ubicacion'},
         		{name: 'bo_hotel'},
@@ -154,7 +150,7 @@ Ext.onReady(function(){
         		{name: 'tx_telefono'},
         		{name: 'resp'}]
         });
-    storeAlojamiento.setDefaultSort('co_alojamiento', 'ASC');
+    storeAlojamiento.setDefaultSort('co_plan_logistica', 'ASC');
     
 /*****************************************FIN****StoreAlojamiento*****************************************/
 
@@ -184,12 +180,14 @@ Ext.onReady(function(){
 /******************************************INICIO**StoreTransporte******************************************/     
 
   var storeTransporte = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_transporte.php',
+		url: '../interfaz/interfaz_plan_logistica.php',
 		remoteSort : true,
-		root: 'transportes',
+		root: 'planeslogistica',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "transporte", interfaz: '../interfaz/interfaz_plan_logistica.php'},
 		idProperty: 'co_transporte',
-        fields: [{name: 'co_transporte'},
+        fields: [{name: 'co_plan_logistica'},
+        		{name: 'co_transporte'},
        			{name: 'fe_elaboracion'},
        			{name: 'co_linea'},
        			{name: 'nb_linea'},
@@ -202,7 +200,7 @@ Ext.onReady(function(){
 		        {name: 'tx_unidad'},
         		{name: 'resp'}]
         });
-    storeTransporte.setDefaultSort('co_transporte', 'ASC');
+    storeTransporte.setDefaultSort('co_plan_logistica', 'ASC');
     
 /*****************************************FIN****StoreTransporte*****************************************/
 
@@ -237,7 +235,7 @@ Ext.onReady(function(){
 				border: false,
 				items: [{
 						xtype:'combo',
-						fieldLabel: 'Plan Localizacion',
+						fieldLabel: 'Plan Logistica',
 		         		store: new Ext.data.JsonStore({
 						url: '../interfaz/interfaz_combo.php',
 						   root: 'Resultados',
@@ -272,7 +270,7 @@ Ext.onReady(function(){
 										"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_logistica.php"},
 							})
 							
-							storeTransporte.load({params:{'accion': 'directorio', "plan": Ext.getCmp("co_plan_logistica").getValue(),
+							storeTransporte.load({params:{'accion': 'transporte', "plan": Ext.getCmp("co_plan_logistica").getValue(),
 										"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_logistica.php"},
 							})
 							

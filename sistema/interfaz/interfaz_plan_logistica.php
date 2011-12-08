@@ -19,8 +19,7 @@
 			$total= $resultado3 [0]['count'];
 		
 			break;
-			
-			
+						
 		case 'alimentacion':
 			
 			$resultado = $planlogistica->cargarPlanLogisticaAlimentacion($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
@@ -29,8 +28,22 @@
 		
 		break;	
 			
+		case 'alojamiento':
 			
+			$resultado = $planlogistica->cargarPlanLogisticaAlojamiento($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlogistica->contarPlanLogisticaAlojamiento($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+		break;		
+						
+		case 'transporte':
 			
+			$resultado = $planlogistica->cargarPlanLogisticaTransporte($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado3= $planlogistica->contarPlanLogisticaTransporte($_REQUEST['plan']);
+			$total= $resultado3 [0]['count'];
+		
+		break;
+		
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];
