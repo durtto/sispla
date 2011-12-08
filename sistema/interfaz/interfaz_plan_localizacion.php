@@ -79,7 +79,13 @@
 			$equipos = json_decode($cond4, true);
 			$equipos = array_filter($equipos, "vacio");					
 			
-			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios, $personas, $equipos);		
+			$cond5 = $_REQUEST['componentes'];
+			$cond5 = str_replace('\"','"',$cond5);
+			$componente = json_decode($cond5, true);
+			$componente= array_filter($componente, "vacio");	
+			
+			
+			$respuesta = $planlocalizacion->insertarPlanLocalizacion($planeslocalizacion, $proveedores, $directorios, $personas, $equipos, $componente);		
 			$resultado = $planlocalizacion->cargarPlanLocalizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
