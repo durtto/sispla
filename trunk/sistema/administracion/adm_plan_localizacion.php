@@ -453,6 +453,7 @@ function personas_seleccionadas(){
 						   fields:['co_componente','fe_vigencia']
 						  }),
 						id:'co_componente',
+						valueField:'co_componente',
 				        displayField:'fe_vigencia',
 				        typeAhead: true,
 				        allowBlank: false,
@@ -657,8 +658,11 @@ function personas_seleccionadas(){
 								storePlanLocalizacion.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
+							
+							var componente   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
+							componente += '"co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}';
 							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas(), "equipos": equipos_seleccionados(), "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
-												"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
+												"componente": componente,"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},
 										callback: function () {
 										if(storePlanLocalizacion.getAt(0).data.resp!=true){		
