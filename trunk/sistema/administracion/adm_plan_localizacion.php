@@ -661,6 +661,7 @@ function personas_seleccionadas(){
 							
 							var componente   = '{"co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'", ';
 							componente += '"co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}';
+							
 							storePlanLocalizacion.load({params:{"columnas" : columnas, "personas": personas_seleccionadas(), "equipos": equipos_seleccionados(), "proveedores" : proveedores_seleccionados(), "directorios" : directorios_seleccionados(),
 												"componente": componente,"condiciones": '{ "co_plan_localizacion" : "'+Ext.getCmp("co_plan_localizacion").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_localizacion.php"},

@@ -79,7 +79,7 @@
 			$equipos = json_decode($cond4, true);
 			$equipos = array_filter($equipos, "vacio");					
 			
-			$cond5 = $_REQUEST['componentes'];
+			$cond5 = $_REQUEST['componente'];
 			$cond5 = str_replace('\"','"',$cond5);
 			$componente = json_decode($cond5, true);
 			$componente= array_filter($componente, "vacio");	
