@@ -110,12 +110,9 @@ class PlanLocalizacion extends MyPDO {
 	return $c;
   }
 	
-	
-	
-	
-	
-	
-  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas, $equipos, $componente) {
+		
+  public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas, $equipos, $componente) 
+  {
   	
 	$this->pdo->beginTransaction();	
 
@@ -157,10 +154,10 @@ class PlanLocalizacion extends MyPDO {
 				}
 			}
     	}
-
+	if(is_array($componente)){
    	$componente = array_intersect_key($componente, $this->columPlanLocalizacionComponente);
 	$r6 = $this->pdo->_insert('tr063_rel_datos_plan_plan_localizacion', $componente);
-		 	
+	}
 
 	
 	if($r1==1 && $r2==1 && $r3==1 && $r4==1 && $r5==1 && $r6==1)
