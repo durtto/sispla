@@ -605,42 +605,42 @@ Ext.onReady(function(){
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabprocesamiento')]
 							},{
 								title: 'Impresi&oacute;n',
 								id: 'tabimpresion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabimpresion')]
 							},{
 								title: 'Visualizaci&oacute;n',
 								id: 'tabvisualizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabvisualizacion')]
 							},{
 								title: 'Autonom&iacute;a Energ.',
 								id: 'tabautonomia',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabautonomia')]
 							},{
 								title: 'Monitoreo',
 								id: 'tabmonitoreo',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabmonitoreo')]
 							},{
 								title: 'Adq. de Datos',
 								id: 'tabadquisicion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
+								items:[tempTab('tabadquisicion')]
 									}]
 							}]
 			}],
