@@ -1,6 +1,6 @@
 <?php
 	require_once '../clases/Recursiva.php';
-	$ubic = 3;
+	$ubic = 5;
 	$recursiva = new Recursiva();
 	$ubics= array();
 	$ubicaciones=array();

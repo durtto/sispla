@@ -159,6 +159,10 @@ Ext.onReady(function(){
 				{name: 'nb_proveedor'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
+				{name: 'co_categoria'},
+				{name: 'nb_categoria'},
+				{name: 'co_capacidad'},
+				{name: 'nb_capacidad'},
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'resp'}]
@@ -195,8 +199,12 @@ Ext.onReady(function(){
       	{header: "Proveedor", width: 120, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel' },       
-        {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Tipo de Activo", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
         {header: "Tipo de Activo", width: 110, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+		{header: "Capacidad", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Capacidad", width: 110, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+		{header: "Categoria", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_categoria'},
+        {header: "Categoria", width: 110, sortable: true, locked:false, dataIndex: 'nb_categoria'},
 
       ]);
 

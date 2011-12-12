@@ -1,4 +1,4 @@
-function tablaa(){
+
 var chart;
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -431,7 +431,41 @@ Ext.onReady(function(){
 					crearGrafica(tipoGrafica, titulo, subtitulo);
 				}
             }]
-		},panelGrafica]
+		},panelGrafica,{
+			width:900,
+			items:[{
+                xtype: 'grid',
+				id: 'gd_activo',
+                store: storeActivo,
+                cm: colModelActivo,
+                stripeRows: true,
+                iconCls: 'icon-grid',
+                sm: new Ext.grid.RowSelectionModel({
+                    singleSelect: true,
+                    listeners: {
+                        rowselect: function(sm, row, rec) {
+                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        }
+                        
+                    }
+                }),
+                height: 400,
+				title:'Lista de Activos',
+                border: true,
+                listeners: {
+                    viewready: function(g) {
+                                          }
+                },
+				bbar: new Ext.PagingToolbar({
+				store: storeActivo,
+				pageSize: 50,
+				displayInfo: true,
+				displayMsg: 'Mostrando registros {0} - {1} de {2}',
+				emptyMsg: "No hay registros que mostrar",
+				})
+            }],
+        
+    }]
 	});
 });
-}
+
