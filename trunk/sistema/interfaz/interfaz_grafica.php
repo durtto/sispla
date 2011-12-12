@@ -2,26 +2,31 @@
 	require_once '../clases/Grafica.php';
 	
 	$grafica = new Grafica();
-	
-	$accion = (isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']);
+	$base_grafica=$_REQUEST['base'];
+	$tipo_grafica=$_REQUEST['tipo'];
+	if($_REQUEST['estado']!=''){
+		$estado_grafica=$_REQUEST['estado'];
+	}
+	else{
+		$estado_grafica=1;
+	}
 	
 	function vacio($var) {
     return ($var != '');
-}
+	}
 	$graficas = array_filter($_REQUEST, "vacio");
 
-	switch($accion){
-	
-	case 'activo':
-	$resultado = $grafica->graficarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	switch($_REQUEST['base']){
+	case 1:
+	$resultado = $grafica->graficarActivoNivel();
 	$total = count($resultado);
 	break;
-	case 'activo_funcional':
-	$resultado = $grafica->graficarActivoFuncional($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	case 2:
+	$resultado = $grafica->graficarActivoTpActivo();
 	$total = count($resultado);
 	break;
-	case 'activo_adecuado':
-	$resultado = $grafica->graficarActivoAdecuado($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	case 3:
+	$resultado = $grafica->graficarActivoUbicacion();
 	$total = count($resultado);
 	break;
 	}

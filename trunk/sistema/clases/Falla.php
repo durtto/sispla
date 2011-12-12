@@ -102,7 +102,7 @@ class Falla extends MyPDO
    * @return string
    * @access public
    */
-  public function eliminarFalla($condiciones ) {
+  public function eliminarFalla($condiciones) {
   
   	$this->pdo->beginTransaction();	
 
@@ -136,7 +136,7 @@ class Falla extends MyPDO
 	return $r;
   } // end of member function cargarFalla
   
-  public function cargarTpActivo() {
+  public function cargarTpActivo($ubic) {
 	$query = "SELECT DISTINCT a.co_tipo_activo, t.nb_tipo_activo
 		 FROM 
   		 tr027_activo a
@@ -151,7 +151,7 @@ class Falla extends MyPDO
 		  INNER JOIN tr012_capacidad cp ON (s.co_capacidad = cp.co_capacidad)
 	      INNER JOIN tr011_categoria c ON (c.co_categoria = t.co_categoria)
 		  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)";
-			/*if ($ubic != "")
+			if ($ubic != "")
 			{
 			$query	.= "WHERE 
 		  	a.co_ubicacion IN (SELECT 
@@ -162,7 +162,7 @@ class Falla extends MyPDO
 			WHERE 
 			u.co_ubicacion_padre = u.co_ubicacion_padre AND
 			u.co_ubicacion_padre= '".$ubic."')";
-			}*/
+			}
 	
 	$r = $this->pdo->_query($query);
 	
@@ -170,7 +170,7 @@ class Falla extends MyPDO
 	return $r;
   } // end of member function cargarActivo  
   
-    public function cargarActivo($tpactivo /*, $start='0', $limit='ALL', $sort = "", $dir = "ASC"*/) {
+    public function cargarActivo($ubic, $tpactivo /*, $start='0', $limit='ALL', $sort = "", $dir = "ASC"*/) {
 	$query = "SELECT 
 		  a.co_activo, 
 		  a.nb_activo 
@@ -190,6 +190,19 @@ class Falla extends MyPDO
 			if ($tpactivo != "")
 			{
 			$query	.= "WHERE t.co_tipo_activo='".$tpactivo."'";
+			}
+
+			if ($ubic != "")
+			{
+			$query	.= "AND
+		  	a.co_ubicacion IN (SELECT 
+		  	u.co_ubicacion
+			FROM 
+			tr006_ubicacion u 
+			LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
+			WHERE 
+			u.co_ubicacion_padre = u.co_ubicacion_padre AND
+			u.co_ubicacion_padre= '".$ubic."')";
 			}
 	/*if ($sort != "") {
 		$query .= " ORDER BY ".$sort." ".$dir;
