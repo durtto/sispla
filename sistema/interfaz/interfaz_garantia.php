@@ -20,6 +20,24 @@
 		
 
 			break;
+			
+		case 'tipo_activo':
+			
+			$resultado = $garantia->cargarTpActivo($_REQUEST['ubicacion']);
+			$total = count($resultado);
+			//$resultado3= $falla->contarFalla();
+			//$total= $resultado3 [0]['count'];
+
+		break;	
+			
+		case 'activo':
+			
+			$resultado = $garantia->cargarActivo($_REQUEST['ubicacion'],$_REQUEST['tpactivo']);
+			$total = count($resultado);
+			//$resultado3= $falla->contar();
+			//$total= $resultado3 [0]['count'];
+
+		break;
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

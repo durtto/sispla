@@ -167,7 +167,7 @@ Ext.onReady(function(){
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				//renderTo: 'panelGrafica',
+				renderTo: 'panelGrafica-'+idTab,
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
 				plotShadow: false
@@ -222,7 +222,7 @@ Ext.onReady(function(){
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				//renderTo: 'panelGrafica',
+				renderTo: 'panelGrafica-'+idTab,
 				defaultSeriesType: 'column'
 			},
 			title: {
@@ -272,7 +272,7 @@ Ext.onReady(function(){
 		var now = new Date();
 		chart = new Highcharts.Chart({
 			chart: {
-				//renderTo: 'panelGrafica',
+				renderTo: 'panelGrafica-'+idTab,
 				defaultSeriesType: 'line'
 			},
 			title: {
@@ -323,7 +323,7 @@ Ext.onReady(function(){
 	//--------------------------------------------------------
 	function crearGrafica(idTab, tipoGrafica, titulo, subtitulo){
 		Ext.Ajax.request({
-			url: '../clases/generador_grafica.php',
+			url: '../interfaz/interfaz_grafica.php',
 			success: function(response){
 				array = Ext.decode(response.responseText);
 				switch(tipoGrafica){
@@ -354,33 +354,21 @@ Ext.onReady(function(){
 					id: 0,
 					fields: ['id','valor'],
 					data: 	[[1, 'Obsolescencia'],
-					[2, 'Tipo Activo'],
-					[3, 'Ubicacion'],
-					[4, 'Capacidad'],
-					[5, 'Obsolescencia - Tipo de Activo'],
-					[6, 'Obsolescencia - Capacidad'],
-					[7, 'Obsolescencia - Ubicacion'],
-					[8, 'Tipo de Activo - Ubicacion'],
-					[9, 'Tipo de Activo - Capacidad'],
-					[10, 'Ubicacion - Capacidad']]
+							[2, 'Tipo Activo'],
+							[3, 'Ubicacion'],
+							[4, 'Capacidad']]
 				});
-	var DataLineal = 	[[1, 'Diario'],
-						[2, 'Semanal'],
-						[3, 'Mensual']];
+	var DataLineal = [[1, 'Diario'],
+					  [2, 'Semanal'],
+					  [3, 'Mensual']];
 	var DataBC = [[1, 'Obsolescencia'],
 					[2, 'Tipo Activo'],
 					[3, 'Ubicacion'],
-					[4, 'Capacidad'],
-					[5, 'Obsolescencia - Tipo de Activo'],
-					[6, 'Obsolescencia - Capacidad'],
-					[7, 'Obsolescencia - Ubicacion'],
-					[8, 'Tipo de Activo - Ubicacion'],
-					[9, 'Tipo de Activo - Capacidad'],
-					[10, 'Ubicacion - Capacidad']];
+					[4, 'Capacidad']];
 	var storeEstado = new Ext.data.JsonStore({
 						fields: ['co_estado', 'nb_estado_graf'],
 						root: 'data',
-						url: '../php/combos_dinamicos.php?accion=cmb_estado_graf',
+						url: '../php/combos_dinamicos.php',
 						baseParams:{tipo_estado:1}
 					});
 	//--------------------------------------------------------

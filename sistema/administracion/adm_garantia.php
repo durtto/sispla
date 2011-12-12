@@ -218,7 +218,57 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },GetCombo('co_activo','Activo')]
+                    },{
+						xtype:'combo',
+						store: new Ext.data.JsonStore({
+							url: '../interfaz/interfaz_garantia.php',
+							root: 'garantias',
+							idProperty: 'co_tipo_activo',
+							baseParams: {accion:'tipo_activo', ubicacion: ubicacion},
+							fields:['co_tipo_activo','nb_tipo_activo']
+						  }),
+						id:'co_tipo_activo',
+						fieldLabel: 'Tipo Activo',
+						valueField: 'co_tipo_activo',
+						displayField:'nb_tipo_activo',
+						typeAhead: true,
+						allowBlank: false,
+						mode: 'remote',
+						forceSelection: true,
+						triggerAction: 'all',
+						emptyText:'Selecione',
+						selectOnFocus:true,
+						listeners:{
+							select: function(cbo, rec, ind){
+								Ext.getCmp('co_activo').store.baseParams = {accion:'activo', ubicacion: ubicacion, tpactivo: cbo.getValue()};								
+								delete Ext.getCmp('co_activo').lastQuery;
+								Ext.getCmp('co_activo').reset();
+								Ext.getCmp('co_activo').enable();
+
+							}
+						}
+                     },{
+						xtype:'combo',
+						store: new Ext.data.JsonStore({
+							url: '../interfaz/interfaz_garantia.php',
+							root: 'garantias',
+							idProperty: 'co_activo',
+							baseParams: {accion:'activo', ubicacion: ubicacion},
+							fields:['co_activo','nb_activo']
+						  }),
+						id:'co_activo',
+						disabled: true,
+						fieldLabel: 'Activo',
+						valueField: 'co_activo',
+						displayField:'nb_activo',
+						typeAhead: true,
+						allowBlank: false,
+						mode: 'remote',
+						forceSelection: true,
+						triggerAction: 'all',
+						emptyText:'Selecione',
+						selectOnFocus:true
+         }]
                     },{
 					layout: 'form',
 					border:false,

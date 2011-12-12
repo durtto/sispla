@@ -22,7 +22,7 @@
 			
 		case 'tipo_activo':
 			
-			$resultado = $falla->cargarTpActivo();
+			$resultado = $falla->cargarTpActivo($_REQUEST['ubicacion']);
 			$total = count($resultado);
 			//$resultado3= $falla->contarFalla();
 			//$total= $resultado3 [0]['count'];
@@ -31,7 +31,7 @@
 			
 		case 'activo':
 			
-			$resultado = $falla->cargarActivo($_REQUEST['tpactivo']);
+			$resultado = $falla->cargarActivo($_REQUEST['tpactivo'],$_REQUEST['ubicacion']);
 			$total = count($resultado);
 			//$resultado3= $falla->contar();
 			//$total= $resultado3 [0]['count'];

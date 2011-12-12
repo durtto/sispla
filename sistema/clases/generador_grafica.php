@@ -1,7 +1,5 @@
 <?php
-require_once 'MyPDO.php';
-require_once 'Estado.php';
-
+	require_once 'MyPDO.php';
 	$base_grafica=$_REQUEST['base'];
 	$tipo_grafica=$_REQUEST['tipo'];
 	if($_REQUEST['estado']!=''){
@@ -10,11 +8,7 @@ require_once 'Estado.php';
 	else{
 		$estado_grafica=1;
 	}		
-	$fe_ini=explode('/',$_REQUEST['fe_ini']);
-	$fe_ini=$fe_ini[2]."-".$fe_ini[1]."-".$fe_ini[0];
-	$fe_fin=explode('/',$_REQUEST['fe_fin']);
-	$fe_fin=$fe_fin[2]."-".$fe_fin[1]."-".$fe_fin[0];
-	
+		
 	if($tipo_grafica==1){
 		$json='';
 		$result=mysql_query("SELECT *
@@ -58,55 +52,57 @@ require_once 'Estado.php';
 	else{
 		switch($_REQUEST['base']){
 			case 1:
-			$query="SELECT 
-			COUNT (a.co_nivel) AS valor
-			FROM 
-			  public.tr027_activo a,
-			  public.tr023_nivel_obsolescencia n
-			WHERE 
-			a.co_nivel = n.co_nivel AND
-			a.co_nivel = '$co_nivel'
-			GROUP BY a.co_nivel;";
-			$r = $this->pdo->_query($query);
-			return $r;
-				/*$query="SELECT nb_estado AS nombre,COUNT(co_control_doc) AS valor
-						FROM (SELECT co_control_doc,(SELECT ude2.co_estado 
-												FROM c006t_usr_doc_estado ude2,i005t_estado e2
-												WHERE fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin'
-												AND ude2.co_estado IN(1,2,3,4,5,9)
-												AND ude.co_control_doc=ude2.co_control_doc
-												AND ude2.co_estado=e2.co_estado
-												ORDER BY ude2.fe_ho_cambio DESC,e2.nu_orden DESC
-												LIMIT 1) AS co_estado
-								FROM c006t_usr_doc_estado ude
-								WHERE fe_ho_cambio BETWEEN '$fe_ini' AND '$fe_fin'
-								GROUP BY co_control_doc) d,i005t_estado e
-								WHERE d.co_estado=e.co_estado
-								GROUP BY e.co_estado
-								ORDER BY e.nu_orden";*/
-								
-								
-								
-								
+				$query="SELECT count(a.co_activo) AS valor, n.nb_nivel AS nombre
+						FROM 
+						  tr027_activo a
+						  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+						  INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+						  INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+						  INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+						  INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+						  INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+						  INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+						  LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
+						  GROUP BY n.co_nivel, n.nb_nivel
+						  ORDER BY n.co_nivel";
 			break;
 			case 2:
-
+				$query="SELECT count(a.co_tipo_activo) AS valor, t.nb_tipo_activo AS nombre
+						FROM 
+						tr027_activo a
+						INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+						INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+						INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+						INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+						INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+						INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+						INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+						LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
+						GROUP BY t.co_tipo_activo, t.nb_tipo_activo
+						ORDER BY t.co_tipo_activo";
 			break;
 			case 3:
-
+				$query="SELECT count(a.co_ubicacion) AS valor, u.nb_ubicacion AS nombre
+						FROM 
+						tr027_activo a
+						INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
+						INNER JOIN tr003_fabricante f ON (a.co_fabricante = f.co_fabricante) 
+						INNER JOIN tr010_persona p ON (a.co_indicador = p.co_indicador)
+						INNER JOIN tr016_proceso po ON (a.co_proceso = po.co_proceso) 
+						INNER JOIN tr025_proveedor pr ON (a.co_proveedor = pr.co_proveedor)
+						INNER JOIN tr023_nivel_obsolescencia n ON (a.co_nivel = n.co_nivel) 
+						INNER JOIN tr014_tipo_activo t ON (a.co_tipo_activo = t.co_tipo_activo)
+						LEFT JOIN tr006_ubicacion u ON (a.co_ubicacion = u.co_ubicacion)
+						GROUP BY u.co_ubicacion, u.nb_ubicacion
+						ORDER BY u.co_ubicacion";
 			break;
-			case 4:
 
-			break;
-			case 5:
-
-			break;
-			case 6:
-
-			break;
 		}
-		$result=mysql_query($query);
-		$json="[";
+		$r = $this->pdo->_query($query);
+		
+		echo '{"Resultados":'.json_encode($r).'}';
+		
+		/*$json="[";
 		while($row = mysql_fetch_array($result)){
 			if($json!='[')
 				$json.=",";
@@ -120,6 +116,7 @@ require_once 'Estado.php';
 			}
 			
 		}
-		echo $json."]";
+		echo $json."]";*/
 	}	
+	mysql_close($conexion);
 ?>

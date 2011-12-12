@@ -223,7 +223,7 @@ Ext.onReady(function(){
 							url: '../interfaz/interfaz_falla.php',
 							root: 'fallas',
 							idProperty: 'co_tipo_activo',
-							baseParams: {accion:'tipo_activo'},
+							baseParams: {accion:'tipo_activo', ubicacion: ubicacion},
 							fields:['co_tipo_activo','nb_tipo_activo']
 						  }),
 						id:'co_tipo_activo',
@@ -239,9 +239,11 @@ Ext.onReady(function(){
 						selectOnFocus:true,
 						listeners:{
 							select: function(cbo, rec, ind){
-								Ext.getCmp('co_activo').store.baseParams = {accion:'activo', tpactivo: cbo.getValue()};								
+								Ext.getCmp('co_activo').store.baseParams = {accion:'activo', ubicacion: ubicacion, tpactivo: cbo.getValue()};								
 								delete Ext.getCmp('co_activo').lastQuery;
 								Ext.getCmp('co_activo').reset();
+								Ext.getCmp('co_activo').enable();
+
 							}
 						}
                      },{
@@ -250,12 +252,13 @@ Ext.onReady(function(){
 							url: '../interfaz/interfaz_falla.php',
 							root: 'fallas',
 							idProperty: 'co_activo',
-							baseParams: {accion:'activo'},
+							baseParams: {accion:'activo', ubicacion: ubicacion},
 							fields:['co_activo','nb_activo']
 						  }),
 						id:'co_activo',
-						//disabled: true,
+						disabled: true,
 						fieldLabel: 'Activo',
+						valueField: 'co_activo',
 						displayField:'nb_activo',
 						typeAhead: true,
 						allowBlank: false,
