@@ -163,7 +163,7 @@ class PlanLocalizacion extends MyPDO {
 	if($r1==1 && $r2==1 && $r3==1 && $r4==1 && $r5==1 && $r6==1)
 			{$this->pdo->commit(); return true;}
 	else		
-			{$this->pdo->rollback();  return "Error : 1= ".$r1;	"-2= ".$r2; "-3= ".$r3; "-4= ".$r4; "-5= ".$r5; "-6= ".$r6;}
+			{$this->pdo->rollback();  return "Error : 1= ".$r1." -2= ".$r2." -3= ".$r3." -4= ".$r4." -5= ".$r5." -6= ".$r6;}
   
   } // end of member function insertarPlanLocalizacion
 

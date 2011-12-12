@@ -46,7 +46,7 @@
 	<script type="text/javascript" src="../lib/Highcharts-2.1.6/js/modules/exporting.js"></script>
 	<script type="text/javascript" src="../lib/Highcharts-2.1.6/js/Ext.ux.HighChart.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Ext.ux.HighchartPanel.js"></script>
- 	<script type="text/javascript" src="../js/generador_grafica.js"></script>
+ 	<!-- <script type="text/javascript" src="../js/generador_grafica.js"></script> -->
 
 
 <script type="text/javascript">
@@ -160,21 +160,14 @@ Ext.onReady(function(){
 
 /******************************************FIN****colModelActivo******************************************/     
 
-//--------------------------------------------------------
-	var panelGrafica = new Ext.Panel({
-		id: 'panelGrafica',
-		width: 900,
-		height: 400,
-		layout: 'fit',
-		renderTo:'container'
-	});
+
 	//--------------------------------------------------------
 	function crearGraficaTorta(array, titulo, subtitulo) {
 		var now = new Date();
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				renderTo: 'panelGrafica',
+				//renderTo: 'panelGrafica',
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
 				plotShadow: false
@@ -229,7 +222,7 @@ Ext.onReady(function(){
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				renderTo: 'panelGrafica',
+				//renderTo: 'panelGrafica',
 				defaultSeriesType: 'column'
 			},
 			title: {
@@ -279,7 +272,7 @@ Ext.onReady(function(){
 		var now = new Date();
 		chart = new Highcharts.Chart({
 			chart: {
-				renderTo: 'panelGrafica',
+				//renderTo: 'panelGrafica',
 				defaultSeriesType: 'line'
 			},
 			title: {
@@ -328,7 +321,7 @@ Ext.onReady(function(){
 		});
 	}
 	//--------------------------------------------------------
-	function crearGrafica(tipoGrafica, titulo, subtitulo){
+	function crearGrafica(idTab, tipoGrafica, titulo, subtitulo){
 		Ext.Ajax.request({
 			url: '../clases/generador_grafica.php',
 			success: function(response){
@@ -347,8 +340,8 @@ Ext.onReady(function(){
 			},
 			params:{
 				tipo:tipoGrafica,
-				base:   Ext.getCmp('base_grafica').getValue(),
-				estado:   Ext.getCmp('estado_grafica').getValue(),
+				base:   Ext.getCmp('base_grafica-'+idTab).getValue(),
+				estado:   Ext.getCmp('estado_grafica-'+idTab).getValue(),
 			},
 			failure: function(){
 				console.log('failure');
@@ -356,61 +349,6 @@ Ext.onReady(function(){
 		});
 	}
 	//--------------------------------------------------------
-	var chart = new Highcharts.Chart({
-		chart: {
-			renderTo: 'panelGrafica',
-			defaultSeriesType: 'column'
-		},
-		title: {
-			text: ''
-		},
-		subtitle: {
-			text: ''
-		},
-		xAxis: {
-			categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-			title: {
-				text: null
-			}
-		},
-		yAxis: {
-			min: 0,
-			title: {
-				text: 'Cantidad (Nro)',
-				align: 'high'
-			}
-		},
-		tooltip: {
-			formatter: function () {
-				return '' + this.series.name + ': ' + this.y + ' millions';
-			}
-		},
-		plotOptions: {
-			bar: {
-				dataLabels: {
-					enabled: true
-				}
-			}
-		},
-		/*legend: {
-			layout: 'vertical',
-			align: 'right',
-			verticalAlign: 'top',
-			x: -5,
-			y: -5,
-			floating: true,
-			borderWidth: 1,
-			backgroundColor: '#FFFFFF',
-			shadow: true
-		},*/
-		credits: {
-			enabled: false
-		},
-		series: [/*{
-			name: 'Year 1800',
-			data: [20,50,10,80,45]
-		}*/]
-	});
 	//--------------------------------------------------------
 	store=new Ext.data.ArrayStore({
 					id: 0,
@@ -446,7 +384,183 @@ Ext.onReady(function(){
 						baseParams:{tipo_estado:1}
 					});
 	//--------------------------------------------------------
-	
+/**********************************************************************/	
+
+	function tempTab(idTab){
+		var contenido = new Ext.Panel({
+			items:[{
+					xtype: 'fieldset',
+					title: 'Datos de Entrada',
+					collapsible:false,
+					border: true,
+					autoHeight:true, 
+					bodyStyle:'padding:0px',
+					items:[{
+							xtype: 'combo',
+							id: 'tipo_grafica-'+idTab,
+							anchor: '40%',
+							name: 'tipo_grafica-'+idTab,
+							fieldLabel: 'Tipo de Gr&aacute;fica',
+							//hiddenName: 'nb_distrito',
+							valueField: 'id',
+							store: new Ext.data.ArrayStore({
+								id: 0,
+								fields: ['id','valor'],
+								data: 	[[1, 'LINEAL'],
+										[2, 'BARRAS'],
+										[3, 'CIRCULAR']]
+							}),
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'valor',
+							width: 120,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+							listeners: {
+									select: {
+										fn: function(combo,record,index){
+											if(index==0){
+												Ext.getCmp('base_grafica-'+idTab).clearValue();
+												Ext.getCmp('estado_grafica-'+idTab).clearValue();
+												Ext.getCmp('base_grafica-'+idTab).disable();
+												Ext.getCmp('estado_grafica-'+idTab).disable();
+												store.removeAll();
+												store.loadData(DataLineal);
+											}
+											else{
+												Ext.getCmp('base_grafica-'+idTab).clearValue();
+												Ext.getCmp('estado_grafica-'+idTab).clearValue();
+												Ext.getCmp('base_grafica-'+idTab).enable();
+												Ext.getCmp('estado_grafica-'+idTab).enable();
+												store.removeAll();
+												store.loadData(DataBC);
+											}
+										}
+									}
+							}
+						},{
+							xtype: 'combo',
+							id: 'base_grafica-'+idTab,
+							anchor: '40%',
+							name: 'base_grafica-'+idTab,
+							fieldLabel: 'Dato Base',
+							//hiddenName: 'nb_distrito',
+							valueField: 'id',
+							store:store,
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'valor',
+							width: 120,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+							listeners: {
+								select: {
+									fn: function(combo,record,index){
+										if(index==0){
+											Ext.getCmp('estado_grafica-'+idTab).clearValue();
+											Ext.getCmp('estado_grafica-'+idTab).disable();
+										}
+										else{
+											Ext.getCmp('estado_grafica-'+idTab).enable();
+										}
+										if(index==5){
+											storeEstado.load({params:{tipo_estado:2}});
+										}
+										else{
+											storeEstado.load({params:{tipo_estado:1}});
+										}
+									}
+								}
+							}
+						},{
+							xtype: 'combo',
+							id: 'estado_grafica-'+idTab,
+							anchor: '30%',
+							name: 'estado_grafica-'+idTab,
+							fieldLabel: 'Estado',
+							//hiddenName: 'nb_distrito',
+							valueField: 'co_estado',
+							store: storeEstado,
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'nb_estado_graf',
+							width: 120,
+							listWidth: 250,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false
+						},{
+							xtype: 'button',
+							text: 'Graficar',
+							id: 'btn_graficar-'+idTab,
+							handler: function(){
+								tipoGrafica=Ext.getCmp('tipo_grafica-'+idTab).getValue();
+								cad='';
+								if(Ext.getCmp('base_grafica-'+idTab).getValue()!=1){
+									cad=Ext.getCmp('estado_grafica-'+idTab).getRawValue();
+									if(cad=='""')
+										cad='Recibidos'
+								}				
+								titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica-'+idTab).getRawValue();
+								if(tipoGrafica==1){
+									titulo='Documentos por Mes';
+								}
+								subtitulo='Grafica '+Ext.getCmp('estado_grafica-'+idTab).getRawValue()+' De '+Ext.getCmp('base_grafica-'+idTab).getRawValue();
+								crearGrafica(idTab, tipoGrafica, titulo, subtitulo);
+							}
+					}]
+				},{
+					id: 'panelGrafica-'+idTab,
+					width: 900,
+					height: 400,
+					layout: 'fit'
+				},{
+					width:900,
+					items:[{
+							xtype: 'grid',
+							id: 'gd_activo-'+idTab,
+							store: storeActivo,
+							cm: colModelActivo,
+							stripeRows: true,
+							iconCls: 'icon-grid',
+							sm: new Ext.grid.RowSelectionModel({
+								singleSelect: true,
+								}),
+							height: 400,
+							title:'Lista de Activos',
+							border: true,
+							listeners: {
+								viewready: function(g) {
+													  }
+							},
+							bbar: new Ext.PagingToolbar({
+							store: storeActivo,
+							pageSize: 50,
+							displayInfo: true,
+							displayMsg: 'Mostrando registros {0} - {1} de {2}',
+							emptyMsg: "No hay registros que mostrar",
+							})
+					}]		
+			}]
+		});
+		
+		return contenido;
+	}
+
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
@@ -477,218 +591,50 @@ Ext.onReady(function(){
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica7',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica7',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica7',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_activo7',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Activos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
+								items:[tempTab('tabalmacenamiento')]
+							},{
 								title: 'Transporte',
 								id: 'tabtransporte',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[]
-									},{
+								items:[tempTab('tabtransporte')]
+							},{
 								title: 'Procesamiento',
 								id: 'tabprocesamiento',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
-									},{
+							},{
 								title: 'Impresi&oacute;n',
 								id: 'tabimpresion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
-									},{
+							},{
 								title: 'Visualizaci&oacute;n',
 								id: 'tabvisualizacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
-									},{
+							},{
 								title: 'Autonom&iacute;a Energ.',
 								id: 'tabautonomia',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
-									},{
+							},{
 								title: 'Monitoreo',
 								id: 'tabmonitoreo',
 								hideMode: 'offsets', 
 								autoHeight:true,		
 								bodyStyle:'padding: 0px 0px 1px 0px'	,						
 								items:[]
-									},{
+							},{
 								title: 'Adq. de Datos',
 								id: 'tabadquisicion',
 								hideMode: 'offsets', 
@@ -722,7 +668,6 @@ gridForm.render('form');
        </tr>
   		<tr>
   		
-  		<td><div id="container"></div></td>
     </tr>
   </table>
 </body>
