@@ -19,6 +19,25 @@
 			$total= $resultado3 [0]['count'];
 
 			break;
+			
+		case 'tipo_activo':
+			
+			$resultado = $falla->cargarTpActivo();
+			$total = count($resultado);
+			//$resultado3= $falla->contarFalla();
+			//$total= $resultado3 [0]['count'];
+
+		break;	
+			
+		case 'activo':
+			
+			$resultado = $falla->cargarActivo($_REQUEST['tpactivo']);
+			$total = count($resultado);
+			//$resultado3= $falla->contar();
+			//$total= $resultado3 [0]['count'];
+
+		break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

@@ -11,7 +11,7 @@ $ubic = 5;
 
 class Grafica extends MyPDO
 {
-	public function graficarActivo($ubic) {
+	public function graficarActivo($ubic, $nivel) {
 	
 	$query = "SELECT 
   		count(a.co_activo) 
@@ -33,7 +33,7 @@ class Grafica extends MyPDO
 		LEFT JOIN tr005_tipo_ubicacion t on (u.co_tipo_ubicacion = t.co_tipo_ubicacion)
 		WHERE 
 		u.co_ubicacion_padre = u.co_ubicacion_padre AND
-		u.co_ubicacion_padre= '".$ubic."')";
+		u.co_ubicacion_padre= '".$ubic."') AND a.co_nivel = '".$nivel."' AND ";
 		
    $r = $this->pdo->_query($query);
    echo '{"Resultados":'.json_encode($r).'}';
