@@ -218,44 +218,52 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                xtype:'combo',
-         		store: new Ext.data.JsonStore({
-				url: '../interfaz/interfaz_falla.php',
-				   root: 'fallas',
-				   idProperty: 'co_tipo_activo',
-				   baseParams: {accion:'tipo_activo'},
-				   fields:['co_tipo_activo','nb_tipo_activo']
-				  }),
-					id:'co_tipo_activo',
-			        fieldLabel: 'Tipo Activo',
-			        displayField:'nb_tipo_activo',
-			        typeAhead: true,
-			        allowBlank: false,
-			        mode: 'remote',
-			        forceSelection: true,
-			        triggerAction: 'all',
-			        emptyText:'Selecione',
-			        selectOnFocus:true,
+						xtype:'combo',
+						store: new Ext.data.JsonStore({
+							url: '../interfaz/interfaz_falla.php',
+							root: 'fallas',
+							idProperty: 'co_tipo_activo',
+							baseParams: {accion:'tipo_activo'},
+							fields:['co_tipo_activo','nb_tipo_activo']
+						  }),
+						id:'co_tipo_activo',
+						fieldLabel: 'Tipo Activo',
+						valueField: 'co_tipo_activo',
+						displayField:'nb_tipo_activo',
+						typeAhead: true,
+						allowBlank: false,
+						mode: 'remote',
+						forceSelection: true,
+						triggerAction: 'all',
+						emptyText:'Selecione',
+						selectOnFocus:true,
+						listeners:{
+							select: function(cbo, rec, ind){
+								Ext.getCmp('co_activo').store.baseParams = {accion:'activo', tpactivo: cbo.getValue()};								
+								delete Ext.getCmp('co_activo').lastQuery;
+								Ext.getCmp('co_activo').reset();
+							}
+						}
                      },{
-         	    xtype:'combo',
-         		store: new Ext.data.JsonStore({
-				url: '../interfaz/interfaz_falla.php',
-				   root: 'fallas',
-				   idProperty: 'co_activo',
-				   baseParams: {accion:'activo'},
-				   fields:['co_activo','nb_activo']
-				  }),
-					id:'co_activo',
-					//disabled: true,
-			        fieldLabel: 'Activo',
-			        displayField:'nb_activo',
-			        typeAhead: true,
-			        allowBlank: false,
-			        mode: 'remote',
-			        forceSelection: true,
-			        triggerAction: 'all',
-			        emptyText:'Selecione',
-			        selectOnFocus:true
+						xtype:'combo',
+						store: new Ext.data.JsonStore({
+							url: '../interfaz/interfaz_falla.php',
+							root: 'fallas',
+							idProperty: 'co_activo',
+							baseParams: {accion:'activo'},
+							fields:['co_activo','nb_activo']
+						  }),
+						id:'co_activo',
+						//disabled: true,
+						fieldLabel: 'Activo',
+						displayField:'nb_activo',
+						typeAhead: true,
+						allowBlank: false,
+						mode: 'remote',
+						forceSelection: true,
+						triggerAction: 'all',
+						emptyText:'Selecione',
+						selectOnFocus:true
          }]
 				},{
 					layout: 'form',
