@@ -44,6 +44,7 @@ class PlanLogistica extends MyPDO {
   public $columPlanLogisticaAlimentacion= array('co_plan_logistica'=>'co_plan_logistica','co_alimentacion'=>'co_alimentacion');
   public $columPlanLogisticaAlojamiento= array('co_plan_logistica'=>'co_plan_logistica','co_alojamiento'=>'co_alojamiento');
   public $columPlanLogisticaTransporte= array('co_plan_logistica'=>'co_plan_logistica','co_transporte'=>'co_transporte');
+  public $columPlanLogisticaComponente= array('co_plan_logistica'=>'co_plan_logistica','co_componente'=>'co_componente');
 
   /**
    * 
@@ -102,7 +103,7 @@ class PlanLogistica extends MyPDO {
 	return $c;
   }
   
-  public function insertarPlanLogistica($planlogistica,  $alimentaciones, $alojamientos, $transportes) {
+  public function insertarPlanLogistica($planlogistica,  $alimentaciones, $alojamientos, $transportes, $componente) {
   	
 	$this->pdo->beginTransaction();	
 
@@ -135,7 +136,12 @@ class PlanLogistica extends MyPDO {
 			}
     	}
 	
-	if($r1==1 && $r2==1 && $r3==1 && $r4==1)
+	if(is_array($componente)){
+   	$componente = array_intersect_key($componente, $this->columPlanLogisticaComponente);
+	$r5 = $this->pdo->_insert('tr064_rel_datos_plan_plan_logistica', $componente);
+	}
+	
+	if($r1==1 && $r2==1 && $r3==1 && $r4==1 && $r5==1)
 			{$this->pdo->commit(); return true;}
 	else		
 			{$this->pdo->rollback();  return "Error : 1= ".$r1; "-2= ".$r2;"-3= ".$r3; "-4= ".$r4;}

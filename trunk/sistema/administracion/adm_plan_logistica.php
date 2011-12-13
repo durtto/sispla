@@ -269,7 +269,11 @@ function transportes_seleccionados(){
 						  return seleccionados;
 						   //Ext.MessageBox.alert('Probando', seleccionados);
 						  }
-	
+	 function componente_seleccionado(){
+ 	var componente   = '{"co_plan_logistica" : "'+Ext.getCmp("co_plan_logistica").getValue()+'", ';
+	componente += '"co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}';
+		return componente;				
+ 	 }
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({
@@ -314,7 +318,27 @@ function transportes_seleccionados(){
 			                        name: 'fe_elaboracion',
 									style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
 			                        width:140
-			                    }]
+			                    }, {
+						xtype:'combo',
+						fieldLabel: 'Componente',
+		         		store: new Ext.data.JsonStore({
+						url: '../interfaz/interfaz_combo.php',
+						   root: 'Resultados',
+						   idProperty: 'co_componente',
+						   baseParams: {accion:'componente'},
+						   fields:['co_componente','fe_vigencia']
+						  }),
+						id:'co_componente',
+						valueField:'co_componente',
+				        displayField:'fe_vigencia',
+				        typeAhead: true,
+				        allowBlank: false,
+				        mode: 'remote',
+				        forceSelection: true,
+				        triggerAction: 'all',
+				        emptyText:'Selecione',
+				        selectOnFocus:true
+         				}]
 						}]
 						},{			
 						xtype: 'tabpanel',
@@ -486,7 +510,7 @@ function transportes_seleccionados(){
 							columnas += '"fe_elaboracion" : "'+convFecha(Ext.getCmp("fe_elaboracion").getValue())+'"}';
 							storePlanLogistica.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_plan_logistica" : "'+Ext.getCmp("co_plan_logistica").getValue()+'"}', 
-												"nroReg":nroReg, "palimentaciones" : alimentacion_seleccionadas(), "palojamientos" : alojamientos_seleccionados(), "ptransportes" : transportes_seleccionados(), start:0, limit:30, interfaz: "../interfaz/interfaz_plan_logistica.php"},
+												"nroReg":nroReg,"componente": componente_seleccionado(), "palimentaciones" : alimentacion_seleccionadas(), "palojamientos" : alojamientos_seleccionados(), "ptransportes" : transportes_seleccionados(), start:0, limit:30, interfaz: "../interfaz/interfaz_plan_logistica.php"},
 										callback: function () {
 										if(storePlanLogistica.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
