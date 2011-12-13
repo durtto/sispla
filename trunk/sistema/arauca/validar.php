@@ -7,13 +7,13 @@
 	require_once ('../clases/Usuario.php');
 	require_once ('../clases/Ubicacion.php');
 	
-	$ActiveD    = ActiveDirectory(strtolower($_REQUEST['login']),$_REQUEST['password']);
-	$ActiveDVal = ActiveDirectory_valores(strtolower($_REQUEST['login']));
+	$ActiveD    = ActiveDirectory(strtoupper($_REQUEST['login']),$_REQUEST['password']);
+	$ActiveDVal = ActiveDirectory_valores(strtoupper($_REQUEST['login']));
 
 	if($ActiveD==1)
 	{
 			$_SESSION['apellido']    = $ActiveDVal[0]['sn'][0];
-			$_SESSION['indicador']   = strtolower($_REQUEST['login']);
+			$_SESSION['indicador']   = strtoupper($_REQUEST['login']);
 			$_SESSION['fecha_p']	 = date("d/m/Y");
 			/*********/
 			$usuario = new Usuario();
