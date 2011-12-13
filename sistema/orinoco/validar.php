@@ -7,8 +7,8 @@
 	require_once ('../clases/Usuario.php');
 	require_once ('../clases/Ubicacion.php');
 	
-	$ActiveD    = ActiveDirectory(strtolower($_REQUEST['login']),$_REQUEST['password']);
-	$ActiveDVal = ActiveDirectory_valores(strtolower($_REQUEST['login']));
+	$ActiveD    = ActiveDirectory(strtoupper($_REQUEST['login']),$_REQUEST['password']);
+	$ActiveDVal = ActiveDirectory_valores(strtoupper($_REQUEST['login']));
 
 	if($ActiveD==1)
 	{
