@@ -66,7 +66,12 @@
 			$transportes = json_decode($cond3, true);
 			$transportes = array_filter($transportes, "vacio");
 			
-			$respuesta = $planlogistica->insertarPlanLogistica($planeslogistica, $alimentaciones , $alojamientos, $transportes);		
+			$cond4 = $_REQUEST['componente'];
+			$cond4 = str_replace('\"','"',$cond4);
+			$componente = json_decode($cond4, true);
+			$componente= array_filter($componente, "vacio");
+			
+			$respuesta = $planlogistica->insertarPlanLogistica($planeslogistica, $alimentaciones , $alojamientos, $transportes, $componente);		
 			$resultado = $planlogistica->cargarPlanLogistica($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
