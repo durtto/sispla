@@ -335,7 +335,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCliente.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_cliente.php'};
+							storeCliente.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_cliente.php'};
 						}
 				}
 			},{
@@ -368,7 +368,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-								storeCliente.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_cliente.php'};
+								storeCliente.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_cliente.php'};
 							}})}
 			}]
 			},{

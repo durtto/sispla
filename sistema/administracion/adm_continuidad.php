@@ -397,7 +397,7 @@ Ext.onReady(function(){
 								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}';
 							storeContinuidad.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_continuidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_continuidad.php"},
 										callback: function () {
 										if(storeContinuidad.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -417,7 +417,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_continuidad.php'};
+							storeContinuidad.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_continuidad.php'};
 						}
 				}
 			},{
@@ -430,7 +430,7 @@ Ext.onReady(function(){
 										storeContinuidad.baseParams = {'accion': 'eliminar'};
 										storeContinuidad.load({params:{
 												"condiciones": '{ "co_continuidad" : "'+Ext.getCmp("co_continuidad").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_continuidad.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_continuidad.php"},
 										callback: function () {
 										if(storeContinuidad.getAt(0).data.resp!=true){		
 											storeContacto.baseParams = {'accion': 'refrescar'};
@@ -450,6 +450,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+										storeContinuidad.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_continuidad.php'};
+
 							}})}
 			}]
 			},{

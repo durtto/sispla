@@ -212,7 +212,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
+							storeCategoria.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
 						}
 				}
 				},{
@@ -245,7 +245,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-							storeCategoria.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
+							storeCategoria.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_categoria.php'};
 							}})}
 				}]
 				},{

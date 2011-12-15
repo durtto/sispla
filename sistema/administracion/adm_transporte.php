@@ -378,6 +378,7 @@ function vehiculos_seleccionados(){
 									}]
 							}]
 							}],
+				buttonAlign:'center',
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',

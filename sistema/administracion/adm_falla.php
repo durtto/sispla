@@ -374,7 +374,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeFalla.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_falla.php'};
+							storeFalla.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_falla.php'};
 						}
 				}
 			},{
@@ -389,6 +389,7 @@ Ext.onReady(function(){
 												"condiciones": '{ "co_falla" : "'+Ext.getCmp("co_falla").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_falla.php"},
 										callback: function () {
+										storeFalla.baseParams = {'accion': 'refrescar'};
 										if(storeFalla.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
 												title: 'ERROR',
@@ -406,6 +407,8 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
+									storeFalla.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_falla.php'};
+
 							}})}
 			}]
 			},{

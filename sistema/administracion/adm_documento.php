@@ -248,7 +248,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
+							storeDocumento.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
 						}
 				}
 			},{
@@ -281,7 +281,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-									storeDocumento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
+									storeDocumento.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_documento.php'};
 
 							}})}
 			}]

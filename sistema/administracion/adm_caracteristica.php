@@ -225,7 +225,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCaracteristica.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_caracteristica.php'};
+							storeCaracteristica.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_caracteristica.php'};
 						}
 				}
 			},{
@@ -258,7 +258,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-							storeCaracteristica.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_caracteristica.php'};
+							storeCaracteristica.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_caracteristica.php'};
 							}})}
 			}]
 			},{

@@ -232,7 +232,7 @@ Ext.onReady(function(){
 							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
 							storeGuardia.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_guardia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_guardia.php"},
 										callback: function () {
 										if(storeGuardia.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -252,7 +252,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeGuardia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
+							storeGuardia.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
 						}
 				}
 			},{
@@ -265,7 +265,7 @@ Ext.onReady(function(){
 										storeGuardia.baseParams = {'accion': 'eliminar'};
 										storeGuardia.load({params:{
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_guardia.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_guardia.php"},
 										callback: function () {
 										storeGuardia.baseParams = {'accion': 'refrescar'};
 										if(storeGuardia.getAt(0).data.resp!=true){		
@@ -284,7 +284,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-							storeGuardia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
+							storeGuardia.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_guardia.php'};
 							}})}
 			}]
 			},{

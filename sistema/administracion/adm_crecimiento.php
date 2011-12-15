@@ -272,7 +272,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCrecimiento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
+							storeCrecimiento.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
 						}
 				}
 			},{
@@ -305,7 +305,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-								storeCrecimiento.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
+								storeCrecimiento.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_crecimiento.php'};
 							}})}
 			}]
 			},{
