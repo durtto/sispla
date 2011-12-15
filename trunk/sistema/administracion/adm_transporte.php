@@ -204,7 +204,7 @@ function vehiculos_seleccionados(){
     var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
         {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
-        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
+        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
         {header: "Vehiculo", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
 		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
 		//{header: "Unidad", width: 160, sortable: true, locked:false, dataIndex: 'tx_unidad'},

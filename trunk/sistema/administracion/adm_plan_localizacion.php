@@ -95,8 +95,8 @@ Ext.onReady(function(){
 
    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_localizacion',header: "Plan Localizacion",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
-        {header: "Fecha de Elaboraci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
+        {id:'co_plan_localizacion',header: "Plan Localizacion", width: 200, sortable: true, locked:false, dataIndex: 'co_plan_localizacion',renderer:plan},
+        {header: "Fecha de Elaboraci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
       ]);
 	
 /******************************************FIN****colModelPlanLocalizacion******************************************/     
@@ -636,8 +636,8 @@ function personas_seleccionadas(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
-							gridForm.getForm().reset()
-					}
+							gridForm.getForm().reset();
+												}
 				}, {
 			text: 'Guardar', 
 			id: 'btnGuardarPlan',

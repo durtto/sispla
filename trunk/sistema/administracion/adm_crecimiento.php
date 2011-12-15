@@ -98,8 +98,8 @@ Ext.onReady(function(){
     var colModelCrecimiento = new Ext.grid.ColumnModel([
         {id:'co_crecimiento',header: "Crecimiento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
         {header: "Demanda Futura", width: 150, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
-        {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual'},      
-        {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
+        {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual', renderer:convFechaDMY},      
+        {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda', renderer:convFechaDMY},
         {header: "Tipo de Activo", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
         {header: "Descripci&oacute;n", width: 198, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
 

@@ -122,7 +122,7 @@ Ext.onReady(function(){
       	{header: "Numero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
       	{header: "Critico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Fecha de Incorporacion", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion', renderer:convFechaDMY},
       	{header: "Vida Util", width: 90, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
@@ -174,8 +174,8 @@ Ext.onReady(function(){
    var colModelFalla = new Ext.grid.ColumnModel([
         {id:'co_falla',header: "Falla", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_falla'},
         {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Fecha Inicio", width: 200, sortable: true, locked:false, dataIndex: 'fe_inicio'},      
-        {header: "Fecha Fin", width: 400, sortable: true, locked:false, dataIndex: 'fe_fin'},
+        {header: "Fecha Inicio", width: 200, sortable: true, locked:false, dataIndex: 'fe_inicio', renderer:convFechaDMY},      
+        {header: "Fecha Fin", width: 400, sortable: true, locked:false, dataIndex: 'fe_fin', renderer:convFechaDMY},
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
       ]);
