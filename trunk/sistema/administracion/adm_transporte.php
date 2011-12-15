@@ -477,13 +477,7 @@ function vehiculos_seleccionados(){
 										}
 							storeTransporte.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_transporte.php'};
 							}})}
-			},{
-					text: 'Cerrar',
-					id: 'btnCerrar',
-					handler: function(){
-						cerrarForm("co_reset");
-					}
-				}],
+			}],
 		listeners: {
 			afterrender: function (){ 
 			}

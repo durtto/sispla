@@ -219,7 +219,7 @@ Ext.onReady(function(){
 		labelAlign: 'center',
         title: 'Actualizar Activos',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:800,
+		width:880,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
@@ -496,7 +496,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:800,
+			width:870,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_activo',
