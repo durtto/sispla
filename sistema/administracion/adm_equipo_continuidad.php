@@ -194,6 +194,7 @@ var gridForm = new Ext.FormPanel({
 				layout: 'fit', 	
 				buttons: [{
 			text: 'Nuevo', 
+			iconCls: 'adduser',
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
