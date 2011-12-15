@@ -563,13 +563,7 @@ function transportes_seleccionados(){
 											});
 										}
 							}})}
-			},{
-					text: 'Cerrar',
-					id: 'btnCerrar',
-					handler: function(){
-						cerrarForm("co_reset");
-					}
-				}],
+			}],
 		listeners: {
 			afterrender: function (){ 
 			}

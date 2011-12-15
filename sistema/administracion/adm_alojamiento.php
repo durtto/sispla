@@ -1,7 +1,7 @@
 <?php session_start(); 
 //print_r($_SESSION); ?><html>
 <head>
-<title>Alojamiento YA NO SE USA</title>
+<title>Alojamiento</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">

@@ -634,6 +634,7 @@ function personas_seleccionadas(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
+							gridForm.getForm().reset()
 					}
 				}, {
 			text: 'Guardar', 
@@ -721,13 +722,7 @@ function personas_seleccionadas(){
 										storePlanLocalizacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_localizacion.php'};
 
 							}})}
-			},{
-					text: 'Cerrar',
-					id: 'btnCerrar',
-					handler: function(){
-						cerrarForm("co_reset");
-					}
-				}],
+			}],
 		listeners: {
 			afterrender: function (){ 
 			}
