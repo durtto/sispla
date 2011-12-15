@@ -102,7 +102,7 @@ Ext.onReady(function(){
         {header: "Cantidad Requerida", width: 140, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
         {header: "Justificaci&oacute;n", width: 145, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
         {header: "Beneficios", width: 145, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
-        {header: "A&ntilde;o Actual", width: 98, sortable: true, locked:false, dataIndex: 'fe_annio'},
+        {header: "A&ntilde;o Actual", width: 98, sortable: true, locked:false, dataIndex: 'fe_annio', renderer:convFechaDMY},
       ]);
       
 /******************************************FIN****colModelNecesidad******************************************/     
