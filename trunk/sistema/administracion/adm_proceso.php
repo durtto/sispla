@@ -185,6 +185,7 @@ Ext.onReady(function(){
 				layout: 'fit', 	
 				buttons: [{
 			text: 'Nuevo', 
+			iconCls: 'add',
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
@@ -227,7 +228,7 @@ Ext.onReady(function(){
 								columnas += '"bo_critico" : "'+Ext.getCmp("bo_critico").getValue()+'"}';
 							storeProceso.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_proceso.php"},
 										callback: function () {
 										if(storeProceso.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -260,7 +261,7 @@ Ext.onReady(function(){
 										storeProceso.baseParams = {'accion': 'eliminar'};
 										storeProceso.load({params:{
 												"condiciones": '{ "co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_proceso.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_proceso.php"},
 										callback: function () {
 										storeProceso.baseParams = {'accion': 'refrescar'};
 										if(storeProceso.getAt(0).data.resp!=true){		

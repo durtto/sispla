@@ -204,6 +204,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -445,7 +446,7 @@ Ext.onReady(function(){
 							columnas += '"nb_tipo_directorio" : "'+Ext.getCmp("nb_tipo_directorio").getValue()+'"}';
 							storeTpDirectorio.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
 										callback: function () {
 										if(storeTpDirectorio.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -478,7 +479,7 @@ Ext.onReady(function(){
 										storeTpDirectorio.baseParams = {'accion': 'eliminar'};
 										storeTpDirectorio.load({params:{
 												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
 										callback: function () {
 										storeTpDirectorio.baseParams = {'accion': 'eliminar'};
 										if(storeTpDirectorio.getAt(0).data.resp!=true){		
