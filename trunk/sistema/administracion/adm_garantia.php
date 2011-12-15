@@ -375,7 +375,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeGarantia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_garantia.php'};
+							storeGarantia.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_garantia.php'};
 						}
 				}
 			},{
@@ -408,7 +408,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-				storeGarantia.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_garantia.php'};
+				storeGarantia.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_garantia.php'};
 							}})}
 			}]
 			},{

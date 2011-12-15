@@ -209,7 +209,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeCapacidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
+							storeCapacidad.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
 						}
 				}
 			},{
@@ -242,7 +242,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-							storeCapacidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
+							storeCapacidad.baseParams = {'start':0, 'limit':50,'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'};
 
 							}})}
 			}]

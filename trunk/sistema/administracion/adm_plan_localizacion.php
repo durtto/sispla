@@ -620,9 +620,11 @@ function personas_seleccionadas(){
 									}]
 							}]
 							}],
+				buttonAlign:'center',
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',
+					
 					//disabled: true,
 					handler: function(){
 							nuevo=true;	

@@ -466,6 +466,7 @@ function transportes_seleccionados(){
 									}]
 							}]
 							}],
+				buttonAlign:'center',
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',
