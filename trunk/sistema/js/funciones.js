@@ -656,6 +656,15 @@
         }
         return val;
     }
+    
+    
+        function plan(plan){
+        return '<span style="color:black;">'+"Plan de Localizacion"+" " + plan +'</b></span>';
+        }
+       
+    
+    
+    
        //Funcion para cambiar el coloer en el boolean
       
 		function critico(bo_critico) {
