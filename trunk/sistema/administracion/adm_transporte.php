@@ -203,7 +203,7 @@ function vehiculos_seleccionados(){
 /******************************************INICIO**colModelTransporte******************************************/     
     var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
+        {id:'co_transporte',header: "Transporte", width: 200, sortable: true, locked:false, dataIndex: 'co_transporte', renderer: transporte},
         {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
         {header: "Vehiculo", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
 		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
@@ -237,11 +237,13 @@ function vehiculos_seleccionados(){
 						width:775,
 						buttonAlign:'center',
 						title: 'Plan de Transporte',
+						layout:'column',
 			            bodyStyle:'padding:5px 5px 0px 5px',
 						items:[{
 								layout: 'form',
 								labelWidth:140,
 								border:false,
+								columnWidth:.55,
 								items: [{
 				                        fieldLabel: 'Numero de Transporte',
 										xtype:'numberfield',
@@ -250,7 +252,13 @@ function vehiculos_seleccionados(){
 				                        // hidden: true,
 										//hideLabel: true,
 				                        width:120
-                    					},{
+                    					}]
+							},{
+								layout: 'form',
+								labelWidth:140,
+								columnWidth:.45,
+								border:false,
+								items: [{
 				                        fieldLabel: 'Fecha de Elaboracion',
 										xtype:'datefield',
 										vtype:'validos',

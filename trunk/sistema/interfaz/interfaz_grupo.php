@@ -20,6 +20,14 @@
 			
 
 			break;
+			
+			case 'nuevo':
+			
+			$resultado = $grupo->NuevoGrupo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$total= $resultado3 [0]['count'];
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

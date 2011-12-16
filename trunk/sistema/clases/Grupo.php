@@ -51,6 +51,20 @@ class Grupo extends MyPDO
 			
 	return $c;
   }
+  
+   public function NuevoGrupo() {
+	$nuevo = "select nextval ('tr001_grupo_seq') AS co_grupo;";
+	
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
+  
+  
+  
   public function insertarGrupo($grupo) {
   	
 	$this->pdo->beginTransaction();	
