@@ -1,6 +1,6 @@
 <authors>
 			
-			<author first="Activos" gender="" titulo="Activos">
+			<author first="Activos" titulo="">
 			<book title="Activos" titulo="Activos" url="../administracion/adm_activo.php"></book>
 			<book title="Falla" titulo="Fallas" url="../administracion/adm_falla.php"></book>
 			<book title="Fabricante" titulo="Fabricantes" url="../administracion/adm_fabricante.php"></book>
@@ -18,7 +18,7 @@
 			<book title="Estado" titulo="Estado" url="../administracion/adm_estado.php"></book>
 
 
-			<author first="Usuario" gender="" titulo="Usuarios">
+			<author first="Usuario" titulo="">
 				<book title="Usuarios" titulo="Usuarios" url="../administracion/adm_usuario.php"></book>
 				<book title="Privilegios" titulo="Privilegios" url="../administracion/adm_privilegio_usuario.php"></book>
 				<book title="Roles de Usuario" titulo="Rol Usuario" url="../administracion/adm_rol_persona.php"></book>

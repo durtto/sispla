@@ -190,6 +190,7 @@ Ext.onReady(function(){
 				layout: 'fit', 	
 				buttons: [{
 			text: 'Nuevo', 
+			iconCls: 'add',
 			tooltip:'',
 			handler: function(){
 					nuevo = true;
