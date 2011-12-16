@@ -661,7 +661,9 @@
         function plan(plan){
         return '<span style="color:black;">'+"Plan de Localizacion"+" " + plan +'</b></span>';
         }
-       
+       function transporte(transporte){
+        return '<span style="color:black;">'+"Plan de Transporte"+" " + transporte +'</b></span>';
+        }
     
     
     
