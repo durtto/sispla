@@ -1,7 +1,7 @@
 <authors>
 
 		
-				<author first="Base Instalada" gender="" titulo="Base I">
+				<author first="Base Instalada" titulo="">
 					<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
 				</author>
 			

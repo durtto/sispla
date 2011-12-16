@@ -3,7 +3,7 @@
 		<book title="Premisas del Plan(DESCARGAR)" titulo="Premisas" url="../documento/PREMISAS.doc"></book>
 		<book title="Procedimientos de Seguridad Lógica" titulo="Procedimientos SL"></book>
 		<book title="Marco Legal" titulo="Marco Legal"></book>
-		<author first="Carpeta de Documentación" gender="" titulo="Documentación">
+		<author first="Carpeta de Documentación" titulo="">
 			<book title="Rol de Guardias" titulo="Rol Guardia" url="../documento/ROLGUARDIA.doc"></book>
 			<book title="Lista de Chequeo" titulo="Chequeos" url="../documento/LISTACHEQUEO.doc"></book>
 			<book title="Informe de Evaluación" titulo="Informes" url="../documento/INFOREVALUACION.doc"></book>
@@ -12,7 +12,7 @@
 			<book title="Reporte de Sucesos" titulo="Sucesos" url="../documento/REPORTESUCESO.doc"></book>
 
 		</author>
-		<author first="Componente de Continuidad" gender="" titulo="Componente de Continuidad">	
+		<author first="Componente de Continuidad" titulo="">	
 			<book title="Plan Maestro" titulo="Maestro"></book>
 			<book title="Plan de Contingencia" titulo="Contingencia"></book>
 			<book title="Plan Operativo" titulo="Operativo"></book>

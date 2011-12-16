@@ -2,30 +2,30 @@
 
 		<book title="Gestionar Planes" titulo="Planes" url="../administracion/adm_datos_plan.php"></book>
 	
-		<author first="Plan Maestro" gender="" titulo="Plan Maestro">
+		<author first="Plan Maestro" titulo="">
 			<book title="Procesos Críticos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
 			<book title="Roles y Responsabilidad" titulo="Rol y Resp" url="../administracion/adm_rol_res.php"></book>
 		</author>	
-			<author first="Plan de Localización" gender="" titulo="Plan de Localización">
+			<author first="Plan de Localización" titulo="">
 				<book title="Plan localización" titulo="Localización" url="../administracion/adm_plan_localizacion.php"></book>
 				<book title="Equipo de Continuidad" titulo="Equipo de Cont" url="../administracion/adm_equipo_continuidad.php"></book>
 				<book title="Directorio" titulo="Directorio" url="../administracion/adm_directorio.php"></book>
 			</author>
-			<author first="Gestión de Guardias" gender="" titulo="Guardias">
+			<author first="Gestión de Guardias" titulo="">
 				<book title="Grupo" titulo="Grupo" url="../administracion/adm_grupo.php"></book>
 				<book title="Guardia" titulo="Guardia" url="../administracion/adm_guardia.php"></book>
 			</author>
-			<author first="Plan de Logística" gender="" titulo="Plan de Logística">
+			<author first="Plan de Logística" titulo="">
 				<book title="Plan Logistica" titulo="Plan" url="../administracion/adm_plan_logistica.php"></book>
 				<book title="Alimentación" titulo="Alimentación" url="../administracion/adm_alimentacion.php"></book>
 				<book title="Transporte" titulo="Transporte" url="../administracion/adm_transporte.php"></book>
 				<book title="Alojamiento" titulo="Alojamiento" url="../administracion/adm_alojamiento.php"></book>
 			</author>	
-			<author first="Recursos Requeridos" gender="" titulo="Recursos Requeridos">
+			<author first="Recursos Requeridos" titulo="">
 				<book title="Equipo Operativos" titulo="Equipo" url="../administracion/adm_equipo_requerido.php"></book>
 				<book title="Equipos Sala Estrategica" titulo="Equipos Sala Estrategica"></book>
 			</author>
-		<author first="Plan de Contingencia" gender="" titulo="Plan de Contingencia">
+		<author first="Plan de Contingencia" titulo="">
 			<book title="Esquema de Continuidad" titulo="Esquema Cont" url="../administracion/adm_continuidad.php"></book>
 			<book title="Esquema de Respaldo" titulo="Esquema Resp" url="../administracion/adm_respaldo.php"></book>
 		</author>
