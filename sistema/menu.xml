@@ -1,6 +1,6 @@
 <authors>
 
-	<author first="Todo" gender="" titulo="Todo">
+	<author first="Todo" titulo="">
 		<book title="Activo" titulo="Activo" url="administracion/adm_activo.php"></book>
 		<book title="Alimentacion" titulo="Alimentacion" url="administracion/adm_alimentacion.php"></book>
 		<book title="Alojamiento" titulo="Alojamiento" url="administracion/adm_alojamiento.php"></book>
