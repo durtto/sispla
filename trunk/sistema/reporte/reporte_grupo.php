@@ -1,10 +1,11 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Grupo</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -44,9 +47,18 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
+
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -54,11 +66,14 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreGrupo******************************************/     
 	
   var storeGrupo = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_grupo.php',
 		remoteSort : true,
 		root: 'grupos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_grupo.php"},	
         totalProperty: 'total',
 		idProperty: 'co_grupo',
         fields: [{name: 'co_grupo'},
@@ -66,75 +81,50 @@ Ext.onReady(function(){
         		{name: 'resp'}]
         });
     storeGrupo.setDefaultSort('co_grupo', 'ASC');
+    
+/*****************************************FIN****StoreGrupo*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/******************************************INICIO**colModelGrupo******************************************/     
+    
     var colModelGrupo = new Ext.grid.ColumnModel([
-        {id:'co_grupo',header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {id:'co_grupo',header: "Grupo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelGrupo******************************************/     
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'reporte_grupo',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Grupos',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
-		items: [{
-			width:640,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_grupo',
-                store: storeGrupo,
-                cm: colModelGrupo,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_grupo").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Lista de Grupos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeGrupo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
-				})
-            }]
-			
-		}],
-        
+
+
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_grupo',
+					name:'gd_grupo',
+					store: storeGrupo,
+					cm: colModelGrupo,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:600,
+					title:'Lista de Grupo',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeGrupo,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
-	
-	
+
+
 storeGrupo.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_grupo.php"}});
-gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_grupo").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		
-});
-/********************************************************************************************************/
+grid.render('grid');
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 
@@ -149,9 +139,8 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

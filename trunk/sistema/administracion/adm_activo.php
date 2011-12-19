@@ -460,8 +460,8 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
-					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					storeActivo.data.clear();
+					if(gridForm.getForm().isValid())  
+					gridForm.getForm().reset();
 					Ext.getCmp("co_activo").focus();
 				}
 			},{
@@ -591,7 +591,6 @@ Ext.onReady(function(){
                 height: 300,
 				title:'Lista de Activos',
                 border: true,
-                //tools: [{id:'save'},{id:'print'}],
                 listeners: {
                     viewready: function(g) {
                                           }
@@ -618,8 +617,8 @@ function selActivo(){
 				winActivo = new Ext.Window({
 						applyTo : 'winActivo',
 						layout : 'fit',
-						width : 870,
-						height : 870,
+						width : 550,
+						height : 300,
 						closeAction :'hide',
 						plain : true,
 						items : [{

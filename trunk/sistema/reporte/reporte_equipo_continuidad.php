@@ -1,7 +1,7 @@
 <?php session_start(); 
 //print_r($_SESSION); ?><html>
 <head>
-<title>Continuidad</title>
+<title>Directorio</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -67,63 +67,77 @@ Ext.onReady(function(){
     };
     var local = true;
 
-/******************************************INICIO**StoreContinuidad******************************************/     
+/******************************************INICIO**StorePersona******************************************/     
       
-  var storeContinuidad = new Ext.data.JsonStore({
-		url: '../interfaz/interfaz_continuidad.php',
+      var storeEquipoContinuidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo_continuidad.php',
 		remoteSort : true,
-		root: 'continuidades',
+		root: 'equipos',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_equipo_continuidad.php'},
         totalProperty: 'total',
-		idProperty: 'co_continuidad',
-        fields: [{name: 'co_continuidad'},
-        		{name: 'bo_prioridad_rec'},
-		        {name: 'fe_mtd'},
-		        {name: 'fe_rto'},
-		        {name: 'bo_esquema_alterno_interno'},
-		        {name: 'bo_esquema_alterno_externo'},
-		        {name: 'co_activo'},
-		        {name: 'nb_activo'},
-		        {name: 'resp'}]
+		idProperty: 'co_equipo_continuidad',
+        fields: [{name: 'co_equipo_continuidad'},
+        		{name: 'co_indicador'},
+         		{name: 'nu_cedula'},
+		        {name: 'nb_persona'},
+		        {name: 'tx_apellido'},
+		        {name: 'co_rol_resp'},
+        		{name: 'nb_rol_resp'},
+        	    {name: 'resp'}]
         });
-    storeContinuidad.setDefaultSort('co_continuidad', 'ASC');
+    storeEquipoContinuidad.setDefaultSort('co_rol_resp', 'ASC');
     
-/*****************************************FIN****StoreContinuidad*****************************************/
+/*****************************************FIN****StorePersona*****************************************/
 
-	
-/******************************************INICIO**colModelcontinuidad******************************************/     
-	
-    var colModelContinuidad = new Ext.grid.ColumnModel([
-        {id:'co_continuidad',header: "Continuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_continuidad'},
-        {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-        {header: "Prioridad", width: 100, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
-        {header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd', renderer:convFechaDMY},      
-        {header: "Fecha RTO", width: 100, sortable: true, locked:false, dataIndex: 'fe_rto', renderer:convFechaDMY},
-        {header: "Esquema Interno", width: 100, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_interno', renderer: interno},
-        {header: "Esquema Externo", width: 100, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_externo', renderer: externo},
-		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        
+
+
+
+/******************************************INICIO**colModelPersona******************************************/     
+	//var sm1 = new Ext.grid.CheckboxSelectionModel();
+    var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
+        {id:'co_equipo_continuidad', hidden: true, header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
+        {header: "co_indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 150, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        //{header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        //{header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		//{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        //{header: "Departamento", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        //{header: "Departamento", width: 200, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+     	//{header: "Rol", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
+        //{header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol'},      
+      	{header: "Responsabilidad", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
+        {header: "Responsabilidad", width: 180, dataIndex: 'nb_rol_resp'},
+         //sm1,
+      	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+      	//{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
+        //{header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
       ]);
       
-/******************************************FIN****colModelContinuidad******************************************/     
+/******************************************FIN****colModelPersona******************************************/     
 
 
-/******************************************INICIO**StoreCliente******************************************/     
+
    var grid =new Ext.grid.GridPanel({
-					id: 'gd_continuidad',
-					name:'gd_continuidad',
-					store: storeContinuidad,
-					cm: colModelContinuidad,
+					id: 'gd_equipo_continuidad',
+					name:'gd_equipo_continuidad',
+					store: storeEquipoContinuidad,
+					cm: colModelEquipoContinuidad,
 					stripeRows: true,
-					//plugins: expanderPersona,
+					//plugins: expanderDirectorio,
 					iconCls: 'icon-grid',
 					//sm: sm1,
 					height: 400,
-					width:600,
-					title:'Lista de Continuidad',
-					tools: [{id:'save'},{id:'print'}],
+					width:780,
+					title:'Equipos de Continuidad',
 					border: true,
+					tools: [{id:'save'},{id:'print'}],
 					bbar: new Ext.PagingToolbar({
-					store: storeContinuidad,
+					store: storeEquipoContinuidad,
 					pageSize: 50,
 					displayInfo: true,
 					displayMsg: 'Mostrando registros {0} - {1} de {2}',
@@ -132,7 +146,7 @@ Ext.onReady(function(){
     });
 
 
-storeContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_continuidad.php"}});
+storeEquipoContinuidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_equipo_continuidad.php"}});
 grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/

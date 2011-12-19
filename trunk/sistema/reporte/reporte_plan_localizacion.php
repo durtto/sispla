@@ -47,8 +47,6 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
- var winPersona;
 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -291,7 +289,7 @@ var storePersona = new Ext.data.JsonStore({
 
    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_localizacion',header: "Plan Localizacion",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion'},
+        {id:'co_plan_localizacion',header: "Plan Localizacion",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_localizacion', renderer:plan},
         {header: "Fecha de Elaboraci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
@@ -338,6 +336,7 @@ var storePersona = new Ext.data.JsonStore({
 			text: 'Consultar', 
 			id: 'btnConsultar',
 			tooltip:'Consultar Plan',
+			iconCls: 'consultar',
 			waitMsg: 'Consultando...',
 			handler: function(){
 							storePersona.load({params:{'accion': 'persona', "plan": Ext.getCmp("co_plan_localizacion").getValue(),
@@ -369,7 +368,7 @@ var storePersona = new Ext.data.JsonStore({
 						deferredRender: false,
 						layoutOnTabChange: true,
 						activeTab: 0,
-						width: 720,
+						width: 780,
 						//layout: 'fit',
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
@@ -389,6 +388,7 @@ var storePersona = new Ext.data.JsonStore({
 						                height: 250,
 						                iconCls: 'icon-grid',
 										title:'Lista de Personas',
+										tools: [{id:'save'},{id:'print'}],
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {
@@ -419,6 +419,7 @@ var storePersona = new Ext.data.JsonStore({
 						                plugins: expanderContacto,
 						                height: 250,
 						                iconCls: 'icon-grid',
+						                tools: [{id:'save'},{id:'print'}],
 										title:'Lista de Proveedores',
 						                border: true,
 						                listeners: {
@@ -446,6 +447,7 @@ var storePersona = new Ext.data.JsonStore({
 						                store: storeDirectorio,
 						                stripeRows: true,
 					                	iconCls: 'icon-grid',
+					                	tools: [{id:'save'},{id:'print'}],
 						                cm: colModelDirectorio,
 						                height: 250,
 						                iconCls: 'icon-grid',
@@ -480,6 +482,7 @@ var storePersona = new Ext.data.JsonStore({
 						                height: 250,
 						                iconCls: 'icon-grid',
 										title:'Lista de Equipos',
+										tools: [{id:'save'},{id:'print'}],
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {

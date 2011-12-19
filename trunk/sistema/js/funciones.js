@@ -670,7 +670,7 @@
         return '<span style="color:black;">'+"Plan de Alimentacion"+" " + alimentacion +'</b></span>';
         }
     
-    
+
        //Funcion para cambiar el coloer en el boolean
       
 		function critico(bo_critico) {

@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Capacidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -44,17 +47,16 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	
 /******************************************CAMPOS REQUERIDOS******************************************/     	
-	
+
 	var camposReq = new Array(10);
-	
+
 /*****************************************************************************************************/     
 
     var bd = Ext.getBody();
@@ -64,7 +66,7 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
+
 /******************************************INICIO**StoreCapacidad******************************************/     
 	
   var storeCapacidad = new Ext.data.JsonStore({
@@ -73,6 +75,7 @@ Ext.onReady(function(){
 		root: 'capacidades',
         totalProperty: 'total',
 		idProperty: 'co_capacidad',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_capacidad.php'},
         fields: [{name: 'co_capacidad'},
         		{name: 'nb_capacidad'},		
         		{name: 'resp'}]
@@ -87,65 +90,40 @@ Ext.onReady(function(){
 	
     var colModelCapacidad = new Ext.grid.ColumnModel([
         {id:'co_capacidad',header: "Codigo de Capacidad", hidden:true, width: 200, sortable: true, locked:false, dataIndex: 'co_capacidad'},
-        {header: "Tipo de Capacidad", width: 795, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+        {header: "Tipo de Capacidad", width: 200, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
       ]);
       
 /******************************************FIN****colModelCapacidad******************************************/     
 
 
 
-
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
-    var gridForm = new Ext.FormPanel({
-        id: 'frm_capacidad',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Tipos de Capacidades',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [{
-			width:800,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_capacidad',
-                store: storeCapacidad,
-                cm: colModelCapacidad,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_capacidad").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				title:'Tipos de Capacidades',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                    }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCapacidad,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-			
-		}],
-        
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_capacidad',
+					name:'gd_capacidad',
+					store: storeCapacidad,
+					cm: colModelCapacidad,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:600,
+					title:'Lista de Capacidad',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeCapacidad,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
 
-	
-	
 storeCapacidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_capacidad.php"}});
-gridForm.render('form');
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
@@ -162,7 +140,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>

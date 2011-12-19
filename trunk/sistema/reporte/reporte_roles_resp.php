@@ -47,8 +47,7 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
- 
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -104,7 +103,7 @@ Ext.onReady(function(){
 
 
 
-   var grid =new Ext.grid.EditorGridPanel({
+   var grid =new Ext.grid.GridPanel({
 					id: 'gd_responsabilidad',
 					name:'gd_responsabilidad',
 					store: storeResponsabilidad,
