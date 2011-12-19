@@ -34,7 +34,7 @@ class MyPDO extends PDO
 	 if ($pdo==NULL){
         $this->engine = 'pgsql';
 
-		$this->host = '10.168.16.25'; //'orimat100';
+		$this->host = '10.168.16.19'; //'orimat100';
 		$this->port = '5432';
 		$this->database = 'sistemaspla';
 		$this->user = 'merchang';
