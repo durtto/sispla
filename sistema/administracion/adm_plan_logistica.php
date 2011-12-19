@@ -96,8 +96,8 @@ Ext.onReady(function(){
 
    var colModelPlanLogistica = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_logistica',header: "Plan Logistica",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_logistica'},
-        {header: "Elaboracion", width: 360, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {id:'co_plan_logistica',header: "Plan Logistica", width: 250, sortable: true, locked:false, dataIndex: 'co_plan_logistica',renderer:planlg},
+        {header: "Elaboracion", width: 250, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
       ]);
 	
 /******************************************FIN****colModelPlanLogistica******************************************/     
@@ -135,7 +135,7 @@ Ext.onReady(function(){
 	var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelAlimentacion = new Ext.grid.ColumnModel([
     	expanderAlimentacion,
-        {id:'co_alimentacion',header: "Codigo de Gestion", width: 680, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+        {id:'co_alimentacion',header: "Gestion de Alimentacion", width: 500, sortable: true, locked:false, dataIndex: 'co_alimentacion', renderer:alimentacion},
         //{header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
         //{header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
         //{header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
@@ -196,7 +196,7 @@ function alimentacion_seleccionadas(){
     var colModelAlojamiento = new Ext.grid.ColumnModel([
     	expanderAlojamiento,
         {id:'co_alojamiento',header: "Alojamiento", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
-        {header: "Nombre", width: 680, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
+        {header: "Lugar de Alojamiento", width: 500, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
         //{header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
         //{header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel', renderer: hotel},
         //{header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada', renderer: hotel},
@@ -247,8 +247,8 @@ function alojamientos_seleccionados(){
     
     var sm4 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
-        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {id:'co_transporte',header: "Transporte", width: 250, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte', renderer:transporte},
+        {header: "Elaboracion", width: 250, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
 
       sm4,
       ]);
@@ -479,6 +479,10 @@ function transportes_seleccionados(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
+							if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+							Ext.getCmp("gd_alimentacion").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_alojamiento").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_transporte").getSelectionModel().clearSelections();
 					}
 				}, {
 			text: 'Guardar', 
