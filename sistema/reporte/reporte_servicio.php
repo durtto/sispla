@@ -47,8 +47,6 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
- var winPersona;
  
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -104,7 +102,7 @@ Ext.onReady(function(){
 /******************************************FIN****colModelServicio******************************************/     
 
 
-   var grid =new Ext.grid.EditorGridPanel({
+   var grid =new Ext.grid.GridPanel({
 					id: 'gd_servicio',
 					name:'gd_servicio',
 					store: storeServicio,

@@ -29,3 +29,6 @@ body .x-panel {
        	.deleteuser {
             background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/user_delete.png) !important;
         }
+        .consultar {
+            background-image:url(../lib/ext-3.2.1/examples/shared/icons/fam/magnifier.png) !important;
+        }

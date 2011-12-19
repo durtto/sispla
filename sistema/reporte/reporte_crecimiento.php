@@ -46,6 +46,7 @@
 	<script type="text/javascript" src="../lib/Highcharts-2.1.6/js/modules/exporting.js"></script>
 	<script type="text/javascript" src="../lib/Highcharts-2.1.6/js/Ext.ux.HighChart.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Ext.ux.HighchartPanel.js"></script>
+ 	<!-- <script type="text/javascript" src="../js/generador_grafica.js"></script> -->
 
 
 <script type="text/javascript">
@@ -56,7 +57,7 @@
  * http://www.extjs.com/license
  */
  var nuevo;
-
+ 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -77,7 +78,7 @@ Ext.onReady(function(){
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
+
 /******************************************INICIO**StoreCrecimiento******************************************/     
 
   var storeCrecimiento = new Ext.data.JsonStore({
@@ -85,6 +86,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'crecimientos',
         totalProperty: 'total',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_crecimiento.php'},
 		idProperty: 'co_crecimiento',
         fields: [{name: 'co_crecimiento'},
 		        {name: 'ca_demanda_futura'},
@@ -95,32 +97,26 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeCrecimiento.setDefaultSort('co_crecimiento', 'ASC');
-    
+	
 /*****************************************FIN****StoreCrecimiento*****************************************/
 
 
+
 /******************************************INICIO**colModelCrecimiento******************************************/     
-	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+
     var colModelCrecimiento = new Ext.grid.ColumnModel([
-        {id:'co_crecimiento',header: "Crecimiento", width: 100, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
-        {header: "Demanda Futura", width: 125, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
-        {header: "Fecha actual", width: 125, sortable: true, locked:false, dataIndex: 'fe_actual'},      
-        {header: "Fecha Tope", width: 125, sortable: true, locked:false, dataIndex: 'fe_tope_demanda'},
-        {header: "Tipo de Activo", width: 125, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {id:'co_crecimiento',header: "Crecimiento", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_crecimiento'},
+        {header: "Demanda Futura", width: 150, sortable: true, locked:false, dataIndex: 'ca_demanda_futura'},
+        {header: "Fecha actual", width: 150, sortable: true, locked:false, dataIndex: 'fe_actual', renderer:convFechaDMY},      
+        {header: "Fecha Tope", width: 150, sortable: true, locked:false, dataIndex: 'fe_tope_demanda', renderer:convFechaDMY},
+        {header: "Tipo de Activo", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
         {header: "Descripci&oacute;n", width: 198, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
 
       ]);
 	
 /******************************************FIN****colModelCrecimiento******************************************/     
-//--------------------------------------------------------
-	var panelGrafica = new Ext.Panel({
-		id: 'panelGrafica',
-		width: 900,
-		height: 400,
-		layout: 'fit',
-		renderTo:'container'
-	});
+
+
 	//--------------------------------------------------------
 	function crearGraficaTorta(array, titulo, subtitulo) {
 		var now = new Date();
@@ -281,9 +277,9 @@ Ext.onReady(function(){
 		});
 	}
 	//--------------------------------------------------------
-	function crearGrafica(tipoGrafica, titulo, subtitulo){
+	function crearGrafica(idTab, tipoGrafica, titulo, subtitulo){
 		Ext.Ajax.request({
-			url: '../clases/generador_grafica.php',
+			url: '../interfaz/interfaz_grafica.php',
 			success: function(response){
 				array = Ext.decode(response.responseText);
 				switch(tipoGrafica){
@@ -309,1530 +305,219 @@ Ext.onReady(function(){
 		});
 	}
 	//--------------------------------------------------------
-	var chart = new Highcharts.Chart({
-		chart: {
-			renderTo: 'panelGrafica',
-			defaultSeriesType: 'column'
-		},
-		title: {
-			text: ''
-		},
-		subtitle: {
-			text: ''
-		},
-		xAxis: {
-			categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
-			title: {
-				text: null
-			}
-		},
-		yAxis: {
-			min: 0,
-			title: {
-				text: 'Cantidad (Nro)',
-				align: 'high'
-			}
-		},
-		tooltip: {
-			formatter: function () {
-				return '' + this.series.name + ': ' + this.y + ' millions';
-			}
-		},
-		plotOptions: {
-			bar: {
-				dataLabels: {
-					enabled: true
-				}
-			}
-		},
-		/*legend: {
-			layout: 'vertical',
-			align: 'right',
-			verticalAlign: 'top',
-			x: -5,
-			y: -5,
-			floating: true,
-			borderWidth: 1,
-			backgroundColor: '#FFFFFF',
-			shadow: true
-		},*/
-		credits: {
-			enabled: false
-		},
-		series: [/*{
-			name: 'Year 1800',
-			data: [20,50,10,80,45]
-		}*/]
-	});
 	//--------------------------------------------------------
 	store=new Ext.data.ArrayStore({
 					id: 0,
 					fields: ['id','valor'],
-					data: [[1, 'Tipo Activo'],
-					[2, 'Ubicacion'],
-					[3, 'Capacidad']]
-				});
-	var DataLineal = 	[[1, 'Diario'],
-						[2, 'Semanal'],
-						[3, 'Mensual']];
-	var DataBC = [[1, 'Tipo Activo'],
-					[2, 'Ubicacion'],
-					[3, 'Capacidad']];
+					data: 	[[1, 'Obsolescencia'],
+							[2, 'Tipo Activo'],
+							[3, 'Ubicacion'],
+							[4, 'Capacidad']]
+							});
+	var DataLineal = [[1, 'Diario'],
+					  [2, 'Semanal'],
+					  [3, 'Mensual']];
+	var DataBC = [[1, 'Obsolescencia'],
+					[2, 'Tipo Activo'],
+					[3, 'Ubicacion'],
+					[4, 'Capacidad']];
 	var storeEstado = new Ext.data.JsonStore({
 						fields: ['co_estado', 'nb_estado_graf'],
 						root: 'data',
-						url: '../php/combos_dinamicos.php?accion=cmb_estado_graf',
+						url: '../php/combos_dinamicos.php',
 						baseParams:{tipo_estado:1}
 					});
 	//--------------------------------------------------------
-	
+/**********************************************************************/	
+
+
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-		 
-
-/*
- *    Here is where we create the Form
- */
-
-	var gridForm = new Ext.FormPanel({
+		
+    var gridForm = new Ext.FormPanel({
 		id:'srv_ticket',
 		labelWidth: 100,
 		frame:true,
-		title: '.: Reporte del Crecimiento Natural :.',
+		title: '.: Reporte de Crecimientos :.',
 		bodyStyle:'padding:5px',
-		width: 960,
+		width: 840,
 		layout: 'fit',
 		items: [{
-				xtype:'fieldset',	
-				autoHeight:true,
-				border: false,
-				items: [{			
-						xtype: 'tabpanel',
-						id: 'tabPanel',
-						resizeTabs: true,
-						enableTabScroll: true,
-						deferredRender: false,
-						layoutOnTabChange: true,
-						activeTab: 0,
-						//layout: 'fit',
-						bodyStyle:'padding:5px; background-color: #f1f1f1;',
-						items: [{
-								title: 'Almacenamiento',
-								id: 'tabalmacenamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
+					xtype: 'fieldset',
+					title: 'Datos de Entrada',
+					collapsible:false,
+					border: true,
+					autoHeight:true, 
+					bodyStyle:'padding:0px',
+					items:[{
+							xtype: 'combo',
+							id: 'tipo_grafica',
+							anchor: '40%',
+							name: 'tipo_grafica',
+							fieldLabel: 'Tipo de Gr&aacute;fica',
+							//hiddenName: 'nb_distrito',
+							valueField: 'id',
+							store: new Ext.data.ArrayStore({
+								id: 0,
+								fields: ['id','valor'],
+								data: 	[[1, 'LINEAL'],
+										[2, 'BARRAS'],
+										[3, 'CIRCULAR']]
+							}),
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'valor',
+							width: 120,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+							listeners: {
+									select: {
+										fn: function(combo,record,index){
+											if(index==0){
+												Ext.getCmp('base_grafica').clearValue();
+												Ext.getCmp('estado_grafica').clearValue();
+												Ext.getCmp('base_grafica').disable();
+												Ext.getCmp('estado_grafica').disable();
+												store.removeAll();
+												store.loadData(DataLineal);
+											}
+											else{
+												Ext.getCmp('base_grafica').clearValue();
+												Ext.getCmp('estado_grafica').clearValue();
+												Ext.getCmp('base_grafica').enable();
+												Ext.getCmp('estado_grafica').enable();
+												store.removeAll();
+												store.loadData(DataBC);
+											}
+										}
+									}
 							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
+						},{
+							xtype: 'combo',
+							id: 'base_grafica',
+							anchor: '40%',
+							name: 'base_grafica',
+							fieldLabel: 'Dato Base',
+							//hiddenName: 'nb_distrito',
+							valueField: 'id',
+							store:store,
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'valor',
+							width: 120,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+							listeners: {
+								select: {
+									fn: function(combo,record,index){
+										if(index==0){
+											Ext.getCmp('estado_grafica').clearValue();
+											Ext.getCmp('estado_grafica').disable();
+										}
+										else{
+											Ext.getCmp('estado_grafica').enable();
+										}
+										if(index==5){
+											storeEstado.load({params:{tipo_estado:2}});
+										}
+										else{
+											storeEstado.load({params:{tipo_estado:1}});
+										}
+									}
+								}
 							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
+						},{
+							xtype: 'combo',
+							id: 'estado_grafica',
+							anchor: '30%',
+							name: 'estado_grafica',
+							fieldLabel: 'Estado',
+							//hiddenName: 'nb_distrito',
+							valueField: 'co_estado',
+							store: storeEstado,
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'nb_estado_graf',
+							width: 120,
+							listWidth: 250,
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false
+						},{
+							xtype: 'button',
+							text: 'Graficar',
+							id: 'btn_graficar',
+							handler: function(){
+								tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
+								cad='';
+								if(Ext.getCmp('base_grafica').getValue()!=1){
+									cad=Ext.getCmp('estado_grafica').getRawValue();
+									if(cad=='""')
+										cad='Recibidos'
+								}				
+								titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
+								if(tipoGrafica==1){
+									titulo='Documentos por Mes';
+								}
+								subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
+								crearGrafica(idTab, tipoGrafica, titulo, subtitulo);
 							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Transporte',
-								id: 'tabtransporte',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica1',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica1',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica1',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento1',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Procesamiento',
-								id: 'tabprocesamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica2',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica2',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica2',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento2',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Impresi&oacute;n',
-								id: 'tabimpresion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica3',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica3',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica3',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento3',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Visualizaci&oacute;n',
-								id: 'tabvisualizacion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica4',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica4',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica4',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento4',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Autonom&iacute;a Energ.',
-								id: 'tabautonomia',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica5',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica5',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica5',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento5',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Monitoreo',
-								id: 'tabmonitoreo',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica6',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica6',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica6',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento6',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									},{
-								title: 'Adq. de Datos',
-								id: 'tabadquisicion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-			xtype: 'fieldset',
-			title: 'Datos de Entrada',
-			collapsible:false,
-			border: true,
-			autoHeight:true, 
-			bodyStyle:'padding:0px',
-			items:[{
-				xtype: 'combo',
-				id: 'tipo_grafica7',
-				anchor: '40%',
-				name: 'nb_distrito',
-				fieldLabel: 'Tipo de Gr&aacute;fica',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store: new Ext.data.ArrayStore({
-					id: 0,
-					fields: ['id','valor'],
-					data: 	[[1, 'LINEAL'],
-							[2, 'BARRAS'],
-							[3, 'CIRCULAR']]
-				}),
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').disable();
-								Ext.getCmp('estado_grafica').disable();
-								store.removeAll();
-								store.loadData(DataLineal);
-							}
-							else{
-								Ext.getCmp('base_grafica').clearValue();
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('base_grafica').enable();
-								Ext.getCmp('estado_grafica').enable();
-								store.removeAll();
-								store.loadData(DataBC);
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'base_grafica7',
-				anchor: '40%',
-				name: 'base_grafica',
-				fieldLabel: 'Dato Base',
-				//hiddenName: 'nb_distrito',
-				valueField: 'id',
-				store:store,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'valor',
-				width: 120,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false,
-				listeners: {
-					select: {
-						fn: function(combo,record,index){
-							if(index==0){
-								Ext.getCmp('estado_grafica').clearValue();
-								Ext.getCmp('estado_grafica').disable();
-							}
-							else{
-								Ext.getCmp('estado_grafica').enable();
-							}
-							if(index==5){
-								storeEstado.load({params:{tipo_estado:2}});
-							}
-							else{
-								storeEstado.load({params:{tipo_estado:1}});
-							}
-						}
-					}
-				}
-			},{
-				xtype: 'combo',
-				id: 'estado_grafica7',
-				anchor: '30%',
-				name: 'estado_grafica',
-				fieldLabel: 'Estado',
-				//hiddenName: 'nb_distrito',
-				valueField: 'co_estado',
-				store: storeEstado,
-				mode: 'local',
-				triggerAction: 'all',
-				typeAhead: true,
-				displayField: 'nb_estado_graf',
-				width: 120,
-				listWidth: 250,
-				tabIndex: 10,
-				selectOnFocus: true,
-				emptyText: 'Seleccione...',
-				forceSelection: true,
-				editable: false,
-				allowBlank: false
-			},{
-                xtype: 'button',
-                text: 'Graficar',
-                handler: function(){
-					tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
-					cad='';
-					if(Ext.getCmp('base_grafica').getValue()!=1){
-						cad=Ext.getCmp('estado_grafica').getRawValue();
-						if(cad=='""')
-							cad='Recibidos'
-					}				
-					titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
-					if(tipoGrafica==1){
-						titulo='Documentos por Mes';
-					}
-					subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
-					crearGrafica(tipoGrafica, titulo, subtitulo);
-				}
-            }]
-		},panelGrafica,{
-			width:900,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_crecimiento7',
-                store: storeCrecimiento,
-                cm: colModelCrecimiento,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_crecimiento").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 400,
-				title:'Lista de Crecimientos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCrecimiento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }],
-        
-    }]
-									}]
-							}]
+					}]
+				},{
+					id: 'panelGrafica',
+					width: 820,
+					height: 400,
+					layout: 'fit'
+				},{
+					width:820,
+					items:[{
+							xtype: 'grid',
+							id: 'gd_crecimiento',
+							store: storeCrecimiento,
+							cm: colModelCrecimiento,
+							stripeRows: true,
+							iconCls: 'icon-grid',
+							sm: new Ext.grid.RowSelectionModel({
+								singleSelect: true,
+								}),
+							height: 400,
+							title:'Lista de Crecimientos',
+							border: true,
+							listeners: {
+								viewready: function(g) {
+													  }
+							},
+							bbar: new Ext.PagingToolbar({
+							store: storeCrecimiento,
+							pageSize: 50,
+							displayInfo: true,
+							displayMsg: 'Mostrando registros {0} - {1} de {2}',
+							emptyMsg: "No hay registros que mostrar",
+							})
+					}]		
 			}],
 		});
-	
- 
-	
-storeCrecimiento.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_crecimiento.php", ubicacion: ubicacion}});
+
+
+storeCrecimiento.load({params: {start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_crecimiento.php"}});
 gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_crecimiento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-		
-});
-/********************************************************************************************************/
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
-
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
@@ -1845,10 +530,8 @@ gridForm.render('form');
   <table  align="center">
     <tr>
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
-    </tr>
-    <tr>
-  		<td><div id="container"></div></td>
-    </tr>
+       </tr>
+
   </table>
 </body>
 </html>

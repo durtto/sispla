@@ -1,10 +1,11 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Documento</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -44,102 +47,84 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
+ 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
-	var bd = Ext.getBody();
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
+    var bd = Ext.getBody();
 
 	var url = {
        local:  '../jsonp/grid-filter.json',  // static data file
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
+
+/******************************************INICIO**StoreDocumento******************************************/     
 	
   var storeDocumento = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_documento.php',
 		remoteSort : true,
 		root: 'documentos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_documento.php"},	
         totalProperty: 'total',
 		idProperty: 'co_documento',
         fields: [{name: 'co_documento'},
         		{name: 'nb_documento'},
-        		{name: 'tx_descripcion'},
-        		{name: 'tx_url_direccion'},
         		{name: 'resp'}]
         });
     storeDocumento.setDefaultSort('co_documento', 'ASC');
+    
+/*****************************************FIN****StoreDocumento*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/******************************************INICIO**colModelDocumento******************************************/     
+    
     var colModelDocumento = new Ext.grid.ColumnModel([
-        {id:'co_documento',header: "Documento", width: 150, sortable: true, locked:false, dataIndex: 'co_documento'},
-        {header: "Nombre", width: 158, sortable: true, locked:false, dataIndex: 'nb_documento'},
-        {header: "Descripcion", width: 165, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Direccion", width: 165, sortable: true, locked:false, dataIndex: 'tx_url_direccion'},
+        {id:'co_documento',header: "Documento", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_documento'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_documento'},
       ]);
 	
-	
-	
-/*
- *    Here is where we create the Form
- */
+/******************************************FIN****colModelDocumento******************************************/     
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'reporte_documento',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Documentos',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
-		items: [{
-			width:640,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_documento',
-                store: storeDocumento,
-                cm: colModelDocumento,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_documento").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Lista de Documentos',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                       // g.getSelectionModel().selectRow(0);
-                    } // Allow rows to be rendered.
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeDocumento,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
-				})
-            }]
-			
-		}],
-        
+
+
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_documento',
+					name:'gd_documento',
+					store: storeDocumento,
+					cm: colModelDocumento,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:600,
+					title:'Lista de Documento',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeDocumento,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
 
-	
-	
 storeDocumento.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_documento.php"}});
-gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_documento").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-});
-/********************************************************************************************************/
+grid.render('grid');
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 
@@ -154,7 +139,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>

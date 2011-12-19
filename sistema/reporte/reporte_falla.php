@@ -1,10 +1,11 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Falla</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -45,20 +48,33 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
-	var bd = Ext.getBody();
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
+    var bd = Ext.getBody();
 
 	var url = {
        local:  '../jsonp/grid-filter.json',  // static data file
        remote: '../jsonp/grid-filter.php'
     };
     var local = true;
-    
+
+/******************************************INICIO**StoreFalla******************************************/     
+      
   var storeFalla = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_falla.php',
 		remoteSort : true,
 		root: 'fallas',
+        baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_falla.php'},
         totalProperty: 'total',
 		idProperty: 'co_falla',
         fields: [{name: 'co_falla'},
@@ -70,78 +86,53 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeFalla.setDefaultSort('co_falla', 'ASC');
+    
+/*****************************************FIN****StoreFalla*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
-    var colModelFalla = new Ext.grid.ColumnModel([
-        {id:'co_falla',header: "Falla", width: 100, sortable: true, locked:false, dataIndex: 'co_falla'},
+/******************************************INICIO**colModelFalla******************************************/     
+  
+   var colModelFalla = new Ext.grid.ColumnModel([
+        {id:'co_falla',header: "Falla", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_falla'},
         {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Fecha Inicio", width: 200, sortable: true, locked:false, dataIndex: 'fe_inicio'},      
-        {header: "Fecha Fin", width: 400, sortable: true, locked:false, dataIndex: 'fe_fin'},
+        {header: "Fecha Inicio", width: 200, sortable: true, locked:false, dataIndex: 'fe_inicio', renderer:convFechaDMY},      
+        {header: "Fecha Fin", width: 400, sortable: true, locked:false, dataIndex: 'fe_fin', renderer:convFechaDMY},
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
       ]);
-	
-		 
+      
+/******************************************FIN****colModelFalla******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'reporte_falla',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Falla',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
-		items: [{
-			width:640,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_falla',
-                store: storeFalla,
-                cm: colModelFalla,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_falla").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Lista de Falla',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeFalla,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
-				})
-            }]
-			
-		}],
-        
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_falla',
+					name:'gd_falla',
+					store: storeFalla,
+					cm: colModelFalla,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:600,
+					title:'Lista de Falla',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeFalla,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
-	
+
 storeFalla.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_falla.php"}});
-gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_falla").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-});
-/********************************************************************************************************/
+grid.render('grid');
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 
@@ -156,9 +147,8 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
-
 </body>
 </html>

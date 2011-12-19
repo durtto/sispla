@@ -13,7 +13,7 @@
 	if($ActiveD==1)
 	{
 			$_SESSION['apellido']    = $ActiveDVal[0]['sn'][0];
-			$_SESSION['indicador']   = strtolower($_REQUEST['login']);
+			$_SESSION['indicador']   = strtoupper($_REQUEST['login']);
 			$_SESSION['fecha_p']	 = date("d/m/Y");
 			/*********/
 			$usuario = new Usuario();

@@ -47,9 +47,7 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
- var winPersona;
- 
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -107,7 +105,7 @@ Ext.onReady(function(){
 /******************************************FIN****colModelUbicacion******************************************/     
 
 
-   var grid =new Ext.grid.EditorGridPanel({
+   var grid =new Ext.grid.GridPanel({
 					id: 'gd_ubicacion',
 					name:'gd_ubicacion',
 					store: storeUbicacion,
@@ -119,6 +117,7 @@ Ext.onReady(function(){
 					height: 400,
 					//width:670,
 					title:'Lista de Ubicaciones',
+					tools: [{id:'save'},{id:'print'}],
 					border: true,
 					bbar: new Ext.PagingToolbar({
 					store: storeUbicacion,

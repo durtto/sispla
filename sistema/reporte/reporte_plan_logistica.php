@@ -47,7 +47,6 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
@@ -91,7 +90,7 @@ Ext.onReady(function(){
 
    var colModelPlanLogistica = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_logistica',header: "Plan Logistica",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_logistica'},
+        {id:'co_plan_logistica',header: "Plan Logistica",hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_plan_logistica', renderer:planlg},
         {header: "Elaboracion", width: 360, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
       ]);
 	
@@ -122,7 +121,7 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelAlimentacion******************************************/     
 	
     var colModelAlimentacion = new Ext.grid.ColumnModel([
-    	{id:'co_alimentacion',header: "Codigo de Gestion", width: 680, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
+    	{id:'co_alimentacion',header: "Codigo de Gestion", width: 200, sortable: true, locked:false, dataIndex: 'co_alimentacion', renderer:alimentacion},
         {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
         {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
         {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
@@ -207,7 +206,7 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelTransporte******************************************/     
     
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte'},
+        {id:'co_transporte',header: "Transporte", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte', renderer:transporte},
         {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion'},
         //{header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
 		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
@@ -237,12 +236,12 @@ Ext.onReady(function(){
 						xtype:'combo',
 						fieldLabel: 'Plan Logistica',
 		         		store: new Ext.data.JsonStore({
-						url: '../interfaz/interfaz_combo.php',
-						   root: 'Resultados',
-						   idProperty: 'co_plan_logistica',
-						   baseParams: {accion:'plan_logistica'},
-						   fields:['co_plan_logistica','fe_elaboracion']
-						  }),
+							url: '../interfaz/interfaz_combo.php',
+						   	root: 'Resultados',
+						   	idProperty: 'co_plan_logistica',
+						   	baseParams: {accion:'plan_logistica'},
+						   	fields:['co_plan_logistica','fe_elaboracion']
+						  	}),
 						id:'co_plan_logistica',
 						valueField:'co_plan_logistica',
 				        displayField:'fe_elaboracion',
@@ -258,11 +257,12 @@ Ext.onReady(function(){
 				buttonAlign:'center',
 				//layout: 'fit',
 				buttons: [{
-			text: 'Consultar', 
-			id: 'btnConsultar',
-			tooltip:'Consultar Plan',
-			waitMsg: 'Consultando...',
-			handler: function(){
+							text: 'Consultar', 
+							id: 'btnConsultar',
+							tooltip:'Consultar Plan',
+							iconCls: 'consultar',
+							waitMsg: 'Consultando...',
+							handler: function(){
 							storeAlimentacion.load({params:{'accion': 'alimentacion', "plan": Ext.getCmp("co_plan_logistica").getValue(),
 										"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_plan_logistica.php"},
 							})
@@ -275,7 +275,7 @@ Ext.onReady(function(){
 							})
 							
 							}
-			}]},{
+							}]},{
 				xtype:'fieldset',	
 				autoHeight:true,
 				border: false,
@@ -288,7 +288,7 @@ Ext.onReady(function(){
 						deferredRender: false,
 						layoutOnTabChange: true,
 						activeTab: 0,
-						width: 720,
+						width: 780,
 						//layout: 'fit',
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
@@ -309,6 +309,7 @@ Ext.onReady(function(){
 						                iconCls: 'icon-grid',
 										title:'Lista de Alimentacion',
 						                border: true,
+						                tools: [{id:'save'},{id:'print'}],
 						                listeners: {
 						                    viewready: function(g) {
 						                    }
@@ -338,6 +339,7 @@ Ext.onReady(function(){
 						                //plugins: expanderContacto,
 						                height: 250,
 						                iconCls: 'icon-grid',
+						                tools: [{id:'save'},{id:'print'}],
 										title:'Lista de Alojamiento',
 						                border: true,
 						                listeners: {
@@ -369,6 +371,7 @@ Ext.onReady(function(){
 						                height: 250,
 						                iconCls: 'icon-grid',
 										title:'Lista de Transporte',
+										tools: [{id:'save'},{id:'print'}],
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {

@@ -47,9 +47,7 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
- var winPersona;
- 
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -112,7 +110,7 @@ Ext.onReady(function(){
 
 
 /******************************************INICIO**StoreCliente******************************************/     
-   var grid =new Ext.grid.EditorGridPanel({
+   var grid =new Ext.grid.GridPanel({
 					id: 'gd_usuario',
 					name:'gd_usuario',
 					store: storeUsuario,
@@ -124,6 +122,7 @@ Ext.onReady(function(){
 					height: 400,
 					//width:670,
 					title:'Lista de Usuario',
+					tools: [{id:'save'},{id:'print'}],
 					border: true,
 					bbar: new Ext.PagingToolbar({
 					store: storeUsuario,

@@ -1,10 +1,11 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Necesidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
-
+<link rel="stylesheet" type="text/css" href="../css/botones.css">
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -37,6 +38,8 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -45,8 +48,18 @@
  * http://www.extjs.com/license
  */
  var nuevo;
+ 
 Ext.onReady(function(){
-	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';	
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
+	var nroReg;
+/******************************************CAMPOS REQUERIDOS******************************************/     	
+
+	var camposReq = new Array(10);
+
+/*****************************************************************************************************/     
+
     var bd = Ext.getBody();
 
 	var url = {
@@ -55,10 +68,13 @@ Ext.onReady(function(){
     };
     var local = true;
 
+/******************************************INICIO**StoreNecesidad******************************************/     
+
   var storeNecesidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_necesidad.php',
 		remoteSort : true,
 		root: 'necesidades',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_necesidad.php"},
         totalProperty: 'total',
 		idProperty: 'co_necesidad',
         fields: [{name: 'co_necesidad'},
@@ -71,82 +87,54 @@ Ext.onReady(function(){
 		        {name: 'resp'}]
         });
     storeNecesidad.setDefaultSort('co_necesidad', 'ASC');
+    
+/*****************************************FIN****StoreNecesidad*****************************************/
+
 	
-	//total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
+/******************************************INICIO**colModelNecesidad******************************************/     
+
     var colModelNecesidad = new Ext.grid.ColumnModel([
-        {id:'co_necesidad',header: "Necesidad", width: 100, sortable: true, locked:false, dataIndex: 'co_necesidad'},
-        {header: "Necesidad Detectada", width: 200, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
-        {header: "Cantidad Requerida", width: 200, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
-        {header: "Justificacion", width: 400, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
-        {header: "Beneficio", width: 400, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
-        {header: "Annio Actual", width: 100, sortable: true, locked:false, dataIndex: 'fe_annio'},
-        {header: "Servicio", width: 100, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+        {id:'co_necesidad',header: "Necesidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_necesidad'},
+        {header: "Servicio", width: 120, sortable: true, locked:false, dataIndex: 'nb_servicio'},
+        {header: "Necesidad Detectada", width: 150, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
+        {header: "Cantidad Requerida", width: 140, sortable: true, locked:false, dataIndex: 'ca_requerida'},      
+        {header: "Justificaci&oacute;n", width: 145, sortable: true, locked:false, dataIndex: 'tx_justificacion',renderer: this.showJustificacion},
+        {header: "Beneficios", width: 145, sortable: true, locked:false, dataIndex: 'tx_beneficio'},
+        {header: "A&ntilde;o Actual", width: 98, sortable: true, locked:false, dataIndex: 'fe_annio', renderer:convFechaDMY},
       ]);
-	
-		 
+      
+/******************************************FIN****colModelNecesidad******************************************/     
 
-/*
- *    Here is where we create the Form
- */
 
-		
-    var gridForm = new Ext.FormPanel({
-        id: 'reporte_necesidad',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Necesidad',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:660,
-		items: [{
-			width:640,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_necesidad',
-                store: storeNecesidad,
-                cm: colModelNecesidad,
-			//plugins: [filters],
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("reporte_necesidad").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				//width:670,
-				title:'Lista de Necesidad',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeNecesidad,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				//plugins: [filters]
-				})
-            }]
-			
-		}],
-        
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_necesidad',
+					name:'gd_necesidad',
+					store: storeNecesidad,
+					cm: colModelNecesidad,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:600,
+					title:'Lista de Necesidad',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeNecesidad,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
 
-			
 
- 
-	
 storeNecesidad.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_necesidad.php"}});
-gridForm.render('form');
-	/****************************************************************************************************/
-	Ext.getCmp("gd_necesidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
-		nuevo = false;
-});
-/********************************************************************************************************/
+grid.render('grid');
+
+/******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
 
@@ -161,7 +149,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>

@@ -107,8 +107,6 @@ Ext.onReady(function(){
       
 /******************************************FIN****colModelNecesidad******************************************/     
 
-
-
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 	
     var gridForm = new Ext.FormPanel({
