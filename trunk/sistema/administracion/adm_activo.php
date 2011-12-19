@@ -165,6 +165,9 @@ Ext.onReady(function(){
 				{name: 'nb_capacidad'},
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
+		        {name: 'bo_soporte_tecnico'},
+				{name: 'tx_limitacion_expansion'},
+				{name: 'tx_costo_mantenimiento'},
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_ubicacion', 'ASC');
@@ -205,6 +208,9 @@ Ext.onReady(function(){
         {header: "Capacidad", width: 110, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
 		{header: "Categoria", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_categoria'},
         {header: "Categoria", width: 110, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+        {header: "Soporte Tecnico", width: 110, sortable: true, locked:false, dataIndex: 'bo_soporte_tecnico'},
+        {header: "Mantenimiento", width: 110, sortable: true, locked:false, dataIndex: 'tx_costo_mantenimiento'},
+        {header: "Limitacion", width: 110, sortable: true, locked:false, dataIndex: 'tx_limitacion_expansion'},
 
       ]);
 
@@ -258,10 +264,21 @@ Ext.onReady(function(){
 	            		allowBlank:false,
 	            		id: 'bo_critico',
 		                name: 'bo_critico',
-			            columns: 2,
+			            columns: [100, 100],
 			            items: [
 			                {boxLabel: 'Si', name: 'critico', checked : true, inputValue: 1},
 			                {boxLabel: 'No', name: 'critico', inputValue: 0},
+			           			]
+                    },{
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Soporte Tecnico',
+	            		allowBlank:false,
+	            		id: 'bo_soporte_tecnico',
+		                name: 'bo_soporte_tecnico',
+			            columns: [100, 100],
+			            items: [
+			                {boxLabel: 'Si', name: 'soporte', checked : true, inputValue: 1},
+			                {boxLabel: 'No', name: 'soporte', inputValue: 0},
 			           			]
                     },{
                         fieldLabel: 'Fecha de Incorporaci&oacute;n',
@@ -299,7 +316,34 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },
+                    },{
+							xtype: 'combo',
+							id: 'tx_costo_mantenimiento',
+							anchor: '40%',
+							name: 'tx_costo_mantenimiento',
+							fieldLabel: 'Costo Mantenimiento',
+							//hiddenName: 'nb_distrito',
+							valueField: 'tx_costo_mantenimiento',
+							store: new Ext.data.ArrayStore({
+								id: 0,
+								fields: ['id','tx_costo_mantenimiento'],
+								data: 	[['ALTO', 'ALTO'],
+										['MEDIO', 'MEDIO'],
+										['BAJO', 'BAJO']]
+							}),
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'tx_costo_mantenimiento',
+							width: 120,
+							anchor: '90%',
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+						},
                     GetCombo('co_estado','Estado'),
                     GetCombo('co_proceso','Proceso'),
                     GetCombo('co_tipo_activo','Tipo de Activo')]
@@ -334,7 +378,7 @@ Ext.onReady(function(){
 	            		fieldLabel: 'Vulnerable',
 	            		id: 'bo_vulnerable',
 		                name: 'bo_vulnerable',
-			            columns: 2,
+			            columns: [100, 100],
 			            items: [
 			                {boxLabel: 'SI', name: 'vulnerable', checked : true, inputValue: 1},
 			                {boxLabel: 'NO', name: 'vulnerable', inputValue: 0},
@@ -355,7 +399,34 @@ Ext.onReady(function(){
                         emptyText : null,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:122
-                    },
+                    },{
+							xtype: 'combo',
+							id: 'tx_limitacion_expansion',
+							anchor: '40%',
+							name: 'tx_limitacion_expansion',
+							fieldLabel: 'Limitacion Expansion',
+							//hiddenName: 'nb_distrito',
+							valueField: 'tx_limitacion_expansion',
+							store: new Ext.data.ArrayStore({
+								id: 0,
+								fields: ['id','tx_limitacion_expansion'],
+								data: 	[['ALTO', 'ALTO'],
+										['MEDIO', 'MEDIO'],
+										['BAJO', 'BAJO']]
+							}),
+							mode: 'local',
+							triggerAction: 'all',
+							typeAhead: true,
+							displayField: 'tx_limitacion_expansion',
+							width: 120,
+							anchor: '90%',
+							tabIndex: 10,
+							selectOnFocus: true,
+							emptyText: 'Seleccione...',
+							forceSelection: true,
+							editable: false,
+							allowBlank: false,
+						},
                     GetCombo('co_fabricante','Fabricante'),
                     GetCombo('co_ubicacion','Ubicaci&oacute;n'),
                     GetCombo('co_proveedor','Proveedor'),
@@ -390,6 +461,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+					storeActivo.data.clear();
 					Ext.getCmp("co_activo").focus();
 				}
 			},{
@@ -433,6 +505,9 @@ Ext.onReady(function(){
 								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'", ';
 								columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
 								columnas += '"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
+								columnas += '"tx_costo_mantenimiento" : "'+Ext.getCmp("tx_costo_mantenimiento").getValue()+'", ';
+								columnas += '"tx_limitacion_expansion" : "'+Ext.getCmp("tx_limitacion_expansion").getValue()+'", ';
+								columnas += '"bo_soporte_tecnico" : "'+Ext.getCmp("bo_soporte_tecnico").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
 								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
 								columnas += '"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}';
@@ -496,7 +571,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:870,
+			width:860,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_activo',
@@ -559,6 +634,13 @@ function selActivo(){
 								height: 870,
 								title:'Lista de Activos',
 								border: true,
+								bbar: new Ext.PagingToolbar({
+								store: storeActivo,
+								pageSize: 50,
+								displayInfo: true,
+								displayMsg: 'Mostrando registros {0} - {1} de {2}',
+								emptyMsg: "No hay registros que mostrar",
+								}),
 								listeners: {
 											delay: 10
 								}
@@ -604,6 +686,13 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								cm: colModelPersona,
 								sm: new Ext.grid.RowSelectionModel({
 									singleSelect: true
+								}),
+								bbar: new Ext.PagingToolbar({
+								store: storePersona,
+								pageSize: 50,
+								displayInfo: true,
+								displayMsg: 'Mostrando registros {0} - {1} de {2}',
+								emptyMsg: "No hay registros que mostrar",
 								}),
 								loadMask: true,
 								height: 200,

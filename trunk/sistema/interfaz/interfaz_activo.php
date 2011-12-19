@@ -38,7 +38,7 @@
 
 		
 			$respuesta = $activo->insertarActivo($activos);		
-			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivo($_REQUEST['ubicacion'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 
 			for($i=0; $i<count($resultado); $i++)
@@ -59,7 +59,7 @@
 			$condiciones = array_filter($condiciones, "vacio");
 
 			$respuesta = $activo->actualizarActivo($activos, $condiciones); 		
-			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivo($_REQUEST['ubicacion'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
 			for($i=0; $i<count($resultado); $i++)
@@ -76,7 +76,7 @@
 			$condiciones = array_filter($condiciones, "vacio");
 			
 			$respuesta = $activo->eliminarActivo($condiciones); 		
-			$resultado = $activo->cargarActivo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $activo->cargarActivo($_REQUEST['start'],$_REQUEST['ubicacion'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			$total = count($resultado);
 			
 			//for($i=0; $i<count($resultado); $i++)
