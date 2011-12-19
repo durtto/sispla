@@ -99,8 +99,8 @@ Ext.onReady(function(){
 	//var sm1 = new Ext.grid.CheckboxSelectionModel();
     var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
         {id:'co_equipo_continuidad', hidden: true, header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
-        {header: "co_indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "C&eacute;dula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 150, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
@@ -162,7 +162,7 @@ var gd_persona=new Ext.grid.EditorGridPanel({
 					//sm: sm1,
 					height: 400,
 					//width:670,
-					title:'Lista de Persona',
+					title:'Lista de Personas',
 					border: true,
 					bbar: new Ext.PagingToolbar({
 					store: storeEquipoContinuidad,
@@ -185,7 +185,7 @@ var gridForm = new Ext.FormPanel({
         id: 'frm_equipocont',
         frame: true,
 		labelAlign: 'center',
-        title: 'Equipo Continuidad',
+        title: '.: Equipo de Continuidad :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [gd_persona,{
@@ -209,13 +209,13 @@ var gridForm = new Ext.FormPanel({
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'Guardar EquipoContinuidad',
+			tooltip:'Guardar Equipo Continuidad',
 			disabled: true,
 			iconCls: 'save',
 			waitMsg: 'Saving...',
 			handler: function(){
 				
-				Ext.MessageBox.confirm("[ORINOCO]","Guardar ?", function(btn){
+				Ext.MessageBox.confirm("[ARAUCA]","Guardar ?", function(btn){
 					if(btn == 'yes'){
 						records_modificados=storeEquipoContinuidad.getModifiedRecords();
 						Ext.each(records_modificados,function(fila,i){
@@ -243,7 +243,7 @@ var gridForm = new Ext.FormPanel({
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -261,7 +261,7 @@ var gridForm = new Ext.FormPanel({
 			id: 'btnEliminar',
 			text: 'Eliminar', 
 			iconCls: 'delete',
-			tooltip:'Eliminar EquipoContinuidad',
+			tooltip:'Eliminar Equipo Continuidad',
 			disabled: true,
 			handler: function(){
 										storeEquipoContinuidad.baseParams = {'accion': 'eliminar'};
@@ -282,7 +282,7 @@ var gridForm = new Ext.FormPanel({
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});

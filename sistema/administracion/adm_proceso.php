@@ -1,7 +1,7 @@
 <?php session_start(); 
 //print_r($_SESSION); ?><html>
 <head>
-<title>Proceso</title>
+<title>Procesos</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
@@ -91,9 +91,9 @@ Ext.onReady(function(){
     
     var colModelProceso = new Ext.grid.ColumnModel([
         {id:'co_proceso',header: "Proceso", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proceso'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
+        {header: "Nombre", width: 280, sortable: true, locked:false, dataIndex: 'nb_proceso'},
+        {header: "Descripci&oacute;n", width: 420, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Cr&iacute;tico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
       ]);
       
 /******************************************FIN****colModelProceso*****************************************/     
@@ -107,7 +107,7 @@ Ext.onReady(function(){
         id: 'frm_proceso',
         frame: true,
 		labelAlign: 'center',
-        title: 'Proceso',
+        title: '.: Procesos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -118,7 +118,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Procesos',
+			title: 'Datos del Proceso',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -126,7 +126,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Proceso',
+                        fieldLabel: 'N&uacute;mero Proceso',
 						xtype:'numberfield',
 						id: 'co_proceso',
                         name: 'co_proceso',
@@ -155,7 +155,7 @@ Ext.onReady(function(){
 					labelWidth:100,
 					items: [{
                         xtype: 'radiogroup',
-	            		fieldLabel: 'Critico',
+	            		fieldLabel: 'Cr&iacute;tico',
 	            		id: 'bo_critico',
 		                name: 'bo_critico',
 			            columns: 2,
@@ -170,7 +170,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',

@@ -1,5 +1,6 @@
 <?php
 require_once 'MyPDO.php';
+require_once 'Ubicacion.php';
 
 /**
  * Define la informaci�n del grupo para las guardias.
@@ -10,14 +11,24 @@ class Grupo extends MyPDO
 {
 	/**
 	 * @AttributeType int
-	 * Clave primaria de la guardia
+	 * Clave primaria del grupo
 	 */
 	private $_co_grupo;
 	/**
 	 * @AttributeType string
-	 * Nombre de la guardia.
+	 * Nombre del grupo.
 	 */
 	private $_nb_grupo;
+	/**
+	 * @AttributeType string
+	 * Periodo en el que dispone del grupo.
+	 */
+	private $_nu_periodo;
+	/**
+	 * @AttributeType string
+	 *  Ubicacion del grupo.
+	 */
+	private $_co_ubicacion;
 	/**
 	 * @AssociationType Planes.Persona
 	 * @AssociationMultiplicity 1..*
@@ -28,7 +39,7 @@ class Grupo extends MyPDO
    * 
    * @access public
    */
-  public $columGrupo= array('co_grupo'=>'co_grupo', 'nb_grupo'=>'nb_grupo' );
+  public $columGrupo= array('co_grupo'=>'co_grupo', 'nb_grupo'=>'nb_grupo', 'nu_periodo'=>'nu_periodo', 'co_ubicacion'=>'co_ubicacion');
   
   /**
    * 
@@ -126,8 +137,15 @@ class Grupo extends MyPDO
    */
   public function cargarGrupo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
-	$query = "SELECT *
-                FROM tr001_grupo";
+	$query = "SELECT 
+  					tr001_grupo.co_grupo, 
+  					tr001_grupo.nb_grupo, 
+  					tr001_grupo.nu_periodo, 
+ 					tr001_grupo.co_ubicacion, 
+  					tr006_ubicacion.nb_ubicacion
+				FROM 
+  					tr001_grupo 
+ 				LEFT JOIN public.tr006_ubicacion ON (tr001_grupo.co_ubicacion = tr006_ubicacion.co_ubicacion)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

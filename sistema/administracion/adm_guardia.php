@@ -98,11 +98,11 @@ Ext.onReady(function(){
 	
     var colModelGuardia = new Ext.grid.ColumnModel([
         {id:'co_guardia',header: "Guardia", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_guardia'},
-        {header: "Nombre Guardia", width: 250, sortable: true, locked:false, dataIndex: 'nb_guardia'},
-        {header: "Numero", width: 50, sortable: true, locked:false, dataIndex: 'nu_numero'},
-        {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Hora de Inicio", width: 250, sortable: true, locked:false, dataIndex: 'nu_inicio_guardia'},
-        {header: "Hora Fin", width: 250, sortable: true, locked:false, dataIndex: 'nu_fin_guardia'},
+        {header: "Nombre de Guardia", width: 120, sortable: true, locked:false, dataIndex: 'nb_guardia'},
+        {header: "N&uacute;mero", width: 80, sortable: true, locked:false, dataIndex: 'nu_numero'},
+        {header: "Descripci&oacute;n", width: 418, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Hora de Inicio", width: 90, sortable: true, locked:false, dataIndex: 'nu_inicio_guardia'},
+        {header: "Hora Fin", width: 90, sortable: true, locked:false, dataIndex: 'nu_fin_guardia'},
         ]);
 	
 /******************************************FIN****colModelGuardia******************************************/     
@@ -115,7 +115,7 @@ Ext.onReady(function(){
         id: 'frm_guardia',
         frame: true,
 		labelAlign: 'center',
-        title: 'Guardia',
+        title: '.: Guardias :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -126,7 +126,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Procesos',
+			title: 'Datos de Guardia',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -134,7 +134,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Guardia',
+                        fieldLabel: 'C&oacute;digo de Guardia',
 						xtype:'numberfield',
 						id: 'co_guardia',
                         name: 'co_guardia',
@@ -168,7 +168,7 @@ Ext.onReady(function(){
 					labelWidth:100,
 					items: [new Ext.ux.form.SpinnerField({
 			                xtype: 'spinnerfield',
-			            	fieldLabel: 'Numero',
+			            	fieldLabel: 'N&uacute;mero',
 			            	name: 'nu_numero',
 			            	id: 'nu_numero',
 			            	minValue: 0,
@@ -191,7 +191,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -265,7 +265,7 @@ Ext.onReady(function(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -297,8 +297,8 @@ Ext.onReady(function(){
 										}
 										else{
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -324,7 +324,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Guardias',
+				title:'Listas de Guardias',
                 border: true,
                 listeners: {
                     viewready: function(g) {

@@ -96,8 +96,8 @@ Ext.onReady(function(){
 
    var colModelPlanLogistica = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_logistica',header: "Plan Logistica", width: 250, sortable: true, locked:false, dataIndex: 'co_plan_logistica',renderer:planlg},
-        {header: "Elaboracion", width: 250, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {id:'co_plan_logistica',header: "Plan de Log&iacute;stica", width: 415, sortable: true, locked:false, dataIndex: 'co_plan_logistica',renderer:planlg},
+        {header: "Elaboraci&oacute;n", width: 349, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
       ]);
 	
 /******************************************FIN****colModelPlanLogistica******************************************/     
@@ -135,7 +135,7 @@ Ext.onReady(function(){
 	var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelAlimentacion = new Ext.grid.ColumnModel([
     	expanderAlimentacion,
-        {id:'co_alimentacion',header: "Gestion de Alimentacion", width: 500, sortable: true, locked:false, dataIndex: 'co_alimentacion', renderer:alimentacion},
+        {id:'co_alimentacion',header: "Gesti&oacute;n de Alimentaci&oacute;n", width: 729, sortable: true, locked:false, dataIndex: 'co_alimentacion', renderer:alimentacion},
         //{header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
         //{header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
         //{header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
@@ -183,10 +183,10 @@ function alimentacion_seleccionadas(){
 
   var expanderAlojamiento  = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Direccion:</b> {di_ubicacion}</p>',
+            '<p><b>Direcci&oacute;n:</b> {di_ubicacion}</p>',
             '<p><b>Hotel:</b> {bo_hotel}</p>',
             '<p><b>Posada:</b> {bo_posada}</p>',
-            '<p><b>Telefono:</b> {tx_telefono}</p>'
+            '<p><b>Tel&eacute;fono:</b> {tx_telefono}</p>'
         )
     });
 
@@ -196,7 +196,7 @@ function alimentacion_seleccionadas(){
     var colModelAlojamiento = new Ext.grid.ColumnModel([
     	expanderAlojamiento,
         {id:'co_alojamiento',header: "Alojamiento", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
-        {header: "Lugar de Alojamiento", width: 500, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
+        {header: "Lugar de Alojamiento", width: 700, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
         //{header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
         //{header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel', renderer: hotel},
         //{header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada', renderer: hotel},
@@ -247,8 +247,8 @@ function alojamientos_seleccionados(){
     
     var sm4 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 250, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte', renderer:transporte},
-        {header: "Elaboracion", width: 250, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {id:'co_transporte',header: "Transporte", width: 200, hidden:false, sortable: true, locked:false, dataIndex: 'co_transporte', renderer:transporte},
+        {header: "Elaboraci&oacute;n", width: 499, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
 
       sm4,
       ]);
@@ -279,7 +279,7 @@ function transportes_seleccionados(){
 		//labelAlign: 'right',
 		labelWidth: 100, // label settings here cascade unless overridden
 		frame:true,
-		title: ':: Plan de logistica ::. ',
+		title: '.: Plan de log&iacute;stica :. ',
 		bodyStyle:'padding:5px',
 		width: 820,
 		layout: 'fit',
@@ -294,14 +294,14 @@ function transportes_seleccionados(){
 						labelAlign: 'center',
 						width:775,
 						buttonAlign:'center',
-						title: 'Plan Logistica',
+						title: 'Datos del Plan de Log&iacute;stica',
 			            bodyStyle:'padding:5px 5px 0px 5px',
 						items:[{
 								layout: 'form',
 								labelWidth:140,
 								border:false,
 								items: [{
-			                        fieldLabel: 'Numero de Plan Logistica',
+			                        fieldLabel: 'N&uacute;mero de Plan Log&iacute;stica',
 									xtype:'numberfield',
 									id: 'co_plan_logistica',
 			                        name: 'co_plan_logistica',
@@ -309,7 +309,7 @@ function transportes_seleccionados(){
 									//hideLabel: true,
 			                        width:160
 			                    }, {
-			                        fieldLabel: 'Fecha de Elaboracion',
+			                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
 									xtype:'datefield',
 									vtype:'validos',
 									id: 'fe_elaboracion',
@@ -350,7 +350,7 @@ function transportes_seleccionados(){
 						//layout: 'fit',
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
-								title: 'Logistica',
+								title: 'Log&iacute;stica',
 								id: 'tablogistica',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -365,7 +365,7 @@ function transportes_seleccionados(){
 						                cm: colModelPlanLogistica,
 						                height: 250,
 						                iconCls: 'icon-grid',
-										title:'Lista de Plan Logistica',
+										title:'Lista de Planes de Log&iacute;stica',
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {
@@ -380,7 +380,7 @@ function transportes_seleccionados(){
 										})
 									}]
 									},{
-								title: 'Alimentacion',
+								title: 'Alimentaci&oacute;n',
 								id: 'tabalimentacion',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -397,7 +397,7 @@ function transportes_seleccionados(){
 						                sm: sm3,
 						                height: 250,
 										//width:670,
-										title:'Lista de Alimentacion',
+										title:'Lista de Gesti&oacute;n de Alimentaci&oacute;n',
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {
@@ -427,7 +427,7 @@ function transportes_seleccionados(){
 						                iconCls: 'icon-grid',
 						                sm:sm1,
 						                height: 250,
-										title:'Lista de Alojamiento',
+										title:'Lista de Alojamientos',
 						                border: true,
 										bbar: new Ext.PagingToolbar({
 										store: storeAlojamiento,
@@ -468,6 +468,7 @@ function transportes_seleccionados(){
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',
+					iconCls:'add',
 					//disabled: true,
 					handler: function(){
 							nuevo=true;	
@@ -497,7 +498,7 @@ function transportes_seleccionados(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -526,8 +527,8 @@ function transportes_seleccionados(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -559,8 +560,8 @@ function transportes_seleccionados(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});

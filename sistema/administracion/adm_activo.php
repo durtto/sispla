@@ -223,7 +223,7 @@ Ext.onReady(function(){
         id: 'frm_activo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Actualizar Activos',
+        title: '.: Actualizar Activos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:880,
 		items: [{
@@ -234,7 +234,7 @@ Ext.onReady(function(){
 			width:870,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Activo',
+			title: 'Datos del Activo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -242,7 +242,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Código del Activo',
+                        fieldLabel: 'C&oacute;digo del Activo',
 						xtype:'numberfield',
 						id: 'co_activo',
                         name: 'co_activo',

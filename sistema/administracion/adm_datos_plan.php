@@ -112,7 +112,7 @@
         id: 'frm_dato',
         frame: true,
 		labelAlign: 'center',
-        title: 'Datos de Planes',
+        title: '.: Planes :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -123,7 +123,7 @@
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Datos',
+			title: 'Datos de Planes',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -131,7 +131,7 @@
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo del Componente',
+                        fieldLabel: 'C&oacute;digo del Componente',
 						xtype:'numberfield',
 						id: 'co_componente',
                         name: 'co_componente',
@@ -283,7 +283,7 @@
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -317,7 +317,7 @@
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
