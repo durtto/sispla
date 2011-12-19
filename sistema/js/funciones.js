@@ -657,14 +657,18 @@
         return val;
     }
     
-    
+    	function planlg(planlg){
+        return '<span style="color:black;">'+"Plan de Logistica"+" " + planlg +'</b></span>';
+        }
         function plan(plan){
         return '<span style="color:black;">'+"Plan de Localizacion"+" " + plan +'</b></span>';
         }
-       function transporte(transporte){
+       	function transporte(transporte){
         return '<span style="color:black;">'+"Plan de Transporte"+" " + transporte +'</b></span>';
         }
-    
+    	function alimentacion(alimentacion){
+        return '<span style="color:black;">'+"Plan de Alimentacion"+" " + alimentacion +'</b></span>';
+        }
     
     
        //Funcion para cambiar el coloer en el boolean

@@ -136,8 +136,8 @@ class Activo extends MyPDO
    * 
    * @access public
    */
-    public $columActivo= array('co_activo'=>'co_activo', 'nb_activo'=>'nb_activo', 'tx_descripcion'=>'tx_descripcion', 'co_sap'=>'co_sap', 'nu_serial'=>'nu_serial', 'nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable', 'fe_incorporacion'=>'fe_incorporacion', 'nu_vida_util'=>'nu_vida_util', 'co_activo_padre'=>'co_activo_padre', 'co_estado'=>'co_estado', 'co_fabricante'=>'co_fabricante', 'co_indicador'=>'co_indicador', 'co_ubicacion'=>'co_ubicacion', 'co_proceso'=>'co_proceso', 'co_proveedor'=>'co_proveedor',  'co_tipo_activo'=>'co_tipo_activo', 'co_nivel'=>'co_nivel');
-  
+    public $columActivo= array('co_activo'=>'co_activo','nb_activo'=>'nb_activo','tx_descripcion'=>'tx_descripcion','co_sap'=>'co_sap','nu_serial'=>'nu_serial','nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable','fe_incorporacion'=>'fe_incorporacion','nu_vida_util'=>'nu_vida_util','co_activo_padre'=>'co_activo_padre','co_estado'=>'co_estado','co_fabricante'=>'co_fabricante','co_indicador'=>'co_indicador','co_ubicacion'=>'co_ubicacion','co_proceso'=>'co_proceso','co_proveedor'=>'co_proveedor','co_tipo_activo'=>'co_tipo_activo','co_nivel'=>'co_nivel','bo_soporte_tecnico'=>'bo_soporte_tecnico','tx_limitacion_expansion'=>'tx_limitacion_expansion','tx_costo_mantenimiento'=>'tx_costo_mantenimiento');
+
   /**
    * 
    * @access public
@@ -280,7 +280,9 @@ class Activo extends MyPDO
 		  a.nu_serial, 
 		  a.tx_descripcion, 
 		  a.nu_etiqueta, 
-		  a.fe_incorporacion, 
+		  a.fe_incorporacion,
+		  a.tx_costo_mantenimiento,
+		  a.tx_limitacion_expansion,  
 		  a.nu_vida_util, 
 		  e.nb_estado, 
 		  a.co_estado, 
@@ -313,7 +315,12 @@ class Activo extends MyPDO
 		  WHEN a.bo_vulnerable = true
 		  THEN 'SI'
 		  ELSE 'NO'
-		  END AS bo_vulnerable
+		  END AS bo_vulnerable,
+		  CASE
+		  WHEN a.bo_soporte_tecnico = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_soporte_tecnico
 		FROM 
   			tr027_activo a
 		  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 

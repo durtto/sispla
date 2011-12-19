@@ -23,7 +23,7 @@
 			
 			case 'nuevo':
 			
-			$resultado = $grupo->NuevoGrupo($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+			$resultado = $grupo->NuevoGrupo();
 			$total= $resultado3 [0]['count'];
 
 			break;

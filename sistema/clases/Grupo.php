@@ -53,7 +53,7 @@ class Grupo extends MyPDO
   }
   
    public function NuevoGrupo() {
-	$nuevo = "select nextval ('tr001_grupo_seq') AS co_grupo;";
+	$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
 	
 	$c = $this->pdo->_query($nuevo);
 	

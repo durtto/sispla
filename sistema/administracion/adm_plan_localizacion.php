@@ -636,7 +636,11 @@ function personas_seleccionadas(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
-							gridForm.getForm().reset();
+							if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+							Ext.getCmp("gd_persona").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_proveedor").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_directorio").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_equipo").getSelectionModel().clearSelections();
 												}
 				}, {
 			text: 'Guardar', 
