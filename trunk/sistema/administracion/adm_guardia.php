@@ -83,7 +83,9 @@ Ext.onReady(function(){
         fields: [{name: 'co_guardia'},			
         		{name: 'nb_guardia'},				
         		{name: 'nu_numero'},	 
-        		{name: 'tx_descripcion'},		
+        		{name: 'tx_descripcion'},	
+        		{name: 'nu_inicio_guardia'},
+        		{name: 'nu_fin_guardia'},	
         		{name: 'resp'}]
        
         });
@@ -99,6 +101,8 @@ Ext.onReady(function(){
         {header: "Nombre Guardia", width: 250, sortable: true, locked:false, dataIndex: 'nb_guardia'},
         {header: "Numero", width: 50, sortable: true, locked:false, dataIndex: 'nu_numero'},
         {header: "Descripcion", width: 250, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Hora de Inicio", width: 250, sortable: true, locked:false, dataIndex: 'nu_inicio_guardia'},
+        {header: "Hora Fin", width: 250, sortable: true, locked:false, dataIndex: 'nu_fin_guardia'},
         ]);
 	
 /******************************************FIN****colModelGuardia******************************************/     
@@ -150,6 +154,12 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
+                    },{
+                        fieldLabel: 'Hora de Inicio',
+						xtype:'timefield',
+						id: 'nu_inicio_guardia',
+                        name: 'nu_inicio_guardia',
+                        width:160
                     }]
 				},{
 					layout: 'form',
@@ -168,7 +178,13 @@ Ext.onReady(function(){
 			            	incrementValue: 1,
 			            	accelerate: true,
 			            	width:60
-							})]
+							}),{
+                        fieldLabel: 'Hora Fin',
+						xtype:'timefield',
+						id: 'nu_fin_guardia',
+                        name: 'nu_fin_guardia',
+                        width:160
+                    }]
 			},{
 					layout: 'form',
 					border:false,
@@ -230,7 +246,9 @@ Ext.onReady(function(){
 							var columnas   = '{"co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'", ';
 							columnas += '"nb_guardia" : "'+Ext.getCmp("nb_guardia").getValue()+'", ';
 							columnas += '"nu_numero" : "'+Ext.getCmp("nu_numero").getValue()+'", ';
-							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'"}';
+							columnas += '"tx_descripcion" : "'+Ext.getCmp("tx_descripcion").getValue()+'", ';
+							columnas += '"nu_inicio_guardia" : "'+Ext.getCmp("nu_inicio_guardia").getValue()+'", ';
+							columnas += '"nu_fin_guardia" : "'+Ext.getCmp("nu_fin_guardia").getValue()+'"}';
 							storeGuardia.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_guardia" : "'+Ext.getCmp("co_guardia").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_guardia.php"},

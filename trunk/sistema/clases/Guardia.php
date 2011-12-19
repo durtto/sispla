@@ -29,6 +29,16 @@ class Guardia extends MyPDO
 	 */
 	private $_tx_descripcion;
 	/**
+	 * @AttributeType int
+	 * Hora inicio de la guardia.
+	 */
+	private $_nu_inicio_guardia;
+	/**
+	 * @AttributeType int
+	 * hora fin de la guardia.
+	 */
+	private $_nu_fin_guardia;
+	/**
 	 * @AssociationType Planes.Persona
 	 * @AssociationMultiplicity 1..*
 	 */
@@ -38,7 +48,7 @@ class Guardia extends MyPDO
    * 
    * @access public
    */
-  public $columGuardia= array('co_guardia'=>'co_guardia', 'nb_guardia'=>'nb_guardia', 'nu_numero'=>'nu_numero', 'tx_descripcion'=>'tx_descripcion');
+  public $columGuardia= array('co_guardia'=>'co_guardia', 'nb_guardia'=>'nb_guardia', 'nu_numero'=>'nu_numero', 'tx_descripcion'=>'tx_descripcion', 'nu_inicio_guardia'=>'nu_inicio_guardia', 'nu_fin_guardia'=>'nu_fin_guardia');
   
   /**
    * 
