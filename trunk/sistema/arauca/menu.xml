@@ -4,11 +4,11 @@
 	
 		<author first="Plan Maestro" titulo="">
 			<book title="Procesos Críticos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
-			<book title="Roles y Responsabilidad" titulo="Rol y Resp" url="../administracion/adm_rol_res.php"></book>
+			<book title="Roles y Responsabilidades" titulo="Rol y Resp" url="../administracion/adm_rol_res.php"></book>
 		</author>	
 			<author first="Plan de Localización" titulo="">
-				<book title="Plan localización" titulo="Localización" url="../administracion/adm_plan_localizacion.php"></book>
-				<book title="Equipo de Continuidad" titulo="Equipo de Cont" url="../administracion/adm_equipo_continuidad.php"></book>
+				<book title="Plan de Localización" titulo="Localización" url="../administracion/adm_plan_localizacion.php"></book>
+				<book title="Equipo de Continuidad" titulo="Equipo Cont" url="../administracion/adm_equipo_continuidad.php"></book>
 				<book title="Directorio" titulo="Directorio" url="../administracion/adm_directorio.php"></book>
 			</author>
 			<author first="Gestión de Guardias" titulo="">
@@ -16,14 +16,14 @@
 				<book title="Guardia" titulo="Guardia" url="../administracion/adm_guardia.php"></book>
 			</author>
 			<author first="Plan de Logística" titulo="">
-				<book title="Plan Logistica" titulo="Plan" url="../administracion/adm_plan_logistica.php"></book>
+				<book title="Plan de Logística" titulo="Logística" url="../administracion/adm_plan_logistica.php"></book>
 				<book title="Alimentación" titulo="Alimentación" url="../administracion/adm_alimentacion.php"></book>
 				<book title="Transporte" titulo="Transporte" url="../administracion/adm_transporte.php"></book>
 				<book title="Alojamiento" titulo="Alojamiento" url="../administracion/adm_alojamiento.php"></book>
 			</author>	
 			<author first="Recursos Requeridos" titulo="">
-				<book title="Equipo Operativos" titulo="Equipo" url="../administracion/adm_equipo_requerido.php"></book>
-				<book title="Equipos Sala Estrategica" titulo="Equipos Sala Estrategica"></book>
+				<book title="Equipos Operativos" titulo="Equipos O" url="../administracion/adm_equipo_requerido.php"></book>
+				<book title="Equipos Sala Estratégica" titulo="Equipos S-E"></book>
 			</author>
 		<author first="Plan de Contingencia" titulo="">
 			<book title="Esquema de Continuidad" titulo="Esquema Cont" url="../administracion/adm_continuidad.php"></book>

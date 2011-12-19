@@ -114,18 +114,18 @@ Ext.onReady(function(){
         id: 'frm_alimentacion',
         frame: true,
 		labelAlign: 'center',
-        title: 'Logistica de Alimentacion',
+        title: '.: Log&iacute;stica de Alimentaci&oacute;n :.',
         bodyStyle:'padding:5px 5px 5px 5px',
-		width:620,
+		width:820,
 		items: [{
 	   		xtype:'fieldset',
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:600,
+			width:775,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Alimentacion',
+			title: 'Alimentaci&oacute;n',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -146,7 +146,7 @@ Ext.onReady(function(){
 			            	width:60
 							}),
 							{
-							fieldLabel: 'Numero',
+							fieldLabel: 'N&uacute;mero',
 							xtype:'numberfield',
 							id: 'co_alimentacion',
 	                        name: 'co_alimentacion',
@@ -218,6 +218,7 @@ Ext.onReady(function(){
 				buttons: [{
 				text: 'Nuevo', 
 				tooltip:'',
+				iconCls:'add',
 				handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -241,7 +242,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -273,8 +274,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -287,7 +288,7 @@ Ext.onReady(function(){
 			id: 'btnEliminar',
 			text: 'Eliminar',
 			iconCls: 'delete', 
-			tooltip:'Eliminar alimentacion',
+			tooltip:'Eliminar Registro',
 			disabled: true,
 			handler: function(){
 										storeAlimentacion.baseParams = {'accion': 'eliminar'};
@@ -309,7 +310,7 @@ Ext.onReady(function(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});

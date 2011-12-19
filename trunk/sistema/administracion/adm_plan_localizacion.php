@@ -95,8 +95,8 @@ Ext.onReady(function(){
 
    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
    	
-        {id:'co_plan_localizacion',header: "Plan Localizacion", width: 200, sortable: true, locked:false, dataIndex: 'co_plan_localizacion',renderer:plan},
-        {header: "Fecha de Elaboraci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {id:'co_plan_localizacion',header: "Plan Localizacion", width: 400, sortable: true, locked:false, dataIndex: 'co_plan_localizacion',renderer:plan},
+        {header: "Fecha de Elaboraci&oacute;n", width: 349, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
       ]);
 	
 /******************************************FIN****colModelPlanLocalizacion******************************************/     
@@ -140,8 +140,8 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
     var colModelProveedor = new Ext.grid.ColumnModel([
     	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
-        {header: "Nombre", width: 380, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direcci&oacute;n", width: 330, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Nombre", width: 319, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
+        {header: "Direcci&oacute;n", width: 390, sortable: true, locked:false, dataIndex: 'di_oficina'},
         //{header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado'},
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},
@@ -232,9 +232,9 @@ function proveedores_seleccionados(){
    var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelDirectorio = new Ext.grid.ColumnModel([
         {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
-        {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
-        {header: "N&uacute;mero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
+        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_directorio'},
+        {header: "Tipo Directorio", width: 250, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {header: "N&uacute;mero Telef&oacute;nico", width: 230, sortable: true, locked:false, dataIndex: 'nu_telefono'},
       sm3,
       ]);
       
@@ -282,10 +282,10 @@ function directorios_seleccionados(){
 	var sm4 = new Ext.grid.CheckboxSelectionModel();
     var colModelEquipoContinuidad = new Ext.grid.ColumnModel([
         {id:'co_equipo_continuidad', hidden: true, header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_equipo_continuidad'},
-        {header: "co_indicador", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Indicador", width: 130, sortable: true, locked:false, dataIndex: 'co_indicador'},
         //{header: "Cedula", width: 150, sortable: true, locked:false, dataIndex: 'nu_cedula'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_persona'},
-		{header: "Apellido", width: 150, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Nombre", width: 180, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 180, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
 		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         //{header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
@@ -296,7 +296,7 @@ function directorios_seleccionados(){
      	//{header: "Rol", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         //{header: "Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol'},      
       	{header: "Responsabilidad", width: 200,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Responsabilidad", width: 180, dataIndex: 'nb_rol_resp'},
+        {header: "Responsabilidad", width: 239, dataIndex: 'nb_rol_resp'},
         sm4,
       	//{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
         //{header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
@@ -363,10 +363,10 @@ var storePersona = new Ext.data.JsonStore({
 //total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPersona = new Ext.grid.ColumnModel([
     	expanderPersona,
-        {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "C&eacute;dula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
-        {header: "Nombre", width: 110, sortable: true, locked:false, dataIndex: 'nb_persona'},
-		{header: "Apellido", width: 120, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {id:'co_indicador',header: "Indicador", width: 160, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "C&eacute;dula", width: 149, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 200, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         //{header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
 		//{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
         //{header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
@@ -409,7 +409,7 @@ function personas_seleccionadas(){
 		//labelAlign: 'right',
 		labelWidth: 100, // label settings here cascade unless overridden
 		frame:true,
-		title: ':: Plan de localizaci&oacute;n ::',
+		title: '.: Plan de localizaci&oacute;n :.',
 		bodyStyle:'padding:5px',
 		width: 820,
 		layout: 'fit',
@@ -424,7 +424,7 @@ function personas_seleccionadas(){
 						labelAlign: 'center',
 						width:775,
 						buttonAlign:'center',
-						title: 'Plan de Localizaci&oacute;n',
+						title: 'Datos del Plan de Localizaci&oacute;n',
 			            bodyStyle:'padding:5px 5px 0px 5px',
 						items:[{
 								layout: 'form',
@@ -438,15 +438,7 @@ function personas_seleccionadas(){
 			                        //hidden: true,
 									//hideLabel: true,
 			                        width:160
-			                    }, {
-			                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
-									xtype:'datefield',
-									vtype:'validos',
-									id: 'fe_elaboracion',
-			                        name: 'fe_elaboracion',
-									style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-			                        width:140
-			                    }, {
+			                    },{
 						xtype:'combo',
 						fieldLabel: 'Componente',
 		         		store: new Ext.data.JsonStore({
@@ -466,7 +458,15 @@ function personas_seleccionadas(){
 				        triggerAction: 'all',
 				        emptyText:'Selecione',
 				        selectOnFocus:true
-         				}]
+         				},{
+			                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
+									xtype:'datefield',
+									vtype:'validos',
+									id: 'fe_elaboracion',
+			                        name: 'fe_elaboracion',
+									style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+			                        width:140
+			                    }]
 						}]
 						},{			
 						xtype: 'tabpanel',
@@ -624,6 +624,7 @@ function personas_seleccionadas(){
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',
+					iconCls: 'add',
 					
 					//disabled: true,
 					handler: function(){

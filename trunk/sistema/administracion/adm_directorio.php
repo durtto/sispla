@@ -125,10 +125,10 @@ Ext.onReady(function(){
    
     var colModelDirectorio = new Ext.grid.ColumnModel([
         {id:'co_directorio',header: "Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_directorio'},
-        {header: "Nombre", width: 150, sortable: true, locked:false, dataIndex: 'nb_directorio'},
+        {header: "Nombre", width: 250, sortable: true, locked:false, dataIndex: 'nb_directorio'},
         {header: "Tipo Directorio", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_directorio'},
-        {header: "Tipo Directorio", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
-        {header: "Numero Telefonico", width: 150, sortable: true, locked:false, dataIndex: 'nu_telefono'},
+        {header: "Tipo de Directorio", width: 280, sortable: true, locked:false, dataIndex: 'nb_tipo_directorio'},
+        {header: "N&uacute;mero Telef&oacute;nico", width: 250, sortable: true, locked:false, dataIndex: 'nu_telefono'},
       ]);
       
 /******************************************FIN****colModelDirectorio******************************************/     
@@ -141,7 +141,7 @@ Ext.onReady(function(){
         id: 'frm_directorio',
         frame: true,
 		labelAlign: 'center',
-        title: 'Directorios Telefonicos',
+        title: '.: Directorios Telef&oacute;nicos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -152,15 +152,15 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Directorio',
+			title: 'Datos de Directorio',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
 					columnWidth:.55,
 					border:false,
-					items: [GetCombo('co_tipo_directorio','Tipo directorio'),{
-                        fieldLabel: 'Numero Directorio',
+					items: [GetCombo('co_tipo_directorio','Tipo de directorio'),{
+                        fieldLabel: 'N&uacute;mero Directorio',
 						xtype:'numberfield',
 						id: 'co_directorio',
                         name: 'co_directorio',
@@ -188,7 +188,7 @@ Ext.onReady(function(){
                         	}
                         }
                      },{
-                     	fieldLabel: 'Numero Telefonico',
+                     	fieldLabel: 'N&uacute;mero Telef&oacute;nico',
 						xtype:'numberfield',
 						id: 'nu_telefono',
                         name: 'nu_telefono',
@@ -218,7 +218,7 @@ Ext.onReady(function(){
 			},{
 			text: 'Guardar', 
 			id: 'btnGuardar',
-			tooltip:'Guardar Activo',
+			tooltip:'Guardar N&uacute;mero',
 			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
@@ -260,7 +260,7 @@ Ext.onReady(function(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -294,7 +294,7 @@ Ext.onReady(function(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -320,7 +320,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Directorios telefonicos',
+				title:'Lista de N&uacute;meros Telef&oacute;nicos',
                 tbar:[{
 			            text:'Agregar Tipo Directorio',
 			            tooltip:'Agregar Nuevo Tipo Directorio',
@@ -360,7 +360,7 @@ Ext.onReady(function(){
         id: 'frm_tpdirectorio',
         frame: true,
 		labelAlign: 'center',
-        title: 'Tipo Directorio',
+        title: 'Tipos de Directorio',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:400,
 		items: [{
@@ -370,14 +370,14 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:380,
 			buttonAlign:'center',
-			title: 'Tipo Directorio',
+			title: 'Tipo de Directorio',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Tipo',
+                        fieldLabel: 'N&uacute;mero de Tipo',
 						xtype:'numberfield',
 						id: 'co_tipo_directorio',
                         name: 'co_tipo_directorio',
@@ -407,6 +407,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -613,7 +614,7 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
         <div id="winTpDirectorio" class="x-hidden">
-    <div class="x-window-header">Registrar Tipo Directorio</div>
+    <div class="x-window-header">Registrar Tipo de Directorio</div>
 </div>
   </table>
 </body>

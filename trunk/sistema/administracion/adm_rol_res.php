@@ -96,7 +96,7 @@ Ext.onReady(function(){
     var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
         {header: "Nombre Rol", width: 250, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 332, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
+        {header: "Descripci&oacute;n", width: 332, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
         {header: "Rol Padre", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
         {header: "Nombre Rol Padre", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
 
@@ -112,7 +112,7 @@ Ext.onReady(function(){
         id: 'frm_rol',
         frame: true,
 		labelAlign: 'center',
-        title: 'Roles',
+        title: '.: Roles y Responsabilidades :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -123,7 +123,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Roles',
+			title: 'Rol y Responsabilidad',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -131,7 +131,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Rol',
+                        fieldLabel: 'C&oacute;digo de Rol',
 						xtype:'numberfield',
 						id: 'co_rol_resp',
                         name: 'co_rol_resp',
@@ -160,7 +160,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Codigo de Rol Padre',
+                        fieldLabel: 'C&oacute;digo de Rol Padre',
 						xtype:'numberfield',
 						id: 'co_rol_padre',
                         name: 'co_rol_padre',
@@ -246,7 +246,7 @@ Ext.onReady(function(){
 										
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -280,7 +280,7 @@ Ext.onReady(function(){
 											storeRolResp.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -307,7 +307,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Roles',
+				title:'Lista de Roles y Responsabilidades',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -348,7 +348,7 @@ Ext.onReady(function(){
 								}),
 								loadMask: true,
 								height: 200,
-								title:'Lista de Roles',
+								title:'Lista de Roles y Responsabilidades',
 								border: true,
 								listeners: {
 

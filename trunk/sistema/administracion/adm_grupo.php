@@ -77,6 +77,9 @@ Ext.onReady(function(){
 		idProperty: 'co_grupo',
         fields: [{name: 'co_grupo'},
         		{name: 'nb_grupo'},
+        		{name: 'nu_periodo'},
+        		{name: 'co_ubicacion'},
+        		{name: 'nb_ubicacion'},
         		{name: 'resp'}]
         });
     storeGrupo.setDefaultSort('co_grupo', 'ASC');
@@ -87,8 +90,12 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelGrupo******************************************/     
     
     var colModelGrupo = new Ext.grid.ColumnModel([
-        {id:'co_grupo',header: "Grupo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_grupo'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},
+        {id:'co_grupo',header: "Grupo", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_grupo'},
+        {header: "Nombre", width: 240, sortable: true, locked:false, dataIndex: 'nb_grupo'},
+        {header: "Periodo", width: 200, sortable: true, locked:false, dataIndex: 'nu_periodo'},
+        {header: "Ubicacion", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},
+        {header: "Ubicaci&oacute;n", width: 340, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},
+
       ]);
 	
 /******************************************FIN****colModelGrupo******************************************/     
@@ -101,7 +108,7 @@ Ext.onReady(function(){
         id: 'frm_grupo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Grupos',
+        title: '.: Grupos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -112,7 +119,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Grupos',
+			title: 'Datos del Grupo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -120,7 +127,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Grupo',
+                        fieldLabel: 'N&uacute;mero Grupo',
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
@@ -140,7 +147,22 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    }]
+                    },GetCombo('co_ubicacion','Ubicaci&oacute;n')]
+                    },{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
+                        fieldLabel: 'Periodo',
+						xtype:'numberfield',
+						id: 'nu_periodo',
+                        name: 'nu_periodo',
+                        allowBlank: false,
+						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+                        width:140,
+                       }]
+                    	
 			}]
 			},{
 				width: 800,  
@@ -189,7 +211,9 @@ Ext.onReady(function(){
 							else
 								storeGrupo.baseParams = {'accion': 'actualizar'};
 							var columnas   = '{"co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'", ';
-							columnas += '"nb_grupo" : "'+Ext.getCmp("nb_grupo").getValue()+'"}';
+							columnas += '"nb_grupo" : "'+Ext.getCmp("nb_grupo").getValue()+'", ';
+							columnas += '"nu_periodo" : "'+Ext.getCmp("nu_periodo").getValue()+'", ';
+							columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'"}';
 							storeGrupo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_grupo" : "'+Ext.getCmp("co_grupo").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_grupo.php"},
