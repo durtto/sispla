@@ -95,9 +95,11 @@ Ext.onReady(function(){
 	
     var colModelRolResp = new Ext.grid.ColumnModel([
         {id:'co_rol_resp',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_resp'},
-        {header: "Nombre Rol", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
-        {header: "Descripcion", width: 500, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
-        {header: "Rol Padre", width: 80, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
+        {header: "Nombre Rol", width: 250, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
+        {header: "Descripcion", width: 332, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
+        {header: "Rol Padre", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol_padre'},
+        {header: "Nombre Rol Padre", width: 200, sortable: true, locked:false, dataIndex: 'nb_rol_resp'},
+
         ]);
 	
 /******************************************FIN****colModelRolResp******************************************/     
@@ -171,7 +173,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
