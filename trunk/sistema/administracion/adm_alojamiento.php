@@ -94,10 +94,10 @@ Ext.onReady(function(){
     var colModelAlojamiento = new Ext.grid.ColumnModel([
         {id:'co_alojamiento',header: "Alojamiento", hidden:true, width: 100, sortable: true, locked:false, dataIndex: 'co_alojamiento'},
         {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_establecimiento'},
-        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
+        {header: "Direcci&oacute;n", width: 260, sortable: true, locked:false, dataIndex: 'di_ubicacion'},
         {header: "Hotel", width: 100, sortable: true, locked:false, dataIndex: 'bo_hotel', renderer: hotel},
         {header: "Posada", width: 100, sortable: true, locked:false, dataIndex: 'bo_posada', renderer: hotel},
-        {header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
+        {header: "Tel&eacute;fono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
       ]);
 	
 /******************************************FIN****colModelAlojamiento******************************************/     
@@ -109,7 +109,7 @@ Ext.onReady(function(){
         id: 'frm_alojamiento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Logistica de Alojamientos',
+        title: '.: Log&iacute;stica de Alojamientos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -120,7 +120,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Alojamiento',
+			title: 'Datos para Alojamiento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -128,7 +128,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo Alojamiento',
+                        fieldLabel: 'C&oacute;digo Alojamiento',
 						xtype:'numberfield',
 						id: 'co_alojamiento',
                         name: 'co_alojamiento',
@@ -150,7 +150,7 @@ Ext.onReady(function(){
                         	}
                         }
                     }, {
-                        fieldLabel: 'Direccion',
+                        fieldLabel: 'Direcci&oacute;n',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'di_ubicacion',
@@ -190,7 +190,7 @@ Ext.onReady(function(){
 			                {boxLabel: 'No', name: 'posada', inputValue: 0},
 			           			]
                     },{
-                         fieldLabel: 'Telefono',
+                         fieldLabel: 'Tel&eacute;fono',
 						xtype:'numberfield',
 						id: 'tx_telefono',
                         name: 'tx_telefono',
@@ -205,6 +205,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -228,7 +229,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -262,8 +263,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -296,8 +297,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -324,7 +325,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Alojamientos',
+				title:'Lista de Establecimientos para Alojamiento',
                 border: true,
                 listeners: {
                     viewready: function(g) {
