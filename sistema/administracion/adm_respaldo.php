@@ -112,7 +112,8 @@ Ext.onReady(function(){
 		        {name: 'nu_tiempo_retencion_data'},
 		        {name: 'tx_descripcion_data'},
 		        {name: 'fe_ultimo_respaldo'},
-		        {name: 'tx_ubicacion_logica_fisica'},
+		        {name: 'co_ubicacion'},
+		        {name: 'nb_ubicacion'},
 		        {name: 'co_activo'},
 		        {name: 'nb_activo'},
 		        {name: 'co_tipo_respaldo'},
@@ -134,10 +135,11 @@ Ext.onReady(function(){
         {header: "Retenci&oacute;n de Data", width: 110, sortable: true, locked:false, dataIndex: 'nu_tiempo_retencion_data'},
         {header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
         {header: "&Uacute;ltimo Respaldo", width: 110, sortable: true, locked:false, dataIndex: 'fe_ultimo_respaldo', renderer:convFechaDMY},
-        {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, sortable: true, locked:false, dataIndex: 'tx_ubicacion_logica_fisica'},        
+        {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},        
+	    {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},        
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Respaldo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
-        {header: "Tipo de Respaldo", width: 100, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
+        {header: "Tipo de Respaldo", width: 110, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
       ]);
 	
 /******************************************FIN****colModelRespaldo******************************************/     
@@ -214,7 +216,7 @@ Ext.onReady(function(){
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    }, GetCombo('co_ubicacion', 'Ubicacion')]
+                    }, GetCombo('co_ubicacion', 'Ubicaci&oacute;n')]
 			},{
 					layout: 'form',
 					border:false,
@@ -363,8 +365,8 @@ Ext.onReady(function(){
 				title:'Lista de Esquemas de Respaldo',
                 border: true,
                 tbar:[{
-			            text:'Agregar Tipo Respaldo',
-			            tooltip:'Agregar Tipo Respaldo',
+			            text:'Agregar Tipo de Respaldo',
+			            tooltip:'Agregar Tipo de Respaldo',
 			            handler: AgregarTpRespaldo,
 			            iconCls:'add',
 			        }],
