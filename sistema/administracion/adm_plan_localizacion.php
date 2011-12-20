@@ -691,6 +691,11 @@ function personas_seleccionadas(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
+							Ext.getCmp("gd_persona").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_proveedor").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_directorio").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_equipo").getSelectionModel().clearSelections();
 										}
 							}});
 							storePlanLocalizacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_localizacion.php'};
@@ -699,7 +704,8 @@ function personas_seleccionadas(){
 			},{
 			id: 'btnEliminarPlan',
 			text: 'Eliminar',
-			iconCls: 'delete', 
+			iconCls: 'delete',
+			hidden:true, 
 			tooltip:'Eliminar Plan',
 			disabled: true,
 			handler: function(){
@@ -725,6 +731,7 @@ function personas_seleccionadas(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
 										}
 										storePlanLocalizacion.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_localizacion.php'};
 

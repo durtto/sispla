@@ -250,6 +250,7 @@ Ext.onReady(function(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
 										}
 							}});
 							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};
@@ -284,6 +285,7 @@ Ext.onReady(function(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
 										}
 							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};										
 							}})}

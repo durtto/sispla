@@ -532,6 +532,10 @@ function transportes_seleccionados(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
+							Ext.getCmp("gd_alimentacion").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_alojamiento").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_transporte").getSelectionModel().clearSelections();
 										}
 							}});
 							storePlanLogistica.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_plan_logistica.php'};
@@ -543,6 +547,7 @@ function transportes_seleccionados(){
 			iconCls: 'delete', 
 			tooltip:'Eliminar Plan',
 			disabled: true,
+			hidden:true,
 			handler: function(){
 										storePlanLogistica.baseParams = {'accion': 'eliminar'};
 										storePlanLogistica.load({params:{
@@ -565,6 +570,8 @@ function transportes_seleccionados(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
+						
 										}
 							}})}
 			}],
