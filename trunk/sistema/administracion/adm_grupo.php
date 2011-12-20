@@ -85,7 +85,14 @@ Ext.onReady(function(){
     storeGrupo.setDefaultSort('co_grupo', 'ASC');
     
 /*****************************************FIN****StoreGrupo*****************************************/
-
+  var storeNuevoGrupo= new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_grupo.php',
+		remoteSort : true,
+		root: 'grupos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_grupo.php"},	
+        fields: [{name: 'nu_grupo'}]
+        });
+    
 	
 /******************************************INICIO**colModelGrupo******************************************/     
     
@@ -131,8 +138,8 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_grupo',
                         name: 'co_grupo',
-                        hidden:true,
-                        hideLabel:true,
+                        //hidden:true,
+                        //hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -180,6 +187,13 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 
 					}
+					storeNuevoGrupo.load({
+							callback: function () {
+									if(storeNuevoGrupo.getAt(0).data.nu_grupo){									
+										Ext.getCmp("co_grupo").setValue(storeNuevoGrupo.getAt(0).data.nu_grupo)
+									};
+							}
+					});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_grupo").focus();
 					

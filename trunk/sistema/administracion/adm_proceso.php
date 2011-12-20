@@ -301,6 +301,10 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_proceso").getForm().loadRecord(rec);
+                            if(rec.data.bo_critico == 'SI')
+								Ext.getCmp('bo_critico').setValue(1);
+							else
+								Ext.getCmp('bo_critico').setValue(0);
                         }
                         
                     }
