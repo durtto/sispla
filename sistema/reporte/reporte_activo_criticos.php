@@ -11,16 +11,22 @@
  	<!-- LIBS -->
  	<script type="text/javascript" src="../lib/ext-3.2.1/adapter/ext/ext-base.js"></script>
  	<!-- ENDLIBS -->
+
     <script type="text/javascript" src="../lib/ext-3.2.1/ext-all.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/shared/extjs/App.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowEditor.js"></script>
     <!-- overrides to base library -->
+
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/GridFilters.css" />
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/gridfilters/css/RangeMenu.css" />
+
     <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/shared/icons/silk.css" />
 	<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/RowEditor.css" />
+
+
     <!-- extensions para los filtros -->
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
+
 	<script type="text/javascript" src="../js/ext-lang-es.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
@@ -28,9 +34,12 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/StringFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/DateFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
+
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
+
 <script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
@@ -38,14 +47,13 @@
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
- var nuevo;
-  var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
+ var ubicacion = "<?php echo $_SESSION['co_ubicacion'] ?>";
+
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	
 /******************************************CAMPOS REQUERIDOS******************************************/     	
 
 	var camposReq = new Array(10);
@@ -68,7 +76,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
-		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
+		baseParams: {'start':0, 'limit':50, 'accion': 'critico', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -94,8 +102,15 @@ Ext.onReady(function(){
 				{name: 'nb_proveedor'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
+				{name: 'co_categoria'},
+				{name: 'nb_categoria'},
+				{name: 'co_capacidad'},
+				{name: 'nb_capacidad'},
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
+		        {name: 'bo_soporte_tecnico'},
+				{name: 'tx_limitacion_expansion'},
+				{name: 'tx_costo_mantenimiento'},
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_ubicacion', 'ASC');
@@ -107,377 +122,76 @@ Ext.onReady(function(){
 
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre del Activo", width: 200, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripci&oacute;n", fixed: true,width: 300, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
-      	{header: "C&oacute;digo SAP", width: 100, sortable: true, locked:false, dataIndex: 'co_sap'},
-      	{header: "Serial", width: 80, sortable: true, locked:false, dataIndex: 'nu_serial'},
-      	{header: "N&uacute;mero de Etiqueta", width: 120, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
-      	{header: "Cr&iacute;tico", width: 80, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
-      	{header: "Vulnerable", width: 80, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporaci&oacute;n", width: 140, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
-      	{header: "Vida &Uacute;til", width: 50, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
-      	{header: "Activo Padre", width: 150, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
-      	{header: "Estado", width: 150, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
-      	{header: "Estado", width: 150, sortable: true, locked:false, dataIndex: 'nb_estado'},
-      	{header: "Fabricante1", width: 150, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
-      	{header: "Fabricante", width: 150, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Responsable", width: 150, sortable: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Ubicacion", width: 150, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
-      	{header: "Ubicaci&oacute;n", width: 150, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
-      	{header: "Proceso", width: 150, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
-      	{header: "Proceso", width: 150, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 150, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
-      	{header: "Proveedor", width: 150, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
+        {header: "Nombre del Activo", width: 120, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripci&oacute;n", fixed: true,width: 190, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
+      	{header: "C&oacute;digo SAP", width: 120, sortable: true, locked:false, dataIndex: 'co_sap'},
+      	{header: "Serial", width: 120, sortable: true, locked:false, dataIndex: 'nu_serial'},
+      	{header: "N&uacute;mero de Etiqueta", width: 150, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
+      	{header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
+      	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
+      	{header: "Fecha de Incorporaci&oacute;n", width: 160, sortable: true, locked:false, dataIndex: 'fe_incorporacion', renderer:convFechaDMY},
+      	{header: "Vida &Uacute;til", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
+      	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
+      	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
+      	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
+      	{header: "Fabricante1", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
+      	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
+      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
+      	{header: "Ubicaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
+      	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
+      	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
+      	{header: "Proveedor", width: 120, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
+      	{header: "Proveedor", width: 120, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel' },       
-        {header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Tipo de Activo", width: 150, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Tipo de Activo", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
+        {header: "Tipo de Activo", width: 110, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+		{header: "Capacidad", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Capacidad", width: 110, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+		{header: "Categoria", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_categoria'},
+        {header: "Categoria", width: 110, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+        {header: "Soporte Tecnico", width: 110, sortable: true, locked:false, dataIndex: 'bo_soporte_tecnico'},
+        {header: "Mantenimiento", width: 110, sortable: true, locked:false, dataIndex: 'tx_costo_mantenimiento'},
+        {header: "Limitacion", width: 110, sortable: true, locked:false, dataIndex: 'tx_limitacion_expansion'},
 
       ]);
 
 /******************************************FIN****colModelActivo******************************************/     
 
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-		
-    var gridForm = new Ext.FormPanel({
-		id:'srv_ticket',
-		labelWidth: 100,
-		frame:true,
-		title: ':: Reporte de Activos ::. ',
-		bodyStyle:'padding:5px',
-		width: 960,
-		layout: 'fit',
-		items: [{
-				xtype:'fieldset',	
-				autoHeight:true,
-				border: false,
-				items: [{			
-						xtype: 'tabpanel',
-						id: 'tabPanel',
-						resizeTabs: true,
-						enableTabScroll: true,
-						deferredRender: false,
-						layoutOnTabChange: true,
-						activeTab: 0,
-						//layout: 'fit',
-						bodyStyle:'padding:5px; background-color: #f1f1f1;',
-						items: [{
-								title: 'Almacenamiento',
-								id: 'tabalmacenamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,
-								border: false,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Transporte',
-								id: 'tabtransporte',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo1',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Procesamiento',
-								id: 'tabprocesamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo2',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Impresi&oacute;n',
-								id: 'tabimpresion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo3',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Visualizaci&oacute;n',
-								id: 'tabvisualizacion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo4',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Autonom&iacute;a Energ.',
-								id: 'tabautonomia',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo5',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Monitoreo',
-								id: 'tabmonitoreo',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo6',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									},{
-								title: 'Adq. de Datos',
-								id: 'tabadquisicion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[{
-                xtype: 'grid',
-				id: 'gd_activo7',
-                store: storeActivo,
-                cm: colModelActivo,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_activo").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Activos',
-                border: true,
-                //tools: [{id:'save'},{id:'print'}],
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeActivo,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-									}]
-							}]
-			}],
-		});
+
+/******************************************INICIO**StoreCliente******************************************/     
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_activo',
+					name:'gd_activo',
+					store: storeActivo,
+					cm: colModelActivo,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					width:780,
+					title:'Lista de Activo',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeActivo,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
+    });
 
 
-storeActivo.load({params: {start: 0, limit: 50, accion:"critico", interfaz: "../interfaz/interfaz_activo.php", ubicacion: ubicacion}});
-gridForm.render('form');
+storeActivo.load({params: { start: 0, limit: 50, accion:"critico", interfaz: "../interfaz/interfaz_activo.php"}});
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
 });
+
 </script>
 </head>
 <body leftMargin=0 topMargin=0 marginheight="0" marginwidth="0">
@@ -489,10 +203,8 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
-       </tr>
-  		<tr>
-      </tr>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
+    </tr>
   </table>
 </body>
 </html>

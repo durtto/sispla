@@ -120,7 +120,7 @@ Ext.onReady(function(){
 					iconCls: 'icon-grid',
 					//sm: sm1,
 					height: 400,
-					//width:670,
+					//width:840,
 					title:'Lista de Usuario',
 					tools: [{id:'save'},{id:'print'}],
 					border: true,

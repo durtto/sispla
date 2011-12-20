@@ -1,4 +1,5 @@
-<html>
+<?php session_start(); 
+//print_r($_SESSION); ?><html>
 <head>
 <title>Cliente</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -37,8 +38,9 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
-<script type="text/javascript">
+	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/RowExpander.js"></script>
 
+<script type="text/javascript">
 /*!
  * Ext JS Library 3.2.1
  * Copyright(c) 2006-2010 Ext JS, Inc.
@@ -46,15 +48,11 @@
  * http://www.extjs.com/license
  */
 
- var nuevo;
-  var winPersona;
- 
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	var nroReg;
-	
 /******************************************CAMPOS REQUERIDOS******************************************/     	
 
 	var camposReq = new Array(10);
@@ -76,6 +74,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'personas',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_persona.php"},
 		idProperty: 'co_indicador',
         fields: [{name: 'co_indicador'},
          		{name: 'nu_cedula'},
@@ -138,6 +137,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_proceso.php',
 		remoteSort : true,
 		root: 'procesos',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_proceso.php"},
         totalProperty: 'total',
 		idProperty: 'co_proceso',
         fields: [{name: 'co_proceso'},
@@ -171,13 +171,16 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_cliente.php',
 		remoteSort : true,
 		root: 'clientes',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_cliente.php"},
         totalProperty: 'total',
 		idProperty: 'co_cliente',
         fields: [{name: 'co_cliente'},
 		        {name: 'co_proceso'},
         		{name: 'nb_proceso'},
 		        {name: 'co_indicador'},
+		        {name: 'tx_descripcion'},
         		{name: 'nb_persona'},
+        		{name: 'di_oficina'},
 		        {name: 'resp'}]
         });
     storeCliente.setDefaultSort('co_cliente', 'ASC');
@@ -189,70 +192,47 @@ Ext.onReady(function(){
 
 	    var colModelCliente = new Ext.grid.ColumnModel([
         {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
-        {header: "Proceso", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_proceso'},
+        {header: "co_proceso", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Proceso", width: 200, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "co_indicador", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
+        {header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
+
       ]);
       
 /******************************************FIN****colModelCliente******************************************/     
 
 
 
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
-    var gridForm = new Ext.FormPanel({
-        id: 'frm_cliente',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Cliente Proceso',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:820,
-		items: [{
-			width:800,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_cliente',
-                store: storeCliente,
-                cm: colModelCliente,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_cliente").getForm().loadRecord(rec);
-                        }
-                        
-                    }
-                }),
-                height: 250,
-				title:'Lista de Cliente/Proceso',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                                          }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeCliente,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
-			
-		}],
-        
+   var grid =new Ext.grid.GridPanel({
+					id: 'gd_cliente',
+					name:'gd_cliente',
+					store: storeCliente,
+					cm: colModelCliente,
+					stripeRows: true,
+					//plugins: expanderPersona,
+					iconCls: 'icon-grid',
+					//sm: sm1,
+					height: 400,
+					//width:670,
+					title:'Lista de Cliente',
+					tools: [{id:'save'},{id:'print'}],
+					border: true,
+					bbar: new Ext.PagingToolbar({
+					store: storeCliente,
+					pageSize: 50,
+					displayInfo: true,
+					displayMsg: 'Mostrando registros {0} - {1} de {2}',
+					emptyMsg: "No hay registros que mostrar",
+					})
     });
-	
-storeCliente.load({params: { start: 0, limit: 50, accion:"clienteproceso", interfaz: "../interfaz/interfaz_cliente.php"}});
-gridForm.render('form');
+
+
+storeCliente.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_cliente.php"}});
+grid.render('grid');
 
 /******************************************FIN DE LA CREACION DEL PANEL CENTRAL*******************************************/
-
-
-/********************************************************************************************************/
 
 });
 
@@ -267,7 +247,7 @@ gridForm.render('form');
   </div>
   <table  align="center">
     <tr>
-      <td><div id="form" style="margin: 0 0 0 0;"></div></td>
+      <td><div id="grid" style="margin: 0 0 0 0;"></div></td>
     </tr>
   </table>
 </body>
