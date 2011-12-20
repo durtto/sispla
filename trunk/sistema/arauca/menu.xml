@@ -22,8 +22,7 @@
 				<book title="Alojamiento" titulo="Alojamiento" url="../administracion/adm_alojamiento.php"></book>
 			</author>	
 			<author first="Recursos Requeridos" titulo="">
-				<book title="Equipos Operativos" titulo="Equipos O" url="../administracion/adm_equipo_requerido.php"></book>
-				<book title="Equipos Sala Estratégica" titulo="Equipos S-E"></book>
+				<book title="Equipos Operativos" titulo="Equipos Op." url="../administracion/adm_equipo_requerido.php"></book>
 			</author>
 		<author first="Plan de Contingencia" titulo="">
 			<book title="Esquema de Continuidad" titulo="Esquema Cont" url="../administracion/adm_continuidad.php"></book>

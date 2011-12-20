@@ -150,7 +150,7 @@ Ext.onReady(function(){
         id: 'frm_respaldo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Respaldo',
+        title: '.: Esquema de Respaldo :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -161,7 +161,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Respaldos',
+			title: 'Crear Esquema de Respaldo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -169,7 +169,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [GetCombo('co_activo', 'Activo'),{
-                        fieldLabel: 'Numero',
+                        fieldLabel: 'N&uacute;mero',
 						xtype:'numberfield',
 						id: 'co_respaldo',
                         name: 'co_respaldo',

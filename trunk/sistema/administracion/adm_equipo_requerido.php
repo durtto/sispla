@@ -105,14 +105,14 @@ Ext.onReady(function(){
 
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "C&eacute;dula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Direcci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Tel&eacute;fono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electr&oacute;nico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Tel&eacute;fono Habitaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
         {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
         {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
      	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
@@ -147,7 +147,7 @@ Ext.onReady(function(){
 /*****************************************FIN****StoreEquipo*****************************************/
     var expanderEquipo = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Descripcion:</b> {tx_descripcion}</p>'
+            '<p><b>Descripci&oacute;n:</b> {tx_descripcion}</p>'
         )
     });
 /******************************************INICIO**colModelEquipo******************************************/     
@@ -155,7 +155,7 @@ Ext.onReady(function(){
     var colModelEquipo = new Ext.grid.ColumnModel([
     	expanderEquipo,
         {id:'co_equipo',header: "Equipo", width: 200, hidden:true, sortable: true, locked:false, dataIndex: 'co_equipo'},
-        {header: "Equipo", width: 355, sortable: true, locked:false, dataIndex: 'nb_equipo'},
+        {header: "Equipo", width: 354, sortable: true, locked:false, dataIndex: 'nb_equipo'},
 		//{header: "Obsoleto", width: 60, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer: obsoleto},
         //{header: "Descripcion", width: 200, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
 		sm1,
@@ -196,8 +196,8 @@ function equipos_seleccionados(){
 /******************************************INICIO**colModelEquipoR******************************************/     
 	
     var colModelEquipoR = new Ext.grid.ColumnModel([
-        {id:'co_equipo_requerido',header: "Equipo", width: 200, hidden:false, sortable: true, locked:false, dataIndex: 'co_equipo_requerido'},
-        {header: "Principal", width: 100,hidden: false, sortable: true, locked:false, dataIndex: 'bo_principal', renderer: principal},
+        {id:'co_equipo_requerido',header: "Equipo", width: 348, hidden:false, sortable: true, locked:false, dataIndex: 'co_equipo_requerido'},
+        {header: "Principal", width: 360,hidden: false, sortable: true, locked:false, dataIndex: 'bo_principal', renderer: principal},
         ]);
 		
 /******************************************FIN****colModelEquipo******************************************/     
@@ -224,7 +224,7 @@ function equipos_seleccionados(){
 /*****************************************FIN****StoreTipoActivo*****************************************/
   var expanderTpActivo = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Categoria:</b> {nb_categoria}</p>',
+            '<p><b>Categor&iacute;a:</b> {nb_categoria}</p>',
             '<p><b>Servicio:</b> {nb_servicio}</p>'
         )
     });
@@ -235,7 +235,7 @@ function equipos_seleccionados(){
     var colModelTipoActivo = new Ext.grid.ColumnModel([
     	expanderTpActivo,
         {id:'co_tipo_activo',header: "Tipo Activo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_tipo_activo'},
-        {header: "Tipo", width: 340, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+        {header: "Tipo de Activo", width: 340, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
         //{header: "co_Categoria", width: 100, sortable: true, locked:false,hidden:true, dataIndex: 'co_categoria'},      
 		//{header: "Categoria", width: 100, sortable: true, locked:false, dataIndex: 'nb_categoria'},
 		//{header: "co_Servicio", width: 100, sortable: true,hidden:true, locked:false, dataIndex: 'co_servicio'},
@@ -276,7 +276,7 @@ function equipo_persona_seleccionados(){
         id: 'frm_equipo_requerido',
         frame: true,
 		labelAlign: 'center',
-        title: 'Equipo',
+        title: '.: Equipo Operativos Requeridos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -287,6 +287,7 @@ function equipo_persona_seleccionados(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
+			title: 'Datos de Equipos Requeridos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -294,7 +295,7 @@ function equipo_persona_seleccionados(){
 					columnWidth:.50,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Equipo',
+                        fieldLabel: 'N&uacute;mero de Equipo',
 						xtype:'numberfield',
 						id: 'co_equipo_requerido',
                         name: 'co_equipo_requerido',
@@ -358,7 +359,7 @@ function equipo_persona_seleccionados(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -389,8 +390,8 @@ function equipo_persona_seleccionados(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -423,7 +424,7 @@ function equipo_persona_seleccionados(){
 											
 											Ext.MessageBox.show({
 												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -438,7 +439,7 @@ function equipo_persona_seleccionados(){
 					items:[{
 					columnWidth:.50,
 					border:false,
-					width:398,
+					width:800,
 					stripeRows: true,
 	                xtype: 'grid',
 					id: 'gd_tipo_activo',
@@ -448,7 +449,7 @@ function equipo_persona_seleccionados(){
 	                height: 250,
 	                iconCls: 'icon-grid',
 	                plugins: expanderTpActivo,
-					title:'Tipo de Activos',
+					title:'Tipos de Activos',
 					/*tbar:[{
 			            text:'Agregar Vehiculo',
 			            tooltip:'Agregar Nuevo Vehiculo',
@@ -497,7 +498,6 @@ function equipo_persona_seleccionados(){
 					border: true,
 					width:800,
 					items:[{
-					columnWidth:.90,
 					border:false,
 					width:800,
 					stripeRows: true,
@@ -509,7 +509,7 @@ function equipo_persona_seleccionados(){
 	                height: 250,
 	                iconCls: 'icon-grid',
 	                //plugins: expanderVehiculo,
-					title:'Equipos Requerido',
+					title:'Equipos Requeridos',
 	                border: true,
 	                listeners: {
 						handler : function(){
@@ -559,7 +559,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								/*plugins: filtersCond,
 								bbar: pagingBarCond,*/
 								height: 200,
-								title:'Lista de Persona',
+								title:'Lista de Personas',
 								border: true,
 								listeners: {
 												/*render: function(g) {
@@ -641,7 +641,7 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
     </tr>
   </table>
 <div id="winPersona" class="x-hidden">
-    <div class="x-window-header">Ejegir Persona</div>	
+    <div class="x-window-header">Seleccionar Persona</div>	
 </div>
 </body>
 </html>
