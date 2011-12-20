@@ -97,10 +97,10 @@ Ext.onReady(function(){
 
     var colModelAlimentacion = new Ext.grid.ColumnModel([
         {id:'co_alimentacion',header: "Codigo de Gestion", hidden:true, width: 130, sortable: true, locked:false, dataIndex: 'co_alimentacion'},
-        {header: "Nro de Desayunos", width: 125, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
-        {header: "Nro de Almuerzos", width: 125, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
-        {header: "Nro de Cenas", width: 115, sortable: true, locked:false, dataIndex: 'ca_cena'},
-        {header: "Cantidad de Personas", width: 144, sortable: true, locked:false, dataIndex: 'ca_persona'},
+        {header: "Nro de Desayunos", width: 200, sortable: true, locked:false, dataIndex: 'ca_desayuno'},
+        {header: "Nro de Almuerzos", width: 200, sortable: true, locked:false, dataIndex: 'ca_almuerzo'},
+        {header: "Nro de Cenas", width: 200, sortable: true, locked:false, dataIndex: 'ca_cena'},
+        {header: "Cantidad de Personas", width: 198, sortable: true, locked:false, dataIndex: 'ca_persona'},
       ]);
 	
 /******************************************FIN****colModelAlimentacion******************************************/     
@@ -122,7 +122,7 @@ Ext.onReady(function(){
 			id: 'frm1',
 			disabled: true,
 			labelAlign: 'center',
-			width:775,
+			width:800,
 			buttonAlign:'center',
 			layout:'column',
 			title: 'Alimentaci&oacute;n',
@@ -212,7 +212,7 @@ Ext.onReady(function(){
 							})]
 				}]
 			},{
-				width: 600,  
+				width: 800,  
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
@@ -319,7 +319,7 @@ Ext.onReady(function(){
 							}})}
 			}]
 			},{
-			width:600,
+			width:800,
 			items:[{
                 xtype: 'grid',
 				id: 'gd_alimentacion',

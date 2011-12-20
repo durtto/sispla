@@ -95,8 +95,8 @@ Ext.onReady(function(){
 
   var expanderLinea = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
-            '<p><b>Telefono:</b> {tx_telefono}</p>',
-            '<p><b>Direccion:</b> {di_oficina}</p>'
+            '<p><b>Tel&eacute;fono:</b> {tx_telefono}</p>',
+            '<p><b>Direcci&oacute;n:</b> {di_oficina}</p>'
         )
     });
     
@@ -107,7 +107,7 @@ Ext.onReady(function(){
     var colModelLinea = new Ext.grid.ColumnModel([
 		 expanderLinea,
         {id:'co_linea',header: "Linea", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_linea'},
-        {header: "Nombre", width: 330, sortable: true, locked:false, dataIndex: 'nb_linea'},
+        {header: "Nombre", width: 708, sortable: true, locked:false, dataIndex: 'nb_linea'},
         //{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono'},
         //{header: "Direccion", width: 200, sortable: true, locked:false, dataIndex: 'di_oficina'},
     	sm1,
@@ -163,8 +163,8 @@ function lineas_seleccionadas(){
         {id:'co_vehiculo',header: "Vehiculo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
         //{header: "Placa", width: 100, sortable: true, locked:false, dataIndex: 'tx_placa'},
 		//{header: "Marca", width: 100, sortable: true, locked:false, dataIndex: 'tx_marca'},        
-		{header: "Modelo", width: 165, sortable: true, locked:false, dataIndex: 'tx_modelo'},
-		{header: "Unidad", width: 165, sortable: true, locked:false, dataIndex: 'tx_unidad'},
+		{header: "Modelo", width: 354, sortable: true, locked:false, dataIndex: 'tx_modelo'},
+		{header: "Unidad", width: 354, sortable: true, locked:false, dataIndex: 'tx_unidad'},
 		sm2,
       ]);
       
@@ -203,9 +203,9 @@ function vehiculos_seleccionados(){
 /******************************************INICIO**colModelTransporte******************************************/     
     var sm3 = new Ext.grid.CheckboxSelectionModel();
     var colModelTransporte = new Ext.grid.ColumnModel([
-        {id:'co_transporte',header: "Transporte", width: 200, sortable: true, locked:false, dataIndex: 'co_transporte', renderer: transporte},
-        {header: "Elaboracion", width: 100, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
-        {header: "Vehiculo", width: 100, hidden:false, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
+        {id:'co_transporte',header: "Transporte", width: 250, sortable: true, locked:false, dataIndex: 'co_transporte', renderer: transporte},
+        {header: "Elaboraci&oacute;n", width: 250, sortable: true, locked:false, dataIndex: 'fe_elaboracion', renderer:convFechaDMY},
+        {header: "Veh&iacute;culo", width: 248, hidden:false, sortable: true, locked:false, dataIndex: 'co_vehiculo'},
 		//{header: "Modelo", width: 160, sortable: true, locked:false, dataIndex: 'tx_modelo'},
 		//{header: "Unidad", width: 160, sortable: true, locked:false, dataIndex: 'tx_unidad'},
 
@@ -221,7 +221,7 @@ function vehiculos_seleccionados(){
 		//labelAlign: 'right',
 		labelWidth: 100, // label settings here cascade unless overridden
 		frame:true,
-		title: ':: Plan de Transporte ::. ',
+		title: '.: Plan de Transporte :. ',
 		bodyStyle:'padding:5px',
 		width: 820,
 		layout: 'fit',
@@ -234,9 +234,9 @@ function vehiculos_seleccionados(){
 						id: 'frm1',
 						disabled: true,
 						labelAlign: 'center',
-						width:775,
+						width:800,
 						buttonAlign:'center',
-						title: 'Plan de Transporte',
+						title: 'Datos del Plan de Transporte',
 						layout:'column',
 			            bodyStyle:'padding:5px 5px 0px 5px',
 						items:[{
@@ -245,7 +245,7 @@ function vehiculos_seleccionados(){
 								border:false,
 								columnWidth:.55,
 								items: [{
-				                        fieldLabel: 'Numero de Transporte',
+				                        fieldLabel: 'N&uacute;mero de Transporte',
 										xtype:'numberfield',
 										id: 'co_transporte',
 				                        name: 'co_transporte',
@@ -259,7 +259,7 @@ function vehiculos_seleccionados(){
 								columnWidth:.45,
 								border:false,
 								items: [{
-				                        fieldLabel: 'Fecha de Elaboracion',
+				                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
 										xtype:'datefield',
 										vtype:'validos',
 										id: 'fe_elaboracion',
@@ -280,7 +280,7 @@ function vehiculos_seleccionados(){
 						//layout: 'fit',
 						bodyStyle:'padding:5px; background-color: #f1f1f1;',
 						items: [{
-								title: 'Transporte',
+								title: 'Plan de Transporte',
 								id: 'tabtransporte',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -295,7 +295,7 @@ function vehiculos_seleccionados(){
 						                cm: colModelTransporte,
 						                height: 250,
 						                iconCls: 'icon-grid',
-										title:'Lista de Transporte',
+										title:'Lista de Planes de Transporte',
 						                border: true,
 	                					listeners: {
 										handler : function(){
@@ -314,7 +314,7 @@ function vehiculos_seleccionados(){
 										})
 									}]
 									},{
-								title: 'Vehiculos',
+								title: 'Veh&iacute;culos',
 								id: 'tabvehiculos',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -331,15 +331,15 @@ function vehiculos_seleccionados(){
 						                sm: sm1,
 						                height: 250,
 										//width:670,
-										title:'Lista de Vehiculos',
+										title:'Lista de Veh&iacute;culos',
 						                border: true,
 						                listeners: {
 						                    viewready: function(g) {
 						                                          }
 						                },
 						                tbar:[{
-							            text:'Agregar Vehiculo',
-							            tooltip:'Agregar Nuevo Vehiculo',
+							            text:'Agregar Veh&iacute;culo',
+							            tooltip:'Agregar Nuevo Veh&iacute;culo',
 							            handler: AgregarVehiculo,
 							            iconCls:'add'
 							        	}],
@@ -352,7 +352,7 @@ function vehiculos_seleccionados(){
 										})
 						            }]
 									},{
-								title: 'Linea',
+								title: 'L&iacute;neas de Taxi',
 								id: 'tablinea',
 								hideMode: 'offsets', 
 								autoHeight:true,		
@@ -367,11 +367,11 @@ function vehiculos_seleccionados(){
 						                iconCls: 'icon-grid',
 						                sm:sm2,
 						                height: 250,
-										title:'Lista de Lineas',
+										title:'Lista de L&iacute;neas',
 						                border: true,
 						                tbar:[{
-							            text:'Agregar Linea de Taxi',
-							            tooltip:'Agregar Nueva Linea',
+							            text:'Agregar L&iacute;nea de Taxi',
+							            tooltip:'Agregar Nueva L&iacute;nea',
 							            handler: AgregarLinea,
 							            iconCls:'add'
 							        	}],
@@ -390,6 +390,7 @@ function vehiculos_seleccionados(){
 				buttons: [{
 					text: 'Nuevo',
 					id: 'btnNuevo',
+					iconCls:'add',
 					//disabled: true,
 					handler: function(){
 							nuevo=true;	
@@ -415,7 +416,7 @@ function vehiculos_seleccionados(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -444,8 +445,8 @@ function vehiculos_seleccionados(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -478,8 +479,8 @@ function vehiculos_seleccionados(){
 										else{
 											storeTransporte.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -525,7 +526,7 @@ gridForm.render('form');
 			width:580,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Vehiculos',
+			title: 'Veh&iacute;culos',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -533,7 +534,7 @@ gridForm.render('form');
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Vehiculo',
+                        fieldLabel: 'N&uacute;mero Veh&iacute;culo',
 						xtype:'numberfield',
 						id: 'co_vehiculo',
                         name: 'co_vehiculo',
@@ -608,6 +609,7 @@ gridForm.render('form');
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls:'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -622,6 +624,7 @@ gridForm.render('form');
 			text: 'Guardar', 
 			id: 'btnGuardar',
 			tooltip:'',
+			iconCls: 'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -630,7 +633,7 @@ gridForm.render('form');
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacue;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -662,8 +665,8 @@ gridForm.render('form');
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -672,39 +675,6 @@ gridForm.render('form');
 							storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_vehiculo.php'};
 						}
 				}
-			},{
-			id: 'btnEliminar',
-			text: 'Eliminar', 
-			tooltip:'Eliminar Vehiculo',
-			disabled: true,
-			handler: function(){
-										storeVehiculo.baseParams = {'accion': 'eliminar'};
-										storeVehiculo.load({params:{
-												"condiciones": '{ "co_vehiculo" : "'+Ext.getCmp("co_vehiculo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_vehiculo.php"},
-										callback: function () {
-										storeVehiculo.baseParams = {'accion': 'refrescar'};
-
-										if(storeVehiculo.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storeVehiculo.getAt(0).data.resp,
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											storeVehiculo.baseParams = {'accion': 'refrescar'};
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
-									storeVehiculo.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_vehiculo.php'};
-
-							}})}
 			}]
 			}],
         
@@ -744,13 +714,13 @@ gridForm.render('form');
 		width:600,
 		items: [{
 	   		xtype:'fieldset',
-			id: 'frm1',
+			id: 'frm2',
 			disabled: true,
 			labelAlign: 'center',
 			width:580,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Lineas',
+			title: 'L&iacute;neas',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -758,7 +728,7 @@ gridForm.render('form');
 					columnWidth:.50,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Linea',
+                        fieldLabel: 'N&uacute;mero de L&iacute;nea',
 						xtype:'numberfield',
 						id: 'co_linea',
                         name: 'co_linea',
@@ -785,7 +755,7 @@ gridForm.render('form');
 					columnWidth:.50,
 					border:false,
 					items: [{
-                        fieldLabel: 'Telefono',
+                        fieldLabel: 'Tel&eacute;fono',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'tx_telefono',
@@ -793,7 +763,7 @@ gridForm.render('form');
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:120
                     }, {
-                        fieldLabel: 'Direccion',
+                        fieldLabel: 'Direcci&oacute;n',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'di_oficina',
@@ -814,20 +784,21 @@ gridForm.render('form');
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls:'add',
 			handler: function(){
 					nuevo = true;
-					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
+					Ext.getCmp("btnGuardarlinea").enable();
+					if(Ext.getCmp("frm2").disabled){
+						Ext.getCmp("frm2").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_linea").focus();
 				}
 			},{
 			text: 'Guardar', 
-			id: 'btnGuardar',
+			id: 'btnGuardarlinea',
 			tooltip:'',
+			iconCls:'save',
 			disabled: true,
 			waitMsg: 'Saving...',
 			handler: function(){
@@ -836,7 +807,7 @@ gridForm.render('form');
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -867,8 +838,8 @@ gridForm.render('form');
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -877,35 +848,6 @@ gridForm.render('form');
 							storeLinea.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_linea.php'};
 						}
 				}
-			},{
-			id: 'btnEliminar',
-			text: 'Eliminar', 
-			tooltip:'Eliminar Linea',
-			disabled: true,
-			handler: function(){
-										storeLinea.baseParams = {'accion': 'eliminar'};
-										storeLinea.load({params:{
-												"condiciones": '{ "co_linea" : "'+Ext.getCmp("co_linea").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_linea.php"},
-										callback: function () {
-										if(storeLinea.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storeLinea.getAt(0).data.resp,
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
-							}})}
 			}]
 			}],
         
@@ -959,10 +901,10 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
     <div id="winVehiculo" class="x-hidden">
-    <div class="x-window-header">Registrar Vehiculo</div>
+    <div class="x-window-header">Registrar Veh&iacute;culo</div>
 </div>
     <div id="winLinea" class="x-hidden">
-    <div class="x-window-header">Registrar Linea</div>
+    <div class="x-window-header">Registrar L&iacute;nea</div>
 </div>
   </table>
 </body>
