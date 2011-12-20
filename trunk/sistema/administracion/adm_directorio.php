@@ -357,204 +357,205 @@ Ext.onReady(function(){
 						closeAction :'hide',
 						plain : true,
 						items : [new Ext.FormPanel({
-        id: 'frm_tpdirectorio',
-        frame: true,
-		labelAlign: 'center',
-        title: 'Tipos de Directorio',
-        bodyStyle:'padding:5px 5px 5px 5px',
-		width:400,
-		items: [{
-	   		xtype:'fieldset',
-			id: 'frm1',
-			disabled: true,
-			labelAlign: 'center',
-			width:380,
-			buttonAlign:'center',
-			title: 'Tipo de Directorio',
-            bodyStyle:'padding:5px 5px 0px 5px',
-			items:[{
-					layout: 'form',
-					labelWidth:140,
-					border:false,
-					items: [{
-                        fieldLabel: 'N&uacute;mero de Tipo',
-						xtype:'numberfield',
-						id: 'co_tipo_directorio',
-                        name: 'co_tipo_directorio',
-                        allowBlank:false,
-                        hidden: true,
-						hideLabel: true,
-                        width:160
-                    }, {
-                        fieldLabel: 'Nombre',
-						xtype:'textfield',
-						id: 'nb_tipo_directorio',
-                        name: 'nb_tipo_directorio',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                    }]
-			}]
-			},{
-				width: 380,  
-				buttonAlign:'center',
-				layout: 'fit', 	
-				buttons: [{
-			text: 'Nuevo', 
-			tooltip:'',
-			iconCls: 'add',
-			handler: function(){
-					nuevo = true;
-					Ext.getCmp("btnGuardar").enable();
-					Ext.getCmp("btnEliminar").enable();
-					if(Ext.getCmp("frm1").disabled){
-						Ext.getCmp("frm1").enable();
-					}
-					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_tipo_directorio").focus();
-				}
-			},{
-			text: 'Guardar',
-			iconCls: 'save',
-			id: 'btnGuardar',
-			tooltip:'',
-			disabled: true,
-			waitMsg: 'Saving...',
-			handler: function(){
-						var campos='';
-						var camposForm = Ext.getCmp("frm_tpdirectorio").getForm().getValues(false);	
-						campos = verifObligatorios(camposForm, camposReq);
-						if(campos != ''){		
-							Ext.MessageBox.show({
-								title: 'ATENCION',
-								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
-								buttons: Ext.MessageBox.OK,
-								icon: Ext.MessageBox.WARNING
-							});
-						}
-						else
-						{
-							if(nuevo)						
-								storeTpDirectorio.baseParams = {'accion': 'insertar'};
-							else
-								storeTpDirectorio.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'", ';
-							columnas += '"nb_tipo_directorio" : "'+Ext.getCmp("nb_tipo_directorio").getValue()+'"}';
-							storeTpDirectorio.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
-										callback: function () {
-										if(storeTpDirectorio.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storeTpDirectorio.getAt(0).data.resp, 
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
-							}});
-							storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
-						}
-				}
-			},{
-			id: 'btnEliminar',
-			text: 'Eliminar',
-			iconCls: 'delete', 
-			tooltip:'Eliminar Tipo Directorio',
-			disabled: true,
-			handler: function(){
-										storeTpDirectorio.baseParams = {'accion': 'eliminar'};
-										storeTpDirectorio.load({params:{
-												"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
-										callback: function () {
-										storeTpDirectorio.baseParams = {'accion': 'eliminar'};
-										if(storeTpDirectorio.getAt(0).data.resp!=true){		
-											Ext.MessageBox.show({
-												title: 'ERROR',
-												msg: storeTpDirectorio.getAt(0).data.resp,
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.ERROR
-											});						
-										}
-										else{
-											
-											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
-												buttons: Ext.MessageBox.OK,
-												icon: Ext.MessageBox.INFO
-											});
-										}
-						storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
-							}})}
-			}]
-			},{
-			width:380,
-			items:[{
-                xtype: 'grid',
-				id: 'gd_tpdirectorio',
-                store: storeTpDirectorio,
-                cm: colModeltpDirectorio,
-                stripeRows: true,
-                iconCls: 'icon-grid',
-                sm: new Ext.grid.RowSelectionModel({
-                    singleSelect: true,
-                    listeners: {
-                        rowselect: function(sm, row, rec) {
-                            Ext.getCmp("frm_tpdirectorio").getForm().loadRecord(rec);
-                        }
-                    }
-                }),
-                height: 250,
-				title:'Tipos de Directorio',
-                border: true,
-                listeners: {
-                    viewready: function(g) {
-                    }
-                },
-				bbar: new Ext.PagingToolbar({
-				store: storeTpDirectorio,
-				pageSize: 50,
-				displayInfo: true,
-				displayMsg: 'Mostrando registros {0} - {1} de {2}',
-				emptyMsg: "No hay registros que mostrar",
-				})
-            }]
+							        id: 'frm_tpdirectorio',
+							        frame: true,
+									labelAlign: 'center',
+							        title: 'Tipos de Directorio',
+							        bodyStyle:'padding:5px 5px 5px 5px',
+									width:400,
+									items: [{
+									   		xtype:'fieldset',
+											id: 'frm1',
+											disabled: true,
+											labelAlign: 'center',
+											width:380,
+											buttonAlign:'center',
+											title: 'Tipo de Directorio',
+								            bodyStyle:'padding:5px 5px 0px 5px',
+											items:[{
+													layout: 'form',
+													labelWidth:140,
+													border:false,
+													items: [{
+							                        			fieldLabel: 'N&uacute;mero de Tipo',
+																xtype:'numberfield',
+																id: 'co_tipo_directorio1',
+										                        name: 'co_tipo_directorio1',
+										                        allowBlank:false,
+										                        hidden: true,
+																hideLabel: true,
+										                        width:160
+										                    	},{
+										                        fieldLabel: 'Nombre',
+																xtype:'textfield',
+																id: 'nb_tipo_directorio',
+										                        name: 'nb_tipo_directorio',
+										                        allowBlank:false,
+																style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+										                        width:160,
+										                        listeners:{
+										                        	change: function(t, newVal, oldVal){
+										                        		t.setValue(newVal.toUpperCase())
+										                        										}
+										                       		 		}
+										                    	}]
+													}]
+											},{
+											width: 380,  
+											buttonAlign:'center',
+											layout: 'fit', 	
+											buttons: [{
+														text: 'Nuevo', 
+														tooltip:'',
+														iconCls: 'add',
+														handler: function(){
+																	nuevo = true;
+																	Ext.getCmp("btnGuardar").enable();
+																	Ext.getCmp("btnEliminar").enable();
+																	if(Ext.getCmp("frm1").disabled){
+																		Ext.getCmp("frm1").enable();
+																	}
+																	if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+																	Ext.getCmp("co_tipo_directorio1").focus();
+																		}
+														},{
+														text: 'Guardar',
+														iconCls: 'save',
+														id: 'btnGuardar',
+														tooltip:'',
+														disabled: true,
+														waitMsg: 'Saving...',
+														handler: function(){
+																	var campos='';
+																	var camposForm = Ext.getCmp("frm_tpdirectorio").getForm().getValues(false);	
+																	campos = verifObligatorios(camposForm, camposReq);
+																	if(campos != ''){		
+																			Ext.MessageBox.show({
+																			title: 'ATENCION',
+																			msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
+																			buttons: Ext.MessageBox.OK,
+																			icon: Ext.MessageBox.WARNING
+																		});
+																	}
+																	else
+																	{
+																		if(nuevo)						
+																			storeTpDirectorio.baseParams = {'accion': 'insertar'};
+																		else
+																			storeTpDirectorio.baseParams = {'accion': 'actualizar'};
+																		var columnas   = '{"co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio1").getValue()+'", ';
+																			columnas += '"nb_tipo_directorio" : "'+Ext.getCmp("nb_tipo_directorio").getValue()+'"}';
+																		storeTpDirectorio.load({params:{"columnas" : columnas,
+																							"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio1").getValue()+'"}', 
+																							"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
+																					callback: function () {
+																					if(storeTpDirectorio.getAt(0).data.resp!=true){		
+																						Ext.MessageBox.show({
+																							title: 'ERROR',
+																							msg: storeTpDirectorio.getAt(0).data.resp, 
+																							buttons: Ext.MessageBox.OK,
+																							icon: Ext.MessageBox.ERROR
+																						});						
+																					}
+																					else{
+																						
+																						Ext.MessageBox.show({
+																							title: 'INFORMACION',
+																							msg: "Datos Guardados con exito",
+																							buttons: Ext.MessageBox.OK,
+																							icon: Ext.MessageBox.INFO
+																						});
+																						gridForm.getForm().reset();
+																					}
+																		}});
+																		storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
+																	}
+															}
+														},{
+														id: 'btnEliminar',
+														text: 'Eliminar',
+														iconCls: 'delete', 
+														tooltip:'Eliminar Tipo Directorio',
+														disabled: true,
+														handler: function(){
+																		storeTpDirectorio.baseParams = {'accion': 'eliminar'};
+																		storeTpDirectorio.load({params:{
+																				"condiciones": '{ "co_tipo_directorio" : "'+Ext.getCmp("co_tipo_directorio1").getValue()+'"}', 
+																				"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_tipo_directorio.php"},
+																		callback: function () {
+																		storeTpDirectorio.baseParams = {'accion': 'eliminar'};
+																		if(storeTpDirectorio.getAt(0).data.resp!=true){		
+																			Ext.MessageBox.show({
+																				title: 'ERROR',
+																				msg: storeTpDirectorio.getAt(0).data.resp,
+																				buttons: Ext.MessageBox.OK,
+																				icon: Ext.MessageBox.ERROR
+																			});						
+																		}
+																		else{
+																			
+																			Ext.MessageBox.show({
+																				title: 'INFORMACION',
+																				msg: "Datos Guardados con exito",
+																				buttons: Ext.MessageBox.OK,
+																				icon: Ext.MessageBox.INFO
+																			});
+																			gridForm.getForm().reset();
+																		}
+																		storeTpDirectorio.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_tipo_directorio.php'};
+															}})}
+															}]
+													},{
+													width:380,
+													items:[{
+											                xtype: 'grid',
+															id: 'gd_tpdirectorio',
+											                store: storeTpDirectorio,
+											                cm: colModeltpDirectorio,
+											                stripeRows: true,
+											                iconCls: 'icon-grid',
+											                sm: new Ext.grid.RowSelectionModel({
+											                    singleSelect: true,
+											                    listeners: {
+											                        rowselect: function(sm, row, rec) {
+											                            Ext.getCmp("frm_tpdirectorio").getForm().loadRecord(rec);
+											                        }
+											                    }
+											                }),
+											                height: 250,
+															title:'Tipos de Directorio',
+											                border: true,
+											                listeners: {
+											                    viewready: function(g) {
+											                    }
+											                },
+															bbar: new Ext.PagingToolbar({
+															store: storeTpDirectorio,
+															pageSize: 50,
+															displayInfo: true,
+															displayMsg: 'Mostrando registros {0} - {1} de {2}',
+															emptyMsg: "No hay registros que mostrar",
+															})
+											            }]
 			
-		}],
+														}],
         
-    })],
+    													})],
 						buttons:[{
 								  text : 'Aceptar',
 								  iconCls: 'accept',
 								  handler : function(){
 											winTpDirectorio.hide();
 											storeDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_directorio.php"}});
-
-								  }
+								  						}
 							   },{
 								  text : 'Cancelar',
 								  iconCls: 'cancel',
 								  handler : function(){
 											winTpDirectorio.hide();
-								  }
-						}]
-				});
+								  				}
+									}]
+		});
 		}
 		winTpDirectorio.show();	
 		storeTpDirectorio.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: "../interfaz/interfaz_tipo_directorio.php"}});
@@ -567,9 +568,8 @@ Ext.onReady(function(){
 		}
 		Ext.getCmp("co_tipo_directorio").focus();
 		nroReg=rowIdx;
-		
-});
-}
+		});
+		}
 
 /******************************************FIN DE LA CREACION DE VENTANAS*******************************************/
 

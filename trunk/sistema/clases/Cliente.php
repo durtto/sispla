@@ -42,7 +42,7 @@ class Cliente extends MyPDO
    * @access public
    */
   public function contarCliente() {
-	$contar = "SELECT count(tr052_cliente.co_cliente)
+	$contar = "SELECT count(co_cliente)
 	FROM 
 		 tr052_cliente c 
 		 INNER JOIN tr016_proceso pr ON (c.co_proceso = pr.co_proceso)
