@@ -128,16 +128,16 @@ Ext.onReady(function(){
     
     var colModelRespaldo = new Ext.grid.ColumnModel([
         {id:'co_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_respaldo'},
-        {header: "Activo", width: 100, sortable: true, locked:false, dataIndex: 'nb_activo'},
-        {header: "Veces por dia", width: 100, sortable: true, locked:false, dataIndex: 'nu_veces_al_dia'},
-        {header: "Dias de semana", width: 100, sortable: true, locked:false, dataIndex: 'tx_dias_semana'},      
-        {header: "Retencion de Data", width: 100, sortable: true, locked:false, dataIndex: 'nu_tiempo_retencion_data'},
-        {header: "Descripcion", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
-        {header: "Ultimo Respaldo", width: 100, sortable: true, locked:false, dataIndex: 'fe_ultimo_respaldo', renderer:convFechaDMY},
-        {header: "Ubicacion Fisica", width: 100, sortable: true, locked:false, dataIndex: 'tx_ubicacion_logica_fisica'},        
+        {header: "Activo", width: 60, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {header: "Veces por d&iacute;a", width: 90, sortable: true, locked:false, dataIndex: 'nu_veces_al_dia'},
+        {header: "D&iacute;as de semana", width: 110, sortable: true, locked:false, dataIndex: 'tx_dias_semana'},      
+        {header: "Retenci&oacute;n de Data", width: 110, sortable: true, locked:false, dataIndex: 'nu_tiempo_retencion_data'},
+        {header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
+        {header: "&Uacute;ltimo Respaldo", width: 110, sortable: true, locked:false, dataIndex: 'fe_ultimo_respaldo', renderer:convFechaDMY},
+        {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, sortable: true, locked:false, dataIndex: 'tx_ubicacion_logica_fisica'},        
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         {header: "Respaldo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_tipo_respaldo'},
-        {header: "Tipo Respaldo", width: 100, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
+        {header: "Tipo de Respaldo", width: 100, hidden: false, sortable: true, locked:false, dataIndex: 'nb_tipo_respaldo'},
       ]);
 	
 /******************************************FIN****colModelRespaldo******************************************/     
@@ -177,8 +177,8 @@ Ext.onReady(function(){
                         hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },GetCombo('co_tipo_respaldo', 'Tipo respaldo'),{
-                        fieldLabel: 'Dias de la Semana',
+                    },GetCombo('co_tipo_respaldo', 'Tipo de Respaldo'),{
+                        fieldLabel: 'D&iacute;as de la Semana',
 						xtype:'textfield',
 						id: 'tx_dias_semana',
                         name: 'tx_dias_semana',
@@ -186,7 +186,7 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Ultimo Respaldo',
+                        fieldLabel: '&Uacute;ltimo Respaldo',
 						xtype:'datefield',
 						id: 'fe_ultimo_respaldo',
                         name: 'fe_ultimo_respaldo',
@@ -199,7 +199,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Veces al dia',
+                        fieldLabel: 'Veces al d&iacute;a',
 						xtype:'numberfield',
 						id: 'nu_veces_al_dia',
                         name: 'nu_veces_al_dia',
@@ -207,29 +207,21 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Retencion de Data',
+                        fieldLabel: 'Retenci&oacute;n de Data',
 						xtype:'numberfield',
 						id: 'nu_tiempo_retencion_data',
                         name: 'nu_tiempo_retencion_data',
                         allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-                        fieldLabel: 'Ubicacion Fisica del Respaldo',
-						xtype:'textfield',
-						id: 'tx_ubicacion_logica_fisica',
-                        name: 'tx_ubicacion_logica_fisica',
-                        allowBlank:false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
-                    }]
+                    }, GetCombo('co_ubicacion', 'Ubicacion')]
 			},{
 					layout: 'form',
 					border:false,
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion_data',
                         name: 'tx_descripcion_data',
@@ -245,6 +237,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -268,7 +261,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -286,7 +279,7 @@ Ext.onReady(function(){
 								columnas += '"tx_descripcion_data" : "'+Ext.getCmp("tx_descripcion_data").getValue()+'", ';
 								columnas += '"nu_tiempo_retencion_data" : "'+Ext.getCmp("nu_tiempo_retencion_data").getValue()+'", ';
 								columnas += '"fe_ultimo_respaldo" : "'+convFecha(Ext.getCmp("fe_ultimo_respaldo").getValue())+'", ';
-								columnas += '"tx_ubicacion_logica_fisica" : "'+Ext.getCmp("tx_ubicacion_logica_fisica").getValue()+'", ';
+								columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
 								columnas += '"co_activo" : "'+Ext.getCmp("co_activo").getValue()+'", ';
 								columnas += '"co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}';
 							storeRespaldo.load({params:{"columnas" : columnas,
@@ -304,8 +297,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -338,8 +331,8 @@ Ext.onReady(function(){
 										else{
 										storeRespaldo.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -367,13 +360,13 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Respaldo',
+				title:'Lista de Esquemas de Respaldo',
                 border: true,
                 tbar:[{
 			            text:'Agregar Tipo Respaldo',
 			            tooltip:'Agregar Tipo Respaldo',
 			            handler: AgregarTpRespaldo,
-			            iconCls:'add'
+			            iconCls:'add',
 			        }],
                 listeners: {
                     viewready: function(g) {
@@ -407,7 +400,7 @@ Ext.onReady(function(){
         id: 'frm_tprespaldo',
         frame: true,
 		labelAlign: 'center',
-        title: 'Tipo Respaldo',
+        title: 'Nuevo Tipo de Respaldo',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:400,
 		items: [{
@@ -417,14 +410,13 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:380,
 			buttonAlign:'center',
-			title: 'Tipo Respaldo',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero de Tipo',
+                        fieldLabel: 'N&uacute;mero de Tipo',
 						xtype:'numberfield',
 						id: 'co_tipo_respaldo',
                         name: 'co_tipo_respaldo',
@@ -455,6 +447,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -478,7 +471,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -507,8 +500,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -541,8 +534,8 @@ Ext.onReady(function(){
 										else{
 										storeTpRespaldo.baseParams = {'accion': 'refrescar'};	
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -660,7 +653,7 @@ gridForm.render('form');
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
     </tr>
     <div id="winTpRespaldo" class="x-hidden">
-    <div class="x-window-header">Registrar Tipo Respaldo</div>
+    <div class="x-window-header">Registrar Tipo de Respaldo</div>
 </div>
   </table>
 </body>
