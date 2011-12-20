@@ -226,5 +226,23 @@ public function cargarCaracteristica() {
    echo '{"Resultados":'.json_encode($r).'}';
 //d
   }    
+  
+ public function cargarOrganizacion() {
+	
+  $query = "SELECT *
+				FROM tr067_organizacion;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }  
+   public function cargarNegocio() {
+	
+  $query = "SELECT *
+				FROM tr066_negocio;";   
+   $r = $this->pdo->_query($query);
+   echo '{"Resultados":'.json_encode($r).'}';
+//d
+  }  
+  
 }
 ?>

@@ -48,7 +48,7 @@ class Dato extends MyPDO
    * 
    * @access public
    */
-  public $columDato= array('co_componente'=>'co_componente', 'fe_vigencia'=>'fe_vigencia', 'tx_objetivo'=>'tx_objetivo', 'tx_alcance'=>'tx_alcance', 'tx_identificacion_negocio'=>'tx_identificacion_negocio', 'tx_localidad'=>'tx_localidad', 'tx_organizacion'=>'tx_organizacion');
+  public $columDato= array('co_componente'=>'co_componente', 'fe_vigencia'=>'fe_vigencia', 'tx_objetivo'=>'tx_objetivo', 'tx_alcance'=>'tx_alcance', 'co_negocio'=>'co_negocio', 'tx_localidad'=>'tx_localidad', 'co_organizacion'=>'co_organizacion');
   
   /**
    * 
@@ -133,15 +133,19 @@ class Dato extends MyPDO
   public function cargarDato($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-					tr015_datos_plan.co_componente, 
-  					tr015_datos_plan.fe_vigencia, 
-  					tr015_datos_plan.tx_objetivo, 
-  					tr015_datos_plan.tx_alcance, 
- 					tr015_datos_plan.tx_identificacion_negocio, 
-  					tr015_datos_plan.tx_localidad, 
-  					tr015_datos_plan.tx_organizacion
-				FROM 
-  					public.tr015_datos_plan";
+  dp.fe_vigencia, 
+  dp.tx_objetivo, 
+  dp.tx_alcance, 
+  dp.tx_localidad, 
+  dp.co_componente, 
+  dp.co_organizacion, 
+  dp.co_negocio, 
+  o.nb_organizacion, 
+  n.nb_negocio
+FROM 
+  tr015_datos_plan dp
+  INNER JOIN tr066_negocio n ON (dp.co_negocio = n.co_negocio)
+  LEFT JOIN tr067_organizacion o ON (dp.co_organizacion = o.co_organizacion)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}

@@ -19,6 +19,7 @@
 			$usuario = new Usuario();
 			$res = $usuario->cargarUsuarioLogin(strtoupper($_REQUEST['login']));	        
 			$_SESSION['privilegio']  = $res[0]['nb_privilegio'];
+			$_SESSION['co_privilegio']  = $res[0]['co_privilegio'];
 			$_SESSION['nombre']  = $res[0]['nb_persona'];
 			$_SESSION['ubicacion']  = $res[0]['nb_ubicacion'];
 			$_SESSION['co_ubicacion']  = $res[0]['co_ubicacion'];

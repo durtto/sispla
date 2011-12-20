@@ -119,6 +119,14 @@
 	$resultado = $combo->cargarCaracteristica($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 	$total = count($resultado);
 	break;
+	case 'organizacion':
+	$resultado = $combo->cargarOrganizacion($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
+	case 'negocio':
+	$resultado = $combo->cargarNegocio($_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
+	$total = count($resultado);
+	break;
 	}
 
 ?>
