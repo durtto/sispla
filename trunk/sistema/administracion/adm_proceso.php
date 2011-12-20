@@ -246,6 +246,7 @@ Ext.onReady(function(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
 										}
 							}});
 							storeProceso.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proceso.php'};
@@ -280,6 +281,7 @@ Ext.onReady(function(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
+											gridForm.getForm().reset();
 										}
 										storeProceso.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_proceso.php'};
 
