@@ -79,9 +79,11 @@
 		        {name: 'fe_vigencia'},		
         		{name: 'tx_objetivo'},	  
         		{name: 'tx_alcance'},   
-        		{name: 'tx_identificacion_negocio'},
+        		{name: 'co_negocio'},
+        		{name: 'nb_negocio'},
         		{name: 'tx_localidad'},  
-        		{name: 'tx_organizacion'},
+        		{name: 'co_organizacion'},
+        		{name: 'nb_organizacion'},
         		{name: 'resp'}]
         });
     storeDato.setDefaultSort('co_componente', 'ASC');
@@ -97,9 +99,12 @@
         {header: "Fecha de Vigencia", width: 120, sortable: true, locked:false, dataIndex: 'fe_vigencia', renderer:convFechaDMY},
         {header: "Objetivo", width: 159, sortable: true, locked:false, dataIndex: 'tx_objetivo'},
         {header: "Alcance", width: 159, sortable: true, locked:false, dataIndex: 'tx_alcance'},
-        {header: "Negocio", width: 120, sortable: true, locked:false, dataIndex: 'tx_identificacion_negocio'},
+        {header: "Negocio", width: 120, sortable: true,hidden:true, locked:false, dataIndex: 'co_negocio'},
+        {header: "Negocio", width: 120, sortable: true, locked:false, dataIndex: 'nb_negocio'},
         {header: "Localidad", width: 120, sortable: true, locked:false, dataIndex: 'tx_localidad'},
-        {header: "Organizaci&oacute;n", width: 120, sortable: true, locked:false, dataIndex: 'tx_organizacion'},
+        {header: "Organizaci&oacute;n", width: 120, sortable: true, locked:false, hidden:true,dataIndex: 'co_organizacion'},
+        {header: "Organizaci&oacute;n", width: 120, sortable: true, locked:false, dataIndex: 'nb_organizacion'},
+
       ]);
       
 /******************************************FIN****colModelDato******************************************/     
@@ -148,20 +153,7 @@
                         allowBlank: false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
-                    },{
-						fieldLabel: 'Negocio',
-						xtype:'textfield',
-						id: 'tx_identificacion_negocio',
-                        name: 'tx_identificacion_negocio',
-                        allowBlank: false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-				    }]
+                    },GetCombo('co_negocio','Negocio')]
 				},{
 					layout: 'form',
 					border:false,
@@ -180,20 +172,7 @@
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },{
-                        fieldLabel: 'Organizaci&oacute;n',
-						xtype:'textfield',
-						id: 'tx_organizacion',
-                        name: 'tx_organizacion',
-                        allowBlank: false,
-						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:160,
-                        listeners:{
-                        	change: function(t, newVal, oldVal){
-                        		t.setValue(newVal.toUpperCase())
-                        	}
-                        }
-                      }]  
+                    },GetCombo('co_organizacion','Organizacion')]  
                     },{
                     	layout: 'form',
 					    border:false,
@@ -264,9 +243,9 @@
 								columnas += '"fe_vigencia" : "'+convFecha(Ext.getCmp("fe_vigencia").getValue())+'", ';
 								columnas += '"tx_objetivo" : "'+Ext.getCmp("tx_objetivo").getValue()+'", ';
 								columnas += '"tx_alcance" : "'+Ext.getCmp("tx_alcance").getValue()+'", ';
-								columnas += '"tx_identificacion_negocio" : "'+Ext.getCmp("tx_identificacion_negocio").getValue()+'", ';
+								columnas += '"co_negocio" : "'+Ext.getCmp("co_negocio").getValue()+'", ';
 								columnas += '"tx_localidad" : "'+Ext.getCmp("tx_localidad").getValue()+'", ';
-								columnas += '"tx_organizacion" : "'+Ext.getCmp("tx_organizacion").getValue()+'"}';
+								columnas += '"co_organizacion" : "'+Ext.getCmp("co_organizacion").getValue()+'"}';
 							storeDato.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_componente" : "'+Ext.getCmp("co_componente").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_dato_plan.php"},

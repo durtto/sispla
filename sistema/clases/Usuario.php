@@ -137,7 +137,7 @@ class Usuario extends MyPDO
   
     public function cargarUsuarioLogin($login) {
 
-	$query = "SELECT  u.co_usuario,  u.co_indicador,  pu.nb_privilegio, p.nb_persona, 
+	$query = "SELECT  u.co_usuario,  u.co_indicador, pu.co_privilegio, pu.nb_privilegio, p.nb_persona, 
 	  p.tx_apellido, u.co_ubicacion, ub.co_ubicacion, ub.nb_ubicacion
 	FROM tr047_usuario u
     INNER JOIN tr010_persona p ON (u.co_indicador = p.co_indicador) 
