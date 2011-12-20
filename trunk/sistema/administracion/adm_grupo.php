@@ -90,7 +90,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'grupos',
 		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_grupo.php"},	
-        fields: [{name: 'nu_grupo'}]
+        fields: [{name: 'co_grupo'}]
         });
     
 	
@@ -189,8 +189,8 @@ Ext.onReady(function(){
 					}
 					storeNuevoGrupo.load({
 							callback: function () {
-									if(storeNuevoGrupo.getAt(0).data.nu_grupo){									
-										Ext.getCmp("co_grupo").setValue(storeNuevoGrupo.getAt(0).data.nu_grupo)
+									if(storeNuevoGrupo.getAt(0).data.co_grupo){									
+										Ext.getCmp("co_grupo").setValue(storeNuevoGrupo.getAt(0).data.co_grupo+1)
 									};
 							}
 					});

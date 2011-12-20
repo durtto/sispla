@@ -249,9 +249,9 @@ var gridForm = new Ext.FormPanel({
 											});
 										}
 							}});
-							storeEquipoContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_continuidad.php'};
 						}
 							});
+							storeEquipoContinuidad.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_equipo_continuidad.php'};
 					}
 				});
 				

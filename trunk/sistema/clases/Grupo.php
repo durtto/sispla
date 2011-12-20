@@ -64,8 +64,10 @@ class Grupo extends MyPDO
   }
   
    public function NuevoGrupo() {
-	$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
-	
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_grupo FROM tr001_grupo
+		ORDER BY co_grupo DESC 
+		LIMIT 1;";
 	$c = $this->pdo->_query($nuevo);
 	
 	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
