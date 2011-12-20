@@ -54,7 +54,7 @@ class Respaldo extends MyPDO
    * 
    * @access public
    */
-  public $columRespaldo= array('co_respaldo'=>'co_respaldo', 'nu_veces_al_dia'=>'nu_veces_al_dia', 'tx_dias_semana'=>'tx_dias_semana', 'nu_tiempo_retencion_data'=>'nu_tiempo_retencion_data', 'tx_descripcion_data'=>'tx_descripcion_data', 'fe_ultimo_respaldo'=>'fe_ultimo_respaldo', 'tx_ubicacion_logica_fisica'=>'tx_ubicacion_logica_fisica', 'co_activo'=>'co_activo', 'co_tipo_respaldo'=>'co_tipo_respaldo');
+  public $columRespaldo= array('co_respaldo'=>'co_respaldo', 'nu_veces_al_dia'=>'nu_veces_al_dia', 'tx_dias_semana'=>'tx_dias_semana', 'nu_tiempo_retencion_data'=>'nu_tiempo_retencion_data', 'tx_descripcion_data'=>'tx_descripcion_data', 'fe_ultimo_respaldo'=>'fe_ultimo_respaldo', 'co_ubicacion'=>'co_ubicacion', 'co_activo'=>'co_activo', 'co_tipo_respaldo'=>'co_tipo_respaldo');
 
   /**
    * 
@@ -134,24 +134,23 @@ class Respaldo extends MyPDO
   public function cargarRespaldo($start='0', $limit='ALL', $sort = "", $dir = "ASC") {
 
 	$query = "SELECT 
-  tr039_respaldo.co_respaldo, 
-  tr039_respaldo.nu_veces_al_dia, 
-  tr039_respaldo.tx_dias_semana, 
-  tr039_respaldo.nu_tiempo_retencion_data, 
-  tr039_respaldo.tx_descripcion_data, 
-  tr039_respaldo.fe_ultimo_respaldo, 
-  tr039_respaldo.tx_ubicacion_logica_fisica, 
-  tr039_respaldo.co_activo, 
-  tr027_activo.nb_activo, 
-  tr039_respaldo.co_tipo_respaldo, 
-  tr034_tipo_respaldo.nb_tipo_respaldo
+  r.co_respaldo, 
+  r.nu_veces_al_dia, 
+  r.tx_dias_semana, 
+  r.nu_tiempo_retencion_data, 
+  r.tx_descripcion_data, 
+  r.fe_ultimo_respaldo, 
+  r.co_ubicacion,
+  u.nb_ubicacion,
+  r.co_activo, 
+  a.nb_activo, 
+  r.co_tipo_respaldo, 
+  t.nb_tipo_respaldo
 FROM 
-  public.tr039_respaldo, 
-  public.tr034_tipo_respaldo, 
-  public.tr027_activo
-WHERE 
-  tr039_respaldo.co_activo = tr027_activo.co_activo AND
-  tr039_respaldo.co_tipo_respaldo = tr034_tipo_respaldo.co_tipo_respaldo";
+  tr039_respaldo r
+  INNER JOIN tr034_tipo_respaldo t ON (r.co_tipo_respaldo = t.co_tipo_respaldo)
+  INNER JOIN tr027_activo a ON (r.co_activo = a.co_activo)
+  INNER JOIN tr006_ubicacion u ON (r.co_ubicacion = u.co_ubicacion)";
 if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
