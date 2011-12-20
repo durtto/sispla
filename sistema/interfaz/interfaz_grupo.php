@@ -24,7 +24,7 @@
 			case 'nuevo':
 			
 			$resultado = $grupo->NuevoGrupo();
-			$total= $resultado3 [0]['count'];
+			$total= 1;
 
 			break;
 			
