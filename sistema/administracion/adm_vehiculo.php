@@ -215,6 +215,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoVehiculo.load({
+							callback: function () {
+									if(storeNuevoVehiculo.getAt(0).data.co_vehiculo){									
+										Ext.getCmp("co_vehiculo").setValue(storeNuevoVehiculo.getAt(0).data.co_vehiculo+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_vehiculo").focus();
 				}

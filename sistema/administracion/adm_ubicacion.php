@@ -222,6 +222,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoUbicacion.load({
+							callback: function () {
+									if(storeNuevoUbicacion.getAt(0).data.co_ubicacion){									
+										Ext.getCmp("co_ubicacion").setValue(storeNuevoUbicacion.getAt(0).data.co_ubicacion+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_ubicacion").focus();
 				}

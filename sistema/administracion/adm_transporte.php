@@ -255,9 +255,10 @@ function vehiculos_seleccionados(){
 										xtype:'numberfield',
 										id: 'co_transporte',
 				                        name: 'co_transporte',
-				                        // hidden: true,
+				                        //hidden: true,
 										//hideLabel: true,
-				                        width:120
+				                        width:120,
+                    					disabled:true
                     					}]
 							},{
 								layout: 'form',
@@ -411,7 +412,7 @@ function vehiculos_seleccionados(){
 							storeNuevoTransporte.load({
 							callback: function () {
 									if(storeNuevoTransporte.getAt(0).data.co_transporte){									
-										Ext.getCmp("co_transporte").setValue(storeNuevoTrasnporte.getAt(0).data.co_transporte+1)
+										Ext.getCmp("co_transporte").setValue(storeNuevoTransporte.getAt(0).data.co_transporte+1)
 									};
 							}
 							});
