@@ -80,6 +80,7 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
         minTabWidth: 115,
         tabWidth:115,
 		height:'auto',
+		deferredRender: false
 		//autoHeight:true,
 		//enableTabScroll:true,
       // defaults: {autoScroll:true},
@@ -146,13 +147,17 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	        }),
 
 	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
+	            'click': function(node){
+					//alert(node.leaf);
+                   // tp.getSelectionModel().on('selectionchange', function(tree, node){
+									   
+						if(node.leaf){
+							if(node.attributes.titulo!='')
+								addTab(node.attributes.titulo,node.attributes.url);
+						}
                         //var el = Ext.getCmp('details-panel').body;
 	                   
-                    })
+                    //})
 	            }
 	        }
                 },{
@@ -173,13 +178,17 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	        }),
 
 	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
+	            'click': function(node){
+					//alert(node.leaf);
+                   // tp.getSelectionModel().on('selectionchange', function(tree, node){
+									   
+						if(node.leaf){
+							if(node.attributes.titulo!='')
+								addTab(node.attributes.titulo,node.attributes.url);
+						}
                         //var el = Ext.getCmp('details-panel').body;
 	                   
-                    })
+                    //})
 	            }
 	        }
 	        },{
@@ -200,13 +209,17 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	        }),
 
 	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
+	            'click': function(node){
+					//alert(node.leaf);
+                   // tp.getSelectionModel().on('selectionchange', function(tree, node){
+									   
+						if(node.leaf){
+							if(node.attributes.titulo!='')
+								addTab(node.attributes.titulo,node.attributes.url);
+						}
                         //var el = Ext.getCmp('details-panel').body;
 	                   
-                    })
+                    //})
 	            }
 	        }
 	     },{
@@ -227,13 +240,17 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	        }),
 
 	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
+	            'click': function(node){
+					//alert(node.leaf);
+                   // tp.getSelectionModel().on('selectionchange', function(tree, node){
+									   
+						if(node.leaf){
+							if(node.attributes.titulo!='')
+								addTab(node.attributes.titulo,node.attributes.url);
+						}
                         //var el = Ext.getCmp('details-panel').body;
 	                   
-                    })
+                    //})
 	            }
 	        }
 	      },{
@@ -254,13 +271,17 @@ Ext.BLANK_IMAGE_URL = '../lib/ext-3.2.1/resources/images/default/s.gif';
 	        }),
 
 	        listeners: {
-	            'render': function(tp){
-                    tp.getSelectionModel().on('selectionchange', function(tree, node){
-						if(node.attributes.titulo!='')
-						addTab(node.attributes.titulo,node.attributes.url);
+	            'click': function(node){
+					//alert(node.leaf);
+                   // tp.getSelectionModel().on('selectionchange', function(tree, node){
+									   
+						if(node.leaf){
+							if(node.attributes.titulo!='')
+								addTab(node.attributes.titulo,node.attributes.url);
+						}
                         //var el = Ext.getCmp('details-panel').body;
 	                   
-                    })
+                    //})
 	            }
 	        }
 	       }]

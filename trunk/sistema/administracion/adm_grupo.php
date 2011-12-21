@@ -141,7 +141,8 @@ Ext.onReady(function(){
                         //hidden:true,
                         //hideLabel:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-                        width:140
+                        width:140,
+                        disabled: true,
                     },{
                         fieldLabel: 'Grupo',
 						xtype:'textfield',
