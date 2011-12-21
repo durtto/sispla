@@ -47,6 +47,18 @@ class RolResponsabilidad extends MyPDO
 			
 	return $c;
   }
+   public function NuevoRolResponsabilidad() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_rol_resp FROM tr002_rol_responsabilidad
+		ORDER BY co_rol_resp DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarRolResponsabilidad($rolresponsabilidad) {
   	
 	$this->pdo->beginTransaction();	

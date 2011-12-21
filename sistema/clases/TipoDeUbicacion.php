@@ -47,6 +47,18 @@ class TpUbicacion extends MyPDO
 			
 	return $c;
   }
+   public function NuevoTpUbicacion() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_tipo_ubicacion FROM tr005_tipo_ubicacion
+		ORDER BY co_tipo_ubicacion DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTpUbicacion($tpubicacion) {
   	
 	$this->pdo->beginTransaction();	

@@ -73,6 +73,18 @@ class Proveedor extends MyPDO
 			
 	return $c;
   }
+	 public function NuevoProveedor() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_proveedor FROM tr025_proveedor
+		ORDER BY co_proveedor DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarProveedor($proveedor) {
   	
 	$this->pdo->beginTransaction();	

@@ -461,6 +461,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();

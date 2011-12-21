@@ -52,6 +52,18 @@ class PrivilegioUsuario extends MyPDO
 			
 	return $c;
   }
+   public function NuevoPrivilegioUsuario() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_privilegio FROM tr022_privilegio_usuario
+		ORDER BY co_privilegio DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarPrivilegioUsuario($privilegio) {
   	
 	$this->pdo->beginTransaction();	

@@ -58,6 +58,18 @@ class NivelObsolescencia extends MyPDO
 			
 	return $c;
   }
+   public function NuevoNivelObsolescencia() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_nivel FROM tr023_nivel_obsolescencia
+		ORDER BY co_nivel DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarNivelObsolescencia($nivelobsolescencia) {
   	
 	$this->pdo->beginTransaction();	

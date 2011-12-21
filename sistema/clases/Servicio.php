@@ -62,6 +62,18 @@ class Servicio extends MyPDO
 			
 	return $c;
   }
+   public function NuevoServicio() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_servicio FROM tr013_servicio
+		ORDER BY co_servicio DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarServicio($servicio) {
   	
 	$this->pdo->beginTransaction();	

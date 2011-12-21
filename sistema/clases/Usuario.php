@@ -57,6 +57,18 @@ class Usuario extends MyPDO
 			
 	return $c;
   }
+   public function NuevoUsuario() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_usuario FROM tr047_usuario
+		ORDER BY co_usuario DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUsuario($usuario) {
   	
 	$this->pdo->beginTransaction();	
