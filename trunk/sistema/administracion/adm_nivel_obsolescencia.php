@@ -99,7 +99,7 @@ Ext.onReady(function(){
         {id:'co_nivel',header: "Nivel", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_nivel'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_nivel'},
         {header: "Descripci&oacute;n", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto'},
+        {header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_obsoleto', renderer:obsoleto},
       ]);
 	
 /******************************************FIN****colModelNivel******************************************/     
@@ -308,6 +308,10 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_nivel").getForm().loadRecord(rec);
+                        if(rec.data.bo_obsoleto == 'SI')
+								Ext.getCmp('bo_obsoleto').setValue(1);
+							else
+								Ext.getCmp('bo_obsoleto').setValue(0);
                         }
                         
                     }

@@ -141,7 +141,7 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Direccion Web',
+                        fieldLabel: 'Direccion en Servidor',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'tx_url_direccion',

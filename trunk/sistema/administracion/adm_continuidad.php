@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/xtheme-gray2.css">
 <link rel="stylesheet" type="text/css" href="../css/loading.css">
 <link rel="stylesheet" type="text/css" href="../css/botones.css">
+<link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css"/>
 <!--<link rel="stylesheet" type="text/css" href="lib/ext-3.2.1/resources/css/xtheme-gray.css">-->
 	<!-- GC -->
  	<!-- LIBS -->
@@ -25,7 +26,6 @@
 
     <!-- extensions para los filtros -->
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/menu/RangeMenu.js"></script>
-
 	<script type="text/javascript" src="../js/ext-lang-es.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/GridFilters.js"></script>
@@ -35,12 +35,11 @@
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/ListFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/Spinner.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/SpinnerField.js"></script>
-
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/NumericFilter.js"></script>
 	<script type="text/javascript" src="../lib/ext-3.2.1/examples/ux/gridfilters/filter/BooleanFilter.js"></script>
 	<script type="text/javascript" src="../js/funciones.js?=00002"></script>
 	
-<link rel="stylesheet" href="../lib/ext-3.2.1/examples/ux/css/Spinner.css" />
+ 
 
 	
 <script type="text/javascript">
@@ -174,7 +173,7 @@ Ext.onReady(function(){
     storeContinuidad.setDefaultSort('co_continuidad', 'ASC');
     
 /*****************************************FIN****StoreContinuidad*****************************************/
-var storeContinuidad = new Ext.data.JsonStore({
+var storeNuevoContinuidad = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_continuidad.php',
 		remoteSort : true,
 		root: 'continuidades',
@@ -188,8 +187,8 @@ var storeContinuidad = new Ext.data.JsonStore({
         {id:'co_continuidad',header: "Continuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_continuidad'},
         {header: "Activo", width: 238, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Prioridad", width: 120, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
-        {header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd', renderer:convFechaDMY},      
-        {header: "Fecha RTO", width: 100, sortable: true, locked:false, dataIndex: 'fe_rto', renderer:convFechaDMY},
+        //{header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd', renderer:convFechaDMY},      
+        //{header: "Fecha RTO", width: 100, sortable: true, locked:false, dataIndex: 'fe_rto', renderer:convFechaDMY},
         {header: "Esquema Interno", width: 120, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_interno', renderer: interno},
         {header: "Esquema Externo", width: 120, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_externo', renderer: externo},
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
@@ -483,7 +482,24 @@ var storeContinuidad = new Ext.data.JsonStore({
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_continuidad").getForm().loadRecord(rec);
+                        if(rec.data.bo_esquema_alterno_interno == 'SI')
+								Ext.getCmp('bo_esquema_alterno_interno').setValue(1);
+							else
+								Ext.getCmp('bo_esquema_alterno_interno').setValue(0);
+						if(rec.data.bo_esquema_alterno_externo == 'SI')
+								Ext.getCmp('bo_esquema_alterno_externo').setValue(1);
+							else
+								Ext.getCmp('bo_esquema_alterno_externo').setValue(0);
+                       if(rec.data.bo_prioridad_rec == 'SI')
+								Ext.getCmp('bo_prioridad_rec').setValue(1);
+							else
+								Ext.getCmp('bo_prioridad_rec').setValue(0);
+								
+						if(rec.data.co_activo)
+								Ext.getCmp('co_activo').setValue(storeContinuidad.getAt(0).data.nb_activo);
+								
                         }
+                       
                         
                     }
                 }),
@@ -520,7 +536,6 @@ gridForm.render('form');
 	
 	Ext.getCmp("gd_continuidad").getSelectionModel().on('rowselect', function(sm, rowIdx, r) {		
 		nuevo = false;
-		//if(usrRol.indexOf('Administrador') >= 0)
 		Ext.getCmp("btnGuardar").enable();
 		Ext.getCmp("btnEliminar").enable();
 		if(Ext.getCmp("frm1").disabled){

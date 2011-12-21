@@ -158,7 +158,7 @@ Ext.onReady(function(){
 					columnWidth:.45,
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Direccion Web',
+                        fieldLabel: 'Direccion Servidor',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'tx_url_direccion',

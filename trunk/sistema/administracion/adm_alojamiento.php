@@ -334,6 +334,14 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_alojamiento").getForm().loadRecord(rec);
+                       if(rec.data.bo_hotel == 'SI')
+								Ext.getCmp('bo_hotel').setValue(1);
+							else
+								Ext.getCmp('bo_hotel').setValue(0);
+                        if(rec.data.bo_posada == 'SI')
+								Ext.getCmp('bo_posada').setValue(1);
+							else
+								Ext.getCmp('bo_posada').setValue(0);
                         }
                     }
                 }),
