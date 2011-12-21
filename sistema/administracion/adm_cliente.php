@@ -180,7 +180,12 @@ Ext.onReady(function(){
         fields: [{name: 'co_cliente'},
 		        {name: 'co_proceso'},
         		{name: 'nb_proceso'},
+        		{name: 'tx_apellido'},
+        		{name: 'co_departamento'},
+		        {name: 'nb_departamento'},
 		        {name: 'co_indicador'},
+		        {name: 'tx_telefono_oficina'},
+		        {name: 'tx_telefono_habitacion'},
         		{name: 'nb_persona'},
 		        {name: 'resp'}]
         });
@@ -201,8 +206,14 @@ Ext.onReady(function(){
         {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
         {header: "Proceso", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Proceso", width: 200, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Persona", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_indicador'},
+        {header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
         {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
+        {header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+
       ]);
       
 /******************************************FIN****colModelCliente******************************************/     
