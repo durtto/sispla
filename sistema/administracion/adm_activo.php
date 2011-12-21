@@ -216,6 +216,13 @@ Ext.onReady(function(){
 
 /******************************************FIN****colModelActivo******************************************/     
 
+  var storeNuevoActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_activo.php',
+		remoteSort : true,
+		root: 'activos',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_activo.php'},
+        fields: [{name: 'co_activo'}]
+        });
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 
@@ -460,6 +467,14 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoActivo.load({
+							callback: function () {
+									if(storeNuevoActivo.getAt(0).data.co_activo){									
+										Ext.getCmp("co_activo").setValue(storeNuevoActivo.getAt(0).data.co_activo+1)
+									};
+							}
+							});
+					
 					if(gridForm.getForm().isValid())  
 					gridForm.getForm().reset();
 					Ext.getCmp("co_activo").focus();
