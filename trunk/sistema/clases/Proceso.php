@@ -57,6 +57,18 @@ class Proceso extends MyPDO
 			
 	return $c;
   }
+   public function NuevoProceso() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_proceso FROM tr016_proceso
+		ORDER BY co_proceso DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarProceso($proceso) {
   	
 	$this->pdo->beginTransaction();	

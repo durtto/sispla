@@ -61,6 +61,18 @@ class Modelo extends MyPDO
 			
 	return $c;
   }
+   public function NuevoModelo() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_modelo FROM tr029_modelo
+		ORDER BY co_modelo DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarModelo($modelo) {
   	
 	$this->pdo->beginTransaction();	

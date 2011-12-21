@@ -102,7 +102,18 @@ class PlanLogistica extends MyPDO {
 			
 	return $c;
   }
-  
+   public function NuevoPlanLogistica() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_plan_logistica FROM tr042_plan_logistica
+		ORDER BY co_plan_logistica DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarPlanLogistica($planlogistica,  $alimentaciones, $alojamientos, $transportes, $componente) {
   	
 	$this->pdo->beginTransaction();	

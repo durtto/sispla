@@ -73,6 +73,18 @@ class Respaldo extends MyPDO
 			
 	return $c;
   }
+    public function NuevoRespaldo() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_respaldo FROM tr039_respaldo
+		ORDER BY co_respaldo DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarRespaldo($respaldo) {
   	
 	$this->pdo->beginTransaction();	

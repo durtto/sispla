@@ -60,6 +60,18 @@ class Linea extends MyPDO
 			
 	return $c;
   }
+   public function NuevoLinea() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_linea FROM tr019_linea_taxi
+		ORDER BY co_linea DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarLinea($linea) {
   	
 	$this->pdo->beginTransaction();	

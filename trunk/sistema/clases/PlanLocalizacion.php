@@ -110,7 +110,18 @@ class PlanLocalizacion extends MyPDO {
 	return $c;
   }
 	
-		
+	 public function NuevoPlanLocalizacion() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_plan_localizacion FROM tr036_plan_localizacion
+		ORDER BY co_plan_localizacion DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }	
   public function insertarPlanLocalizacion($planlocalizacion, $proveedores, $directorios, $personas, $equipos, $componente) 
   {
   	

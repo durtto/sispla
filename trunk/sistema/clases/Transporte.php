@@ -52,6 +52,18 @@ class Transporte extends MyPDO
 			
 	return $c;
   }
+   public function NuevoTransporte() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_transporte FROM tr021_transporte
+		ORDER BY co_transporte DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTransporte($transporte, $vehiculos, $lineas) {
   	
 	$this->pdo->beginTransaction();	

@@ -51,6 +51,18 @@ class TpDirectorio extends MyPDO
 			
 	return $c;
   }
+	 public function NuevoTpDirectorio() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_tipo_directorio FROM tr050_tipo_directorio
+		ORDER BY co_tipo_directorio DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarTpDirectorio($tpDirectorio) {
   	
 	$this->pdo->beginTransaction();	

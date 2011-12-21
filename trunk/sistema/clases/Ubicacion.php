@@ -68,6 +68,18 @@ class Ubicacion extends MyPDO
 			
 	return $c;
   }
+   public function NuevoUbicacion() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_ubicacion FROM tr006_ubicacion
+		ORDER BY co_ubicacion DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUbicacion($ubicacion) {
   	
 	$this->pdo->beginTransaction();	

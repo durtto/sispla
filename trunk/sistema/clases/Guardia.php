@@ -71,6 +71,18 @@ class Guardia extends MyPDO
 			
 	return $c;
   }
+   public function NuevoGuardia() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_guardia FROM tr009_guardia
+		ORDER BY co_guardia DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarGuardia($guardia) {
   	
 	$this->pdo->beginTransaction();	

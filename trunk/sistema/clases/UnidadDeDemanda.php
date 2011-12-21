@@ -52,6 +52,18 @@ class Unidad extends MyPDO
 			
 	return $c;
   }
+   public function NuevoUnidad() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_unidad FROM tr024_unidad_demanda
+		ORDER BY co_unidad DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarUnidad($unidad) {
   	
 	$this->pdo->beginTransaction();	

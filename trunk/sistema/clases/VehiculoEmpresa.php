@@ -61,6 +61,18 @@ class VehiculoEmpresa extends MyPDO
 			
 	return $c;
   }
+   public function NuevoVehiculo() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_vehiculo FROM tr020_vehiculo_empresa
+		ORDER BY co_vehiculo DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarVehiculo($vehiculo) {
   	
 	$this->pdo->beginTransaction();	
