@@ -92,7 +92,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreAlimentacion*****************************************/
 
-
+  var storeNuevoAlimentacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_alimentacion.php',
+		remoteSort : true,
+		root: 'alimentos',
+		baseParams: {'accion': 'nuevo', 'interfaz': '../interfaz/interfaz_alimentacion.php'},
+        fields: [{name: 'co_alimentacion'}]
+        });
 /******************************************INICIO**colModelAlimentacion******************************************/     
 
     var colModelAlimentacion = new Ext.grid.ColumnModel([
@@ -226,6 +232,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoAlimentacion.load({
+							callback: function () {
+									if(storeNuevoAlimentacion.getAt(0).data.co_alimentacion){									
+										Ext.getCmp("co_alimentacion").setValue(storeNuevoAlimentacion.getAt(0).data.co_alimentacion+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_alimentacion").focus();
 				}

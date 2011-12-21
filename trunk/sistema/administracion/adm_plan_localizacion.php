@@ -91,6 +91,16 @@ Ext.onReady(function(){
     storePlanLocalizacion.setDefaultSort('co_plan_localizacion', 'ASC');
     
 /*****************************************FIN****StorePlanLocalizacion*****************************************/
+
+  var storeNuevoPlanLocalizacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_plan_localizacion.php',
+		remoteSort : true,
+		root: 'planeslocalizacion',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_plan_localizacion.php"},
+        fields: [{name: 'co_plan_localizacion'}]
+        });
+
+
 /******************************************INICIO**colModelPlanLocalizacion******************************************/     
 
    var colModelPlanLocalizacion = new Ext.grid.ColumnModel([
@@ -435,6 +445,7 @@ function personas_seleccionadas(){
 									xtype:'numberfield',
 									id: 'co_plan_localizacion',
 			                        name: 'co_plan_localizacion',
+			                        disabled:true,
 			                        //hidden: true,
 									//hideLabel: true,
 			                        width:160
@@ -637,6 +648,13 @@ function personas_seleccionadas(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
+							storeNuevoPlanLocalizacion.load({
+							callback: function () {
+									if(storeNuevoPlanLocalizacion.getAt(0).data.co_plan_localizacion){									
+										Ext.getCmp("co_plan_localizacion").setValue(storeNuevoPlanLocalizacion.getAt(0).data.co_plan_localizacion+1)
+									};
+							}
+							});
 							if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 							Ext.getCmp("gd_persona").getSelectionModel().clearSelections();
 							Ext.getCmp("gd_proveedor").getSelectionModel().clearSelections();

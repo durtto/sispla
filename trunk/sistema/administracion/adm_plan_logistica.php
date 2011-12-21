@@ -81,6 +81,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_plan_logistica.php',
 		remoteSort : true,
 		root: 'planeslogistica',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_plan_logistica.php"},
         totalProperty: 'total',
 		idProperty: 'co_plan_logistica',
         fields: [{name: 'co_plan_logistica'},
@@ -90,7 +91,13 @@ Ext.onReady(function(){
     storePlanLogistica.setDefaultSort('co_plan_logistica', 'ASC');
     
 /*****************************************FIN****StorePlanLogistica*****************************************/
-
+  var storeNuevoPlanLogistica = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_plan_logistica.php',
+		remoteSort : true,
+		root: 'planeslogistica',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_plan_logistica.php"},
+        fields: [{name: 'co_plan_logistica'}]
+        });
 
 /******************************************INICIO**colModelPlanLogistica******************************************/     
 
@@ -307,7 +314,8 @@ function transportes_seleccionados(){
 			                        name: 'co_plan_logistica',
 			                        //hidden: true,
 									//hideLabel: true,
-			                        width:160
+			                        width:160,
+			                        disabled:true
 			                    }, {
 			                        fieldLabel: 'Fecha de Elaboraci&oacute;n',
 									xtype:'datefield',
@@ -480,6 +488,13 @@ function transportes_seleccionados(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
+							storeNuevoPlanLogistica.load({
+							callback: function () {
+									if(storeNuevoPlanLogistica.getAt(0).data.co_plan_logistica){									
+										Ext.getCmp("co_plan_logistica").setValue(storeNuevoPlanLogistica.getAt(0).data.co_plan_logistica+1)
+									};
+							}
+							});
 							if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 							Ext.getCmp("gd_alimentacion").getSelectionModel().clearSelections();
 							Ext.getCmp("gd_alojamiento").getSelectionModel().clearSelections();

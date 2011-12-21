@@ -76,6 +76,7 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'caracteristicas',
         totalProperty: 'total',
+        baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_caracteristica.php"},
 		idProperty: 'co_caracteristica',
         fields: [{name: 'co_caracteristica'},
 		        {name: 'nb_caracteristica'},
@@ -87,7 +88,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreCaracteristica*****************************************/
 
-
+  var storeNuevoCaracteristica = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_caracteristica.php',
+		remoteSort : true,
+		root: 'caracteristicas',
+		baseParams: {start:0, limit:50, accion: "refrescar", interfaz: "../interfaz/interfaz_caracteristica.php"},
+        fields: [{name: 'co_caracteristica'}]
+        });
 
 
 /******************************************INICIO**colModelCaracteristica******************************************/     
@@ -172,6 +179,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoCaracterisitica.load({
+							callback: function () {
+									if(storeNuevoCaracteristica.getAt(0).data.co_caracteristica){									
+										Ext.getCmp("co_caracteristica").setValue(storeNuevoCaracteristica.getAt(0).data.co_caracteristica+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_caracteristica").focus();
 				}

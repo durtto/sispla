@@ -86,7 +86,14 @@ Ext.onReady(function(){
         });
     storeAlojamiento.setDefaultSort('co_alojamiento', 'ASC');
 /*****************************************FIN****StoreAlojamiento*****************************************/
-
+  var storeNuevoAlojamiento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_alojamiento.php',
+		remoteSort : true,
+		root: 'alojamientos',
+        baseParams: {'accion': 'nuevo', 'interfaz': '../interfaz/interfaz_alojamiento.php'},
+		idProperty: 'co_alojamiento',
+        fields: [{name: 'co_alojamiento'}]
+        });
 
 
 /******************************************INICIO**colModelAlojamiento******************************************/     
@@ -213,6 +220,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoAlojamiento.load({
+							callback: function () {
+									if(storeNuevoAlimentacion.getAt(0).data.co_alojamiento){									
+										Ext.getCmp("co_alojamiento").setValue(storeNuevoAlojamiento.getAt(0).data.co_alojamiento+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_alojamiento").focus();
 				}

@@ -79,8 +79,13 @@ Ext.onReady(function(){
     storeCapacidad.setDefaultSort('co_capacidad', 'ASC');
     
 /*****************************************FIN****StoreCapacidad*****************************************/
-
-
+  var storeNuevoCapacidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_capacidad.php',
+		remoteSort : true,
+		root: 'capacidades',
+        baseParams: {'accion': 'nuevo', 'interfaz': '../interfaz/interfaz_capacidad.php'},
+        fields: [{name: 'co_capacidad'}]
+        });
 
 /******************************************INICIO**colModelCapacidad******************************************/     
 	
@@ -157,6 +162,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoCapacidad.load({
+							callback: function () {
+									if(storeNuevoCapacidad.getAt(0).data.co_capacidad){									
+										Ext.getCmp("co_capacidad").setValue(storeNuevoCapacidad.getAt(0).data.co_capacidad+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("nb_capacidad").focus();
 				}
