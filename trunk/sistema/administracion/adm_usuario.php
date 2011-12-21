@@ -264,6 +264,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoUsuario.load({
+							callback: function () {
+									if(storeNuevoUsuario.getAt(0).data.co_usuario){									
+										Ext.getCmp("co_usuario").setValue(storeNuevoUsuario.getAt(0).data.co_usuario+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_usuario").focus();
 				}

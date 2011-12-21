@@ -178,6 +178,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoUnidad.load({
+							callback: function () {
+									if(storeNuevoUnidad.getAt(0).data.co_unidad){									
+										Ext.getCmp("co_unidad").setValue(storeNuevoUnidad.getAt(0).data.co_unidad+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("nb_unidad").focus();
 				}
