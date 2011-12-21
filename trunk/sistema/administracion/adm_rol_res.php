@@ -1,5 +1,6 @@
 <?php session_start(); 
-//print_r($_SESSION); ?><html>
+//print_r($_SESSION); ?>
+<html>
 <head>
 <title>Responsabilidad</title>
 <link rel="stylesheet" type="text/css" href="../lib/ext-3.2.1/resources/css/ext-all.css" />
@@ -193,11 +194,11 @@ Ext.onReady(function(){
 				buttonAlign:'center',
 				layout: 'fit', 	
 				buttons: [{
-			text: 'Nuevo', 
-			iconCls: 'add',
-			tooltip:'',
-			handler: function(){
-					nuevo = true;
+				text: 'Nuevo', 
+				iconCls: 'add',
+				tooltip:'',
+				handler: function(){
+						nuevo = true;
 					
 					Ext.getCmp("btnGuardar").enable();
 					Ext.getCmp("btnEliminar").enable();
@@ -263,8 +264,8 @@ Ext.onReady(function(){
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
-											gridForm.getForm().reset();
 										}
+
 							}});
 							storeRolResp.baseParams = {'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_rol_responsabilidad.php'};
 						}
@@ -279,7 +280,7 @@ Ext.onReady(function(){
 										storeRolResp.baseParams = {'accion': 'eliminar'};
 										storeRolResp.load({params:{
 												"condiciones": '{ "co_rol_resp" : "'+Ext.getCmp("co_rol_resp").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_res.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
 										callback: function () {
 										storeRolResp.baseParams = {'accion': 'refrescar'};
 										if(storeRolResp.getAt(0).data.resp!=true){		
@@ -324,10 +325,6 @@ Ext.onReady(function(){
 				//width:670,
 				title:'Lista de Roles y Responsabilidades',
                 border: true,
-                listeners: {
-                    viewready: function(g) {
-                    }
-                },
 				bbar: new Ext.PagingToolbar({
 				store: storeRolResp,
 				pageSize: 50,
