@@ -192,7 +192,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_cliente.php',
 		remoteSort : true,
 		root: 'clientes',
-		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_cliente.php"},,
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_cliente.php"},
         fields: [{name: 'co_cliente'}]
         });
 /******************************************INICIO**colModelCliente******************************************/     

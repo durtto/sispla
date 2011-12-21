@@ -185,12 +185,12 @@ var storeNuevoContinuidad = new Ext.data.JsonStore({
 	
     var colModelContinuidad = new Ext.grid.ColumnModel([
         {id:'co_continuidad',header: "Continuidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_continuidad'},
-        {header: "Activo", width: 238, sortable: true, locked:false, dataIndex: 'nb_activo'},
-        {header: "Prioridad", width: 120, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
+        {header: "Activo", width: 300, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {header: "Prioridad", width: 150, sortable: true, locked:false, dataIndex: 'bo_prioridad_rec', renderer: prioridad},
         //{header: "Fecha MTD", width: 100, sortable: true, locked:false, dataIndex: 'fe_mtd', renderer:convFechaDMY},      
         //{header: "Fecha RTO", width: 100, sortable: true, locked:false, dataIndex: 'fe_rto', renderer:convFechaDMY},
-        {header: "Esquema Interno", width: 120, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_interno', renderer: interno},
-        {header: "Esquema Externo", width: 120, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_externo', renderer: externo},
+        {header: "Esquema Interno", width: 174, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_interno', renderer: interno},
+        {header: "Esquema Externo", width: 174, sortable: true, locked:false, dataIndex: 'bo_esquema_alterno_externo', renderer: externo},
 		{header: "Activo", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_activo'},
         
       ]);

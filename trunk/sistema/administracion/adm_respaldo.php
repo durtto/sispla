@@ -135,11 +135,11 @@ Ext.onReady(function(){
     
     var colModelRespaldo = new Ext.grid.ColumnModel([
         {id:'co_respaldo',header: "Respaldo", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_respaldo'},
-        {header: "Activo", width: 60, sortable: true, locked:false, dataIndex: 'nb_activo'},
+        {header: "Activo", width: 63, sortable: true, locked:false, dataIndex: 'nb_activo'},
         {header: "Veces por d&iacute;a", width: 90, sortable: true, locked:false, dataIndex: 'nu_veces_al_dia'},
         {header: "D&iacute;as de semana", width: 110, sortable: true, locked:false, dataIndex: 'tx_dias_semana'},      
         {header: "Retenci&oacute;n de Data", width: 110, sortable: true, locked:false, dataIndex: 'nu_tiempo_retencion_data'},
-        {header: "Descripci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
+        {header: "Descripci&oacute;n", width: 95, sortable: true, locked:false, dataIndex: 'tx_descripcion_data'},
         {header: "&Uacute;ltimo Respaldo", width: 110, sortable: true, locked:false, dataIndex: 'fe_ultimo_respaldo', renderer:convFechaDMY},
         {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, hidden:true, sortable: true, locked:false, dataIndex: 'co_ubicacion'},        
 	    {header: "Ubicaci&oacute;n F&iacute;sica", width: 110, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},        
