@@ -4,6 +4,7 @@
 	
 		<author first="Plan Maestro" titulo="">
 			<book title="Procesos Críticos" titulo="Procesos" url="../administracion/adm_proceso.php"></book>
+			<book title="Clientes del Proceso" titulo="Cliente" url="../administracion/adm_cliente.php"></book>
 			<book title="Roles y Responsabilidades" titulo="Rol y Resp" url="../administracion/adm_rol_res.php"></book>
 		</author>	
 			<author first="Plan de Localización" titulo="">

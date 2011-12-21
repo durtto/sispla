@@ -96,8 +96,8 @@ Ext.onReady(function(){
 	
     var colModelPrivilegio = new Ext.grid.ColumnModel([
         {id:'co_privilegio',header: "Privilegio", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_privilegio'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
-        {header: "Descripcion", width: 338, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Nombre", width: 398, sortable: true, locked:false, dataIndex: 'nb_privilegio'},
+        {header: "Descripci&oacute;n", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
 	
 /******************************************FIN****colModelPrivilegio******************************************/     
@@ -110,7 +110,7 @@ Ext.onReady(function(){
         id: 'frm_privilegio',
         frame: true,
 		labelAlign: 'center',
-        title: 'Privilegio',
+        title: '.: Actualizar Privilegios :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -121,7 +121,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Privilegios',
+			title: 'Privilegio',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -129,7 +129,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Privilegio',
+                        fieldLabel: 'N&uacute;mero de Privilegio',
 						xtype:'numberfield',
 						id: 'co_privilegio',
                         name: 'co_privilegio',
@@ -156,7 +156,7 @@ Ext.onReady(function(){
 					columnWidth:"100%",
 					labelWidth:100,
 					items: [{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -172,6 +172,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls:'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -202,7 +203,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -232,8 +233,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -246,7 +247,7 @@ Ext.onReady(function(){
 			id: 'btnEliminar',
 			text: 'Eliminar',
 			iconCls: 'delete', 
-			tooltip:'Eliminar privilegio',
+			tooltip:'Eliminar Privilegio',
 			disabled: true,
 			handler: function(){
 										storePrivilegio.baseParams = {'accion': 'eliminar'};
@@ -265,8 +266,8 @@ Ext.onReady(function(){
 										}
 										else{
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});

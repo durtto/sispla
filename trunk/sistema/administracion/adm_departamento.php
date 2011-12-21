@@ -93,8 +93,8 @@ Ext.onReady(function(){
 /******************************************INICIO**colModelDepartamento******************************************/     
     
     var colModelDepartamento = new Ext.grid.ColumnModel([
-        {id:'co_departamento',header: "Codigo", width: 150, hidden:true, sortable: true, locked:false, dataIndex: 'co_departamento'},
-        {header: "Departamento", width: 150, sortable: true, locked:false, dataIndex: 'nb_departamento'},
+        {id:'co_departamento',header: "C&oacute;digo", width: 368, sortable: true, locked:false, dataIndex: 'co_departamento'},
+        {header: "Departamento", width: 380, sortable: true, locked:false, dataIndex: 'nb_departamento'},
       ]);
 	
 /******************************************FIN****colModelDepartamento******************************************/     
@@ -107,7 +107,7 @@ Ext.onReady(function(){
         id: 'frm_departamento',
         frame: true,
 		labelAlign: 'center',
-        title: 'Departamentos',
+        title: '.: Actualizar Departamentos :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -118,7 +118,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Departamento',
+			title: 'Datos de Departamento',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -126,12 +126,11 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo del Departamento',
+                        fieldLabel: 'C&oacute;digo del Departamento',
 						xtype:'numberfield',
 						id: 'co_departamento',
                         name: 'co_departamento',
-                        hidden: true,
-						hideLabel: true,
+                        disabled: true,
                         width:140
                     },{
                         fieldLabel: 'Departamento',
@@ -156,6 +155,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'add',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -186,7 +186,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -215,8 +215,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -249,8 +249,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});

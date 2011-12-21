@@ -105,8 +105,8 @@ Ext.onReady(function(){
     var colModelRol = new Ext.grid.ColumnModel([
     	//expanderRol,
         {id:'co_rol',header: "Rol", width: 50, hidden:true, sortable: true, locked:false, dataIndex: 'co_rol'},
-        {header: "Nombre Rol", width: 150, sortable: true, locked:false, dataIndex: 'nb_rol'},
-        {header: "Descripcion", width: 400, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Nombre Rol", width: 180, sortable: true, locked:false, dataIndex: 'nb_rol'},
+        {header: "Descripci&oacute;n", width: 600, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
         ]);
         
 /******************************************FIN****colModelRol******************************************/     
@@ -119,7 +119,7 @@ Ext.onReady(function(){
         id: 'frm_rol',
         frame: true,
 		labelAlign: 'center',
-        title: 'Roles',
+        title: '.: Actualizar Roles :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -129,14 +129,14 @@ Ext.onReady(function(){
 			labelAlign: 'center',
 			width:800,
 			buttonAlign:'center',
-			title: 'Roles',
+			title: 'Rol',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
 					labelWidth:140,
 					border:false,
 					items: [{
-                        fieldLabel: 'Codigo de Rol',
+                        fieldLabel: 'C&oacute;digo de Rol',
 						xtype:'numberfield',
 						id: 'co_rol',
                         name: 'co_rol',
@@ -159,7 +159,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Descripcion',
+                        fieldLabel: 'Descripci&oacute;n',
 						xtype:'htmleditor',
 						id: 'tx_descripcion',
                         name: 'tx_descripcion',
@@ -175,6 +175,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls:'add',
 			handler: function(){
 					nuevo = true;
 					
@@ -206,7 +207,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -236,8 +237,8 @@ Ext.onReady(function(){
 										else{
 										
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -270,8 +271,8 @@ Ext.onReady(function(){
 										else{
 											storeRol.baseParams = {'accion': 'refrescar'};
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -298,7 +299,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Roles',
+				title:'Lista de Roles',
 				plugins: expanderRol,
                 border: true,
                 listeners: {
