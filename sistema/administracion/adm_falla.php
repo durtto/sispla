@@ -333,6 +333,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoFalla.load({
+							callback: function () {
+									if(storeNuevoFalla.getAt(0).data.co_falla){									
+										Ext.getCmp("co_falla").setValue(storeNuevoFalla.getAt(0).data.co_falla+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_falla").focus();
 				}

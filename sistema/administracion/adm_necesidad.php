@@ -236,6 +236,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoNecesidad.load({
+							callback: function () {
+									if(storeNuevoNecesidad.getAt(0).data.co_necesidad){									
+										Ext.getCmp("co_necesidad").setValue(storeNuevoNecesidad.getAt(0).data.co_necesidad+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_necesidad").focus();
 				}

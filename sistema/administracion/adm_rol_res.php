@@ -204,6 +204,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoRolResp.load({
+							callback: function () {
+									if(storeNuevoRolResp.getAt(0).data.co_rol_resp){									
+										Ext.getCmp("co_rol_resp").setValue(storeNuevoRolResp.getAt(0).data.co_rol_resp+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_rol_resp").focus();
 				}

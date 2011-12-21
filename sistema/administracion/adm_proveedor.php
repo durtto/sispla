@@ -355,6 +355,13 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 						Ext.getCmp("frm2").enable();
 					}
+					storeNuevoProveedor.load({
+							callback: function () {
+									if(storeNuevoProveedor.getAt(0).data.co_proveedor){									
+										Ext.getCmp("co_proveedor").setValue(storeNuevoProveedor.getAt(0).data.co_proveedor+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_proveedor").focus();
 				}

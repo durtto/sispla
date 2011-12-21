@@ -326,6 +326,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoGarantia.load({
+							callback: function () {
+									if(storeNuevoGarantia.getAt(0).data.co_garantia){									
+										Ext.getCmp("co_garantia").setValue(storeNuevoGarantia.getAt(0).data.co_garantia+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_garantia").focus();
 				}

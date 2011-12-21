@@ -222,6 +222,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoGuardia.load({
+							callback: function () {
+									if(storeNuevoGuardia.getAt(0).data.co_guardia){									
+										Ext.getCmp("co_guardia").setValue(storeNuevoGuardia.getAt(0).data.co_guardia+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_guardia").focus();
 				}

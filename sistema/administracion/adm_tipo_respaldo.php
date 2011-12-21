@@ -163,6 +163,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoTipoRespaldo.load({
+							callback: function () {
+									if(storeNuevoTipoRespaldo.getAt(0).data.co_tipo_respaldo){									
+										Ext.getCmp("co_tipo_respaldo").setValue(storeNuevoTipoRespaldo.getAt(0).data.co_tipo_respaldo+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_tipo_respaldo").focus();
 				}

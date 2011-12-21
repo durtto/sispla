@@ -197,6 +197,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoNivel.load({
+							callback: function () {
+									if(storeNuevoNivel.getAt(0).data.co_nivel){									
+										Ext.getCmp("co_nivel").setValue(storeNuevoNivel.getAt(0).data.co_nivel+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_nivel").focus();
 				}

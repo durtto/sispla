@@ -176,6 +176,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoTipoActivo.load({
+							callback: function () {
+									if(storeNuevoTipoActivo.getAt(0).data.co_tipo_activo){									
+										Ext.getCmp("co_tipo_activo").setValue(storeNuevoTipoActivo.getAt(0).data.co_tipo_activo+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_tipo_activo").focus();
 				}

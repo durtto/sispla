@@ -162,6 +162,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoTipoUbicacion.load({
+							callback: function () {
+									if(storeNuevoTipoUbicacion.getAt(0).data.co_tipo_ubicacion){									
+										Ext.getCmp("co_tipo_ubicacion").setValue(storeNuevoTipoUbicacion.getAt(0).data.co_tipo_ubicacion+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_tipo_ubicacion").focus();
 				}

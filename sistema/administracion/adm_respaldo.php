@@ -253,6 +253,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoRespaldo.load({
+							callback: function () {
+									if(storeNuevoRespaldo.getAt(0).data.co_respaldo){									
+										Ext.getCmp("co_respaldo").setValue(storeNuevoRespaldo.getAt(0).data.co_respaldo+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_respaldo").focus();
 				}
@@ -426,8 +433,8 @@ Ext.onReady(function(){
 					items: [{
                         fieldLabel: 'N&uacute;mero de Tipo',
 						xtype:'numberfield',
-						id: 'co_tipo_respaldo',
-                        name: 'co_tipo_respaldo',
+						id: 'co_tipo_respaldo1',
+                        name: 'co_tipo_respaldo1',
                         allowBlank:false,
                         hidden: true,
 						hideLabel: true,
@@ -464,7 +471,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_tipo_respaldo").focus();
+					Ext.getCmp("co_tipo_respaldo1").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -491,10 +498,10 @@ Ext.onReady(function(){
 								storeTpRespaldo.baseParams = {'accion': 'insertar'};
 							else
 								storeTpRespaldo.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'", ';
+							var columnas   = '{"co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo1").getValue()+'", ';
 							columnas += '"nb_tipo_respaldo" : "'+Ext.getCmp("nb_tipo_respaldo").getValue()+'"}';
 							storeTpRespaldo.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}', 
+												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo1").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
 										callback: function () {
 										if(storeTpRespaldo.getAt(0).data.resp!=true){		
@@ -527,7 +534,7 @@ Ext.onReady(function(){
 			handler: function(){
 										storeTpRespaldo.baseParams = {'accion': 'eliminar'};
 										storeTpRespaldo.load({params:{
-												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo").getValue()+'"}', 
+												"condiciones": '{ "co_tipo_respaldo" : "'+Ext.getCmp("co_tipo_respaldo1").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
 										callback: function () {
 										storeTpRespaldo.baseParams = {'accion': 'refrescar'};
