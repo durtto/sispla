@@ -253,8 +253,9 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'co_activo',
                         name: 'co_activo',
-                        hidden:true,
-                        hideLabel:true,
+                        //hidden:true,
+                        //hideLabel:true,
+						disabled:true,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
                     },{
