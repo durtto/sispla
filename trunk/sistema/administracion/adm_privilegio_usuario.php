@@ -179,6 +179,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoPrivilegio.load({
+							callback: function () {
+									if(storeNuevoPrivilegio.getAt(0).data.co_privilegio){									
+										Ext.getCmp("co_privilegio").setValue(storeNuevoPrivilegio.getAt(0).data.co_privilegio+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_privilegio").focus();
 				}

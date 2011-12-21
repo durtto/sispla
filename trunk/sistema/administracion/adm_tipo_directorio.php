@@ -163,6 +163,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoTipoDirectorio.load({
+							callback: function () {
+									if(storeNuevoTipoDirectorio.getAt(0).data.co_tipo_directorio){									
+										Ext.getCmp("co_tipo_directorio").setValue(storeNuevoTipoDirectorio.getAt(0).data.co_tipo_directorio+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_tipo_directorio").focus();
 				}

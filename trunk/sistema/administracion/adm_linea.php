@@ -195,6 +195,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoLinea.load({
+							callback: function () {
+									if(storeNuevoLinea.getAt(0).data.co_linea){									
+										Ext.getCmp("co_linea").setValue(storeNuevoLinea.getAt(0).data.co_linea+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_linea").focus();
 				}

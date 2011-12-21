@@ -200,6 +200,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoProceso.load({
+							callback: function () {
+									if(storeNuevoProceso.getAt(0).data.co_proceso){									
+										Ext.getCmp("co_proceso").setValue(storeNuevoProceso.getAt(0).data.co_proceso+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_proceso").focus();
 				}

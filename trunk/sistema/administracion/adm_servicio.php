@@ -191,6 +191,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoServicio.load({
+							callback: function () {
+									if(storeNuevoServicio.getAt(0).data.co_servicio){									
+										Ext.getCmp("co_servicio").setValue(storeNuevoServicio.getAt(0).data.co_servicio+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_servicio").focus();
 				}

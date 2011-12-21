@@ -198,7 +198,7 @@ function vehiculos_seleccionados(){
     storeTransporte.setDefaultSort('co_transporte', 'ASC');
     
 /*****************************************FIN****StoreTransporte*****************************************/
-	var storeNuevoTRansporte = new Ext.data.JsonStore({
+	var storeNuevoTransporte = new Ext.data.JsonStore({
 		url: '../interfaz/interfaz_transporte.php',
 		remoteSort : true,
 		root: 'transportes',
@@ -408,6 +408,16 @@ function vehiculos_seleccionados(){
 								Ext.getCmp("tabPanel").enable();
 								//Ext.getCmp("frm3").enable();
 							}
+							storeNuevoTransporte.load({
+							callback: function () {
+									if(storeNuevoTransporte.getAt(0).data.co_transporte){									
+										Ext.getCmp("co_transporte").setValue(storeNuevoTrasnporte.getAt(0).data.co_transporte+1)
+									};
+							}
+							});
+					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
+							Ext.getCmp("gd_linea").getSelectionModel().clearSelections();
+							Ext.getCmp("gd_vehiculo").getSelectionModel().clearSelections();
 					}
 				}, {
 			text: 'Guardar', 

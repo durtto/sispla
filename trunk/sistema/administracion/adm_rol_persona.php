@@ -183,6 +183,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoRol.load({
+							callback: function () {
+									if(storeNuevoRol.getAt(0).data.co_rol){									
+										Ext.getCmp("co_rol").setValue(storeNuevoRol.getAt(0).data.co_rol+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_rol").focus();
 				}
