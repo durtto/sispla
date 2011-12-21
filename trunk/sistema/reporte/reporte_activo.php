@@ -87,7 +87,7 @@ Ext.onReady(function(){
 		root: 'activos',
         totalProperty: 'total',
 		idProperty: 'co_activo',
-		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
+		baseParams: {'start':0, 'limit':50, 'accion': 'critico', 'interfaz': 'interfaz_activo.php', ubicacion: ubicacion},
         fields: [{name: 'co_activo'},
 				{name: 'nb_activo'},
 				{name: 'tx_descripcion'},
@@ -113,12 +113,18 @@ Ext.onReady(function(){
 				{name: 'nb_proveedor'},
 				{name: 'co_nivel'},
 				{name: 'nb_nivel'},
+				{name: 'co_categoria'},
+				{name: 'nb_categoria'},
+				{name: 'co_capacidad'},
+				{name: 'nb_capacidad'},
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
+		        {name: 'bo_soporte_tecnico'},
+				{name: 'tx_limitacion_expansion'},
+				{name: 'tx_costo_mantenimiento'},
 		        {name: 'resp'}]
         });
     storeActivo.setDefaultSort('co_ubicacion', 'ASC');
-
 
 /*****************************************FIN****StoreActivo*****************************************/
 
@@ -127,38 +133,43 @@ Ext.onReady(function(){
 
     var colModelActivo = new Ext.grid.ColumnModel([
         {id:'co_activo',header: "Activo", width: 80, hidden:true, sortable: true, locked:false, dataIndex: 'co_activo'},
-        {header: "Nombre", width: 120, sortable: true, locked:false, dataIndex: 'nb_activo'},
-     	{header: "Descripci&oacute;n", width: 190, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Nombre del Activo", width: 120, sortable: true, locked:false, dataIndex: 'nb_activo'},
+     	{header: "Descripci&oacute;n", fixed: true,width: 190, sortable: true, locked:false, dataIndex: 'tx_descripcion', renderer: descripcion},
       	{header: "C&oacute;digo SAP", width: 120, sortable: true, locked:false, dataIndex: 'co_sap'},
       	{header: "Serial", width: 120, sortable: true, locked:false, dataIndex: 'nu_serial'},
       	{header: "N&uacute;mero de Etiqueta", width: 150, sortable: true, locked:false, dataIndex: 'nu_etiqueta'},
       	{header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: critico},
       	{header: "Vulnerable", width: 100, sortable: true, locked:false, dataIndex: 'bo_vulnerable', renderer: vulnerable},
-      	{header: "Fecha de Incorporaci&oacute;n", width: 160, sortable: true, locked:false, dataIndex: 'fe_incorporacion'},
+      	{header: "Fecha de Incorporaci&oacute;n", width: 160, sortable: true, locked:false, dataIndex: 'fe_incorporacion', renderer:convFechaDMY},
       	{header: "Vida &Uacute;til", width: 100, sortable: true, locked:false, dataIndex: 'nu_vida_util'},
       	{header: "Activo Padre", width: 100, sortable: true, locked:false, dataIndex: 'co_activo_padre'},
       	{header: "Estado", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_estado'},
       	{header: "Estado", width: 100, sortable: true, locked:false, dataIndex: 'nb_estado'},
       	{header: "Fabricante1", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_fabricante'},
       	{header: "Fabricante", width: 100, sortable: true, locked:false, dataIndex: 'nb_fabricante'},
-      	{header: "Responsable", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_indicador'},
-      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-      	{header: "Ubicaci&oacute;n", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
+      	{header: "Responsable", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
+      	{header: "Ubicacion", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_ubicacion'},
       	{header: "Ubicaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'nb_ubicacion'},      
       	{header: "Proceso", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proceso'},
       	{header: "Proceso", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},      
-      	{header: "Proveedor", width: 100, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
-      	{header: "Proveedor", width: 100, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
-        {header: "Unidad de Demanda", width: 125, sortable: true, hidden: true, locked:false, dataIndex: 'co_unidad'},
-      	{header: "Unidad de Demanda", width: 140, sortable: true, locked:false, dataIndex: 'nb_unidad'},
+      	{header: "Proveedor", width: 120, sortable: true, hidden: true, locked:false, dataIndex: 'co_proveedor'},
+      	{header: "Proveedor", width: 120, sortable: true, locked:false, dataIndex: 'nb_proveedor'},      
       	{header: "Nivel de Obsolescencia", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_nivel'},
-      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel',renderer: nivel, },       
-        {header: "C&oacute;digo Tipo de Activo", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
+      	{header: "Nivel de Obsolescencia", width: 140, sortable: true, locked:false, dataIndex: 'nb_nivel' },       
+        {header: "Tipo de Activo", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_tipo_activo'},
         {header: "Tipo de Activo", width: 110, sortable: true, locked:false, dataIndex: 'nb_tipo_activo'},
+		{header: "Capacidad", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_capacidad'},
+        {header: "Capacidad", width: 110, sortable: true, locked:false, dataIndex: 'nb_capacidad'},
+		{header: "Categoria", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_categoria'},
+        {header: "Categoria", width: 110, sortable: true, locked:false, dataIndex: 'nb_categoria'},
+        {header: "Soporte Tecnico", width: 110, sortable: true, locked:false, dataIndex: 'bo_soporte_tecnico'},
+        {header: "Mantenimiento", width: 110, sortable: true, locked:false, dataIndex: 'tx_costo_mantenimiento'},
+        {header: "Limitacion", width: 110, sortable: true, locked:false, dataIndex: 'tx_limitacion_expansion'},
 
       ]);
 
 /******************************************FIN****colModelActivo******************************************/     
+
 
 
 	//--------------------------------------------------------
@@ -167,7 +178,7 @@ Ext.onReady(function(){
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				renderTo: 'panelGrafica-'+idTab,
+				renderTo: 'panelGrafica',
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
 				plotShadow: false
@@ -222,7 +233,7 @@ Ext.onReady(function(){
 		chart = new Highcharts.Chart({
 			colors: ['#4572A7','#AA4643','#89A54E','#80699B','#3D96AE','#DB843D','#92A8CD','#A47D7C','#B5CA92','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
 			chart: {
-				renderTo: 'panelGrafica-'+idTab,
+				renderTo: 'panelGrafica',
 				defaultSeriesType: 'column'
 			},
 			title: {
@@ -272,7 +283,7 @@ Ext.onReady(function(){
 		var now = new Date();
 		chart = new Highcharts.Chart({
 			chart: {
-				renderTo: 'panelGrafica-'+idTab,
+				renderTo: 'panelGrafica',
 				defaultSeriesType: 'line'
 			},
 			title: {
@@ -340,8 +351,8 @@ Ext.onReady(function(){
 			},
 			params:{
 				tipo:tipoGrafica,
-				base:   Ext.getCmp('base_grafica-'+idTab).getValue(),
-				estado:   Ext.getCmp('estado_grafica-'+idTab).getValue(),
+				base:   Ext.getCmp('base_grafica').getValue(),
+				estado:   Ext.getCmp('estado_grafica').getValue(),
 			},
 			failure: function(){
 				console.log('failure');
@@ -357,14 +368,14 @@ Ext.onReady(function(){
 							[2, 'Tipo Activo'],
 							[3, 'Ubicacion'],
 							[4, 'Capacidad']]
-				});
-	var DataLineal = [[1, 'Diario'],
+							});
+	var DataLineal =  [[1, 'Diario'],
 					  [2, 'Semanal'],
 					  [3, 'Mensual']];
 	var DataBC = [[1, 'Obsolescencia'],
-					[2, 'Tipo Activo'],
-					[3, 'Ubicacion'],
-					[4, 'Capacidad']];
+				 [2, 'Tipo Activo'],
+				 [3, 'Ubicacion'],
+				 [4, 'Capacidad']];
 	var storeEstado = new Ext.data.JsonStore({
 						fields: ['co_estado', 'nb_estado_graf'],
 						root: 'data',
@@ -374,9 +385,18 @@ Ext.onReady(function(){
 	//--------------------------------------------------------
 /**********************************************************************/	
 
-	function tempTab(idTab){
-		var contenido = new Ext.Panel({
-			items:[{
+
+/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
+		
+    var gridForm = new Ext.FormPanel({
+		id:'srv_ticket',
+		labelWidth: 100,
+		frame:true,
+		title: '.: Reporte de Activos :.',
+		bodyStyle:'padding:5px',
+		width: 840,
+		layout: 'fit',
+		items: [{
 					xtype: 'fieldset',
 					title: 'Datos de Entrada',
 					collapsible:false,
@@ -384,12 +404,32 @@ Ext.onReady(function(){
 					autoHeight:true, 
 					bodyStyle:'padding:0px',
 					items:[{
-							xtype: 'combo',
-							id: 'tipo_grafica-'+idTab,
+							xtype:'combo',
 							anchor: '40%',
-							name: 'tipo_grafica-'+idTab,
+							fieldLabel: 'Capacidad',
+			         		store: new Ext.data.JsonStore({
+							url: '../interfaz/interfaz_combo.php',
+							   root: 'Resultados',
+							   idProperty: 'co_capacidad',
+							   baseParams: {accion:'capacidad'},
+							   fields:['co_capacidad','nb_capacidad']
+							}),
+							id:'co_capacidad',
+							valueField:'co_capacidad',
+					        displayField:'nb_capacidad',
+					        typeAhead: true,
+					        allowBlank: false,
+					        mode: 'remote',
+					        forceSelection: true,
+					        triggerAction: 'all',
+					        emptyText:'Selecione',
+					        selectOnFocus:true
+	         				},{
+							xtype: 'combo',
+							id: 'tipo_grafica',
+							anchor: '40%',
+							name: 'tipo_grafica',
 							fieldLabel: 'Tipo de Gr&aacute;fica',
-							//hiddenName: 'nb_distrito',
 							valueField: 'id',
 							store: new Ext.data.ArrayStore({
 								id: 0,
@@ -413,18 +453,18 @@ Ext.onReady(function(){
 									select: {
 										fn: function(combo,record,index){
 											if(index==0){
-												Ext.getCmp('base_grafica-'+idTab).clearValue();
-												Ext.getCmp('estado_grafica-'+idTab).clearValue();
-												Ext.getCmp('base_grafica-'+idTab).disable();
-												Ext.getCmp('estado_grafica-'+idTab).disable();
+												Ext.getCmp('base_grafica').clearValue();
+												Ext.getCmp('estado_grafica').clearValue();
+												Ext.getCmp('base_grafica').disable();
+												Ext.getCmp('estado_grafica').disable();
 												store.removeAll();
 												store.loadData(DataLineal);
 											}
 											else{
-												Ext.getCmp('base_grafica-'+idTab).clearValue();
-												Ext.getCmp('estado_grafica-'+idTab).clearValue();
-												Ext.getCmp('base_grafica-'+idTab).enable();
-												Ext.getCmp('estado_grafica-'+idTab).enable();
+												Ext.getCmp('base_grafica').clearValue();
+												Ext.getCmp('estado_grafica').clearValue();
+												Ext.getCmp('base_grafica').enable();
+												Ext.getCmp('estado_grafica').enable();
 												store.removeAll();
 												store.loadData(DataBC);
 											}
@@ -433,9 +473,9 @@ Ext.onReady(function(){
 							}
 						},{
 							xtype: 'combo',
-							id: 'base_grafica-'+idTab,
+							id: 'base_grafica',
 							anchor: '40%',
-							name: 'base_grafica-'+idTab,
+							name: 'base_grafica',
 							fieldLabel: 'Dato Base',
 							//hiddenName: 'nb_distrito',
 							valueField: 'id',
@@ -455,11 +495,11 @@ Ext.onReady(function(){
 								select: {
 									fn: function(combo,record,index){
 										if(index==0){
-											Ext.getCmp('estado_grafica-'+idTab).clearValue();
-											Ext.getCmp('estado_grafica-'+idTab).disable();
+											Ext.getCmp('estado_grafica').clearValue();
+											Ext.getCmp('estado_grafica').disable();
 										}
 										else{
-											Ext.getCmp('estado_grafica-'+idTab).enable();
+											Ext.getCmp('estado_grafica').enable();
 										}
 										if(index==5){
 											storeEstado.load({params:{tipo_estado:2}});
@@ -472,9 +512,9 @@ Ext.onReady(function(){
 							}
 						},{
 							xtype: 'combo',
-							id: 'estado_grafica-'+idTab,
+							id: 'estado_grafica',
 							anchor: '30%',
-							name: 'estado_grafica-'+idTab,
+							name: 'estado_grafica',
 							fieldLabel: 'Estado',
 							//hiddenName: 'nb_distrito',
 							valueField: 'co_estado',
@@ -494,33 +534,33 @@ Ext.onReady(function(){
 						},{
 							xtype: 'button',
 							text: 'Graficar',
-							id: 'btn_graficar-'+idTab,
+							id: 'btn_graficar',
 							handler: function(){
-								tipoGrafica=Ext.getCmp('tipo_grafica-'+idTab).getValue();
+								tipoGrafica=Ext.getCmp('tipo_grafica').getValue();
 								cad='';
-								if(Ext.getCmp('base_grafica-'+idTab).getValue()!=1){
-									cad=Ext.getCmp('estado_grafica-'+idTab).getRawValue();
+								if(Ext.getCmp('base_grafica').getValue()!=1){
+									cad=Ext.getCmp('estado_grafica').getRawValue();
 									if(cad=='""')
 										cad='Recibidos'
 								}				
-								titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica-'+idTab).getRawValue();
+								titulo='Documentos '+cad+' Por '+Ext.getCmp('base_grafica').getRawValue();
 								if(tipoGrafica==1){
 									titulo='Documentos por Mes';
 								}
-								subtitulo='Grafica '+Ext.getCmp('estado_grafica-'+idTab).getRawValue()+' De '+Ext.getCmp('base_grafica-'+idTab).getRawValue();
+								subtitulo='Grafica '+Ext.getCmp('estado_grafica').getRawValue()+' De '+Ext.getCmp('base_grafica').getRawValue();
 								crearGrafica(idTab, tipoGrafica, titulo, subtitulo);
 							}
 					}]
 				},{
-					id: 'panelGrafica-'+idTab,
-					width: 900,
+					id: 'panelGrafica',
+					width: 820,
 					height: 400,
 					layout: 'fit'
 				},{
-					width:900,
+					width:820,
 					items:[{
 							xtype: 'grid',
-							id: 'gd_activo-'+idTab,
+							id: 'gd_activo',
 							store: storeActivo,
 							cm: colModelActivo,
 							stripeRows: true,
@@ -543,94 +583,6 @@ Ext.onReady(function(){
 							emptyMsg: "No hay registros que mostrar",
 							})
 					}]		
-			}]
-		});
-		
-		return contenido;
-	}
-
-/******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
-		
-    var gridForm = new Ext.FormPanel({
-		id:'srv_ticket',
-		labelWidth: 100,
-		frame:true,
-		title: '.: Reporte de Activos :.',
-		bodyStyle:'padding:5px',
-		width: 960,
-		layout: 'fit',
-		items: [{
-				xtype:'fieldset',	
-				autoHeight:true,
-				border: false,
-				items: [{			
-						xtype: 'tabpanel',
-						id: 'tabPanel',
-						resizeTabs: true,
-						enableTabScroll: true,
-						deferredRender: false,
-						layoutOnTabChange: true,
-						activeTab: 0,
-						//layout: 'fit',
-						bodyStyle:'padding:5px; background-color: #f1f1f1;',
-						items: [{
-								title: 'Almacenamiento',
-								id: 'tabalmacenamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabalmacenamiento')]
-							},{
-								title: 'Transporte',
-								id: 'tabtransporte',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabtransporte')]
-							},{
-								title: 'Procesamiento',
-								id: 'tabprocesamiento',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabprocesamiento')]
-							},{
-								title: 'Impresi&oacute;n',
-								id: 'tabimpresion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabimpresion')]
-							},{
-								title: 'Visualizaci&oacute;n',
-								id: 'tabvisualizacion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabvisualizacion')]
-							},{
-								title: 'Autonom&iacute;a Energ.',
-								id: 'tabautonomia',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabautonomia')]
-							},{
-								title: 'Monitoreo',
-								id: 'tabmonitoreo',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabmonitoreo')]
-							},{
-								title: 'Adq. de Datos',
-								id: 'tabadquisicion',
-								hideMode: 'offsets', 
-								autoHeight:true,		
-								bodyStyle:'padding: 0px 0px 1px 0px'	,						
-								items:[tempTab('tabadquisicion')]
-									}]
-							}]
 			}],
 		});
 
@@ -654,9 +606,7 @@ gridForm.render('form');
     <tr>
       <td><div id="form" style="margin: 0 0 0 0;"></div></td>
        </tr>
-  		<tr>
-  		
-    </tr>
+
   </table>
 </body>
 </html>
