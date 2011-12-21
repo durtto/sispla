@@ -23,6 +23,14 @@
 			$total = count($resultado);
 			
 			break;
+			
+			case 'nuevo':
+			
+			$resultado = $cliente->NuevoCliente();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

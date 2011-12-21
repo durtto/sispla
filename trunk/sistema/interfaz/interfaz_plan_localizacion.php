@@ -20,6 +20,13 @@
 		
 			break;
 			
+		case 'nuevo':
+			
+			$resultado = $planlocalizacion->NuevoPlanLocalizacion();
+			$total= 1;
+
+			break;
+			
 			case 'persona':
 			
 			$resultado = $planlocalizacion->cargarPlanLocalizacionPersona($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);

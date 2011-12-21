@@ -34,6 +34,14 @@
 				
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $doccomponente->NuevoDocComponente();
+			$total= 1;
+
+			break;
+			
 		case 'actualizar':
 			
 			

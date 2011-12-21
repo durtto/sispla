@@ -21,6 +21,13 @@
 			
 
 			break;
+			
+			case 'nuevo':
+			
+			$resultado = $vehiculo->NuevoVehiculo();
+			$total= 1;
+
+			break;
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

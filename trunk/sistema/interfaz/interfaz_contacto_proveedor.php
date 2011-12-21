@@ -22,6 +22,13 @@
 		
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $contacto->NuevoContactoProveedor();
+			$total= 1;
+			break;	
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

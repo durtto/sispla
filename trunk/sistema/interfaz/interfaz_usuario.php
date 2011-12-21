@@ -21,7 +21,12 @@
 			$total= $resultado3 [0]['count'];
 		
 			break;
+		case 'nuevo':
 			
+			$resultado = $usuario->NuevoUsusario();
+			$total= 1;
+
+			break;	
 		case 'login':
 			$resultado = $usuario->cargarUsuarioLogin($_REQUEST['login'], $_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);
 			//$total = count($resultado);

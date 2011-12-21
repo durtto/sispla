@@ -28,6 +28,12 @@
 			//$total = count($resultado);
 			
 			break;
+		case 'nuevo':
+			
+			$resultado = $activo->NuevoActivo();
+			$total= 1;
+
+			break;
 			
 		case 'insertar':	 			
 			

@@ -19,6 +19,14 @@
 			
 			
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $valor->NuevoValor();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

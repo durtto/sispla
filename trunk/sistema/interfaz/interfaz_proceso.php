@@ -21,6 +21,14 @@
 		
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $proceso->NuevoProceso();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

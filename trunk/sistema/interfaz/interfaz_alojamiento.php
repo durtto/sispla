@@ -36,6 +36,13 @@
 				
 
 			break;
+		case 'nuevo':
+			
+		$resultado = $alojamiento->NuevoAlojamiento();
+		$total= 1;
+
+		break;
+		
 		case 'actualizar':
 			
 			

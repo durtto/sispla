@@ -20,6 +20,15 @@
 			
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $departamento->NuevoDepartamento();
+			$total= 1;
+
+			break;
+			
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];
