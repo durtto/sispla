@@ -13,7 +13,6 @@
 			<book title="Nivel de Obsolescencia" titulo="Niveles" url="../administracion/adm_nivel_obsolescencia.php"></book>
 			<book title="Unidad demanda" titulo="Unidades" url="../administracion/adm_unidad_demanda.php"></book>	
 			<book title="Servicios" titulo="Servicios" url="../administracion/adm_servicio.php"></book>
-			<book title="Capacidad" titulo="Capacidad" url="../administracion/adm_capacidad.php"></book>
 			<book title="Categoria" titulo="Categoria" url="../administracion/adm_categoria.php"></book>
 			<book title="Estado" titulo="Estado" url="../administracion/adm_estado.php"></book>
 
