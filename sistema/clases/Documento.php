@@ -61,6 +61,18 @@ class Documento extends MyPDO
 			
 	return $c;
   }
+   public function NuevoDocumento() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_documento FROM tr048_documento
+		ORDER BY co_documento DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDocumento($documento) {
   	
 	$this->pdo->beginTransaction();	

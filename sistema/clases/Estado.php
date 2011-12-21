@@ -56,6 +56,18 @@ class Estado extends MyPDO
 			
 	return $c;
   }
+   public function NuevoEstado() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_estado FROM tr004_estado
+		ORDER BY co_estado DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarEstado($estado) {
   	
 	$this->pdo->beginTransaction();	

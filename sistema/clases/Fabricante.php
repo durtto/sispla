@@ -71,6 +71,18 @@ class Fabricante extends MyPDO
 			
 	return $c;
   }
+   public function NuevoFabricante() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_fabricante FROM tr003_fabricante
+		ORDER BY co_fabricante DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarFabricante($fabricante) {
   	
 	$this->pdo->beginTransaction();	

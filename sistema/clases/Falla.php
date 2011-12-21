@@ -62,6 +62,18 @@ class Falla extends MyPDO
 			
 	return $c;
   }
+	 public function NuevoFalla() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_falla FROM tr028_falla
+		ORDER BY co_falla DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarFalla($falla) {
   	
 	$this->pdo->beginTransaction();	

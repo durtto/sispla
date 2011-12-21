@@ -71,6 +71,18 @@ class Dato extends MyPDO
 			
 	return $c;
   }
+   public function NuevoDato() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_componente FROM tr015_datos_plan
+		ORDER BY co_componente DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDato($dato) {
   	
 	$this->pdo->beginTransaction();	

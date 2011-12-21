@@ -82,6 +82,18 @@ class ContactoProveedor extends MyPDO
 			
 	return $c;
   }
+   public function NuevoContactoProveedor() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_contacto FROM tr026_contacto_proveedor
+		ORDER BY co_contacto DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarContactoProveedor($contacto) {
   	
 	$this->pdo->beginTransaction();	

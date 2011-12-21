@@ -45,6 +45,18 @@ class Equipo extends MyPDO
 			
 	return $c;
   }
+   public function NuevoEquipo() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_equipo FROM tr055_equipo
+		ORDER BY co_equipo DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarEquipo($equipo) {
   	
 	$this->pdo->beginTransaction();	
