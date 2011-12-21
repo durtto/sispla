@@ -45,6 +45,18 @@ class DocComponente extends MyPDO
 			
 	return $c;
   }
+   public function NuevoDocComponente() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_doc_componente FROM tr053_documento_componente
+		ORDER BY co_doc_componente DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDocComponente($docComponente) {
   	
 	$this->pdo->beginTransaction();	

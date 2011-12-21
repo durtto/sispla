@@ -57,6 +57,18 @@ class Directorio extends MyPDO
 			
 	return $c;
   }
+    public function NuevoDirectorio() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_directorio FROM tr051_directorio
+		ORDER BY co_directorio DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarDirectorio($directorio) {
   	
 	$this->pdo->beginTransaction();	

@@ -72,6 +72,18 @@ class Continuidad extends MyPDO
 			
 	return $c;
   }
+	 public function NuevoContinuidad() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_continuidad FROM tr035_continuidad
+		ORDER BY co_continuidad DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarContinuidad($continuidad) {
   	
 	$this->pdo->beginTransaction();	

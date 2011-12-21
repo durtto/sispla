@@ -62,6 +62,18 @@ class Crecimiento extends MyPDO
 			
 	return $c;
   }
+   public function NuevoCrecimiento() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_crecimiento FROM tr037_crecimiento
+		ORDER BY co_crecimiento DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarCrecimiento($crecimiento) {
   	
 	$this->pdo->beginTransaction();	

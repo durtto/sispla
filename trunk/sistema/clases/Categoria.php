@@ -53,6 +53,18 @@ class Categoria extends MyPDO
 			
 	return $c;
   }
+   public function NuevoCategoria() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_categoria FROM tr011_categoria
+		ORDER BY co_categoria DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarCategoria($categoria) {
   	
 	$this->pdo->beginTransaction();	

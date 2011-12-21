@@ -66,6 +66,18 @@ class Alimentacion extends MyPDO
 			
 	return $c;
   } 
+   public function NuevoAlimentacion() {
+	//$nuevo = "select nextval ('tr001_grupo_seq') AS nu_grupo;";
+	$nuevo = "SELECT co_alimentacion FROM tr018_alimentacion
+		ORDER BY co_alimentacion DESC 
+		LIMIT 1;";
+	$c = $this->pdo->_query($nuevo);
+	
+	//if(is_object($this->pdo->monitor) && $this->pdo->monitor->notify_select)
+		//$this->popNotify(); // Libera posicion reg_padre
+			
+	return $c;
+  }
   public function insertarAlimentacion($alimentacion) {
   	
 	$this->pdo->beginTransaction();	
