@@ -96,22 +96,22 @@ Ext.onReady(function(){
 //total de espacio posible para que se vea sin barra de desplazamiento vertical 639//
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
-        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
-		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "C&eacute;dula", width: 80, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "Nombre", width: 120, sortable: true, locked:false, dataIndex: 'nb_persona'},
+		{header: "Apellido", width: 120, sortable: true, locked:false, dataIndex: 'tx_apellido'},
+        {header: "Direcci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Tel&eacute;fono", width: 80, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electr&oacute;nico", width: 120, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Tel&eacute;fono Habitaci&oacute;n", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
         {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
         {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
      	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
         {header: "Rol", width: 100, sortable: true, locked:false, dataIndex: 'nb_rol'},      
       	{header: "Grupo", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_grupo'},
-        {header: "Grupo", width: 100, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
+        {header: "Grupo", width: 80, sortable: true, locked:false, dataIndex: 'nb_grupo'},      
       	{header: "Guardia", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_guardia'},
-        {header: "Guardia", width: 100, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
+        {header: "Guardia", width: 80, sortable: true, locked:false, dataIndex: 'nb_guardia'},      
       
       ]);
 	
@@ -126,7 +126,7 @@ Ext.onReady(function(){
         id: 'frm_persona',
         frame: true,
 		labelAlign: 'center',
-        title: 'Persona',
+        title: '.: Personas :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -137,7 +137,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Personas',
+			title: 'Datos de Persona',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -153,7 +153,7 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
-                        fieldLabel: 'Cedula',
+                        fieldLabel: 'C&eacute;dula',
 						xtype:'numberfield',
 						id: 'nu_cedula',
                         name: 'nu_cedula',
@@ -188,7 +188,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Correo Electronico',
+                        fieldLabel: 'Correo Electr&oacute;nico',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'tx_correo_electronico',
@@ -223,7 +223,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Telefono Oficina',
+                        fieldLabel: 'Tel&eacute;fono Oficina',
 						xtype:'numberfield',
 						id: 'tx_telefono_oficina',
                         name: 'tx_telefono_oficina',
@@ -231,7 +231,7 @@ Ext.onReady(function(){
                         width:140,
                       
                     },{
-                        fieldLabel: 'Habitacion',
+                        fieldLabel: 'Habitaci&oacute;n',
 						xtype:'textfield',
 						vtype:'validos',
 						id: 'di_habitacion',
@@ -245,7 +245,7 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-                        fieldLabel: 'Telefono Habitacion',
+                        fieldLabel: 'Tel&eacute;fono Habitaci&oacute;n',
 						xtype:'textfield',
 						id: 'tx_telefono_habitacion',
                         name: 'tx_telefono_habitacion',
@@ -254,7 +254,7 @@ Ext.onReady(function(){
                         width:140,
                        
                     },{
-                        fieldLabel: 'Telefono Personal',
+                        fieldLabel: 'Tel&eacute;fono Personal',
 						xtype:'numberfield',
 						id: 'tx_telefono_personal',
                         name: 'tx_telefono_personal',
@@ -297,7 +297,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -338,8 +338,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -372,8 +372,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -401,7 +401,7 @@ Ext.onReady(function(){
                 }),
                 height: 250,
 				//width:670,
-				title:'Lista de Persona',
+				title:'Lista de Personas',
                 border: true,
                 listeners: {
                     viewready: function(g) {

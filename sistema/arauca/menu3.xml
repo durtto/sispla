@@ -1,7 +1,15 @@
 <authors>
 
+		<author first="Usuarios" titulo="">	
 		<book title="Privilegio" titulo="Privilegio" url="../administracion/adm_privilegio_usuario.php"></book>
-		<book title="Rol Persona" titulo="Rol" url="../administracion/adm_rol_persona.php"></book>
 		<book title="Usuario" titulo="Usuario" url="../administracion/adm_usuario.php"></book>
-		
+		</author>
+		<author first="Recursos Requeridos" titulo="">	
+		<book title="Equipos necesarios" titulo="Equipos N." url="../administracion/adm_equipo.php"></book>
+		</author>
+		<author first="Personas" titulo="">	
+			<book title="Persona" titulo="Persona" url="../administracion/adm_persona.php"></book>
+			<book title="Departamento" titulo="Departamento" url="../administracion/adm_departamento.php"></book>
+			<book title="Rol de Persona" titulo="Rol Persona" url="../administracion/adm_rol_persona.php"></book>
+		</author>
 </authors>		
