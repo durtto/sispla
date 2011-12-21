@@ -111,14 +111,14 @@ Ext.onReady(function(){
 
     var colModelPersona = new Ext.grid.ColumnModel([
         {id:'co_indicador',header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Cedula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
+        {header: "C&eacute;dula", width: 100, sortable: true, locked:false, dataIndex: 'nu_cedula'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
 		{header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
-        {header: "Direccion", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-        {header: "Correo Electronico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
-        {header: "Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
-		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Direcci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_oficina'},
+		{header: "Tel&eacute;fono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+        {header: "Correo Electr&oacute;nico", width: 100, sortable: true, locked:false, dataIndex: 'tx_correo_electronico'},
+        {header: "Habitaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'di_habitacion'},
+		{header: "Tel&eacute;fono Habitaci&oacute;n", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
         {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
         {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
      	{header: "Rol", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_rol'},
@@ -160,8 +160,8 @@ Ext.onReady(function(){
     var colModelProceso = new Ext.grid.ColumnModel([
         {id:'co_proceso',header: "Proceso", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proceso'},
         {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Descripcion", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
-        {header: "Critico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
+        {header: "Descripci&oacute;n", width: 358, sortable: true, locked:false, dataIndex: 'tx_descripcion'},
+        {header: "Cr&iacute;tico", width: 100, sortable: true, locked:false, dataIndex: 'bo_critico', renderer: pcritico},
       ]);
       
 /******************************************FIN****colModelProceso*****************************************/     
@@ -189,7 +189,7 @@ Ext.onReady(function(){
         		{name: 'nb_persona'},
 		        {name: 'resp'}]
         });
-    storeCliente.setDefaultSort('co_cliente', 'ASC');
+    storeCliente.setDefaultSort('co_proceso', 'ASC');
     
 /*****************************************FIN****StoreCliente*****************************************/
 
@@ -205,14 +205,14 @@ Ext.onReady(function(){
 	    var colModelCliente = new Ext.grid.ColumnModel([
         {id:'co_cliente',header: "Cliente", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_cliente'},
         {header: "Proceso", width: 100, hidden: true, sortable: true, locked:false, dataIndex: 'co_proceso'},
-        {header: "Proceso", width: 200, sortable: true, locked:false, dataIndex: 'nb_proceso'},
-        {header: "Persona", width: 100, sortable: true, locked:false, dataIndex: 'co_indicador'},
-        {header: "Persona", width: 200, sortable: true, locked:false, dataIndex: 'nb_persona'},
+        {header: "Proceso", width: 150, sortable: true, locked:false, dataIndex: 'nb_proceso'},
+        {header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_persona'},
         {header: "Apellido", width: 100, sortable: true, locked:false, dataIndex: 'tx_apellido'},
         {header: "Departamento", width: 100,hidden: true, sortable: true, locked:false, dataIndex: 'co_departamento'},
-        {header: "Departamento", width: 100, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
-		{header: "Telefono", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
-		{header: "Telefono Habitacion", width: 100, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
+        {header: "Departamento", width: 110, sortable: true, locked:false, dataIndex: 'nb_departamento'},      
+        {header: "Indicador", width: 108, sortable: true, locked:false, dataIndex: 'co_indicador'},
+		{header: "Tel&eacute;fono Oficina", width: 110, sortable: true, locked:false, dataIndex: 'tx_telefono_oficina'},
+		{header: "Tel&eacute;fono Habitaci&oacute;n", width: 120, sortable: true, locked:false, dataIndex: 'tx_telefono_habitacion'},
 
       ]);
       
@@ -226,7 +226,7 @@ Ext.onReady(function(){
         id: 'frm_cliente',
         frame: true,
 		labelAlign: 'center',
-        title: 'Cliente',
+        title: '.: Actualizar Clientes :.',
         bodyStyle:'padding:5px 5px 5px 5px',
 		width:820,
 		items: [{
@@ -237,7 +237,7 @@ Ext.onReady(function(){
 			width:800,
 			buttonAlign:'center',
 			layout:'column',
-			title: 'Clientes',
+			title: 'Datos del Cliente',
             bodyStyle:'padding:5px 5px 0px 5px',
 			items:[{
 					layout: 'form',
@@ -245,7 +245,7 @@ Ext.onReady(function(){
 					columnWidth:.55,
 					border:false,
 					items: [{
-                        fieldLabel: 'Numero Cliente',
+                        fieldLabel: 'N&uacute;mero Cliente',
 						xtype:'numberfield',
 						id: 'co_cliente',
                         name: 'co_cliente',
@@ -292,6 +292,7 @@ Ext.onReady(function(){
 				buttons: [{
 			text: 'Nuevo', 
 			tooltip:'',
+			iconCls: 'adduser',
 			handler: function(){
 					nuevo = true;
 					Ext.getCmp("btnGuardar").enable();
@@ -322,7 +323,7 @@ Ext.onReady(function(){
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
-								title: 'ATENCION',
+								title: 'ATENCI&Oacute;N',
 								msg: 'No se pueden guardar los datos. <br />Faltan los siguientes campos obligatorios por llenar: <br /><br />'+campos,
 								buttons: Ext.MessageBox.OK,
 								icon: Ext.MessageBox.WARNING
@@ -352,8 +353,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -365,7 +366,7 @@ Ext.onReady(function(){
 			},{
 			id: 'btnEliminar',
 			text: 'Eliminar', 
-			iconCls: 'delete',
+			iconCls: 'deleteuser',
 			tooltip:'Eliminar Cliente',
 			disabled: true,
 			handler: function(){
@@ -386,8 +387,8 @@ Ext.onReady(function(){
 										else{
 											
 											Ext.MessageBox.show({
-												title: 'INFORMACION',
-												msg: "Datos Guardados con exito",
+												title: 'INFORMACI&Oacute;N',
+												msg: "Datos Guardados con &eacute;xito",
 												buttons: Ext.MessageBox.OK,
 												icon: Ext.MessageBox.INFO
 											});
@@ -414,7 +415,7 @@ Ext.onReady(function(){
                     }
                 }),
                 height: 250,
-				title:'Lista de Cliente',
+				title:'Lista de Usuarios Contactos',
                 border: true,
                 listeners: {
                     viewready: function(g) {
@@ -455,7 +456,7 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								}),
 								loadMask: true,
 								height: 200,
-								title:'Lista de Persona',
+								title:'Lista de Personas',
 								border: true,
 								listeners: {
 												delay: 10
@@ -532,7 +533,7 @@ var triggerPersona = new Ext.form.TriggerField({triggerClass : 'x-form-search-tr
     </tr>
   </table>
 <div id="winPersona" class="x-hidden">
-    <div class="x-window-header">Ejegir Persona</div>
+    <div class="x-window-header">Seleccionar Persona</div>
 </div>
 </body>
 </html>
