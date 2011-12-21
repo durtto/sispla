@@ -21,7 +21,6 @@
 			<author first="Usuario" titulo="">
 				<book title="Usuarios" titulo="Usuarios" url="../administracion/adm_usuario.php"></book>
 				<book title="Privilegios" titulo="Privilegios" url="../administracion/adm_privilegio_usuario.php"></book>
-				<book title="Roles de Usuario" titulo="Rol Usuario" url="../administracion/adm_rol_persona.php"></book>
 			</author>
 		
 		
