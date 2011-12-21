@@ -85,6 +85,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreLinea*****************************************/
 
+	var storeNuevoLinea = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_linea_taxi.php',
+		remoteSort : true,
+		root: 'lineas',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_linea_taxi.php"},
+        fields: [{name: 'co_linea'}]
+        });
 
 
 /******************************************INICIO**colModelLinea******************************************/     

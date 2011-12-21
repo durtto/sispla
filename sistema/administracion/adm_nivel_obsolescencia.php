@@ -85,6 +85,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreNivel*****************************************/
 
+	var storeNuevoNivel = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_nivel_obsolescencia.php',
+		remoteSort : true,
+		root: 'nivelesobsolescencia',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_nivel_obsolescencia.php"},
+        fields: [{name: 'co_nivel'}]
+        });
 	
 /******************************************INICIO**colModelNivel******************************************/     
    

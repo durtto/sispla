@@ -198,7 +198,13 @@ function vehiculos_seleccionados(){
     storeTransporte.setDefaultSort('co_transporte', 'ASC');
     
 /*****************************************FIN****StoreTransporte*****************************************/
-
+	var storeNuevoTRansporte = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_transporte.php',
+		remoteSort : true,
+		root: 'transportes',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_transporte.php"},
+        fields: [{name: 'co_transporte'}]
+        });
 	
 /******************************************INICIO**colModelTransporte******************************************/     
     var sm3 = new Ext.grid.CheckboxSelectionModel();

@@ -85,7 +85,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreProceso*****************************************/
 
-
+	var storeNuevoProceso = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_proceso.php',
+		remoteSort : true,
+		root: 'procesos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_proceso.php"},
+        fields: [{name: 'co_proceso'}]
+        });
 
 /******************************************INICIO**colModelProceso******************************************/     
     

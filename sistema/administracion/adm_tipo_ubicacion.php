@@ -82,8 +82,14 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreTpUbicacion*****************************************/
 
-
-
+	var storeNuevoTpUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_ubicacion.php',
+		remoteSort : true,
+		root: 'tpubicaciones',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
+        fields: [{name: 'co_tipo_ubicacion'}]
+        });
+        
 /******************************************INICIO**colModelTpUbicacion******************************************/     
     
     var colModelTpUbicacion = new Ext.grid.ColumnModel([
@@ -93,8 +99,7 @@ Ext.onReady(function(){
 	
 /******************************************FIN****colModelTpUbicacion******************************************/     
 
-
-
+	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 	
     var gridForm = new Ext.FormPanel({

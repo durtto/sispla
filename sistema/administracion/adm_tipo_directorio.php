@@ -83,7 +83,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreTpDirectorio*****************************************/
 
-
+	var storeNuevoTpDirectorio = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_directorio.php',
+		remoteSort : true,
+		root: 'tpdirectorios',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_directorio.php"},
+        fields: [{name: 'co_tipo_directorio'}]
+        });
 
 /******************************************INICIO**colModelTpDirectorio******************************************/     
     

@@ -82,7 +82,14 @@ Ext.onReady(function(){
     storePrivilegio.setDefaultSort('co_privilegio', 'ASC');
     
 /*****************************************FIN****StorePrivilegio*****************************************/
-
+	
+	var storeNuevoPrivilegio = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_privilegio_usuario.php',
+		remoteSort : true,
+		root: 'privilegios',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_privilegio_usuario.php"},
+        fields: [{name: 'co_privilegio'}]
+        });
 
 
 /******************************************INICIO**colModelPrivilegio******************************************/     
