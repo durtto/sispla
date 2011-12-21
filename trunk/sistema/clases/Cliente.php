@@ -129,6 +129,8 @@ class Cliente extends MyPDO
 		  p.tx_apellido, 
 		  p.di_oficina, 
 		  c.co_proceso,
+		  p.co_departamento,
+		  d.nb_departamento,
 		  p.tx_telefono_oficina, 
 		  pr.nb_proceso, 
 		  pr.tx_descripcion, 
@@ -136,7 +138,8 @@ class Cliente extends MyPDO
 			FROM 
 		 tr052_cliente c 
 		 INNER JOIN tr016_proceso pr ON (c.co_proceso = pr.co_proceso)
-		 LEFT JOIN tr010_persona p ON (c.co_indicador = p.co_indicador)";
+		 INNER JOIN tr010_persona p ON (c.co_indicador = p.co_indicador)
+		 INNER JOIN tr007_departamento d ON (p.co_departamento = d.co_departamento)";
 	if ($sort != "") {
 	$query .= " ORDER BY ".$sort." ".$dir;
 	}
