@@ -84,7 +84,13 @@ Ext.onReady(function(){
 /*****************************************FIN****StoreCategoria*****************************************/
 
 
-
+  var storeNuevoCategoria = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_categoria.php',
+		remoteSort : true,
+		root: 'categorias',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_categoria.php"},
+        fields: [{name: 'co_categoria'}]
+        });
 
 /******************************************INICIO**colModelCategoria******************************************/     
 	
@@ -160,6 +166,13 @@ Ext.onReady(function(){
 						if(Ext.getCmp("frm1").disabled){
 							Ext.getCmp("frm1").enable();
 						}
+						storeNuevoCategoria.load({
+							callback: function () {
+									if(storeNuevoCategoria.getAt(0).data.co_categoria){									
+										Ext.getCmp("co_categoria").setValue(storeNuevoCategoria.getAt(0).data.co_categoria+1)
+									};
+							}
+							});
 						if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 						Ext.getCmp("co_categoria").focus();
 					}

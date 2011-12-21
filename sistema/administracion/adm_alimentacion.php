@@ -138,7 +138,17 @@ Ext.onReady(function(){
 					labelWidth:80,
 					columnWidth:.25,
 					border:false,
-					items: [new Ext.ux.form.SpinnerField({
+					items: [{
+							fieldLabel: 'N&uacute;mero',
+							xtype:'numberfield',
+							id: 'co_alimentacion',
+	                        name: 'co_alimentacion',
+	                        hidden:true,
+	                        hideLabel:true,
+							disabled:true,
+							style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
+	                        width:60
+								},new Ext.ux.form.SpinnerField({
 			                xtype: 'spinnerfield',
 			            	fieldLabel: 'Desayunos',
 			            	name: 'ca_desayuno',
@@ -150,17 +160,8 @@ Ext.onReady(function(){
 			            	incrementValue: 1,
 			            	accelerate: true,
 			            	width:60
-							}),
-							{
-							fieldLabel: 'N&uacute;mero',
-							xtype:'numberfield',
-							id: 'co_alimentacion',
-	                        name: 'co_alimentacion',
-	                        hidden:true,
-	                        hideLabel:true,
-							style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
-	                        width:60
-								}]
+							})
+						]
 				},{
 					layout: 'form',
 					labelWidth:80,
