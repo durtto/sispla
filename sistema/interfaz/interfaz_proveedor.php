@@ -21,6 +21,14 @@
 
 
 			break;
+		
+		case 'nuevo':
+			
+			$resultado = $proveedor->NuevoProveedor();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

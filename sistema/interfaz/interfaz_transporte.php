@@ -20,7 +20,12 @@
 			$resultado3= $transporte->contarTransporte();
 			$total= $resultado3 [0]['count'];
 		break;
-		
+		case 'nuevo':
+			
+			$resultado = $transporte->NuevoTransporte();
+			$total= 1;
+
+			break;
 				
 		case 'insertar':	 			
 			

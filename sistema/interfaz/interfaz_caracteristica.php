@@ -38,6 +38,14 @@
 				
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $caracteristica->NuevoCaracteristica();
+			$total= 1;
+
+		break;	
+			
 		case 'actualizar':
 			
 			

@@ -20,6 +20,13 @@
 		
 
 			break;
+		
+		case 'nuevo':
+			
+			$resultado = $garantia->NuevoGarantia();
+			$total= 1;
+
+			break;
 			
 		case 'tipo_activo':
 			

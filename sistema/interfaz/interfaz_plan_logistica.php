@@ -19,7 +19,14 @@
 			$total= $resultado3 [0]['count'];
 		
 			break;
-						
+			
+		case 'nuevo':
+			
+			$resultado = $planlogistica->NuevoPlanLogistica();
+			$total= 1;
+
+			break;
+							
 		case 'alimentacion':
 			
 			$resultado = $planlogistica->cargarPlanLogisticaAlimentacion($_REQUEST['plan'],$_REQUEST['start'], $_REQUEST['limit'], $_REQUEST["sort"], $_REQUEST["dir"]);

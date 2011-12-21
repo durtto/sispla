@@ -36,6 +36,14 @@
 				
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $alimentacion->NuevoAlimentacion();
+			$total= 1;
+
+			break;
+			
 		case 'actualizar':
 			
 			

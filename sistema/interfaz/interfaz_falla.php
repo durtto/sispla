@@ -28,7 +28,14 @@
 			//$total= $resultado3 [0]['count'];
 
 		break;	
+		
+		case 'nuevo':
 			
+			$resultado = $falla->NuevoFalla();
+			$total= 1;
+
+			break;	
+		
 		case 'activo':
 			
 			$resultado = $falla->cargarActivo($_REQUEST['tpactivo'],$_REQUEST['ubicacion']);

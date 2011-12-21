@@ -19,6 +19,14 @@
 			$total= $resultado3 [0]['count'];
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $privilegio->NuevoPrivilegio();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

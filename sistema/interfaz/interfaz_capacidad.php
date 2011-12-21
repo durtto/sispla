@@ -37,6 +37,14 @@
 				
 
 			break;
+			
+		case 'nuevo':
+			
+			$resultado = $capacidad->NuevoCapacidad();
+			$total= 1;
+
+			break;
+			
 		case 'actualizar':
 			
 			

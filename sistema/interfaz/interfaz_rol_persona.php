@@ -20,6 +20,14 @@
 
 
 			break;
+		
+		case 'nuevo':
+			
+			$resultado = $rolpersona->NuevoRolPersona();
+			$total= 1;
+
+			break;
+			
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];

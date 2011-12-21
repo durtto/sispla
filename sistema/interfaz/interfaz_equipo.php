@@ -18,6 +18,14 @@
 			$total= $resultado3 [0]['count'];
 			
 			break;
+		
+		case 'nuevo':
+			
+			$resultado = $equipo->NuevoEquipo();
+			$total= 1;
+
+			break;
+		
 		case 'insertar':	 			
 			
 			$cond = $_REQUEST['columnas'];
