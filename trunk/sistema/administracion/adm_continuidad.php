@@ -160,6 +160,7 @@ Ext.onReady(function(){
 		root: 'continuidades',
         totalProperty: 'total',
 		idProperty: 'co_continuidad',
+		baseParams: {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': 'interfaz_continuidad.php'},
         fields: [{name: 'co_continuidad'},
         		{name: 'bo_prioridad_rec'},
 		        {name: 'fe_mtd'},
@@ -173,7 +174,13 @@ Ext.onReady(function(){
     storeContinuidad.setDefaultSort('co_continuidad', 'ASC');
     
 /*****************************************FIN****StoreContinuidad*****************************************/
-
+var storeContinuidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_continuidad.php',
+		remoteSort : true,
+		root: 'continuidades',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_continuidad.php'},
+        fields: [{name: 'co_continuidad'}]
+        });
 	
 /******************************************INICIO**colModelcontinuidad******************************************/     
 	
@@ -362,6 +369,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoContinuidad.load({
+							callback: function () {
+									if(storeNuevoContinuidad.getAt(0).data.co_continuidad){									
+										Ext.getCmp("co_continuidad").setValue(storeNuevoContinuidad.getAt(0).data.co_continuidad+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 				}
 			},{

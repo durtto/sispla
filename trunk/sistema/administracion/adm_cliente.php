@@ -188,7 +188,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreCliente*****************************************/
 
-	
+	  var storeNuevoCliente = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_cliente.php',
+		remoteSort : true,
+		root: 'clientes',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_cliente.php"},,
+        fields: [{name: 'co_cliente'}]
+        });
 /******************************************INICIO**colModelCliente******************************************/     
 
 	    var colModelCliente = new Ext.grid.ColumnModel([
@@ -282,6 +288,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoCliente.load({
+							callback: function () {
+									if(storeNuevoCliente.getAt(0).data.co_cliente){									
+										Ext.getCmp("co_cliente").setValue(storeNuevoCliente.getAt(0).data.co_cliente+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_cliente").focus();
 				}

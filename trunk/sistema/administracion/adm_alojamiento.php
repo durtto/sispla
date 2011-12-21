@@ -91,7 +91,6 @@ Ext.onReady(function(){
 		remoteSort : true,
 		root: 'alojamientos',
         baseParams: {'accion': 'nuevo', 'interfaz': '../interfaz/interfaz_alojamiento.php'},
-		idProperty: 'co_alojamiento',
         fields: [{name: 'co_alojamiento'}]
         });
 
@@ -222,7 +221,7 @@ Ext.onReady(function(){
 					}
 					storeNuevoAlojamiento.load({
 							callback: function () {
-									if(storeNuevoAlimentacion.getAt(0).data.co_alojamiento){									
+									if(storeNuevoAlojamiento.getAt(0).data.co_alojamiento){									
 										Ext.getCmp("co_alojamiento").setValue(storeNuevoAlojamiento.getAt(0).data.co_alojamiento+1)
 									};
 							}

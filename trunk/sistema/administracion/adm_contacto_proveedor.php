@@ -89,7 +89,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreContacto*****************************************/
 
-
+  var storeNuevoContacto = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_contacto_proveedor.php',
+		remoteSort : true,
+		root: 'contactos',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_contacto_proveedor.php'},
+        fields: [{name: 'co_contacto'}]
+        });
 
 /******************************************INICIO**colModelContacto******************************************/     
     
@@ -209,6 +215,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoContacto.load({
+							callback: function () {
+									if(storeNuevoContacto.getAt(0).data.co_contacto){									
+										Ext.getCmp("co_contacto").setValue(storeNuevoContacto.getAt(0).data.co_contacto+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_contacto").focus();
 				}

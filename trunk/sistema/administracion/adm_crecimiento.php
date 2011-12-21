@@ -92,7 +92,13 @@ Ext.onReady(function(){
 /*****************************************FIN****StoreCrecimiento*****************************************/
 
 
-
+  var storeNuevoCrecimiento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_crecimiento.php',
+		remoteSort : true,
+		root: 'crecimientos',
+        baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_crecimiento.php'},
+        fields: [{name: 'co_crecimiento'}]
+        });
 /******************************************INICIO**colModelCrecimiento******************************************/     
 
     var colModelCrecimiento = new Ext.grid.ColumnModel([
