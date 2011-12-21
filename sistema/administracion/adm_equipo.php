@@ -87,7 +87,13 @@ Ext.onReady(function(){
     storeEquipo.setDefaultSort('co_equipo', 'ASC');
 	
 /*****************************************FIN****StoreEquipo*****************************************/
-  
+  var storeNuevoEquipo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo.php',
+		remoteSort : true,
+		root: 'equipos',
+        baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_equipo.php'},
+        fields: [{name: 'co_equipo'}]
+        });
 /******************************************INICIO**colModelEquipo******************************************/     
 	
     var colModelEquipo = new Ext.grid.ColumnModel([
@@ -197,6 +203,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoEquipo.load({
+							callback: function () {
+									if(storeNuevoEquipo.getAt(0).data.co_equipo){									
+										Ext.getCmp("co_equipo").setValue(storeNuevoEquipo.getAt(0).data.co_equipo+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_equipo").focus();
 				}

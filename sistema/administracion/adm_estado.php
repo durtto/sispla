@@ -84,7 +84,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreEstado*****************************************/
 
-	
+	var storeNuevoEstado = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_estado.php',
+		remoteSort : true,
+		root: 'estados',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_estado.php'},
+        fields: [{name: 'co_estado'}]
+        });
 /******************************************INICIO**colModelEstado******************************************/     
     
     var colModelEstado = new Ext.grid.ColumnModel([
@@ -172,6 +178,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoEstado.load({
+							callback: function () {
+									if(storeNuevoEstado.getAt(0).data.co_estado){									
+										Ext.getCmp("co_estado").setValue(storeNuevoEstado.getAt(0).data.co_estado+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_estado").focus();
 				}

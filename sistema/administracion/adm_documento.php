@@ -84,7 +84,13 @@ Ext.onReady(function(){
     storeDocumento.setDefaultSort('co_documento', 'ASC');
     
 /*****************************************FIN****StoreDocumento*****************************************/
-
+  var storeDocumento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_documento.php',
+		remoteSort : true,
+		root: 'documentos',
+        baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_documento.php'},
+        fields: [{name: 'co_documento'}]
+        });
 	
 /******************************************INICIO**colModelDocumento******************************************/     
     
@@ -194,6 +200,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoDocumento.load({
+							callback: function () {
+									if(storeNuevoDocumento.getAt(0).data.co_documento){									
+										Ext.getCmp("co_documento").setValue(storeNuevoDocumento.getAt(0).data.co_documento+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_documento").focus();
 				}

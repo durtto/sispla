@@ -82,7 +82,13 @@ Ext.onReady(function(){
     storeDepartamento.setDefaultSort('co_departamento', 'ASC');
     
 /*****************************************FIN****StoreDepartamento*****************************************/
-
+ var storeNuevoDepartamento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_departamento.php',
+		remoteSort : true,
+		root: 'departamentos',
+        baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_departamento.php'},
+        fields: [{name: 'co_departamento'}]
+        });
 	
 /******************************************INICIO**colModelDepartamento******************************************/     
     
@@ -157,6 +163,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoDepartamento.load({
+							callback: function () {
+									if(storeNuevoDepartamento.getAt(0).data.co_departamento){									
+										Ext.getCmp("co_departamento").setValue(storeNuevoDepartamento.getAt(0).data.co_departamento+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_departamento").focus();
 				}

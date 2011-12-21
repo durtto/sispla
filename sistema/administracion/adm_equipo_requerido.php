@@ -192,7 +192,13 @@ function equipos_seleccionados(){
     storeEquipoR.setDefaultSort('co_equipo_requerido', 'ASC');
 	
 /*****************************************FIN****StoreEquipoR*****************************************/
-
+	var storeNuevoEquipoR = new Ext.data.JsonStore({
+			url: '../interfaz/interfaz_equipo_requerido.php',
+			remoteSort : true,
+			baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_equipo_requerido.php'},
+			root: 'equiposrequeridos',
+	        fields: [{name: 'co_equipo_requerido'}]
+	        });
 /******************************************INICIO**colModelEquipoR******************************************/     
 	
     var colModelEquipoR = new Ext.grid.ColumnModel([
@@ -343,6 +349,13 @@ function equipo_persona_seleccionados(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoEquipoR.load({
+							callback: function () {
+									if(storeNuevoEquipoR.getAt(0).data.co_equipo_requerido){									
+										Ext.getCmp("co_equipo_requerido").setValue(storeNuevoEquipoR.getAt(0).data.co_equipo_requerido+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_equipo_requerido").focus();
 				}
