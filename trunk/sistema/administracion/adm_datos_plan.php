@@ -90,7 +90,13 @@
     
 /*****************************************FIN****StoreDato*****************************************/
 
-
+  var storeNuevoDato = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_dato_plan.php',
+		remoteSort : true,
+		root: 'datos',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_dato_plan.php'},
+        fields: [{name: 'co_componente'}]
+        });
 
 /******************************************INICIO**colModelDato******************************************/     
 
@@ -211,6 +217,13 @@
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 						}
+					storeNuevoDato.load({
+							callback: function () {
+									if(storeNuevoDato.getAt(0).data.co_componente){									
+										Ext.getCmp("co_componente").setValue(storeNuevoDato.getAt(0).data.co_componente+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_componente").focus();
 				}

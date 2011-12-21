@@ -86,7 +86,15 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreDocumento*****************************************/
 
-
+  var storeNuevoDocumento = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_doc_componente.php',
+		remoteSort : true,
+		root: 'doccomponentes',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_doc_componente.php'},
+        totalProperty: 'total',
+		idProperty: 'co_doc_componente',
+        fields: [{name: 'co_doc_componente'}]
+        });
 
 /******************************************INICIO**colModelDocumento******************************************/     
     
@@ -161,6 +169,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoDocumente.load({
+							callback: function () {
+									if(storeNuevoDocumento.getAt(0).data.co_doc_componente){									
+										Ext.getCmp("co_doc_componente").setValue(storeNuevoDocumento.getAt(0).data.co_doc_componente+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_doc_componente").focus();
 				}

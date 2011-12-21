@@ -83,7 +83,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreFabricante*****************************************/
 
-
+	var storeNuevoFabricante = new Ext.data.JsonStore({
+			url: '../interfaz/interfaz_fabricante.php',
+			remoteSort : true,
+			root: 'fabricantes',
+			baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_fabricante.php'},
+	        fields: [{name: 'co_fabricante'}]
+	        });
 
 /******************************************INICIO**colModelFabricante******************************************/     
     
@@ -157,6 +163,14 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoFabricante.load({
+							callback: function () {
+									if(storeNuevoFabricante.getAt(0).data.co_fabricante){									
+										Ext.getCmp("co_fabricante").setValue(storeNuevoFabricante.getAt(0).data.co_fabricante+1)
+									};
+							}
+							});
+					
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_fabricante").focus();
 				}

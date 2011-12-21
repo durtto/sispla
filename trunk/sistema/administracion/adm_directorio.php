@@ -88,8 +88,6 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreTpDirectorio*****************************************/
 
-
-
 /******************************************INICIO**colModelTpDirectorio******************************************/     
     
     var colModeltpDirectorio = new Ext.grid.ColumnModel([
@@ -119,7 +117,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreDirectorio*****************************************/
 
-
+var storeNuevoDirectorio = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_directorio.php',
+		remoteSort : true,
+		root: 'directorios',
+        baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_directorio.php'},
+		        fields: [{name: 'co_directorio'}]
+        });
 
 /******************************************INICIO**colModelDirectorio******************************************/     
    
@@ -212,6 +216,13 @@ Ext.onReady(function(){
 					if(Ext.getCmp("frm1").disabled){
 						Ext.getCmp("frm1").enable();
 					}
+					storeNuevoDirectorio.load({
+							callback: function () {
+									if(storeNuevoDirectorio.getAt(0).data.co_directorio){									
+										Ext.getCmp("co_directorio").setValue(storeNuevoDirectorio.getAt(0).data.co_directorio+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					Ext.getCmp("co_directorio").focus();
 				}

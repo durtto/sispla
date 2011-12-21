@@ -92,7 +92,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StorePersona*****************************************/
 
-
+ var storeNuevoEquipoContinuidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_equipo_continuidad.php',
+		remoteSort : true,
+		root: 'equipos',
+		baseParams: {'accion': 'nuevo', 'interfaz': 'interfaz_equipo_continuidad.php'},
+        fields: [{name: 'co_equipo_continuidad'}]
+        });
 
 
 /******************************************INICIO**colModelPersona******************************************/     
@@ -203,6 +209,13 @@ var gridForm = new Ext.FormPanel({
 					if(Ext.getCmp("frm_equipocont").disabled){
 						Ext.getCmp("frm_equipocont").enable();
 					}
+					storeNuevoEquipoContinuidad.load({
+							callback: function () {
+									if(storeNuevoEquipoContinuidad.getAt(0).data.co_equipo_continuidad){									
+										Ext.getCmp("co_equipo_continuidad").setValue(storeNuevoEquipoContinuidad.getAt(0).data.co_equipo_continuidad+1)
+									};
+							}
+							});
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
 					//Ext.getCmp("co_equipo_continuidad").focus();
 				}
