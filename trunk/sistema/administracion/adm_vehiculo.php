@@ -85,6 +85,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreVehiculo*****************************************/
 
+  var storeNuevoVehiculo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_vehiculo.php',
+		remoteSort : true,
+		root: 'vehiculos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_vehiculo.php"},
+        fields: [{name: 'co_vehiculo'}]
+        });
 
 
 /******************************************INICIO**colModelVehiculo******************************************/     

@@ -92,7 +92,16 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreProveedor*****************************************/
 
-var expanderContacto = new Ext.ux.grid.RowExpander({
+	var storeNuevoProveedor = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_proveedor.php',
+		remoteSort : true,
+		root: 'proveedores',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_proveedor.php"},
+        fields: [{name: 'co_proveedor'}]
+        });
+        
+
+	var expanderContacto = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
             '<p><b>Nombre:</b> {nb_contacto}</p>',
             '<p><b>Apellido:</b> {tx_apellido}</p>',
@@ -107,7 +116,7 @@ var expanderContacto = new Ext.ux.grid.RowExpander({
     	expanderContacto,
         {id:'co_proveedor',header: "Proveedor", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_proveedor'},
         {header: "Nombre", width: 200, sortable: true, locked:false, dataIndex: 'nb_proveedor'},
-        {header: "Direccion", width: 300, sortable: true, locked:false, dataIndex: 'di_oficina'},
+        {header: "Direcci&oacute;n", width: 300, sortable: true, locked:false, dataIndex: 'di_oficina'},
         {header: "Servicio que Presta", width: 450, sortable: true, locked:false, dataIndex: 'tx_servicio_prestado', renderer: servicio},
       	//{header: "Contacto", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_contacto'},
       	//{header: "Nombre", width: 100, sortable: true, locked:false, dataIndex: 'nb_contacto'},

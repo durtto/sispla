@@ -86,7 +86,13 @@ Ext.onReady(function(){
     storeServicio.setDefaultSort('co_servicio', 'ASC');
 	
 /*****************************************FIN****StoreServicio*****************************************/
-
+	var storeNuevoServicio = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_servicio.php',
+		remoteSort : true,
+		root: 'servicios',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_servicio.php"},
+        fields: [{name: 'co_servicio'}]
+        });
 
 
 /******************************************INICIO**colModelServicio******************************************/     

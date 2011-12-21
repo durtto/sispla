@@ -82,7 +82,13 @@ Ext.onReady(function(){
     storeUnidad.setDefaultSort('co_unidad', 'ASC');
     
 /*****************************************FIN****StoreUnidad*****************************************/
-
+	var storeNuevoUnidad = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_unidad_demanda.php',
+		remoteSort : true,
+		root: 'unidades',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_unidad_demanda.php"},
+        fields: [{name: 'co_unidad'}]
+        });
 
 
 /******************************************INICIO**colModelUnidad******************************************/     

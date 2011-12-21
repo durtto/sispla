@@ -85,7 +85,14 @@ Ext.onReady(function(){
     storeRol.setDefaultSort('co_rol', 'ASC');
     
 /*****************************************FIN****StoreRol*****************************************/
-
+  
+  var storeNuevoRol = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_rol_persona.php',
+		remoteSort : true,
+		root: 'rolpersonas',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_rol_persona.php"},
+        fields: [{name: 'co_rol'}]
+        });
 
   var expanderRol = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(

@@ -85,7 +85,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreTpRespaldo*****************************************/
 
-
+	var storeNuevoTpRespaldo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_respaldo.php',
+		remoteSort : true,
+		root: 'tprespaldos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
+        fields: [{name: 'co_tipo_respaldo'}]
+        });
 
 /******************************************INICIO**colModelTpRespaldo******************************************/     
    

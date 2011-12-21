@@ -110,6 +110,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreActivo*****************************************/
 
+	var storeNuevoActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_activo.php',
+		remoteSort : true,
+		root: 'activos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_activo.php"},
+        fields: [{name: 'co_activo'}]
+        });
 
 /******************************************INICIO**colModelActivo******************************************/     
 
@@ -167,7 +174,14 @@ Ext.onReady(function(){
     storeFalla.setDefaultSort('co_falla', 'ASC');
     
 /*****************************************FIN****StoreFalla*****************************************/
-
+	
+	var storeNuevoFalla = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_falla.php',
+		remoteSort : true,
+		root: 'fallas',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_falla.php"},
+        fields: [{name: 'co_falla'}]
+        });
 	
 /******************************************INICIO**colModelFalla******************************************/     
   

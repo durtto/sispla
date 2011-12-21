@@ -85,7 +85,13 @@ Ext.onReady(function(){
     storeTipoActivo.setDefaultSort('co_tipo_activo', 'ASC');
     
 /*****************************************FIN****StoreTipoActivo*****************************************/
-
+	var storeNuevoTipoActivo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_activo.php',
+		remoteSort : true,
+		root: 'tpactivos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_activo.php"},
+        fields: [{name: 'co_tipo_activo'}]
+        });
 
 /******************************************INICIO**colModelTipoActivo******************************************/     
     

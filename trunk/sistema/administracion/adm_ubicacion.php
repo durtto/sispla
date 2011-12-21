@@ -84,7 +84,13 @@ Ext.onReady(function(){
     storeTpUbicacion.setDefaultSort('co_tipo_ubicacion', 'ASC');
     
 /*****************************************FIN****StoreTpUbicacion*****************************************/
-
+	var storeNuevoTpUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_ubicacion.php',
+		remoteSort : true,
+		root: 'tpubicaciones',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
+        fields: [{name: 'co_tipo_ubicacion'}]
+        });
 
 
 /******************************************INICIO**colModelTpUbicacion******************************************/     

@@ -168,7 +168,13 @@ Ext.onReady(function(){
     storeGarantia.setDefaultSort('co_garantia', 'ASC');
     
 /*****************************************FIN****StoreGarantia*****************************************/
-
+	
+	var storeNuevoGarantia = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_garantia.php',
+		remoteSort : true,
+		root: 'garantias',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_garantia
+        });
 	
 /******************************************INICIO**colModelGarantia******************************************/     
 

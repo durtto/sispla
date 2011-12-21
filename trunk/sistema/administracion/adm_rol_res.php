@@ -87,7 +87,13 @@ Ext.onReady(function(){
     storeRolResp.setDefaultSort('co_rol_resp', 'ASC');
     
 /*****************************************FIN****StoreRolResp*****************************************/
-
+	var storeNuevoRolResp = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_rol_responsabilidad.php',
+		remoteSort : true,
+		root: 'rolresponsabilidades',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_rol_responsabilidad.php"},
+        fields: [{name: 'co_rol_resp'}]
+        });
 
 
 /******************************************INICIO**colModelRolResp******************************************/     

@@ -82,8 +82,13 @@ Ext.onReady(function(){
     storeTpRespaldo.setDefaultSort('co_tipo_respaldo', 'ASC');
     
 /*****************************************FIN****StoreTpRespaldo*****************************************/
-
-
+	var storeNuevoTpRespaldo = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_tipo_respaldo.php',
+		remoteSort : true,
+		root: 'tprespaldos',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_tipo_respaldo.php"},
+        fields: [{name: 'co_tipo_respaldo'}]
+        });
 
 /******************************************INICIO**colModelTpRespaldo******************************************/     
    
@@ -94,8 +99,7 @@ Ext.onReady(function(){
 	
 /******************************************FIN****colModelTpRespaldo******************************************/     
 
-
-
+	
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 		
     var gridForm = new Ext.FormPanel({

@@ -93,6 +93,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreGuardia*****************************************/
 
+	var storeNuevoGuardia = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_guardia.php',
+		remoteSort : true,
+		root: 'guardias',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_guardia.php"},
+        fields: [{name: 'co_guardia'}]
+        });
 
 /******************************************INICIO**colModelGuardia******************************************/     
 	
