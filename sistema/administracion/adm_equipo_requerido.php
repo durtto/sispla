@@ -463,12 +463,6 @@ function equipo_persona_seleccionados(){
 	                iconCls: 'icon-grid',
 	                plugins: expanderTpActivo,
 					title:'Tipos de Activos',
-					/*tbar:[{
-			            text:'Agregar Vehiculo',
-			            tooltip:'Agregar Nuevo Vehiculo',
-			            handler: AgregarVehiculo,
-			            iconCls:'add'
-			        }],*/
 	                border: true,
 					bbar: new Ext.PagingToolbar({
 					store: storeTipoActivo,
@@ -490,12 +484,6 @@ function equipo_persona_seleccionados(){
 					title:'Equipos Necesarios',
 					sm: sm1,
 					plugins: expanderEquipo,
-					/*tbar:[{
-			            text:'Agregar Linea de Taxi',
-			            tooltip:'Agregar Nueva Linea',
-			            handler: AgregarLinea,
-			            iconCls:'add'
-			        }],*/
 	                border: true,
 					bbar: new Ext.PagingToolbar({
 					store: storeEquipo,
@@ -518,20 +506,10 @@ function equipo_persona_seleccionados(){
 					id: 'gd_equipo_requerido',
 	                store: storeEquipoR,
 	                cm: colModelEquipoR,
-					//sm: sm3,
 	                height: 250,
 	                iconCls: 'icon-grid',
-	                //plugins: expanderVehiculo,
 					title:'Equipos Requeridos',
 	                border: true,
-	                listeners: {
-						handler : function(){
-										if(Ext.getCmp("gd_transporte").getSelectionModel().getSelected()){
-											var record = Ext.getCmp("gd_transporte").getSelectionModel().getSelected();
-											Ext.getCmp("co_transporte").setValue(record.data.co_transporte);
-										}
-								  }
-	                },
 					bbar: new Ext.PagingToolbar({
 					store: storeEquipoR,
 					pageSize: 50,

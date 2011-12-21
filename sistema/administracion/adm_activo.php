@@ -601,6 +601,34 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_activo").getForm().loadRecord(rec);
+                        if(rec.data.bo_critico == 'SI')
+								Ext.getCmp('bo_critico').setValue(1);
+							else
+								Ext.getCmp('bo_critico').setValue(0);
+						if(rec.data.bo_vulnerable == 'SI')
+								Ext.getCmp('bo_vulnerable').setValue(1);
+							else
+								Ext.getCmp('bo_vulnerable').setValue(0);
+                        if(rec.data.bo_soporte_tecnico == 'SI')
+								Ext.getCmp('bo_soporte_tecnico').setValue(1);
+							else
+								Ext.getCmp('bo_soporte_tecnico').setValue(0);
+						if(rec.data.co_estado)
+								Ext.getCmp('co_estado').setValue(storeActivo.getAt(0).data.nb_estado);
+						if(rec.data.co_proceso)
+								Ext.getCmp('co_proceso').setValue(storeActivo.getAt(0).data.nb_proceso);
+						if(rec.data.co_tipo_activo)
+								Ext.getCmp('co_tipo_activo').setValue(storeActivo.getAt(0).data.nb_tipo_activo);
+						if(rec.data.co_fabricante)
+								Ext.getCmp('co_fabricante').setValue(storeActivo.getAt(0).data.nb_fabricante);
+						if(rec.data.co_ubicacion)
+								Ext.getCmp('co_ubicacion').setValue(storeActivo.getAt(0).data.nb_ubicacion);
+						if(rec.data.co_proveedor)
+								Ext.getCmp('co_proveedor').setValue(storeActivo.getAt(0).data.nb_proveedor);
+						if(rec.data.co_tipo_activo)
+								Ext.getCmp('co_tipo_activo').setValue(storeActivo.getAt(0).data.nb_tipo_activo);
+						if(rec.data.co_nivel)
+								Ext.getCmp('co_nivel').setValue(storeActivo.getAt(0).data.nb_nivel);
                         }
                         
                     }

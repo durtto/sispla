@@ -6,9 +6,13 @@
 			<book title="Fabricante" titulo="Fabricantes" url="../administracion/adm_fabricante.php"></book>
 			<book title="Garantía" titulo="Garantias" url="../administracion/adm_garantia.php"></book>
 			<book title="Proveedor" titulo="Proveedores" url="../administracion/adm_proveedor.php"></book>
+			<book title="Modelo" titulo="Modelo" url="../administracion/adm_modelo.php"></book>
+			<book title="Tipo Activo" titulo="Tp Activo" url="../administracion/adm_tipo_activo.php"></book>
+			<book title="Documento" titulo="Documento" url="../administracion/adm_documento.php"></book>
+
 			</author>
 			
-
+			<book title="Ubicacion" titulo="Ubicacion" url="../administracion/adm_ubicacion.php"></book>
 			<book title="Capacidad" titulo="Capacidades" url="../administracion/adm_capacidad.php"></book>
 			<book title="Nivel de Obsolescencia" titulo="Niveles" url="../administracion/adm_nivel_obsolescencia.php"></book>
 			<book title="Unidad demanda" titulo="Unidades" url="../administracion/adm_unidad_demanda.php"></book>	

@@ -124,7 +124,13 @@ Ext.onReady(function(){
     
 /*****************************************FIN****StoreUbicacion*****************************************/
 
-
+  var storeNuevoUbicacion = new Ext.data.JsonStore({
+		url: '../interfaz/interfaz_ubicacion.php',
+		remoteSort : true,
+		root: 'ubicaciones',
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_ubicacion.php"},
+        fields: [{name: 'co_ubicacion'}]
+        });
 /******************************************INICIO**colModelUbicacion******************************************/     
 	
 	
@@ -337,6 +343,14 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_ubicacion").getForm().loadRecord(rec);
+                        if(rec.data.bo_obsoleto == 'SI')
+								Ext.getCmp('bo_obsoleto').setValue(1);
+							else
+								Ext.getCmp('bo_obsoleto').setValue(0);
+                        if(rec.data.co_tipo_ubicacion)
+								Ext.getCmp('co_tipo_ubicacion').setValue(storeUbicacion.getAt(0).data.nb_tipo_ubicacion);
+					
+                        
                         }
                     }
                 }),
@@ -434,7 +448,7 @@ Ext.onReady(function(){
 						closeAction :'hide',
 						plain : true,
 						items : [new Ext.FormPanel({
-				        id: 'frm_grupo',
+				        id: 'frm_tpubicacion',
 				        frame: true,
 						labelAlign: 'center',
 				        title: 'Tipo Ubicacion',
@@ -456,8 +470,8 @@ Ext.onReady(function(){
 									items: [{
 				                        fieldLabel: 'Numero de Tipo',
 										xtype:'numberfield',
-										id: 'co_tipo_ubicacion',
-				                        name: 'co_tipo_ubicacion',
+										id: 'co_tipo_ubicacion1',
+				                        name: 'co_tipo_ubicacion1',
 				                        hidden: true,
 										hideLabel: true,
 				                        width:160
@@ -492,7 +506,7 @@ Ext.onReady(function(){
 						Ext.getCmp("frm1").enable();
 					}
 					if(gridForm.getForm().isValid())  gridForm.getForm().reset();
-					Ext.getCmp("co_tipo_ubicacion").focus();
+					Ext.getCmp("co_tipo_ubicacion1").focus();
 				}
 			},{
 			text: 'Guardar', 
@@ -503,7 +517,7 @@ Ext.onReady(function(){
 			waitMsg: 'Saving...',
 			handler: function(){
 						var campos='';
-						var camposForm = Ext.getCmp("frm_grupo").getForm().getValues(false);	
+						var camposForm = Ext.getCmp("frm_tpubicacion").getForm().getValues(false);	
 						campos = verifObligatorios(camposForm, camposReq);
 						if(campos != ''){		
 							Ext.MessageBox.show({
@@ -519,10 +533,10 @@ Ext.onReady(function(){
 								storeTpUbicacion.baseParams = {'accion': 'insertar'};
 							else
 								storeTpUbicacion.baseParams = {'accion': 'actualizar'};
-							var columnas   = '{"co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'", ';
+							var columnas   = '{"co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion1").getValue()+'", ';
 							columnas += '"nb_tipo_ubicacion" : "'+Ext.getCmp("nb_tipo_ubicacion").getValue()+'"}';
 							storeTpUbicacion.load({params:{"columnas" : columnas,
-												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion1").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
 										callback: function () {
 										if(storeTpUbicacion.getAt(0).data.resp!=true){		
@@ -555,7 +569,7 @@ Ext.onReady(function(){
 			handler: function(){
 										storeTpUbicacion.baseParams = {'accion': 'eliminar'};
 										storeTpUbicacion.load({params:{
-												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion").getValue()+'"}', 
+												"condiciones": '{ "co_tipo_ubicacion" : "'+Ext.getCmp("co_tipo_ubicacion1").getValue()+'"}', 
 												"nroReg":nroReg, start:0, limit:30, interfaz: "../interfaz/interfaz_tipo_ubicacion.php"},
 										callback: function () {
 										storeTpUbicacion.baseParams = {'accion': 'refrescar'};
@@ -640,7 +654,7 @@ storeUbicacion.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz
 		if(Ext.getCmp("frm1").disabled){
 			Ext.getCmp("frm1").enable();
 		}
-		Ext.getCmp("co_tipo_ubicacion").focus();
+		Ext.getCmp("co_tipo_ubicacion1").focus();
 		nroReg=rowIdx;
 		
 });
