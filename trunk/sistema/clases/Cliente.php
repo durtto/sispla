@@ -129,9 +129,11 @@ class Cliente extends MyPDO
 		  p.tx_apellido, 
 		  p.di_oficina, 
 		  c.co_proceso,
+		  p.co_indicador,
 		  p.co_departamento,
 		  d.nb_departamento,
-		  p.tx_telefono_oficina, 
+		  p.tx_telefono_oficina,
+		  p.tx_telefono_habitacion, 
 		  pr.nb_proceso, 
 		  pr.tx_descripcion, 
 		  pr.bo_critico
