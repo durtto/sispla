@@ -347,9 +347,9 @@ Ext.onReady(function(){
 								Ext.getCmp('bo_obsoleto').setValue(1);
 							else
 								Ext.getCmp('bo_obsoleto').setValue(0);
-                        if(rec.data.co_tipo_ubicacion)
-								Ext.getCmp('co_tipo_ubicacion').setValue(storeUbicacion.getAt(0).data.nb_tipo_ubicacion);
-					
+                        if(rec.data.co_ubicacion)
+								Ext.getCmp('co_tipo_ubicacion').setValue(rec.data.co_tipo_ubicacion);
+                        
                         
                         }
                     }

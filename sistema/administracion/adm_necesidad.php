@@ -104,6 +104,7 @@ Ext.onReady(function(){
 
     var colModelNecesidad = new Ext.grid.ColumnModel([
         {id:'co_necesidad',header: "Necesidad", width: 100, hidden:true, sortable: true, locked:false, dataIndex: 'co_necesidad'},
+        {header: "Servicio", width: 120, hidden: true,sortable: true, locked:false, dataIndex: 'co_servicio'},
         {header: "Servicio", width: 120, sortable: true, locked:false, dataIndex: 'nb_servicio'},
         {header: "Necesidad Detectada", width: 150, sortable: true, locked:false, dataIndex: 'tx_necesidad_detectada'},
         {header: "Cantidad Requerida", width: 140, sortable: true, locked:false, dataIndex: 'ca_requerida'},      

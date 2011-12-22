@@ -395,6 +395,7 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_persona").getForm().loadRecord(rec);
+                        
                         }
                         
                     }

@@ -579,22 +579,20 @@ Ext.onReady(function(){
 								Ext.getCmp('bo_soporte_tecnico').setValue(1);
 							else
 								Ext.getCmp('bo_soporte_tecnico').setValue(0);
-						if(rec.data.co_estado)
-								Ext.getCmp('co_estado').setValue(rec.data.co_estado);
-						if(rec.data.co_proceso)
-								Ext.getCmp('co_proceso').setValue(rec.data.nb_proceso);
-						if(rec.data.co_tipo_activo)
-								Ext.getCmp('co_tipo_activo').setValue(rec.data.nb_tipo_activo);
-						if(rec.data.co_fabricante)
-								Ext.getCmp('co_fabricante').setValue(rec.data.nb_fabricante);
-						if(rec.data.co_ubicacion)
-								Ext.getCmp('co_ubicacion').setValue(rec.data.nb_ubicacion);
-						if(rec.data.co_proveedor)
-								Ext.getCmp('co_proveedor').setValue(rec.data.nb_proveedor);
-						if(rec.data.co_tipo_activo)
-								Ext.getCmp('co_tipo_activo').setValue(rec.data.nb_tipo_activo);
-						if(rec.data.co_nivel)
-								Ext.getCmp('co_nivel').setValue(rec.data.nb_nivel);
+						
+						if(rec.data.bo_costo_mantenimiento == 'SI')
+								Ext.getCmp('bo_costo_mantenimiento').setValue(1);
+							else
+								Ext.getCmp('bo_costo_mantenimiento').setValue(0);
+						
+						if(rec.data.bo_limitacion_expansion == 'SI')
+								Ext.getCmp('bo_limitacion_expansion').setValue(1);
+							else
+								Ext.getCmp('bo_limitacion_expansion').setValue(0);		
+						/*
+						 if(rec.data.co_nivel)
+								Ext.getCmp('co_nivel').setValue(rec.data.co_nivel);
+                        */
                         }
                         
                     }
