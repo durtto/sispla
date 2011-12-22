@@ -16,127 +16,12 @@ require_once 'NivelObsolescencia.php';
  */
 class Activo extends MyPDO
 {
-	/**
-	 * @AttributeType int
-	 * Clave Primaria de la clase para identificaci�n.
-	 */
-	private $_co_activo;
-	/**
-	 * @AttributeType string
-	 * Nombre especifico del activo.
-	 */
-	private $_nb_activo;
-	/**
-	 * @AttributeType string
-	 * Descripci�n especifica del activo.
-	 */
-	private $_tx_descripcion;
-	/**
-	 * @AttributeType int
-	 * C�digo de identificaci�n �nico tomado desde SAP.
-	 */
-	private $_co_sap;
-	/**
-	 * @AttributeType int
-	 * C�digo de identificaci�n del serial.
-	 */
-	private $_nu_serial;
-	/**
-	 * @AttributeType int
-	 * C�digo de identificaci�n del equipo contenido en la etiqueta.
-	 */
-	private $_nu_etiqueta;
-	/**
-	 * @AttributeType boolean
-	 * Define si es o no critico el activo para las operaciones del Negocio.
-	 */
-	private $_bo_critico;
-	/**
-	 * @AttributeType boolean
-	 * Define si es o no vulnerable el activo en la plataforma.
-	 */
-	private $_bo_vulnerable;
-	/**
-	 * @AttributeType float
-	 * Fecha de incorporaci�n del activo a la plataforma.
-	 */
-	private $_fe_Incorporacion;
-	/**
-	 * @AttributeType float
-	 * Tiempo de vida �til que tiene el activo. Especificado por proveedor.
-	 */
-	private $_nu_vida_util;
-	/**
-	 * @AssociationType Planes.Estado
-	 * @AssociationMultiplicity 1
-	 */
-	public $_se_encuentra;
-	/**
-	 * @AssociationType Planes.Falla
-	 * @AssociationMultiplicity 0..*
-	 */
-	public $_sufre = array();
-	/**
-	 * @AssociationType Planes.Activo
-	 * @AssociationMultiplicity 0..*
-	 * @AssociationKind Aggregation
-	 */
-	public $_es_parte_de = array();
-	/**
-	 * @AssociationType Planes.Activo
-	 */
-	public $_unnamed_Activo_;
-	/**
-	 * @AssociationType Planes.Ubicacion
-	 * @AssociationMultiplicity 1
-	 */
-	public $_se_localiza;
-	/**
-	 * @AssociationType Planes.Fabricante
-	 * @AssociationMultiplicity 1
-	 */
-	public $_es_fabricado;
-	/**
-	 * @AssociationType Planes.UnidadDeDemanda
-	 * @AssociationMultiplicity 1..*
-	 */
-	public $_es_requerido = array();
-	/**
-	 * @AssociationType Planes.Documento
-	 * @AssociationMultiplicity 0..*
-	 */
-	public $_posee = array();
-	/**
-	 * @AssociationType Planes.Garantia
-	 * @AssociationMultiplicity 1
-	 */
-	public $_dispone;
-	/**
-	 * @AssociationType Planes.Persona
-	 * @AssociationMultiplicity 1
-	 */
-	public $_esta_asignado;
-	/**
-	 * @AssociationType Planes.ValorCaracteristica
-	 * @AssociationMultiplicity 1..*
-	 */
-	public $_unnamed_ValorCaracteristica_ = array();
-	/**
-	 * @AssociationType Planes.Continuidad
-	 * @AssociationMultiplicity 1
-	 */
-	public $_es_dependiente;
-	/**
-	 * @AssociationType Planes.Proceso
-	 * @AssociationMultiplicity 1
-	 */
-	public $_forman_parte;
 
 /**
    * 
    * @access public
    */
-    public $columActivo= array('co_activo'=>'co_activo','nb_activo'=>'nb_activo','tx_descripcion'=>'tx_descripcion','co_sap'=>'co_sap','nu_serial'=>'nu_serial','nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable','fe_incorporacion'=>'fe_incorporacion','nu_vida_util'=>'nu_vida_util','co_activo_padre'=>'co_activo_padre','co_estado'=>'co_estado','co_fabricante'=>'co_fabricante','co_indicador'=>'co_indicador','co_ubicacion'=>'co_ubicacion','co_proceso'=>'co_proceso','co_proveedor'=>'co_proveedor','co_tipo_activo'=>'co_tipo_activo','co_nivel'=>'co_nivel','bo_soporte_tecnico'=>'bo_soporte_tecnico','tx_limitacion_expansion'=>'tx_limitacion_expansion','tx_costo_mantenimiento'=>'tx_costo_mantenimiento');
+    public $columActivo= array('co_activo'=>'co_activo','nb_activo'=>'nb_activo','tx_descripcion'=>'tx_descripcion','co_sap'=>'co_sap','nu_serial'=>'nu_serial','nu_etiqueta'=>'nu_etiqueta', 'bo_critico'=>'bo_critico', 'bo_vulnerable'=>'bo_vulnerable','fe_incorporacion'=>'fe_incorporacion','nu_vida_util'=>'nu_vida_util','co_activo_padre'=>'co_activo_padre','co_estado'=>'co_estado','co_fabricante'=>'co_fabricante','co_indicador'=>'co_indicador','co_ubicacion'=>'co_ubicacion','co_proceso'=>'co_proceso','co_proveedor'=>'co_proveedor','co_tipo_activo'=>'co_tipo_activo','co_nivel'=>'co_nivel','bo_soporte_tecnico'=>'bo_soporte_tecnico','bo_limitacion_expansion'=>'bo_limitacion_expansion','bo_costo_mantenimiento'=>'bo_costo_mantenimiento');
 
   /**
    * 
@@ -262,8 +147,6 @@ class Activo extends MyPDO
 		  a.tx_descripcion, 
 		  a.nu_etiqueta, 
 		  a.fe_incorporacion,
-		  a.tx_costo_mantenimiento,
-		  a.tx_limitacion_expansion,  
 		  a.nu_vida_util, 
 		  e.nb_estado, 
 		  a.co_estado, 
@@ -301,7 +184,17 @@ class Activo extends MyPDO
 		  WHEN a.bo_soporte_tecnico = true
 		  THEN 'SI'
 		  ELSE 'NO'
-		  END AS bo_soporte_tecnico
+		  END AS bo_soporte_tecnico,
+		  CASE
+		  WHEN a.bo_costo_mantenimiento = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_costo_mantenimiento,
+		  CASE
+		  WHEN a.bo_limitacion_expansion = true
+		  THEN 'SI'
+		  ELSE 'NO'
+		  END AS bo_limitacion_expansion
 		FROM 
   			tr027_activo a
 		  INNER JOIN tr004_estado e ON (a.co_estado = e.co_estado) 
