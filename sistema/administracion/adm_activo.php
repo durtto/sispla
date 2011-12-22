@@ -166,11 +166,11 @@ Ext.onReady(function(){
 				{name: 'co_tipo_activo'},
 		        {name: 'nb_tipo_activo'},
 		        {name: 'bo_soporte_tecnico'},
-				{name: 'tx_limitacion_expansion'},
-				{name: 'tx_costo_mantenimiento'},
+				{name: 'bo_limitacion_expansion'},
+				{name: 'bo_costo_mantenimiento'},
 		        {name: 'resp'}]
         });
-    storeActivo.setDefaultSort('co_ubicacion', 'ASC');
+    storeActivo.setDefaultSort('co_tipo_activo', 'ASC');
 
 /*****************************************FIN****StoreActivo*****************************************/
 
@@ -209,8 +209,8 @@ Ext.onReady(function(){
 		{header: "Categoria", width: 140, sortable: true, hidden: true, locked:false, dataIndex: 'co_categoria'},
         {header: "Categoria", width: 110, sortable: true, locked:false, dataIndex: 'nb_categoria'},
         {header: "Soporte Tecnico", width: 110, sortable: true, locked:false, dataIndex: 'bo_soporte_tecnico'},
-        {header: "Mantenimiento", width: 110, sortable: true, locked:false, dataIndex: 'tx_costo_mantenimiento'},
-        {header: "Limitacion", width: 110, sortable: true, locked:false, dataIndex: 'tx_limitacion_expansion'},
+        {header: "Mantenimiento", width: 110, sortable: true, locked:false, dataIndex: 'bo_costo_mantenimiento'},
+        {header: "Limitacion", width: 110, sortable: true, locked:false, dataIndex: 'bo_limitacion_expansion'},
 
       ]);
 
@@ -262,7 +262,7 @@ Ext.onReady(function(){
                         fieldLabel: 'Serial N&ordm;&nbsp;',
 						xtype:'numberfield',
 						id: 'nu_serial',
-						allowBlank:false,
+						//allowBlank:false,
                         name: 'nu_serial',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:152
@@ -325,33 +325,16 @@ Ext.onReady(function(){
                         	}
                         }
                     },{
-							xtype: 'combo',
-							id: 'tx_costo_mantenimiento',
-							anchor: '40%',
-							name: 'tx_costo_mantenimiento',
-							fieldLabel: 'Costo Mantenimiento',
-							//hiddenName: 'nb_distrito',
-							valueField: 'tx_costo_mantenimiento',
-							store: new Ext.data.ArrayStore({
-								id: 0,
-								fields: ['id','tx_costo_mantenimiento'],
-								data: 	[['ALTO', 'ALTO'],
-										['MEDIO', 'MEDIO'],
-										['BAJO', 'BAJO']]
-							}),
-							mode: 'local',
-							triggerAction: 'all',
-							typeAhead: true,
-							displayField: 'tx_costo_mantenimiento',
-							width: 120,
-							anchor: '90%',
-							tabIndex: 10,
-							selectOnFocus: true,
-							emptyText: 'Seleccione...',
-							forceSelection: true,
-							editable: false,
-							allowBlank: false,
-						},
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Costo Mantenimiento',
+	            		id: 'bo_costo_mantenimiento',
+		                name: 'bo_costo_mantenimiento',
+			            columns: [100, 100],
+			            items: [
+			                {boxLabel: 'ALTO', name: 'mantenimiento', checked : true, inputValue: 1},
+			                {boxLabel: 'BAJO', name: 'mantenimiento', inputValue: 0},
+			           			]
+                    },
                     GetCombo('co_estado','Estado'),
                     GetCombo('co_proceso','Proceso'),
                     GetCombo('co_tipo_activo','Tipo de Activo')]
@@ -378,7 +361,7 @@ Ext.onReady(function(){
 						xtype:'numberfield',
 						id: 'nu_etiqueta',
                         name: 'nu_etiqueta',
-                        allowBlank:false,
+                       // allowBlank:false,
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
                     },{
@@ -395,7 +378,7 @@ Ext.onReady(function(){
                         fieldLabel: 'C&oacute;digo SAP',
 						xtype:'numberfield',
 						id: 'co_sap',
-						allowBlank:false,
+						//allowBlank:false,
                         name: 'co_sap',
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140
@@ -408,33 +391,16 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:122
                     },{
-							xtype: 'combo',
-							id: 'tx_limitacion_expansion',
-							anchor: '40%',
-							name: 'tx_limitacion_expansion',
-							fieldLabel: 'Limitacion Expansion',
-							//hiddenName: 'nb_distrito',
-							valueField: 'tx_limitacion_expansion',
-							store: new Ext.data.ArrayStore({
-								id: 0,
-								fields: ['id','tx_limitacion_expansion'],
-								data: 	[['ALTO', 'ALTO'],
-										['MEDIO', 'MEDIO'],
-										['BAJO', 'BAJO']]
-							}),
-							mode: 'local',
-							triggerAction: 'all',
-							typeAhead: true,
-							displayField: 'tx_limitacion_expansion',
-							width: 120,
-							anchor: '90%',
-							tabIndex: 10,
-							selectOnFocus: true,
-							emptyText: 'Seleccione...',
-							forceSelection: true,
-							editable: false,
-							allowBlank: false,
-						},
+                        xtype: 'radiogroup',
+	            		fieldLabel: 'Limitacion Expansion',
+	            		id: 'bo_limitacion_expansion',
+		                name: 'bo_limitacion_expansion',
+			            columns: [100, 100],
+			            items: [
+			                {boxLabel: 'SI', name: 'limitacion', checked : true, inputValue: 1},
+			                {boxLabel: 'NO', name: 'limitacion', inputValue: 0},
+			           			]
+                    },
                     GetCombo('co_fabricante','Fabricante'),
                     GetCombo('co_ubicacion','Ubicaci&oacute;n'),
                     GetCombo('co_proveedor','Proveedor'),
@@ -522,15 +488,15 @@ Ext.onReady(function(){
 								columnas += '"co_indicador" : "'+Ext.getCmp("co_indicador").getValue()+'", ';
 								columnas += '"co_ubicacion" : "'+Ext.getCmp("co_ubicacion").getValue()+'", ';
 								columnas += '"co_proceso" : "'+Ext.getCmp("co_proceso").getValue()+'", ';
-								columnas += '"tx_costo_mantenimiento" : "'+Ext.getCmp("tx_costo_mantenimiento").getValue()+'", ';
-								columnas += '"tx_limitacion_expansion" : "'+Ext.getCmp("tx_limitacion_expansion").getValue()+'", ';
+								columnas += '"bo_costo_mantenimiento" : "'+Ext.getCmp("bo_costo_mantenimiento").getValue()+'", ';
+								columnas += '"bo_limitacion_expansion" : "'+Ext.getCmp("bo_limitacion_expansion").getValue()+'", ';
 								columnas += '"bo_soporte_tecnico" : "'+Ext.getCmp("bo_soporte_tecnico").getValue()+'", ';
 								columnas += '"co_proveedor" : "'+Ext.getCmp("co_proveedor").getValue()+'", ';
 								columnas += '"co_tipo_activo" : "'+Ext.getCmp("co_tipo_activo").getValue()+'", ';
 								columnas += '"co_nivel" : "'+Ext.getCmp("co_nivel").getValue()+'"}';
 							storeActivo.load({params:{"columnas" : columnas,
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php", ubicacion: ubicacion},
 										callback: function () {
 										if(storeActivo.getAt(0).data.resp!=true){		
 											Ext.MessageBox.show({
@@ -550,7 +516,7 @@ Ext.onReady(function(){
 											});
 										}
 							}});
-							storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
+							storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php', ubicacion: ubicacion};
 						}
 				}
 			},{
@@ -564,7 +530,7 @@ Ext.onReady(function(){
 										storeActivo.baseParams = {'accion': 'eliminar'};
 										storeActivo.load({params:{
 												"condiciones": '{ "co_activo" : "'+Ext.getCmp("co_activo").getValue()+'"}', 
-												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php"},
+												"nroReg":nroReg, start:0, limit:50, interfaz: "../interfaz/interfaz_activo.php", ubicacion: ubicacion},
 										callback: function () {
 										storeActivo.baseParams = {'accion': 'refrescar'};
 										if(storeActivo.getAt(0).data.resp!=true){		
@@ -584,7 +550,7 @@ Ext.onReady(function(){
 												icon: Ext.MessageBox.INFO
 											});
 										}
-									storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php'};
+									storeActivo.baseParams = {'start':0, 'limit':50, 'accion': 'refrescar', 'interfaz': '../interfaz/interfaz_activo.php', ubicacion: ubicacion};
 							}})}
 			}]
 			},{
@@ -618,17 +584,17 @@ Ext.onReady(function(){
 						if(rec.data.co_proceso)
 								Ext.getCmp('co_proceso').setValue(rec.data.nb_proceso);
 						if(rec.data.co_tipo_activo)
-								Ext.getCmp('co_tipo_activo').setValue(storeActivo.getAt(0).data.nb_tipo_activo);
+								Ext.getCmp('co_tipo_activo').setValue(rec.data.nb_tipo_activo);
 						if(rec.data.co_fabricante)
-								Ext.getCmp('co_fabricante').setValue(storeActivo.getAt(0).data.nb_fabricante);
+								Ext.getCmp('co_fabricante').setValue(rec.data.nb_fabricante);
 						if(rec.data.co_ubicacion)
-								Ext.getCmp('co_ubicacion').setValue(storeActivo.getAt(0).data.nb_ubicacion);
+								Ext.getCmp('co_ubicacion').setValue(rec.data.nb_ubicacion);
 						if(rec.data.co_proveedor)
-								Ext.getCmp('co_proveedor').setValue(storeActivo.getAt(0).data.nb_proveedor);
+								Ext.getCmp('co_proveedor').setValue(rec.data.nb_proveedor);
 						if(rec.data.co_tipo_activo)
-								Ext.getCmp('co_tipo_activo').setValue(storeActivo.getAt(0).data.nb_tipo_activo);
+								Ext.getCmp('co_tipo_activo').setValue(rec.data.nb_tipo_activo);
 						if(rec.data.co_nivel)
-								Ext.getCmp('co_nivel').setValue(storeActivo.getAt(0).data.nb_nivel);
+								Ext.getCmp('co_nivel').setValue(rec.data.nb_nivel);
                         }
                         
                     }
