@@ -149,7 +149,7 @@
 			  anchor: '90%',
 			  listWidth:220,
 			  typeAhead:true,
-			  mode: 'remote',
+			  mode: 'local',
 			  triggerAction:'all',
 			  store: new Ext.data.JsonStore({
 			   url: '../interfaz/interfaz_combo.php',
@@ -158,7 +158,8 @@
 			   baseParams: {
 			    accion: accion
 			   },
-			   fields: [co_nombre, nb_nombre]
+			   fields: [co_nombre, nb_nombre],
+			   autoLoad: true
 			  })
 			 });
 			 return combo;

@@ -614,9 +614,9 @@ Ext.onReady(function(){
 							else
 								Ext.getCmp('bo_soporte_tecnico').setValue(0);
 						if(rec.data.co_estado)
-								Ext.getCmp('co_estado').setValue(storeActivo.getAt(0).data.nb_estado);
+								Ext.getCmp('co_estado').setValue(rec.data.co_estado);
 						if(rec.data.co_proceso)
-								Ext.getCmp('co_proceso').setValue(storeActivo.getAt(0).data.nb_proceso);
+								Ext.getCmp('co_proceso').setValue(rec.data.nb_proceso);
 						if(rec.data.co_tipo_activo)
 								Ext.getCmp('co_tipo_activo').setValue(storeActivo.getAt(0).data.nb_tipo_activo);
 						if(rec.data.co_fabricante)
