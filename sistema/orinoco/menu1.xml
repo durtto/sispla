@@ -2,10 +2,14 @@
 
 		
 				<author first="Base Instalada" titulo="">
-					<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
+				<book title="Activos" titulo="Activos" url="../reporte/reporte_activo.php"></book>
+				<book title="Fallas" titulo="Fallas" url="../reporte/reporte_falla.php"></book>
 				</author>
 			
 			<book title="Crecimiento Natural" titulo="Crecimientos" url="../reporte/reporte_crecimiento.php"></book>
+			<book title="Necesidad Detectada" titulo="Necesidad" url="../reporte/reporte_necesidad.php"></book>
+			<book title="Capacidades" titulo="Capacidad" url="../reporte/reporte_capacidad.php"></book>
+			<book title="Servicios" titulo="Servicios" url="../reporte/reporte_servicio.php"></book>
 
 			
 </authors>

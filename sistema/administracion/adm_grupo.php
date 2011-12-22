@@ -143,7 +143,13 @@ Ext.onReady(function(){
 						style: 'text-transform:uppercase; font:normal 12px tahoma,arial,helvetica,sans-serif; !important;',
                         width:140,
                         disabled: true,
+                    },GetCombo('co_ubicacion','Ubicaci&oacute;n')]
                     },{
+					layout: 'form',
+					border:false,
+					columnWidth:.45,
+					labelWidth:100,
+					items: [{
                         fieldLabel: 'Grupo',
 						xtype:'textfield',
 						id: 'nb_grupo',
@@ -155,13 +161,7 @@ Ext.onReady(function(){
                         		t.setValue(newVal.toUpperCase())
                         	}
                         }
-                    },GetCombo('co_ubicacion','Ubicaci&oacute;n')]
                     },{
-					layout: 'form',
-					border:false,
-					columnWidth:.45,
-					labelWidth:100,
-					items: [{
                         fieldLabel: 'Periodo',
 						xtype:'numberfield',
 						id: 'nu_periodo',
