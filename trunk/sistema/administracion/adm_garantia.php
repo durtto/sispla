@@ -173,7 +173,7 @@ Ext.onReady(function(){
 		url: '../interfaz/interfaz_garantia.php',
 		remoteSort : true,
 		root: 'garantias',
-		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_garantia
+		baseParams: {accion: "nuevo", interfaz: "../interfaz/interfaz_garantia.php"}
         });
 	
 /******************************************INICIO**colModelGarantia******************************************/     

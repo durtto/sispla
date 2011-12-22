@@ -147,6 +147,18 @@ Ext.onReady(function(){
       
 /******************************************FIN****colModelPersona******************************************/     
 
+function equipos_creados(){
+      					var ProveedorSeleccionados = Ext.getCmp("gd_proveedor").getSelectionModel().getSelections();
+   						var creados = '[';
+						for(var i=0; i<ProveedorSeleccionados.length; i++){
+						creados += '{ "co_proveedor" : "'+ProveedorSeleccionados[i].data.co_proveedor+'", "co_plan_localizacion": "'+Ext.getCmp('co_plan_localizacion').getValue()+'"}';
+						if(i < ProveedorSeleccionados.length-1)
+						  seleccionados += ', ';
+						  }
+						  seleccionados += ']';
+						  return seleccionados;
+						   //Ext.MessageBox.alert('Probando', seleccionados);
+						  }
 
 /******************************************INICIO DE LA CREACION DEL PANEL CENTRAL*******************************************/
 

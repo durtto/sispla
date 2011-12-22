@@ -302,9 +302,7 @@ Ext.onReady(function(){
                     listeners: {
                         rowselect: function(sm, row, rec) {
                             Ext.getCmp("frm_grupo").getForm().loadRecord(rec);
-                        if(rec.data.co_ubicacion)
-								Ext.getCmp('co_ubicacion').setValue(storeGrupo.getAt(0).data.nb_ubicacion);
-					
+
                         }
                     }
                 }),
