@@ -48,8 +48,7 @@
  */
  var nuevo;
   var winRolResp;
-   var ubicacion = "<?php echo $_SESSION['privilegio'] ?>";
-
+  
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';

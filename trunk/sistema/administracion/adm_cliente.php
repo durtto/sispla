@@ -460,7 +460,14 @@ storePersona.load({params: { start: 0, limit: 50, accion:"refrescar", interfaz: 
 								border: true,
 								listeners: {
 												delay: 10
-								}
+								},
+								bbar: new Ext.PagingToolbar({
+								store: storePersona,
+								pageSize: 50,
+								displayInfo: true,
+								displayMsg: 'Mostrando registros {0} - {1} de {2}',
+								emptyMsg: "No hay registros que mostrar",
+								})
 						}],
 						buttons:[{
 								  text : 'Aceptar',
