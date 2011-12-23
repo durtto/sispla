@@ -1,0 +1,36 @@
+XtPrinter
+alpha  1.0.1 - Beta 0.0.1
+Author: Carlos Mendez
+
+Official Home page : http://e2cs.mm-mendez.com/
+contact   : cmendez21@gmail.com 
+(For chat : gmail chat or google talk)
+------------------------------------------------------------------
+Donations are to support the XtPrinter are for more free Extjs stuff that is planned already
+------------------------------------------------------------------
+XtPrinter - is licensed under the terms of  the Open Source LGPL 3.0 license.
+License details: http://www.gnu.org/licenses/lgpl.html
+  
+Commercial use is permitted only if its not for: 
+- Distribute over the internet the same application on more than 2 customers or public applications to sell to many users
+
+For a Commercial licence please enquire and request price
+------------------------------------------------------------------
+YOu want more code, custom code, consultancy, all about e2cs calendar etc.  here are the options
+
+- Donate (for quick and urgent support responses according donation - from less than 3 hours to less than 12 hours)
+- $100 Us. dollars (not negotiable) per Hour for consulting, coding modules or custom code (javascript, php, mysql, Extjs) 
+	
+	- Payment in advance for Foreign Clients (outside México), not negotiable, so please don't insist 
+	  i have had many awful experiences on foreign customers on the past
+
+	- For Mexican Clients 50% in Advance and 50% on Release on my Test site and then I deliver the code 
+	  (also I give invoices tax deductible, also tax it’s not included on the price).
+
+- Per project .- Depending on the project to make and the time that will take to do it (please request for pricing and time availability for development)
+------------------------------------------------------------------
+NOTE: this widget its not stable for the moment to use on a production application (on your risk), only test and learning for the moments 
+------------------------------------------------------------------
+INSTALL & USE:
+	READ DOCUMENTATION PDF file 
+
