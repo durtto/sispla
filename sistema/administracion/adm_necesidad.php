@@ -85,6 +85,7 @@ Ext.onReady(function(){
 		        {name: 'tx_justificacion'},
 		        {name: 'tx_beneficio'},
 		        {name: 'fe_annio'},
+		        {name: 'co_servicio'},
 		        {name: 'nb_servicio'},
 		        {name: 'resp'}]
         });
